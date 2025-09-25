@@ -1,0 +1,3 @@
+body { font-family: "Times New Roman","Noto Serif CJK SC",serif; line-height:1.65; max-width:900px; margin:auto; background:#fafafa; }
+code, pre { font-family: "Fira Code", monospace; font-size:.9em; background:#f7f7f7; border-radius:4px; padding:2px 4px; }
+h1, h2, h3 { font-weight:600; border-bottom:1px solid #eaeaea; padding-bottom:.2em; }
