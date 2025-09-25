@@ -1,0 +1,41 @@
+title: 你的博客名
+description: 长期更新的研究/笔记/随想
+author: 你的名字
+url: https://MIStatlE.github.io   # 自定义域名时改成 https://yourdomain.com
+baseurl: ""                       # 根路径，放根目录就留空
+theme: minima
+
+# 导航（minima 支持）
+header_pages:
+  - about.md
+  - tags/index.md
+
+# 社交&版权（可选）
+minima:
+  social_links:
+    - { platform: github,  user_url: "https://github.com/yourname" }
+  date_format: "%Y-%m-%d"
+
+# 插件（GitHub Pages 白名单）
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# 文章配置
+markdown: kramdown
+kramdown:
+  input: GFM
+  math_engine: mathjax
+
+# 标签/分类页面需要的集合配置（便于遍历）
+collections:
+  posts:
+    output: true
+
+# 分页（可选，简单就先不开）
+# paginate: 10
+# paginate_path: "/page:num"
+
+# RSS、Sitemap 默认由插件生成
+# 评论：用 giscus（见 _includes/giscus.html）
