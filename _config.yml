@@ -1,41 +1,55 @@
 title: 你的博客名
-description: 长期更新的研究/笔记/随想
-author: 你的名字
-url: https://MIStatlE.github.io   # 自定义域名时改成 https://yourdomain.com
-baseurl: ""                       # 根路径，放根目录就留空
+description: 长期更新的课程资料与研究文章
+author: MIStatlE
+url: https://MIStatlE.github.io
+baseurl: ""
 theme: minima
 
-# 导航（minima 支持）
+# 顶部导航
 header_pages:
   - about.md
+  - courses/index.md
+  - articles/index.md
   - tags/index.md
 
-# 社交&版权（可选）
+# Minima 主题定制
 minima:
   social_links:
-    - { platform: github,  user_url: "https://github.com/yourname" }
+    - { platform: github, user_url: "https://github.com/yourname" }
   date_format: "%Y-%m-%d"
 
-# 插件（GitHub Pages 白名单）
+# GitHub Pages 白名单插件
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
 
-# 文章配置
+# Markdown & 数学
 markdown: kramdown
 kramdown:
   input: GFM
   math_engine: mathjax
 
-# 标签/分类页面需要的集合配置（便于遍历）
+# 集合：posts（博客短帖）、articles（个人文章）、courses（课程页）
 collections:
   posts:
     output: true
+  articles:
+    output: true
+    permalink: /articles/:title/
+  courses:
+    output: true
+    permalink: /courses/:title/
 
-# 分页（可选，简单就先不开）
+# 默认布局（减少每篇文件的样板）
+defaults:
+  - scope: { path: "", type: "posts" }
+    values: { layout: post }
+  - scope: { path: "", type: "articles" }
+    values: { layout: post }     # 用同一套排版（学术风）
+  - scope: { path: "", type: "courses" }
+    values: { layout: page }     # 课程页更像文档/主页
+
+# （可选）分页先不开
 # paginate: 10
 # paginate_path: "/page:num"
-
-# RSS、Sitemap 默认由插件生成
-# 评论：用 giscus（见 _includes/giscus.html）
