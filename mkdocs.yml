@@ -1,13 +1,15 @@
-site_name: 成长空间
-site_description: 自学计算机科学、数学与个人成长的资源与成长平台
+site_name: 自学指南
+site_description: 自学计算机科学、数学与个人成长的资源与笔记
 site_author: MIStatlE
 site_url: https://mistatle.github.io
+ # 删除 GitHub 链接相关配置
 
-# 删除 GitHub 链接相关配置
+# 为确保不显示仓库链接，显式将 repo_url、repo_name 和 edit_uri 设为空
 repo_url: ''
 repo_name: ''
 edit_uri: ''
 
+# 在本配置中启用宽松模式并保留目录式 URL
 strict: false
 use_directory_urls: true
 
@@ -17,6 +19,7 @@ theme:
   features:
     - navigation.instant
     - navigation.expand
+    # 删除 toc.integrate 以便在页面右侧显示目录
     - content.code.copy
   palette:
     - scheme: default
@@ -60,8 +63,9 @@ markdown_extensions:
 plugins:
   - search:
       lang: zh
-      separator: '[\\s\\-，。,.、；;！？!?\\u3000]+'
+      separator: '[\s\-，。,.、；;！？!?\u3000]+'
 
+# 网站导航结构
 nav:
   - 首页: zh/index.md
   - 前言: zh/preface.md
@@ -69,9 +73,6 @@ nav:
   - CS学习规划: zh/plan.md
   - 必学工具: zh/tools.md
   - 好书推荐: zh/books.md
-  - 资源库与工具: zh/resources.md
-  - 职业发展与求职指导: zh/career.md
-  - 行业动态与前沿分享: zh/industry.md
   - 数学基础: zh/math-basic.md
   - 数学进阶: zh/math-advanced.md
   - 编程入门: zh/programming-basic.md
@@ -80,5 +81,5 @@ nav:
   - 软件工程: zh/software-engineering.md
   - 计算机系统基础: zh/computer-systems.md
   - 心智成长: zh/growth.md
-  - 社群建立: zh/community.md
   - 媒体内容: zh/media.md
+  - 社群建立: zh/community.md
