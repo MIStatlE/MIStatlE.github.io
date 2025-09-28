@@ -1,10 +1,10 @@
 site_name: MIStatlE
 site_description: MIStatlE · 研究 · 笔记 · 博客
 site_author: MIStatlE
-site_url: https://MIStatlE.github.io/mistatle-notes   # 例： https://mistatle.github.io/mistatle-notes
-repo_url: https://github.com/MIStatlE/mistatle-notes
-repo_name: MIStatlE/mistatle-notes
-edit_uri: edit/main/docs/      # 默认分支是 main 就这样；master 就改 master
+site_url: https://mistatle.github.io      # ← 改这里：用户主页用根域名
+repo_url: https://github.com/MIStatlE/MIStatlE.github.io
+repo_name: MIStatlE/MIStatlE.github.io
+edit_uri: edit/main/docs/
 
 strict: false
 use_directory_urls: true
@@ -42,7 +42,7 @@ markdown_extensions:
   - nl2br
   - toc:
       permalink: '#'
-      slugify: !!python/name:pymdownx.slugs.uslugify
+      slugify: !!python/name:pymdownx.slugs.slugify 
   - pymdownx.highlight:
       anchor_linenums: false
       linenums: false
