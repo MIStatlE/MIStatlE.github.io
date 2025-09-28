@@ -1,4 +1,4 @@
-mkdocs-material==5.1.1
-mkdocs==1.1
-mkdocs-roamlinks-plugin
-mkdocs-exclude
+mkdocs==1.6.0
+mkdocs-material==9.5.25
+mkdocs-roamlinks-plugin==0.9.0
+mkdocs-exclude==1.0.2
