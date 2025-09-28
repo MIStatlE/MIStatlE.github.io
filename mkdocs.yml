@@ -68,7 +68,7 @@ plugins:
   - search:
       lang: zh
       separator: '[\s\-，。,.、；;！？!?\u3000]+'
-  - roamlinks
+  #- roamlinks
   - exclude:
       glob:
         - "*.tmp"
