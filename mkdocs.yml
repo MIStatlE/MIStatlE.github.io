@@ -67,7 +67,9 @@ plugins:
 # 网站导航结构
 nav:
   - 首页: index.md
-  - 推荐资源: resources/index.md
+  - 推荐资源:
+      - 总览: resources/index.md
+      - 课程推荐: resources/courses.md
   - 学习笔记:
       - 数学基础: notes/math.md
       - 机器学习: notes/ml.md
