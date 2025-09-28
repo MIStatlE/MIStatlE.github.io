@@ -1,11 +1,12 @@
-site_name: MIStatlE
-site_description: MIStatlE · 研究 · 笔记 · 博客
+site_name: 数学与机器学习自学指南
+site_description: 个人自学数学、机器学习、算法与人工智能的资源与笔记
 site_author: MIStatlE
-site_url: https://mistatle.github.io      # ← 改这里：用户主页用根域名
+site_url: https://mistatle.github.io
 repo_url: https://github.com/MIStatlE/MIStatlE.github.io
 repo_name: MIStatlE/MIStatlE.github.io
 edit_uri: edit/main/docs/
 
+# 在本配置中启用宽松模式并保留目录式 URL
 strict: false
 use_directory_urls: true
 
@@ -30,8 +31,6 @@ theme:
       toggle:
         icon: material/weather-sunny
         name: 切到日间
-  # logo: assets/meta/logo.png
-  # favicon: assets/meta/favicon.png
 
 markdown_extensions:
   - attr_list
@@ -59,38 +58,23 @@ markdown_extensions:
   - pymdownx.smartsymbols
   - pymdownx.tasklist
   - pymdownx.tilde
-  - pymdownx.tabbed
-  # 如需数学：
-  # - pymdownx.arithmatex:
-  #     generic: true
 
 plugins:
   - search:
       lang: zh
       separator: '[\s\-，。,.、；;！？!?\u3000]+'
-  #- roamlinks
-  - exclude:
-      glob:
-        - "*.tmp"
-        - "*.pdf"
-        - "*.gz"
-      regex:
-        - '.*\.(tmp|bin|tar)$'
 
-# 如启用数学（KaTeX），解开下面，并在 docs/js/katex-init.js 放初始化脚本
-# extra_javascript:
-#   - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js
-#   - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js
-#   - js/katex-init.js
-# extra_css:
-#   - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css
-
+# 网站导航结构
 nav:
   - 首页: index.md
-  - 教程:
-      - 快速开始: tutorial.md
-      - 测试页: test.md
-  - Foo 专题:
-      - foo-tab/index.md         # 若没有 index.md，可先建一个目录页
-      - 示例: foo-tab/example.md
-      - 文章: foo-tab/文章.md
+  - 推荐资源: resources/index.md
+  - 学习笔记:
+      - 数学基础: notes/math.md
+      - 机器学习: notes/ml.md
+      - 算法设计: notes/algorithm.md
+      - 人工智能: notes/ai.md
+  - 工具与信息:
+      - 工具使用方法: tools.md
+      - 信息源: sources.md
+  - 我的文章: articles/index.md
+  - 心得感悟: reflections.md
