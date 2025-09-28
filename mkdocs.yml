@@ -1,48 +1,74 @@
-# official tutorial 
-# mkdocs-material: https://squidfunk.github.io/mkdocs-material/
-# mkdocs: https://www.mkdocs.org/user-guide/configuration/
+site_name: MIStatlE
+site_description: MIStatlE · 研究 · 笔记 · 博客
+site_author: MIStatlE
+site_url: https://MIStatlE.github.io/mistatle-notes   # 例： https://mistatle.github.io/mistatle-notes
+repo_url: https://github.com/MIStatlE/mistatle-notes
+repo_name: MIStatlE/mistatle-notes
+edit_uri: edit/main/docs/      # 默认分支是 main 就这样；master 就改 master
 
-site_name: Foam-mkdocs-template
+strict: false
+use_directory_urls: true
+
 theme:
   name: material
-  #  favicon: attachment/portrait.png
-  language: zh # 中文，解决中文搜索问题
+  language: zh
   features:
-    - navigation.expand 
-    - tabs 
-markdown_extensions: 
-  - attr_list # https://squidfunk.github.io/mkdocs-material/reference/images/
-  - pymdownx.tabbed  # https://squidfunk.github.io/mkdocs-material/reference/content-tabs/
-  - nl2br # newline-to-break 
-  - toc:
-      permalink: '#' # heading anchor 
-      slugify: !!python/name:pymdownx.slugs.uslugify # 解决中文标题解析问题
+    - navigation.instant
+    - navigation.expand
+    - navigation.tabs
+    - toc.integrate
+    - content.code.copy
+    - content.action.edit
+  palette:
+    - scheme: default
+      primary: teal
+      accent: pink
+      toggle:
+        icon: material/weather-night
+        name: 切到夜间
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: 切到日间
+  # logo: assets/meta/logo.png
+  # favicon: assets/meta/favicon.png
+
+markdown_extensions:
+  - attr_list
   - admonition
-  - codehilite:
-      guess_lang: false
-      linenums: false
   - footnotes
-  - meta
   - def_list
-  - pymdownx.arithmatex
+  - meta
+  - nl2br
+  - toc:
+      permalink: '#'
+      slugify: !!python/name:pymdownx.slugs.uslugify
+  - pymdownx.highlight:
+      anchor_linenums: false
+      linenums: false
+      guess_lang: false
+  - pymdownx.superfences
+  - pymdownx.details
   - pymdownx.betterem:
       smart_enable: all
   - pymdownx.caret
   - pymdownx.critic
-  - pymdownx.details
-  # - pymdownx.emoji:
-      # emoji_generator: !!python/name:pymdownx.emoji.to_png
   - pymdownx.inlinehilite
   - pymdownx.magiclink
   - pymdownx.mark
   - pymdownx.smartsymbols
-  - pymdownx.superfences
   - pymdownx.tasklist
   - pymdownx.tilde
+  - pymdownx.tabbed
+  # 如需数学：
+  # - pymdownx.arithmatex:
+  #     generic: true
+
 plugins:
-  - search
-  - roamlinks 
-    #- autolinks 
+  - search:
+      lang: zh
+      separator: '[\s\-，。,.、；;！？!?\u3000]+'
+  #- roamlinks
   - exclude:
       glob:
         - "*.tmp"
@@ -50,3 +76,22 @@ plugins:
         - "*.gz"
       regex:
         - '.*\.(tmp|bin|tar)$'
+
+# 如启用数学（KaTeX），解开下面，并在 docs/js/katex-init.js 放初始化脚本
+# extra_javascript:
+#   - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js
+#   - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js
+#   - js/katex-init.js
+# extra_css:
+#   - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css
+
+nav:
+  - 首页: index.md
+  # - 简历: resume.md
+  # - 研究: research.md
+  # - 笔记:
+  #     - notes/index.md
+  #     - 概率论: notes/prob.md
+  # - 博客:
+  #     - blog/index.md
+  #     - 第一篇: blog/first-post.md
