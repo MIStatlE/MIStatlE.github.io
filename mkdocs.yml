@@ -41,7 +41,6 @@ markdown_extensions:
   - nl2br
   - toc:
       permalink: '#'
-      slugify: !!python/name:pymdownx.slugs.uslugify
   - pymdownx.highlight:
       anchor_linenums: false
       linenums: false
