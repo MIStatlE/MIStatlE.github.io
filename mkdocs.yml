@@ -4,6 +4,11 @@ site_author: MIStatlE
 site_url: https://mistatle.github.io
  # 删除 GitHub 链接相关配置
 
+# 为确保不显示仓库链接，显式将 repo_url、repo_name 和 edit_uri 设为空
+repo_url: ''
+repo_name: ''
+edit_uri: ''
+
 # 在本配置中启用宽松模式并保留目录式 URL
 strict: false
 use_directory_urls: true
