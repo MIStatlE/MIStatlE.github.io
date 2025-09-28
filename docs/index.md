@@ -1,3 +1,5 @@
+=== "中文"
+
 # 欢迎
 
 欢迎来到我的个人网站。本网站旨在整理和分享本人在自学数学、机器学习、算法和人工智能过程中积累的知识与经验。这里你可以找到：
@@ -24,3 +26,34 @@
 - [信息源](sources.md)
 - [我的文章](articles/index.md)
 - [心得感悟](reflections.md)
+- [媒体内容](media.md)
+
+=== "English"
+
+# Welcome
+
+Welcome to my personal website. This site is intended to organize and share the knowledge and experiences I have accumulated while self‑learning mathematics, machine learning, algorithms and artificial intelligence. Here you can find:
+
+- **Recommended resources** – books, courses and websites for both quick starting and deep learning in these subjects;
+- **Study notes** – notes organized by subject, including basic mathematics, machine learning, algorithm design and artificial intelligence;
+- **Tools & information** – usage guides for common tools and channels to get high‑quality information;
+- **My articles** – essays, reflections and summaries related to my learning process;
+- **Reflections** – lessons learned and thoughts from my self‑study journey.
+
+This guide draws inspiration from excellent CS self‑study guides and integrates my personal experience. I hope it will be helpful to you.
+
+## About me
+
+Write your personal introduction here, such as your academic background, research interests or what you are working on. Briefly explain why you started self‑learning these fields and the goals you hope to achieve through this website.
+
+## Quick links
+
+To make navigation easier, here are the links to the sections:
+
+- [Recommended resources](resources/index.md)
+- [Study notes](notes/math.md)
+- [Tools usage](tools.md)
+- [Information sources](sources.md)
+- [My articles](articles/index.md)
+- [Reflections](reflections.md)
+- [Media content](media.md)
