@@ -1,0 +1,59 @@
+=== "中文"
+
+# 欢迎
+
+欢迎来到我的个人网站。本网站旨在整理和分享本人在自学数学、机器学习、算法和人工智能过程中积累的知识与经验。这里你可以找到：
+
+- **推荐资源** – 推荐的书籍、课程和网站，用于快速入门和深入学习这些学科；
+- **学习笔记** – 按照科目整理的笔记，包括数学基础、机器学习、算法设计和人工智能；
+- **工具与信息** – 常用工具的使用方法，以及获取优质信息的渠道；
+- **我的文章** – 与学习相关的随笔、思考和总结；
+- **心得感悟** – 自学过程中的经验教训和反思。
+
+本指南的结构借鉴了优秀的 CS 自学指南，并结合个人经验进行了扩展。希望这些内容能对你有所帮助。
+
+## 关于我
+
+这里填写你的个人简介，例如专业背景、研究兴趣或正在从事的工作。你可以简单介绍自己为何开始自学这些领域，以及希望通过这个网站实现的目标。
+
+## 快速导航
+
+为了便于查找，下面列出各部分的链接：
+
+- [推荐资源](resources/index.md)
+- [学习笔记](notes/math.md)
+- [工具使用方法](tools.md)
+- [信息源](sources.md)
+- [我的文章](articles/index.md)
+- [心得感悟](reflections.md)
+- [媒体内容](media.md)
+
+=== "English"
+
+# Welcome
+
+Welcome to my personal website. This site is intended to organize and share the knowledge and experiences I have accumulated while self‑learning mathematics, machine learning, algorithms and artificial intelligence. Here you can find:
+
+- **Recommended resources** – books, courses and websites for both quick starting and deep learning in these subjects;
+- **Study notes** – notes organized by subject, including basic mathematics, machine learning, algorithm design and artificial intelligence;
+- **Tools & information** – usage guides for common tools and channels to get high‑quality information;
+- **My articles** – essays, reflections and summaries related to my learning process;
+- **Reflections** – lessons learned and thoughts from my self‑study journey.
+
+This guide draws inspiration from excellent CS self‑study guides and integrates my personal experience. I hope it will be helpful to you.
+
+## About me
+
+Write your personal introduction here, such as your academic background, research interests or what you are working on. Briefly explain why you started self‑learning these fields and the goals you hope to achieve through this website.
+
+## Quick links
+
+To make navigation easier, here are the links to the sections:
+
+- [Recommended resources](resources/index.md)
+- [Study notes](notes/math.md)
+- [Tools usage](tools.md)
+- [Information sources](sources.md)
+- [My articles](articles/index.md)
+- [Reflections](reflections.md)
+- [Media content](media.md)
