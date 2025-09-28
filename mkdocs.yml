@@ -71,27 +71,13 @@ nav:
   - CS学习规划: zh/plan.md
   - 必学工具: zh/tools.md
   - 好书推荐: zh/books.md
-  - 数学基础:
-      - 概述: zh/math-basic.md
-      - 资源: zh/math-basic/resources.md
-  - 数学进阶:
-      - 概述: zh/math-advanced.md
-      - 资源: zh/math-advanced/resources.md
-  - 编程入门:
-      - 概述: zh/programming-basic.md
-      - 资源: zh/programming-basic/resources.md
-  - 电子基础:
-      - 概述: zh/electronics.md
-      - 资源: zh/electronics/resources.md
-  - 数据结构与算法:
-      - 概述: zh/data-algorithm.md
-      - 资源: zh/data-algorithm/resources.md
-  - 软件工程:
-      - 概述: zh/software-engineering.md
-      - 资源: zh/software-engineering/resources.md
-  - 计算机系统基础:
-      - 概述: zh/computer-systems.md
-      - 资源: zh/computer-systems/resources.md
+  - 数学基础: zh/math-basic.md
+  - 数学进阶: zh/math-advanced.md
+  - 编程入门: zh/programming-basic.md
+  - 电子基础: zh/electronics.md
+  - 数据结构与算法: zh/data-algorithm.md
+  - 软件工程: zh/software-engineering.md
+  - 计算机系统基础: zh/computer-systems.md
   - 心智成长: zh/growth.md
   - 媒体内容: zh/media.md
   - 社群建立: zh/community.md
