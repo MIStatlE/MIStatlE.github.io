@@ -6,7 +6,7 @@ repo_url: https://github.com/MIStatlE/mistatle-notes
 repo_name: MIStatlE/mistatle-notes
 edit_uri: edit/main/docs/      # 默认分支是 main 就这样；master 就改 master
 
-strict: true
+strict: false
 use_directory_urls: true
 
 theme:
