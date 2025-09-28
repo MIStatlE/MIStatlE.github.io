@@ -27,8 +27,6 @@
 
 如果你有针对本章的深入笔记，可以将 PDF 文件放入 `docs/pdfs` 文件夹，并在此处链接。例如：
 
-```markdown
-[下载我的数学进阶笔记](/pdfs/sample-note.pdf)
-```
+[下载我的数学进阶笔记](../../pdfs/sample-note.pdf)
 
 使用 `<iframe>` 或 `<embed>` 标签也可以直接嵌入文档。

@@ -32,8 +32,6 @@
 
 你可以将自己的算法学习笔记以 PDF 形式放入 `docs/pdfs` 目录，并在此处链接或嵌入。例如：
 
-```markdown
-[下载我的算法笔记](/pdfs/sample-note.pdf)
-```
+[下载我的算法笔记](../../pdfs/sample-note.pdf)
 
 使用 `<embed>` 标签可以直接在页面中展示笔记内容。

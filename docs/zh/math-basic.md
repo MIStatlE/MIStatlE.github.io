@@ -23,8 +23,6 @@
 
 如果你想分享自己的学习笔记，可以将 PDF 文件放入 `docs/pdfs` 文件夹，并在此处使用 Markdown 链接或嵌入。例如：
 
-```markdown
-[下载我的数学基础笔记](/pdfs/sample-note.pdf)
-```
+[下载我的数学基础笔记](../../pdfs/sample-note.pdf)
 
 你也可以使用 `<iframe>` 或 `<embed>` 标签嵌入 PDF，以便在页面内直接查看。

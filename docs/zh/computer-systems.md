@@ -32,8 +32,6 @@
 
 你可以将计算机系统学习笔记上传至 `docs/pdfs` 目录，并在此处插入链接。例如：
 
-```markdown
-[下载我的计算机系统基础笔记](/pdfs/sample-note.pdf)
-```
+[下载我的计算机系统基础笔记](../../pdfs/sample-note.pdf)
 
 此外，可以使用 HTML 标签 `<embed>` 或 `<iframe>` 嵌入 PDF，以便在页面中直接浏览。

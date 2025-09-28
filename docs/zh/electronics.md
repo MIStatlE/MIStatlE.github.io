@@ -25,8 +25,6 @@
 
 如果你有关于电子基础的学习笔记，可以上传 PDF 到 `docs/pdfs` 文件夹，并在此添加链接。例如：
 
-```markdown
-[下载我的电子基础笔记](/pdfs/sample-note.pdf)
-```
+[下载我的电子基础笔记](../../pdfs/sample-note.pdf)
 
 也可以嵌入 PDF 进行在线预览。

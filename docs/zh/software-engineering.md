@@ -31,8 +31,6 @@
 
 欢迎将你的软件工程学习笔记（PDF）放入 `docs/pdfs` 文件夹，并在此添加链接。例如：
 
-```markdown
-[下载我的软件工程笔记](/pdfs/sample-note.pdf)
-```
+[下载我的软件工程笔记](../../pdfs/sample-note.pdf)
 
 你也可以嵌入 PDF 方便阅读。

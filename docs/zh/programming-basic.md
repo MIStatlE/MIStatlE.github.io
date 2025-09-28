@@ -26,8 +26,6 @@
 
 欢迎上传你的编程入门笔记（PDF）到 `docs/pdfs` 目录，并在此插入链接。例如：
 
-```markdown
-[下载我的编程入门笔记](/pdfs/sample-note.pdf)
-```
+[下载我的编程入门笔记](../../pdfs/sample-note.pdf)
 
 你也可以通过 HTML `<iframe>` 或 `<embed>` 标签嵌入文件，便于直接查看内容。
