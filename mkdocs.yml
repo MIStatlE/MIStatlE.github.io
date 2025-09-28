@@ -87,11 +87,10 @@ plugins:
 
 nav:
   - 首页: index.md
-  # - 简历: resume.md
-  # - 研究: research.md
-  # - 笔记:
-  #     - notes/index.md
-  #     - 概率论: notes/prob.md
-  # - 博客:
-  #     - blog/index.md
-  #     - 第一篇: blog/first-post.md
+  - 教程:
+      - 快速开始: tutorial.md
+      - 测试页: test.md
+  - Foo 专题:
+      - foo-tab/index.md         # 若没有 index.md，可先建一个目录页
+      - 示例: foo-tab/example.md
+      - 文章: foo-tab/文章.md
