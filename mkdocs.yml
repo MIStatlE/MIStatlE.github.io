@@ -17,7 +17,7 @@ theme:
     - navigation.instant
     - navigation.expand
     - navigation.tabs
-    - toc.integrate
+    # 删除 toc.integrate 以便在页面右侧显示目录
     - content.code.copy
     - content.action.edit
   palette:
@@ -58,6 +58,7 @@ markdown_extensions:
   - pymdownx.smartsymbols
   - pymdownx.tasklist
   - pymdownx.tilde
+  - pymdownx.tabbed
 
 plugins:
   - search:
@@ -80,3 +81,4 @@ nav:
       - 信息源: sources.md
   - 我的文章: articles/index.md
   - 心得感悟: reflections.md
+  - 媒体内容: media.md
