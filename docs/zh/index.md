@@ -8,5 +8,9 @@
 - [必学工具](tools.md)
 - [好书推荐](books.md)
 - [心智成长](growth.md)
+- [资源库与工具](resources.md)
+- [职业发展与求职指导](career.md)
+- [行业动态与前沿分享](industry.md)
+- [社群建立](community.md)
 
 如需查看英文版，请使用导航栏切换到 *English* 版块。
