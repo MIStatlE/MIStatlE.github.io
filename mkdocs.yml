@@ -1,4 +1,4 @@
-site_name: 自学指南 / Self‑Study Guide
+site_name: 自学指南
 site_description: 自学计算机科学、数学与个人成长的资源与笔记
 site_author: MIStatlE
 site_url: https://mistatle.github.io
@@ -67,35 +67,19 @@ plugins:
 
 # 网站导航结构
 nav:
-  - 中文:
-      - 首页: zh/index.md
-      - 前言: zh/preface.md
-      - 如何使用这本书: zh/how-to-use.md
-      - CS学习规划: zh/plan.md
-      - 必学工具: zh/tools.md
-      - 好书推荐: zh/books.md
-      - 数学基础: zh/math-basic.md
-      - 数学进阶: zh/math-advanced.md
-      - 编程入门: zh/programming-basic.md
-      - 电子基础: zh/electronics.md
-      - 数据结构与算法: zh/data-algorithm.md
-      - 软件工程: zh/software-engineering.md
-      - 计算机系统基础: zh/computer-systems.md
-      - 心智成长: zh/growth.md
-      - 媒体内容: zh/media.md
-  - English:
-      - Home: en/index.md
-      - Preface: en/preface.md
-      - How to Use This Guide: en/how-to-use.md
-      - CS Learning Plan: en/plan.md
-      - Essential Tools: en/tools.md
-      - Recommended Books: en/books.md
-      - Mathematics Basics: en/math-basic.md
-      - Advanced Mathematics: en/math-advanced.md
-      - Programming Basics: en/programming-basic.md
-      - Electronics Basics: en/electronics.md
-      - Data Structures & Algorithms: en/data-algorithm.md
-      - Software Engineering: en/software-engineering.md
-      - Computer Systems: en/computer-systems.md
-      - Personal Growth: en/growth.md
-      - Media: en/media.md
+  - 首页: zh/index.md
+  - 前言: zh/preface.md
+  - 如何使用这本书: zh/how-to-use.md
+  - CS学习规划: zh/plan.md
+  - 必学工具: zh/tools.md
+  - 好书推荐: zh/books.md
+  - 数学基础: zh/math-basic.md
+  - 数学进阶: zh/math-advanced.md
+  - 编程入门: zh/programming-basic.md
+  - 电子基础: zh/electronics.md
+  - 数据结构与算法: zh/data-algorithm.md
+  - 软件工程: zh/software-engineering.md
+  - 计算机系统基础: zh/computer-systems.md
+  - 心智成长: zh/growth.md
+  - 媒体内容: zh/media.md
+  - 社群建立: zh/community.md
