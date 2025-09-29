@@ -16,7 +16,8 @@ theme:
   language: zh
   features:
     - navigation.instant
-    - navigation.expand
+    - navigation.tabs       # 顶层模块横向展示
+    - navigation.sections   # 子目录按块展开，点开一个只展开一个
     - content.code.copy
   palette:
     - scheme: default
