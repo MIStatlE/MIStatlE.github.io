@@ -16,7 +16,9 @@ theme:
   language: zh
   features:
     - navigation.instant
-    - navigation.sections   # ← 用 sections，而不是 expand
+    - navigation.tracking     # 可选：滚动时在侧栏高亮当前位置
+    # - navigation.expand     # 不要：默认全展开
+    # - navigation.sections   # 不要：分组变标题，不可折叠
     - content.code.copy
   palette:
     - scheme: default
