@@ -1,59 +1,45 @@
-=== "中文"
-
 # 欢迎
 
-欢迎来到我的个人网站。本网站旨在整理和分享本人在自学数学、机器学习、算法和人工智能过程中积累的知识与经验。这里你可以找到：
+欢迎来到 **Learning Theory Atlas** —— 一个记录 **数学与机器学习理论** 学习路径的空间。  
+这里既是我的学习笔记与资源库，也希望能成为志同道合者的参考与同行手册。
 
-- **推荐资源** – 推荐的书籍、课程和网站，用于快速入门和深入学习这些学科；
-- **学习笔记** – 按照科目整理的笔记，包括数学基础、机器学习、算法设计和人工智能；
-- **工具与信息** – 常用工具的使用方法，以及获取优质信息的渠道；
-- **我的文章** – 与学习相关的随笔、思考和总结；
-- **心得感悟** – 自学过程中的经验教训和反思。
+你可以在这里找到：
 
-本指南的结构借鉴了优秀的 CS 自学指南，并结合个人经验进行了扩展。希望这些内容能对你有所帮助。
+- **课程资源与学习笔记**  
+  数学、算法、计算机系统、机器学习理论等科目的学习资料与个人笔记。
+- **论文精选与阅读笔记**  
+  记录阅读经典与前沿论文的体会，整理证明思路与研究脉络。
+- **心智成长与信息源**  
+  学习过程中的反思，以及我常用的高质量信息来源。
+- **工具与资源库**  
+  包括 LaTeX 模板、代码片段、常用工具说明，以及整理的学习资料库。
 
-## 关于我
+---
 
-这里填写你的个人简介，例如专业背景、研究兴趣或正在从事的工作。你可以简单介绍自己为何开始自学这些领域，以及希望通过这个网站实现的目标。
+## 关于我 · MIStatlE
+
+你好，我是 **MIStatlE**，目前在读研究生，方向是 **机器学习理论（Machine Learning Theory）**。  
+我相信数学推理与理论探索的价值，希望通过长期主义的学习和创作，建立一个 **开放、共享的知识库**。
+
+我活跃在多个平台，分享学习与成长的内容：  
+- 📺 **B站**：[@MIStatlE](https://space.bilibili.com/)  
+- 📕 **小红书**：[@MIStatlE](https://www.xiaohongshu.com/user/)  
+- ✍️ **知乎**：[@MIStatlE](https://www.zhihu.com/people/)  
+- 📮 **公众号**：MIStatlE  
+
+我的初衷：  
+- 在学术上，不仅仅是「推公式」，而是希望让抽象理论变得更可理解、更系统；  
+- 在个人成长上，不只是记录孤独的旅程，而是希望能与更多人产生 **精神上的共鸣**；  
+- 在未来愿景上，不只是单点突破，而是逐步构建一个 **数学 × 理论 AI × 成长** 的知识网络。
+
+我希望这个网站既是我自己的学习地图，也能成为一个 **共享的“Atlas”** —— 为正在学习数学与机器学习的朋友提供参考与陪伴。
+
+---
 
 ## 快速导航
 
-为了便于查找，下面列出各部分的链接：
-
-- [推荐资源](resources/index.md)
-- [学习笔记](notes/math.md)
-- [工具使用方法](tools.md)
-- [信息源](sources.md)
-- [我的文章](articles/index.md)
-- [心得感悟](reflections.md)
-- [媒体内容](media.md)
-
-=== "English"
-
-# Welcome
-
-Welcome to my personal website. This site is intended to organize and share the knowledge and experiences I have accumulated while self‑learning mathematics, machine learning, algorithms and artificial intelligence. Here you can find:
-
-- **Recommended resources** – books, courses and websites for both quick starting and deep learning in these subjects;
-- **Study notes** – notes organized by subject, including basic mathematics, machine learning, algorithm design and artificial intelligence;
-- **Tools & information** – usage guides for common tools and channels to get high‑quality information;
-- **My articles** – essays, reflections and summaries related to my learning process;
-- **Reflections** – lessons learned and thoughts from my self‑study journey.
-
-This guide draws inspiration from excellent CS self‑study guides and integrates my personal experience. I hope it will be helpful to you.
-
-## About me
-
-Write your personal introduction here, such as your academic background, research interests or what you are working on. Briefly explain why you started self‑learning these fields and the goals you hope to achieve through this website.
-
-## Quick links
-
-To make navigation easier, here are the links to the sections:
-
-- [Recommended resources](resources/index.md)
-- [Study notes](notes/math.md)
-- [Tools usage](tools.md)
-- [Information sources](sources.md)
-- [My articles](articles/index.md)
-- [Reflections](reflections.md)
-- [Media content](media.md)
+- [课程资源与笔记](zh/plan.md)  
+- [论文精选与笔记](zh/industry.md)  
+- [心智成长](zh/growth.md)  
+- [信息源](zh/community.md)  
+- [资源库与工具](zh/resources.md)  
