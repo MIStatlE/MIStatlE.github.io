@@ -63,22 +63,28 @@ plugins:
       separator: '[\\s\\-，。,.、；;！？!?\\u3000]+'
 
 nav:
-  - 首页: zh/index.md
-  - 前言: zh/preface.md
-  - 如何使用这本书: zh/how-to-use.md
-  - CS学习规划: zh/plan.md
-  - 必学工具: zh/tools.md
-  - 好书推荐: zh/books.md
-  - 数学基础: zh/math-basic.md
-  - 数学进阶: zh/math-advanced.md
-  - 编程入门: zh/programming-basic.md
-  - 电子基础: zh/electronics.md
-  - 数据结构与算法: zh/data-algorithm.md
-  - 软件工程: zh/software-engineering.md
-  - 计算机系统基础: zh/computer-systems.md
+  - 自我介绍: zh/preface.md
+  - 本书使用指南: zh/how-to-use.md
+
+  - 课程资源与笔记:
+      - CS 学习规划: zh/plan.md
+      - 必学工具: zh/tools.md
+      - 好书推荐: zh/books.md
+      - 数学基础: zh/math-basic.md
+      - 数学进阶: zh/math-advanced.md
+      - 编程入门: zh/programming-basic.md
+      - 数据结构与算法: zh/data-algorithm.md
+      - 电子基础: zh/electronics.md
+      - 软件工程: zh/software-engineering.md
+      - 计算机系统: zh/computer-systems.md
+
+  - 论文精选与笔记: zh/industry.md   # 目前用行业动态与前沿的文件占位
+
   - 心智成长: zh/growth.md
-  - 媒体内容: zh/media.md
+
   - 社群建立: zh/community.md
-  - 资源库与工具: zh/resources.md
-  - 职业发展与求职指导: zh/career.md
-  - 行业动态与前沿分享: zh/industry.md
+
+  - 资源库与工具:
+      - 笔记资源: zh/resources.md
+      - 媒体内容: zh/media.md
+      - 职业发展与求职指导: zh/career.md
