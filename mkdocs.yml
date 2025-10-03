@@ -81,12 +81,11 @@ nav:
       - 计算机系统: zh/computer-systems.md
 
   - 论文精选与笔记: zh/industry.md   # 目前用行业动态与前沿的文件占位
-
+  - 资源库与工具:
+      - 笔记资源: zh/resources.md
+      - 媒体内容: zh/media.md
   - 心智成长: zh/growth.md
 
   - 社群建立: zh/community.md
 
-  - 资源库与工具:
-      - 笔记资源: zh/resources.md
-      - 媒体内容: zh/media.md
   - 联系我: zh/contact.md
