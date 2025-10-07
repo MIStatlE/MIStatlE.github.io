@@ -1,0 +1,12 @@
+---
+title: "Posts"
+listing:
+  contents: .
+  sort: "date desc"
+  type: default
+  fields: [title, date, categories, description]
+  feed: true
+page-layout: article
+---
+
+Welcome to my posts.

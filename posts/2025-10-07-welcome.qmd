@@ -1,0 +1,16 @@
+---
+title: "Starting Over: Building MIStatlE Lab"
+date: 2025-10-07
+categories: [meta, setup]
+description: "A simple Quarto starter with math support, post listings, and GitHub Pages auto-deploy."
+image: ../images/cover.jpg
+---
+
+This is a starter post. You can write math like $e^{i\pi}+1=0$ and code blocks:
+
+```python
+def add(a, b): return a + b
+print(add(2, 3))
+```
+
+To publish, just push to **main** — GitHub Actions will render and deploy to **gh-pages**.
