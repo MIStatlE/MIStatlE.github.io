@@ -1,0 +1,14 @@
+---
+title: "About"
+page-layout: article
+---
+
+## About Me
+
+- PhD student / Researcher in Shanghai
+- Interests: Probability, Machine Learning, Diffusion Models
+- I write about ideas-in-progress — learning in public.
+
+## Contact
+
+- GitHub: <https://github.com/MIStatlE>

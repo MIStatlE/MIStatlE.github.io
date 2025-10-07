@@ -1,0 +1,39 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "MIStatlE Lab"
+  description: "Research notes, math, ML & life in public."
+  site-url: "https://mistatle.github.io"
+  favicon: images/logo.png
+  navbar:
+    logo: images/logo.png
+    left:
+      - text: Home
+        href: index.qmd
+      - text: Posts
+        href: posts/index.qmd
+      - text: About
+        href: about.qmd
+    right:
+      - icon: github
+        href: https://github.com/MIStatlE
+      - icon: rss
+        href: posts/index.xml
+  page-footer:
+    left: "© MIStatlE Lab"
+    right: |
+      Built with [Quarto](https://quarto.org).
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    anchor-sections: true
+    smooth-scroll: true
+    code-copy: true
+    code-overflow: wrap
+    link-external-newwindow: true
