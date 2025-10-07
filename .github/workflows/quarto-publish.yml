@@ -1,0 +1,44 @@
+# .github/workflows/quarto-publish.yml
+name: Quarto Publish
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: stable
+
+      - name: Setup Pandoc
+        uses: pandoc/actions/setup@v1
+
+      - name: Setup TeX (for math rendering)
+        uses: teatimeguest/setup-texlive-action@v2
+        with:
+          packages: >-
+            collection-latexextra
+            collection-fontsrecommended
+
+      - name: Render site
+        run: quarto render
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: _site
