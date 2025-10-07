@@ -3,7 +3,7 @@ name: Quarto Publish
 
 on:
   push:
-    branches: [ main ]   # 若默认分支是 master，这里改成 master
+    branches: [ main ]   # 如果默认分支是 master 改为 master
   workflow_dispatch:
 
 permissions:
@@ -14,26 +14,27 @@ permissions:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
-        # 不要写 version: stable（会变成 vstable 404）
+        # 不写 version，或指定确切版本号（如 "1.6.40"）
 
-      # 需要执行 Jupyter/Python 再打开
+      # 如果需要执行 Jupyter/Python 再渲染，打开下面两步
       # - uses: actions/setup-python@v5
       #   with:
       #     python-version: '3.11'
       # - run: pip install jupyter
 
-      - name: Render
-        uses: quarto-dev/quarto-actions/render@v2
-        with:
-          path: .
+      - name: Render site
+        run: quarto render
 
-      - name: Publish to GitHub Pages
-        uses: quarto-dev/quarto-actions/publish@v2
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          target: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: _site
+          publish_branch: gh-pages
