@@ -1,9 +1,8 @@
-# .github/workflows/quarto-publish.yml
 name: Quarto Publish
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]   # 如果你的默认分支是 master，请改成 master
   workflow_dispatch:
 
 permissions:
@@ -14,31 +13,27 @@ permissions:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: stable
+          version: stable   # 使用稳定版 Quarto（内置 Pandoc）
 
-      - name: Setup Pandoc
-        uses: pandoc/actions/setup@v1
-
-      - name: Setup TeX (for math rendering)
-        uses: teatimeguest/setup-texlive-action@v2
-        with:
-          packages: >-
-            collection-latexextra
-            collection-fontsrecommended
+      # 如果你的页面需要执行 Jupyter/Python，再启用下面两步
+      # - uses: actions/setup-python@v5
+      #   with:
+      #     python-version: '3.11'
+      # - run: pip install jupyter
 
       - name: Render site
-        run: quarto render
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: quarto-dev/quarto-actions/render@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: _site
+          path: .
+
+      - name: Publish to GitHub Pages
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
