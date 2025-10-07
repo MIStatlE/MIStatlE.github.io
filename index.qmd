@@ -15,4 +15,4 @@ $$
 \mathbb{P}(|S_n - n\mu| \ge t) \le 2\exp\!\left(-\frac{t^2}{2\sigma^2 n}\right).
 $$
 
-Use the **Posts** section for articles and notes. Edit `_quarto.yml` to customize the navbar and theme.
+Use the **Posts** section for articles and notes. Edit `_quarto.yml` to customize the navbar and theme1.
