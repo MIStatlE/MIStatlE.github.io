@@ -15,9 +15,7 @@
   },
   {
     "listing": "/reads/index.html",
-    "items": [
-      "/reads/index.zh.html"
-    ]
+    "items": []
   },
   {
     "listing": "/papers/index.html",
