@@ -1,12 +1,3 @@
----
-title: "Posts"
-listing:
-  contents: .
-  sort: "date desc"
-  type: default
-  fields: [title, date, categories, description]
-  feed: true
-page-layout: article
----
+# Posts
 
-Welcome to my posts.
+Your posts listing will render here.
