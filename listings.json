@@ -1,14 +1,14 @@
 [
   {
-    "listing": "/tools/index.html",
+    "listing": "/papers/index.html",
     "items": [
-      "/tools/quarto-setup.html"
+      "/papers/2025-10-08-paper-template.html"
     ]
   },
   {
-    "listing": "/posts/index.html",
+    "listing": "/tools/index.html",
     "items": [
-      "/posts/2025-10-07-welcome.html"
+      "/tools/quarto-setup.html"
     ]
   },
   {
@@ -16,9 +16,9 @@
     "items": []
   },
   {
-    "listing": "/papers/index.html",
+    "listing": "/posts/index.html",
     "items": [
-      "/papers/2025-10-08-paper-template.html"
+      "/posts/2025-10-07-welcome.html"
     ]
   }
 ]
