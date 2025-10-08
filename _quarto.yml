@@ -1,12 +1,34 @@
 project:
   type: website
+  output-dir: _site
 
-execute:
-  freeze: auto
+website:
+  title: "MIStatlE Lab"
+  description: "A high-signal growth space: math, ML theory, papers, tools, and community."
+  site-url: "https://mistatle.github.io"
+  favicon: images/image1.png
 
-resources:
-  - images/
-  - assets/
+  navbar:
+    logo: images/image1.png
+    left:
+      - text: Home
+        href: index.qmd
+      - text: Guides
+        href: guides/index.qmd
+      - text: Posts
+        href: posts/index.qmd
+      - text: About
+        href: about.qmd
+    right:
+      - icon: github
+        href: https://github.com/MIStatlE
 
-serve:
-  browser: true
+  page-footer:
+    left: "© MIStatlE Lab · Built for learners"
+    right: "Built with [Quarto](https://quarto.org)"
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    number-sections: false
