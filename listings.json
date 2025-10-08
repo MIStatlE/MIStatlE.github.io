@@ -1,8 +1,24 @@
 [
   {
+    "listing": "/tools/index.html",
+    "items": [
+      "/tools/quarto-setup.html"
+    ]
+  },
+  {
     "listing": "/posts/index.html",
     "items": [
       "/posts/2025-10-07-welcome.html"
+    ]
+  },
+  {
+    "listing": "/reads/index.html",
+    "items": []
+  },
+  {
+    "listing": "/papers/index.html",
+    "items": [
+      "/papers/2025-10-08-paper-template.html"
     ]
   }
 ]
