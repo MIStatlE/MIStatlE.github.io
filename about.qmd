@@ -1,5 +1,5 @@
 title: "About"
 ---
-MIStatlE Lab is a space for rigorous learning and generous sharing — math, ML theory, papers, tools, and a community built for learners.
+MIStatlE is a space for rigorous learning and generous sharing — math, ML theory, papers, tools, and a community built for learners.
 
 [中文介绍](/zh/about.html)
