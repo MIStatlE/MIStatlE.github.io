@@ -66,25 +66,11 @@
     ]
   },
   {
-    "objectID": "tools/index.zh.html",
-    "href": "tools/index.zh.html",
-    "title": "工具",
+    "objectID": "tools/index.html",
+    "href": "tools/index.html",
+    "title": "Tools & Workflows",
     "section": "",
-    "text": "工具\n脚本与模板。"
-  },
-  {
-    "objectID": "search.zh.html",
-    "href": "search.zh.html",
-    "title": "MIStatlE Lab",
-    "section": "",
-    "text": "Tip\n\n\n\n你可以使用浏览器搜索或在导航栏中快速定位页面。"
-  },
-  {
-    "objectID": "search.zh.html#title-站内搜索",
-    "href": "search.zh.html#title-站内搜索",
-    "title": "MIStatlE Lab",
-    "section": "",
-    "text": "Tip\n\n\n\n你可以使用浏览器搜索或在导航栏中快速定位页面。"
+    "text": "可复用的研究/工程工具与工作流，强调 可操作 与 效率。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\n\n\n\n\nQuarto 最佳实践：从 0 到“高信息密度”站点\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/index.html",
@@ -141,13 +127,6 @@
     "title": "Starting Over: Building MIStatlE Lab",
     "section": "",
     "text": "This is a starter post. You can write math like e^{i\\pi}+1=0 and code blocks:\ndef add(a, b): return a + b\nprint(add(2, 3))\nTo publish, just push to main — GitHub Actions will render and deploy to gh-pages."
-  },
-  {
-    "objectID": "tools/index.html",
-    "href": "tools/index.html",
-    "title": "Tools & Workflows",
-    "section": "",
-    "text": "可复用的研究/工程工具与工作流，强调 可操作 与 效率。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\n\n\n\n\nQuarto 最佳实践：从 0 到“高信息密度”站点\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n工具\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "tools/quarto-setup.html",
