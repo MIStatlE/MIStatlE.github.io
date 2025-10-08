@@ -1,0 +1,11 @@
+---
+title: "Tools & Workflows"
+listing:
+  contents: .
+  type: grid
+  sort: "title"
+  image-placeholder: /images/tool-card.png
+  filter-ui: true
+---
+
+> 可复用的研究/工程工具与工作流，强调 **可操作** 与 **效率**。
