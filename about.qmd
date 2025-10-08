@@ -1,5 +1,14 @@
-title: "About"
 ---
-MIStatlE is a space for rigorous learning and generous sharing — math, ML theory, papers, tools, and a community built for learners.
+title: "About"
+page-layout: article
+---
 
-[中文介绍](/zh/about.html)
+## About Me
+
+- PhD student / Researcher in Shanghai
+- Interests: Probability, Machine Learning, Diffusion Models
+- I write about ideas-in-progress — learning in public.
+
+## Contact
+
+- GitHub: <https://github.com/MIStatlE>
