@@ -1,13 +1,3 @@
----
-title: "Paper Picks"
-listing:
-  contents: .
-  sort: "date desc"
-  type: table
-  filter-ui: true
-  fields: [title, authors, venue, year, tags]
-  categories: true
-page-layout: full
----
+# Paper Picks
 
-> 高信号论文精选：关注 ML Theory / RL / Optimization / Generative Models。
+A curated list will appear here.
