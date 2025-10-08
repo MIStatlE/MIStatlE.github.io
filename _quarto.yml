@@ -4,16 +4,34 @@ project:
 
 website:
   title: "MIStatlE Lab"
-  description: "Research notes, math, ML & life in public."
+  description: "A high-signal growth space: math, ML theory, papers, tools, and community."
   site-url: "https://mistatle.github.io"
   favicon: images/image1.png
+
+  # —— 顶部导航：按“成长空间”分区 —— 
   navbar:
     logo: images/image1.png
     left:
       - text: Home
         href: index.qmd
-      - text: Posts
-        href: posts/index.qmd
+      - text: Guides
+        menu:
+          - text: Probability & Stats
+            href: guides/prob/index.qmd
+          - text: Optimization
+            href: guides/opt/index.qmd
+          - text: ML Theory
+            href: guides/mlt/index.qmd
+          - text: RL / Online Learning
+            href: guides/rl/index.qmd
+      - text: Paper Picks
+        href: papers/index.qmd
+      - text: Tools
+        href: tools/index.qmd
+      - text: Good Reads
+        href: reads/index.qmd
+      - text: Community
+        href: community/index.qmd
       - text: About
         href: about.qmd
     right:
@@ -21,19 +39,113 @@ website:
         href: https://github.com/MIStatlE
       - icon: rss
         href: posts/index.xml
+      - text: Search
+        href: search.qmd
+
   page-footer:
-    left: "© MIStatlE Lab"
+    left: "© MIStatlE Lab · Built for learners"
     right: |
-      Built with [Quarto](https://quarto.org).
+      Built with [Quarto](https://quarto.org) · Content CC BY 4.0
+
+  # 侧边栏：仅在 Guides 分区显示，像“自学指南”那样沉浸阅读
+  sidebar:
+    - id: guides
+      style: "floating"
+      title: "Guides"
+      collapse-level: 2
+      search: true
+      contents:
+        - text: "Overview"
+          href: guides/index.qmd
+        - section: "Probability & Stats"
+          contents:
+            - guides/prob/index.qmd
+            - guides/prob/clt.qmd
+            - guides/prob/concentration.qmd
+        - section: "Optimization"
+          contents:
+            - guides/opt/index.qmd
+            - guides/opt/mirror-descent.qmd
+            - guides/opt/self-concordant.qmd
+        - section: "ML Theory"
+          contents:
+            - guides/mlt/index.qmd
+            - guides/mlt/generalization.qmd
+        - section: "RL / Online"
+          contents:
+            - guides/rl/index.qmd
+            - guides/rl/bandits.qmd
 
 format:
   html:
-    theme: cosmo
+    theme:
+      light: cosmo
+      dark: slate
     css: styles.css
     toc: true
     toc-depth: 3
+    number-sections: false
     anchor-sections: true
     smooth-scroll: true
     code-copy: true
     code-overflow: wrap
     link-external-newwindow: true
+    citations-hover: true
+    html-math-method: katex
+    footnotes-hover: true
+
+# —— 集合（Collections）: 每个分区有自己的列表页、RSS、筛选 —— 
+collections:
+  posts:
+    categories: true
+    feed: true
+    listing:
+      sort: "date desc"
+      type: default
+  papers:
+    feed: true
+    categories: true
+    listing:
+      type: table
+      sort: "date desc"
+      filter-ui: true
+      fields: [title, authors, venue, year, tags]
+  tools:
+    feed: true
+    categories: true
+    listing:
+      type: grid
+      sort: "title"
+      filter-ui: true
+      image-placeholder: images/tool-card.png
+  reads:
+    feed: true
+    listing:
+      type: default
+      sort: "date desc"
+      filter-ui: true
+  community:
+    listing:
+      type: default
+      sort: "title"
+
+# —— 站点级增强 —— 
+execute:
+  freeze: auto  # 构建加速
+
+metadata-files:
+  - _meta.yml  # 全站作者信息/社交卡片
+
+# —— 站点增强（SEO / OG / Sitemap） —— 
+website:
+  open-graph: true
+  twitter-card:
+    creator: "@MIStatlE"
+    card-style: summary_large_image
+resources:
+  - images/
+  - assets/
+
+# 可选：开启站内搜索页
+serve:
+  browser: true
