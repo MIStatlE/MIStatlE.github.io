@@ -14,10 +14,25 @@ jobs:
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: 1.8.25   # 或者 pre-release
+          version: 1.8.25  # 你之前已修
 
-      - name: Ensure _site exists
-        run: mkdir -p _site
+      # 关键补丁：预创建输出目录树，避免 rename 目标不存在
+      - name: Pre-create output tree for EN/ZH
+        shell: bash
+        run: |
+          mkdir -p _site/en _site/zh
+          # 收集所有 .qmd 的父目录，并在 _site/en 与 _site/zh 下镜像创建
+          python - <<'PY'
+import os, glob
+dirs=set()
+for f in glob.glob('**/*.qmd', recursive=True):
+    d=os.path.dirname(f)
+    if d and not d.startswith('_site'):
+        dirs.add(d)
+for lang in ['en','zh']:
+    for d in sorted(dirs):
+        os.makedirs(os.path.join('_site', lang, d), exist_ok=True)
+PY
 
       - name: Render EN
         run: quarto render --profile en
