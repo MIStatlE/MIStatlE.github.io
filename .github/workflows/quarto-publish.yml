@@ -14,24 +14,21 @@ jobs:
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: 1.8.25  # 你之前已修
+          version: 1.8.25   # 避免 vlatest 404
 
-      # 关键补丁：预创建输出目录树，避免 rename 目标不存在
-      - name: Pre-create output tree for EN/ZH
-  run: |
-    mkdir -p _site/en _site/zh
-    for lang in en zh; do
-      find . -type d ! -path "./_site*" \
-        ! -path "./.git*" \
-        ! -path "./.github*" \
-        -exec mkdir -p _site/$lang/{} \;
-    done
-  
+      # 保证是干净输出（可观察问题更少）
+      - name: Clean _site
+        run: rm -rf _site
+
+      # 英文站：用 CLI 指定输出目录（不会再出现 rename 目标不存在）
       - name: Render EN
-        run: quarto render --profile en
+        run: |
+          quarto render --profile en --output-dir _site/en --log-level=debug
 
+      # 中文站：同理
       - name: Render ZH
-        run: quarto render --profile zh
+        run: |
+          quarto render --profile zh --output-dir _site/zh --log-level=debug
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
