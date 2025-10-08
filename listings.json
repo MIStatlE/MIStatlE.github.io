@@ -1,5 +1,12 @@
 [
   {
+    "listing": "/tools/index.html",
+    "items": [
+      "/tools/quarto-setup.html",
+      "/tools/index.zh.html"
+    ]
+  },
+  {
     "listing": "/papers/index.html",
     "items": [
       "/papers/index.zh.html",
