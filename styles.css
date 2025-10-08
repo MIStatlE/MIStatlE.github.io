@@ -1,4 +1,8 @@
-:root{ --brand:#1A9D8F; }
-h1,h2,h3{ scroll-margin-top: 90px; }
-blockquote{ border-left:4px solid var(--brand); padding-left:12px; color:#444; }
-.navbar-brand, .navbar .nav-link.active{ font-weight:700; }
+:root{
+  --brand:#1A9D8F;
+  --ink:#0f172a;
+}
+.navbar-brand img { height: 28px; }
+.quarto-title-banner { background: linear-gradient(90deg,#0f172a,#334155); color:#fff; }
+.callout-tip { border-left-color: var(--brand); }
+a { text-decoration: none; }
