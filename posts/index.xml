@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>MIStatlE Lab</title>
+<link>https://mistatle.github.io/posts/</link>
+<atom:link href="https://mistatle.github.io/posts/index.xml" rel="self" type="application/rss+xml"/>
+<description>A high-signal growth space: math, ML theory, papers, tools, and community.</description>
+<generator>quarto-1.8.25</generator>
+<lastBuildDate>Tue, 07 Oct 2025 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Starting Over: Building MIStatlE Lab</title>
+  <link>https://mistatle.github.io/posts/2025-10-07-welcome.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>This is a starter post. You can write math like <img src="https://latex.codecogs.com/png.latex?e%5E%7Bi%5Cpi%7D+1=0"> and code blocks:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> add(a, b): <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> a <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> b</span>
+<span id="cb1-2"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(add(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>))</span></code></pre></div></div>
+<p>To publish, just push to <strong>main</strong> — GitHub Actions will render and deploy to <strong>gh-pages</strong>.</p>
+
+
+
+ ]]></description>
+  <category>meta</category>
+  <category>setup</category>
+  <guid>https://mistatle.github.io/posts/2025-10-07-welcome.html</guid>
+  <pubDate>Tue, 07 Oct 2025 00:00:00 GMT</pubDate>
+  <media:content url="https://mistatle.github.io/images/cover.jpg" medium="image" type="image/jpeg"/>
+</item>
+<item>
+  <title></title>
+  <link>https://mistatle.github.io/posts/index.zh.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<section id="博文" class="level1">
+<h1>博文</h1>
+<p>此处将自动呈现文章列表。</p>
+
+
+</section>
+
+ ]]></description>
+  <guid>https://mistatle.github.io/posts/index.zh.html</guid>
+  <pubDate>Wed, 08 Oct 2025 16:19:11 GMT</pubDate>
+</item>
+</channel>
+</rss>
