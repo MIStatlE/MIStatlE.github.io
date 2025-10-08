@@ -1,5 +1,4 @@
-/* Minimal helpers; extend as you like */
-.navbar-brand img { height: 28px; }
-.lang-switch { font-size: 0.9rem; opacity: 0.85; }
-.hero { padding: 3rem 0; }
-.kicker { letter-spacing: .08em; text-transform: uppercase; opacity: .7; font-size: .9rem; }
+:root{ --brand:#1A9D8F; }
+h1,h2,h3{ scroll-margin-top: 90px; }
+blockquote{ border-left:4px solid var(--brand); padding-left:12px; color:#444; }
+.navbar-brand, .navbar .nav-link.active{ font-weight:700; }

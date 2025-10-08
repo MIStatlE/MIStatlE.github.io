@@ -1,10 +1,13 @@
 [
   {
-    "listing": "/tools/index.html",
+    "listing": "/papers/index.html",
     "items": [
-      "/tools/quarto-setup.html",
-      "/tools/index.zh.html"
+      "/papers/2025-10-08-paper-template.html"
     ]
+  },
+  {
+    "listing": "/reads/index.html",
+    "items": []
   },
   {
     "listing": "/posts/index.html",
@@ -14,14 +17,10 @@
     ]
   },
   {
-    "listing": "/reads/index.html",
-    "items": []
-  },
-  {
-    "listing": "/papers/index.html",
+    "listing": "/tools/index.html",
     "items": [
-      "/papers/index.zh.html",
-      "/papers/2025-10-08-paper-template.html"
+      "/tools/quarto-setup.html",
+      "/tools/index.zh.html"
     ]
   }
 ]
