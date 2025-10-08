@@ -1,0 +1,123 @@
+project:
+  profile: en
+  output-dir: _site/en
+
+website:
+  title: "MIStatlE Lab"
+  description: "A high-signal growth space: math, ML theory, papers, tools, and community."
+  site-url: "https://mistatle.github.io/en/"
+  favicon: images/image1.png
+
+  navbar:
+    logo: images/image1.png
+    left:
+      - text: Home
+        href: index.en.qmd
+      - text: Guides
+        menu:
+          - text: Probability & Stats
+            href: guides/prob/index.en.qmd
+          - text: Optimization
+            href: guides/opt/index.en.qmd
+          - text: ML Theory
+            href: guides/mlt/index.en.qmd
+          - text: RL / Online Learning
+            href: guides/rl/index.en.qmd
+      - text: Paper Picks
+        href: papers/index.en.qmd
+      - text: Posts
+        href: posts/index.en.qmd
+      - text: Tools
+        href: tools/index.en.qmd
+      - text: Good Reads
+        href: reads/index.en.qmd
+      - text: Community
+        href: community/index.en.qmd
+      - text: About
+        href: about.en.qmd
+    right:
+      - icon: github
+        href: https://github.com/MIStatlE
+      - icon: rss
+        href: posts/index.xml
+      - text: 中文
+        href: ../zh/index.zh.qmd
+      - text: Search
+        href: search.en.qmd
+
+  page-footer:
+    left: "© MIStatlE Lab · Built for learners"
+    right: |
+      Built with [Quarto](https://quarto.org) · Content CC BY 4.0
+
+  open-graph: true
+  twitter-card:
+    creator: "@MIStatlE"
+    card-style: summary_large_image
+
+  sidebar:
+    - id: guides
+      style: "floating"
+      title: "Guides"
+      collapse-level: 2
+      search: true
+      contents:
+        - text: "Overview"
+          href: guides/index.en.qmd
+        - section: "Probability & Stats"
+          contents:
+            - guides/prob/index.en.qmd
+            - guides/prob/clt.en.qmd
+            - guides/prob/concentration.en.qmd
+        - section: "Optimization"
+          contents:
+            - guides/opt/index.en.qmd
+            - guides/opt/mirror-descent.en.qmd
+            - guides/opt/self-concordant.en.qmd
+        - section: "ML Theory"
+          contents:
+            - guides/mlt/index.en.qmd
+            - guides/mlt/generalization.en.qmd
+        - section: "RL / Online"
+          contents:
+            - guides/rl/index.en.qmd
+            - guides/rl/bandits.en.qmd
+
+# —— Collections（英文）——
+collections:
+  posts:
+    categories: true
+    feed: true
+    listing:
+      sort: "date desc"
+      type: default
+  papers:
+    feed: true
+    categories: true
+    listing:
+      type: table
+      sort: "date desc"
+      filter-ui: true
+      fields: [title, authors, venue, year, tags]
+  tools:
+    feed: true
+    categories: true
+    listing:
+      type: grid
+      sort: "title"
+      filter-ui: true
+      image-placeholder: images/tool-card.png
+  reads:
+    feed: true
+    listing:
+      type: default
+      sort: "date desc"
+      filter-ui: true
+  community:
+    listing:
+      type: default
+      sort: "title"
+
+format:
+  html:
+    lang: en
