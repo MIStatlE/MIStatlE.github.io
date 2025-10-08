@@ -1,5 +1,4 @@
 project:
-  profile: en
   output-dir: _site/en
 
 website:
