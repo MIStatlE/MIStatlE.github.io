@@ -1,61 +1,48 @@
-name: Build & Deploy Quarto (single-lang)
+name: Build & Deploy Quarto Site
 
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:
+  workflow_dispatch: {}
 
 permissions:
-  contents: read
+  contents: write   # 发布到 gh-pages 需要
   pages: write
   id-token: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
-
 jobs:
-  build:
+  build-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: 1.8.25
+          # 如果需要使用特定版本可指定，比如：version: "1.5.57"
+          # 默认安装最新稳定版
+          tinytex: true      # 若需要 LaTeX（数学公式、pdf 依赖），建议开启
+          # addtl-path: ""   # 可选：额外 PATH
 
-      - name: Clean _site
-        run: rm -rf _site
-
-      # 关键补丁：预创建常用父目录，避免 rename 目标不存在
-      - name: Pre-create _site tree
-        run: |
-          mkdir -p _site
-          for d in guides papers posts tools reads community; do
-            mkdir -p "_site/$d"
-          done
+      # 可选：安装你需要的 Python 包 / R 包 / Node 包
+      # - name: Setup Python
+      #   uses: actions/setup-python@v5
+      #   with:
+      #     python-version: '3.11'
+      # - name: Install Python deps
+      #   run: pip install -r requirements.txt
 
       - name: Render site
         run: |
-          # 快速自检：确保关键页存在
-          test -f index.qmd
-          test -f guides/index.qmd
-          # 渲染到 _site（由 _quarto.yml 的 output-dir 控制）
-          quarto render --log-level=debug
+          quarto --version
+          quarto render
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy to GitHub Pages (gh-pages)
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          path: _site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: _site
+          publish_branch: gh-pages
+          # cname: example.com   # 如果有自定义域名在这里填
