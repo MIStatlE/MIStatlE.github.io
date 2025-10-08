@@ -9,30 +9,22 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: latest
+          version: 1.8.25   # 或者 pre-release
 
-      - name: Setup Pandoc (optional but safe)
-        uses: r-lib/actions/setup-pandoc@v2
-
-      # 这行保证 _site 存在（避免任何奇怪权限/时序问题）
       - name: Ensure _site exists
         run: mkdir -p _site
 
-      # 渲染英文站点 -> _site/en
       - name: Render EN
         run: quarto render --profile en
 
-      # 渲染中文站点 -> _site/zh
       - name: Render ZH
         run: quarto render --profile zh
 
-      # 上传 _site 作为 Pages 工件
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
