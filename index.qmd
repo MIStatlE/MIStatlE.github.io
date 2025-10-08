@@ -1,6 +1,6 @@
 ---
 title: "MIStatlE Lab"
-image: images/cover.jpg
+image: images/WechatIMG522.jpg
 page-layout: article
 ---
 
