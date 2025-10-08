@@ -66,11 +66,39 @@
     "text": "Tip\n\n\n\n你可以使用浏览器搜索或在导航栏中快速定位页面。"
   },
   {
-    "objectID": "posts/index.zh.html",
-    "href": "posts/index.zh.html",
-    "title": "博文",
+    "objectID": "posts/index.html",
+    "href": "posts/index.html",
+    "title": "Posts",
     "section": "",
-    "text": "博文\n此处将自动呈现文章列表。"
+    "text": "Welcome to my posts.\n\n\n\n\n\n\n\n\n\nStarting Over: Building MIStatlE Lab\n\n\n\nmeta\n\nsetup\n\n\n\nA simple Quarto starter with math support, post listings, and GitHub Pages auto-deploy.\n\n\n\n\n\nOct 7, 2025\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "community/index.zh.html",
+    "href": "community/index.zh.html",
+    "title": "社区",
+    "section": "",
+    "text": "社区\n活动、公告与资源。"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome",
+    "section": "",
+    "text": "Hello, I’m MIStatlE 👋\nThis is my minimal Quarto website. Math works out of the box:\n\nInline math: \\int_0^1 x^2\\,dx = 1/3\nDisplay math:\n\n\n\\mathbb{P}(|S_n - n\\mu| \\ge t) \\le 2\\exp\\!\\left(-\\frac{t^2}{2\\sigma^2 n}\\right).\n\nUse the Posts section for articles and notes. Edit _quarto.yml to customize the navbar and theme."
+  },
+  {
+    "objectID": "reads/index.html",
+    "href": "reads/index.html",
+    "title": "Good Reads",
+    "section": "",
+    "text": "高信息密度外部资源：长文、书单、课程、视频与博客。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "community/index.html",
+    "href": "community/index.html",
+    "title": "Community",
+    "section": "",
+    "text": "Community\nEvents, announcements, and resources."
   },
   {
     "objectID": "search.html",
@@ -85,41 +113,6 @@
     "title": "MIStatlE Lab",
     "section": "",
     "text": "Tip\n\n\n\nUse the navbar search (browser) or your site search engine."
-  },
-  {
-    "objectID": "community/index.html",
-    "href": "community/index.html",
-    "title": "Community",
-    "section": "",
-    "text": "Community\nEvents, announcements, and resources."
-  },
-  {
-    "objectID": "reads/index.html",
-    "href": "reads/index.html",
-    "title": "Good Reads",
-    "section": "",
-    "text": "高信息密度外部资源：长文、书单、课程、视频与博客。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Welcome",
-    "section": "",
-    "text": "Hello, I’m MIStatlE 👋\nThis is my minimal Quarto website. Math works out of the box:\n\nInline math: \\int_0^1 x^2\\,dx = 1/3\nDisplay math:\n\n\n\\mathbb{P}(|S_n - n\\mu| \\ge t) \\le 2\\exp\\!\\left(-\\frac{t^2}{2\\sigma^2 n}\\right).\n\nUse the Posts section for articles and notes. Edit _quarto.yml to customize the navbar and theme."
-  },
-  {
-    "objectID": "community/index.zh.html",
-    "href": "community/index.zh.html",
-    "title": "社区",
-    "section": "",
-    "text": "社区\n活动、公告与资源。"
-  },
-  {
-    "objectID": "posts/index.html",
-    "href": "posts/index.html",
-    "title": "Posts",
-    "section": "",
-    "text": "Welcome to my posts.\n\n\n\n\n\n\n\n\n\n博文\n\n\n\n\n\n\n\n\n\n\n\n\n\nStarting Over: Building MIStatlE Lab\n\n\n\nmeta\n\nsetup\n\n\n\nA simple Quarto starter with math support, post listings, and GitHub Pages auto-deploy.\n\n\n\n\n\nOct 7, 2025\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/2025-10-07-welcome.html",
