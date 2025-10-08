@@ -7,6 +7,12 @@
     ]
   },
   {
+    "listing": "/reads/index.html",
+    "items": [
+      "/reads/index.zh.html"
+    ]
+  },
+  {
     "listing": "/papers/index.html",
     "items": [
       "/papers/index.zh.html",
