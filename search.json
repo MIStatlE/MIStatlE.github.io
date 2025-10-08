@@ -2,142 +2,16 @@
   {
     "objectID": "about.zh.html",
     "href": "about.zh.html",
-    "title": "",
+    "title": "MIStatlE Lab",
     "section": "",
     "text": "MIStatlE Lab 面向严谨学习与开放分享：数学、机器学习理论、论文精选、工具与学习者社区。\nEnglish Intro"
   },
   {
     "objectID": "about.zh.html#title-关于",
     "href": "about.zh.html#title-关于",
-    "title": "",
+    "title": "MIStatlE Lab",
     "section": "",
     "text": "MIStatlE Lab 面向严谨学习与开放分享：数学、机器学习理论、论文精选、工具与学习者社区。\nEnglish Intro"
-  },
-  {
-    "objectID": "papers/index.html",
-    "href": "papers/index.html",
-    "title": "Paper Picks",
-    "section": "",
-    "text": "高信号论文精选：关注 ML Theory / RL / Optimization / Generative Models。\n\n\n\n\n\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\n\nauthors\n\n\n\nvenue\n\n\n\nyear\n\n\n\ntags\n\n\n\n\n\n\n\n\nSelf-Concordant Barriers Revisited\n\n\nNesterov, Nemirovski\n\n\nMath. Programming\n\n\n1994\n\n\noptimization, self-concordant, interior-point\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "index.zh.html",
-    "href": "index.zh.html",
-    "title": "高信号的成长与研究空间",
-    "section": "",
-    "text": "title: “欢迎来到 MIStatlE Lab｜密斯塔特工作室” format: html —"
-  },
-  {
-    "objectID": "index.zh.html#包含内容",
-    "href": "index.zh.html#包含内容",
-    "title": "高信号的成长与研究空间",
-    "section": "包含内容",
-    "text": "包含内容\n\n指南：概率统计、最优化、机器学习理论、强化学习/在线学习\n论文精选与博文\n工具与好读物\n社区"
-  },
-  {
-    "objectID": "tools/index.html",
-    "href": "tools/index.html",
-    "title": "Tools & Workflows",
-    "section": "",
-    "text": "可复用的研究/工程工具与工作流，强调 可操作 与 效率。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\n\n\n\n\nQuarto 最佳实践：从 0 到“高信息密度”站点\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "posts/2025-10-07-welcome.html",
-    "href": "posts/2025-10-07-welcome.html",
-    "title": "Starting Over: Building MIStatlE Lab",
-    "section": "",
-    "text": "This is a starter post. You can write math like \\(e^{i\\pi}+1=0\\) and code blocks:\ndef add(a, b): return a + b\nprint(add(2, 3))\nTo publish, just push to main — GitHub Actions will render and deploy to gh-pages."
-  },
-  {
-    "objectID": "search.html",
-    "href": "search.html",
-    "title": "",
-    "section": "",
-    "text": "Tip\n\n\n\nUse the navbar search (browser) or your site search engine."
-  },
-  {
-    "objectID": "search.html#title-search",
-    "href": "search.html#title-search",
-    "title": "",
-    "section": "",
-    "text": "Tip\n\n\n\nUse the navbar search (browser) or your site search engine."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "A high-signal growth space",
-    "section": "",
-    "text": "title: “Welcome” format: html —"
-  },
-  {
-    "objectID": "index.html#whats-inside",
-    "href": "index.html#whats-inside",
-    "title": "A high-signal growth space",
-    "section": "What’s inside",
-    "text": "What’s inside\n\nGuides: Probability, Optimization, ML Theory, RL/Online\nPaper Picks & Posts\nTools & Good Reads\nCommunity"
-  },
-  {
-    "objectID": "reads/index.html",
-    "href": "reads/index.html",
-    "title": "Good Reads",
-    "section": "",
-    "text": "高信息密度外部资源：长文、书单、课程、视频与博客。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "posts/index.html",
-    "href": "posts/index.html",
-    "title": "Posts",
-    "section": "",
-    "text": "Welcome to my posts.\n\n\n\n\n\n\n\n\n\nStarting Over: Building MIStatlE Lab\n\n\n\nmeta\n\nsetup\n\n\n\nA simple Quarto starter with math support, post listings, and GitHub Pages auto-deploy.\n\n\n\n\n\nOct 7, 2025\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "search.zh.html",
-    "href": "search.zh.html",
-    "title": "",
-    "section": "",
-    "text": "Tip\n\n\n\n你可以使用浏览器搜索或在导航栏中快速定位页面。"
-  },
-  {
-    "objectID": "search.zh.html#title-站内搜索",
-    "href": "search.zh.html#title-站内搜索",
-    "title": "",
-    "section": "",
-    "text": "Tip\n\n\n\n你可以使用浏览器搜索或在导航栏中快速定位页面。"
-  },
-  {
-    "objectID": "tools/quarto-setup.html",
-    "href": "tools/quarto-setup.html",
-    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
-    "section": "",
-    "text": "Markdown+数学+列表页+RSS，一体化…\n适合“利他型”学习空间：低摩擦、高输出。"
-  },
-  {
-    "objectID": "tools/quarto-setup.html#why-quarto",
-    "href": "tools/quarto-setup.html#why-quarto",
-    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
-    "section": "",
-    "text": "Markdown+数学+列表页+RSS，一体化…\n适合“利他型”学习空间：低摩擦、高输出。"
-  },
-  {
-    "objectID": "tools/quarto-setup.html#setup",
-    "href": "tools/quarto-setup.html#setup",
-    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
-    "section": "Setup",
-    "text": "Setup\n```bash quarto create-project MIStatlE-Lab quarto add quarto-ext/fontawesome"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "",
-    "section": "",
-    "text": "MIStatlE Lab is a space for rigorous learning and generous sharing — math, ML theory, papers, tools, and a community built for learners.\n中文介绍"
-  },
-  {
-    "objectID": "about.html#title-about",
-    "href": "about.html#title-about",
-    "title": "",
-    "section": "",
-    "text": "MIStatlE Lab is a space for rigorous learning and generous sharing — math, ML theory, papers, tools, and a community built for learners.\n中文介绍"
   },
   {
     "objectID": "papers/2025-10-08-paper-template.html",
@@ -173,5 +47,183 @@
     "title": "Self-Concordant Barriers Revisited",
     "section": "BibTeX",
     "text": "BibTeX\n```bibtex @article{nesterov1994interior, … }"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "MIStatlE Lab",
+    "section": "",
+    "text": "MIStatlE is a space for rigorous learning and generous sharing — math, ML theory, papers, tools, and a community built for learners.\n中文介绍"
+  },
+  {
+    "objectID": "about.html#title-about",
+    "href": "about.html#title-about",
+    "title": "MIStatlE Lab",
+    "section": "",
+    "text": "MIStatlE is a space for rigorous learning and generous sharing — math, ML theory, papers, tools, and a community built for learners.\n中文介绍"
+  },
+  {
+    "objectID": "guides/index.zh.html",
+    "href": "guides/index.zh.html",
+    "title": "指南总览",
+    "section": "",
+    "text": "指南总览\n建议从《概率统计》或《最优化》开始。"
+  },
+  {
+    "objectID": "tools/quarto-setup.html",
+    "href": "tools/quarto-setup.html",
+    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
+    "section": "",
+    "text": "Markdown+数学+列表页+RSS，一体化…\n适合“利他型”学习空间：低摩擦、高输出。"
+  },
+  {
+    "objectID": "tools/quarto-setup.html#why-quarto",
+    "href": "tools/quarto-setup.html#why-quarto",
+    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
+    "section": "",
+    "text": "Markdown+数学+列表页+RSS，一体化…\n适合“利他型”学习空间：低摩擦、高输出。"
+  },
+  {
+    "objectID": "tools/quarto-setup.html#setup",
+    "href": "tools/quarto-setup.html#setup",
+    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
+    "section": "Setup",
+    "text": "Setup\n```bash quarto create-project MIStatlE-Lab quarto add quarto-ext/fontawesome"
+  },
+  {
+    "objectID": "tools/index.html",
+    "href": "tools/index.html",
+    "title": "Tools",
+    "section": "",
+    "text": "Tools\nUseful scripts and templates."
+  },
+  {
+    "objectID": "posts/2025-10-07-welcome.html",
+    "href": "posts/2025-10-07-welcome.html",
+    "title": "Starting Over: Building MIStatlE Lab",
+    "section": "",
+    "text": "This is a starter post. You can write math like e^{i\\pi}+1=0 and code blocks:\ndef add(a, b): return a + b\nprint(add(2, 3))\nTo publish, just push to main — GitHub Actions will render and deploy to gh-pages."
+  },
+  {
+    "objectID": "posts/index.html",
+    "href": "posts/index.html",
+    "title": "Posts",
+    "section": "",
+    "text": "Posts\nYour posts listing will render here."
+  },
+  {
+    "objectID": "community/index.zh.html",
+    "href": "community/index.zh.html",
+    "title": "社区",
+    "section": "",
+    "text": "社区\n活动、公告与资源。"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome",
+    "section": "",
+    "text": "Hello, I’m MIStatlE 👋\nThis is my minimal Quarto website. Math works out of the box:\n\nInline math: \\int_0^1 x^2\\,dx = 1/3\nDisplay math:\n\n\n\\mathbb{P}(|S_n - n\\mu| \\ge t) \\le 2\\exp\\!\\left(-\\frac{t^2}{2\\sigma^2 n}\\right).\n\nUse the Posts section for articles and notes. Edit _quarto.yml to customize the navbar and theme."
+  },
+  {
+    "objectID": "reads/index.html",
+    "href": "reads/index.html",
+    "title": "Good Reads",
+    "section": "",
+    "text": "Good Reads\nInteresting reads and notes."
+  },
+  {
+    "objectID": "reads/index.zh.html",
+    "href": "reads/index.zh.html",
+    "title": "好读物",
+    "section": "",
+    "text": "好读物\n阅读推荐与读书笔记。"
+  },
+  {
+    "objectID": "community/index.html",
+    "href": "community/index.html",
+    "title": "Community",
+    "section": "",
+    "text": "Community\nEvents, announcements, and resources."
+  },
+  {
+    "objectID": "search.html",
+    "href": "search.html",
+    "title": "MIStatlE Lab",
+    "section": "",
+    "text": "Tip\n\n\n\nUse the navbar search (browser) or your site search engine."
+  },
+  {
+    "objectID": "search.html#title-search",
+    "href": "search.html#title-search",
+    "title": "MIStatlE Lab",
+    "section": "",
+    "text": "Tip\n\n\n\nUse the navbar search (browser) or your site search engine."
+  },
+  {
+    "objectID": "posts/index.zh.html",
+    "href": "posts/index.zh.html",
+    "title": "博文",
+    "section": "",
+    "text": "博文\n此处将自动呈现文章列表。"
+  },
+  {
+    "objectID": "search.zh.html",
+    "href": "search.zh.html",
+    "title": "MIStatlE Lab",
+    "section": "",
+    "text": "Tip\n\n\n\n你可以使用浏览器搜索或在导航栏中快速定位页面。"
+  },
+  {
+    "objectID": "search.zh.html#title-站内搜索",
+    "href": "search.zh.html#title-站内搜索",
+    "title": "MIStatlE Lab",
+    "section": "",
+    "text": "Tip\n\n\n\n你可以使用浏览器搜索或在导航栏中快速定位页面。"
+  },
+  {
+    "objectID": "tools/index.zh.html",
+    "href": "tools/index.zh.html",
+    "title": "工具",
+    "section": "",
+    "text": "工具\n脚本与模板。"
+  },
+  {
+    "objectID": "guides/index.html",
+    "href": "guides/index.html",
+    "title": "Guides Overview",
+    "section": "",
+    "text": "Guides Overview\nStart with Probability & Stats or Optimization.",
+    "crumbs": [
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "index.zh.html",
+    "href": "index.zh.html",
+    "title": "高信号的成长与研究空间",
+    "section": "",
+    "text": "title: “欢迎来到 MIStatlE Lab｜密斯塔特工作室” format: html —"
+  },
+  {
+    "objectID": "index.zh.html#包含内容",
+    "href": "index.zh.html#包含内容",
+    "title": "高信号的成长与研究空间",
+    "section": "包含内容",
+    "text": "包含内容\n\n指南：概率统计、最优化、机器学习理论、强化学习/在线学习\n论文精选与博文\n工具与好读物\n社区"
+  },
+  {
+    "objectID": "papers/index.html",
+    "href": "papers/index.html",
+    "title": "Paper Picks",
+    "section": "",
+    "text": "Paper Picks\nA curated list will appear here."
+  },
+  {
+    "objectID": "papers/index.zh.html",
+    "href": "papers/index.zh.html",
+    "title": "论文精选",
+    "section": "",
+    "text": "论文精选\n即将整理精选清单。"
   }
 ]

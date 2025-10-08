@@ -1,0 +1,5 @@
+/* Minimal helpers; extend as you like */
+.navbar-brand img { height: 28px; }
+.lang-switch { font-size: 0.9rem; opacity: 0.85; }
+.hero { padding: 3rem 0; }
+.kicker { letter-spacing: .08em; text-transform: uppercase; opacity: .7; font-size: .9rem; }
