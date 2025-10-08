@@ -1,4 +1,4 @@
-name: Build & Deploy Quarto
+name: Build & Deploy Quarto (single-lang)
 
 on:
   push:
@@ -25,8 +25,24 @@ jobs:
         with:
           version: 1.8.25
 
+      - name: Clean _site
+        run: rm -rf _site
+
+      # 关键补丁：预创建常用父目录，避免 rename 目标不存在
+      - name: Pre-create _site tree
+        run: |
+          mkdir -p _site
+          for d in guides papers posts tools reads community; do
+            mkdir -p "_site/$d"
+          done
+
       - name: Render site
-        run: quarto render --log-level=debug
+        run: |
+          # 快速自检：确保关键页存在
+          test -f index.qmd
+          test -f guides/index.qmd
+          # 渲染到 _site（由 _quarto.yml 的 output-dir 控制）
+          quarto render --log-level=debug
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
