@@ -25,6 +25,8 @@ website:
             href: guides/rl/index.qmd
       - text: Paper Picks
         href: papers/index.qmd
+      - text: Posts
+        href: posts/index.qmd
       - text: Tools
         href: tools/index.qmd
       - text: Good Reads
