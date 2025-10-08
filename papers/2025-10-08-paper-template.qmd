@@ -1,0 +1,30 @@
+---
+title: "Self-Concordant Barriers Revisited"
+authors: ["Nesterov", "Nemirovski"]
+venue: "Math. Programming"
+year: 1994
+tags: [optimization, self-concordant, interior-point]
+categories: [Optimization]
+date: 2025-10-08
+---
+
+::: callout-tip
+**TL;DR** 以自洽函数为桥梁，统一了内点法的复杂度与几何直觉。
+:::
+
+## Key Ideas
+1. Barrier 的自洽性定义与局部二次近似…
+2. Newton decrement 与路径跟随…
+
+## Why it matters
+- 将凸优化的复杂度理论从“算法技巧”上升到“几何结构”…
+
+## My notes
+- 直观图示…
+- 延伸阅读：…
+
+## BibTeX
+```bibtex
+@article{nesterov1994interior,
+  ...
+}
