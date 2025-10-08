@@ -24,25 +24,42 @@ jobs:
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: 1.8.25   # 固定稳定版，避免 vlatest 404
-
-      # 可选：Pandoc（一般 Quarto 自带，不装也行）
-      # - name: Setup Pandoc
-      #   uses: r-lib/actions/setup-pandoc@v2
+          version: 1.8.25   # 固定稳定版
 
       - name: Clean _site
-        run: rm -rf _site
+        run: rm -rf _site && mkdir -p _site/en _site/zh
 
-      # 关键：直接渲染到目标目录，避免渲染后重命名导致的 NotFound
-      - name: Render EN
+      # --- 最小验证：先只渲染 Home + About，确保通关 ---
+      - name: Render EN (minimal)
         run: |
-          mkdir -p _site/en
-          quarto render --profile en --render-dir _site/en --output-dir _site/en --log-level=debug
+          test -f index.qmd && test -f about.qmd
+          quarto render index.qmd about.qmd \
+            --profile en \
+            --output-dir _site/en \
+            --log-level=debug
 
-      - name: Render ZH
+      - name: Render ZH (minimal)
         run: |
-          mkdir -p _site/zh
-          quarto render --profile zh --render-dir _site/zh --output-dir _site/zh --log-level=debug
+          test -f index.zh.qmd && test -f about.zh.qmd
+          quarto render index.zh.qmd about.zh.qmd \
+            --profile zh \
+            --output-dir _site/zh \
+            --log-level=debug
+
+      # --- 全量构建（通过最小验证后再打开这两步） ---
+      # - name: Render EN (full site)
+      #   run: |
+      #     quarto render \
+      #       --profile en \
+      #       --output-dir _site/en \
+      #       --log-level=debug
+      #
+      # - name: Render ZH (full site)
+      #   run: |
+      #     quarto render \
+      #       --profile zh \
+      #       --output-dir _site/zh \
+      #       --log-level=debug
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
