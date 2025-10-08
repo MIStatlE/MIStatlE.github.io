@@ -1,13 +1,13 @@
 [
   {
-    "listing": "/reads/index.html",
-    "items": []
-  },
-  {
     "listing": "/posts/index.html",
     "items": [
       "/posts/2025-10-07-welcome.html"
     ]
+  },
+  {
+    "listing": "/reads/index.html",
+    "items": []
   },
   {
     "listing": "/tools/index.html",
