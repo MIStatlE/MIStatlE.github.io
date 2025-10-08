@@ -6,9 +6,9 @@ website:
   title: "MIStatlE Lab"
   description: "Research notes, math, ML & life in public."
   site-url: "https://mistatle.github.io"
-  favicon: images/logo.png
+  favicon: images/image1.png
   navbar:
-    logo: images/logo.png
+    logo: images/image1.png
     left:
       - text: Home
         href: index.qmd
