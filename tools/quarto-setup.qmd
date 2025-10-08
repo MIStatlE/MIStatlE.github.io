@@ -1,0 +1,14 @@
+---
+title: "Quarto 最佳实践：从 0 到“高信息密度”站点"
+tags: [quarto, publishing, workflow]
+categories: [Tools]
+---
+
+## Why Quarto
+- Markdown+数学+列表页+RSS，一体化…
+- 适合“利他型”学习空间：低摩擦、高输出。
+
+## Setup
+```bash
+quarto create-project MIStatlE-Lab
+quarto add quarto-ext/fontawesome
