@@ -1,10 +1,3 @@
----
-title: "Good Reads"
-listing:
-  contents: .
-  type: default
-  sort: "date desc"
-  filter-ui: true
----
+# Good Reads
 
-> 高信息密度外部资源：长文、书单、课程、视频与博客。
+Interesting reads and notes.
