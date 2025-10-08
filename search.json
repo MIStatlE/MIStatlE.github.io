@@ -56,39 +56,21 @@
     "text": "Contact\n\nGitHub: https://github.com/MIStatlE"
   },
   {
-    "objectID": "guides/index.zh.html",
-    "href": "guides/index.zh.html",
-    "title": "指南总览",
+    "objectID": "guides/index.html",
+    "href": "guides/index.html",
+    "title": "Guides Overview",
     "section": "",
-    "text": "指南总览\n建议从《概率统计》或《最优化》开始。"
+    "text": "Guides Overview\nStart with Probability & Stats or Optimization.",
+    "crumbs": [
+      "Overview"
+    ]
   },
   {
-    "objectID": "tools/quarto-setup.html",
-    "href": "tools/quarto-setup.html",
-    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
+    "objectID": "tools/index.zh.html",
+    "href": "tools/index.zh.html",
+    "title": "工具",
     "section": "",
-    "text": "Markdown+数学+列表页+RSS，一体化…\n适合“利他型”学习空间：低摩擦、高输出。"
-  },
-  {
-    "objectID": "tools/quarto-setup.html#why-quarto",
-    "href": "tools/quarto-setup.html#why-quarto",
-    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
-    "section": "",
-    "text": "Markdown+数学+列表页+RSS，一体化…\n适合“利他型”学习空间：低摩擦、高输出。"
-  },
-  {
-    "objectID": "tools/quarto-setup.html#setup",
-    "href": "tools/quarto-setup.html#setup",
-    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
-    "section": "Setup",
-    "text": "Setup\n```bash quarto create-project MIStatlE-Lab quarto add quarto-ext/fontawesome"
-  },
-  {
-    "objectID": "tools/index.html",
-    "href": "tools/index.html",
-    "title": "Tools & Workflows",
-    "section": "",
-    "text": "可复用的研究/工程工具与工作流，强调 可操作 与 效率。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\n\n\n\n\nQuarto 最佳实践：从 0 到“高信息密度”站点\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n工具\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "工具\n脚本与模板。"
   },
   {
     "objectID": "posts/2025-10-07-welcome.html",
@@ -147,49 +129,39 @@
     "text": "Welcome to my posts.\n\n\n\n\n\n\n\n\n\nStarting Over: Building MIStatlE Lab\n\n\n\nmeta\n\nsetup\n\n\n\nA simple Quarto starter with math support, post listings, and GitHub Pages auto-deploy.\n\n\n\n\n\nOct 7, 2025\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "search.zh.html",
-    "href": "search.zh.html",
-    "title": "MIStatlE Lab",
+    "objectID": "tools/index.html",
+    "href": "tools/index.html",
+    "title": "Tools & Workflows",
     "section": "",
-    "text": "Tip\n\n\n\n你可以使用浏览器搜索或在导航栏中快速定位页面。"
+    "text": "可复用的研究/工程工具与工作流，强调 可操作 与 效率。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\n\n\n\n\nQuarto 最佳实践：从 0 到“高信息密度”站点\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n工具\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "search.zh.html#title-站内搜索",
-    "href": "search.zh.html#title-站内搜索",
-    "title": "MIStatlE Lab",
+    "objectID": "tools/quarto-setup.html",
+    "href": "tools/quarto-setup.html",
+    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
     "section": "",
-    "text": "Tip\n\n\n\n你可以使用浏览器搜索或在导航栏中快速定位页面。"
+    "text": "Markdown+数学+列表页+RSS，一体化…\n适合“利他型”学习空间：低摩擦、高输出。"
   },
   {
-    "objectID": "tools/index.zh.html",
-    "href": "tools/index.zh.html",
-    "title": "工具",
+    "objectID": "tools/quarto-setup.html#why-quarto",
+    "href": "tools/quarto-setup.html#why-quarto",
+    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
     "section": "",
-    "text": "工具\n脚本与模板。"
+    "text": "Markdown+数学+列表页+RSS，一体化…\n适合“利他型”学习空间：低摩擦、高输出。"
   },
   {
-    "objectID": "guides/index.html",
-    "href": "guides/index.html",
-    "title": "Guides Overview",
-    "section": "",
-    "text": "Guides Overview\nStart with Probability & Stats or Optimization.",
-    "crumbs": [
-      "Overview"
-    ]
+    "objectID": "tools/quarto-setup.html#setup",
+    "href": "tools/quarto-setup.html#setup",
+    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
+    "section": "Setup",
+    "text": "Setup\n```bash quarto create-project MIStatlE-Lab quarto add quarto-ext/fontawesome"
   },
   {
-    "objectID": "index.zh.html",
-    "href": "index.zh.html",
-    "title": "高信号的成长与研究空间",
+    "objectID": "guides/index.zh.html",
+    "href": "guides/index.zh.html",
+    "title": "指南总览",
     "section": "",
-    "text": "title: “欢迎来到 MIStatlE Lab｜密斯塔特工作室” format: html —"
-  },
-  {
-    "objectID": "index.zh.html#包含内容",
-    "href": "index.zh.html#包含内容",
-    "title": "高信号的成长与研究空间",
-    "section": "包含内容",
-    "text": "包含内容\n\n指南：概率统计、最优化、机器学习理论、强化学习/在线学习\n论文精选与博文\n工具与好读物\n社区"
+    "text": "指南总览\n建议从《概率统计》或《最优化》开始。"
   },
   {
     "objectID": "papers/index.html",
