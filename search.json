@@ -79,9 +79,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Welcome",
+    "title": "MIStatlE Lab",
     "section": "",
-    "text": "Hello, I’m MIStatlE 👋\nThis is my minimal Quarto website. Math works out of the box:\n\nInline math: \\int_0^1 x^2\\,dx = 1/3\nDisplay math:\n\n\n\\mathbb{P}(|S_n - n\\mu| \\ge t) \\le 2\\exp\\!\\left(-\\frac{t^2}{2\\sigma^2 n}\\right).\n\nUse the Posts section for articles and notes. Edit _quarto.yml to customize the navbar and theme1."
+    "text": "&lt;h2 style=\"margin-bottom:0;\"&gt;Hi, I'm &lt;strong&gt;MIStatlE&lt;/strong&gt; 👋&lt;/h2&gt;\n&lt;p style=\"margin-top:4px;color:#666;\"&gt;PhD student · Machine Learning Theory · Fudan University&lt;/p&gt;\n\n\n\n\n🌱 About Me\nI’m a researcher exploring the theory of learning and optimization — probability, convex analysis, and reinforcement learning.\nI enjoy building mathematical bridges between abstract theory and practical intelligence.\nOutside research, I’m passionate about writing, design, and creating public learning ecosystems that empower others to grow.\n\n\n\n🧭 About This Site\nMIStatlE Lab is designed as a high-signal growth space —\na place to learn, share, and think in public.\nHere you’ll find:\n\n🎓 Guides — structured notes on math, optimization, and ML theory\n\n📑 Paper Picks — key research papers, summarized and annotated\n\n🛠 Tools & Workflows — reproducible setups for research & engineering\n\n📚 Good Reads — high-quality articles, books, and courses\n\n🤝 Community — open discussions, collaborations, and ideas\n\n\n✨ The goal: build a truly useful, high-density space for growth and creation —\nopen, rigorous, and quietly idealistic.\n\n\n\n\n📬 Stay Connected\n\nGitHub → MIStatlE\n\nWeChat Official Account → Beyond Proof\n\nEmail → mistatle[at]gmail.com\n\n\n\n“Order and Romanticism can coexist — when curiosity meets precision.”"
   },
   {
     "objectID": "posts/2025-10-07-welcome.html",

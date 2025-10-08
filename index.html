@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Welcome – MIStatlE Lab</title>
+<title>MIStatlE Lab</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -75,56 +75,13 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Welcome – MIStatlE Lab">
+<meta property="og:title" content="MIStatlE Lab">
 <meta property="og:description" content="A high-signal growth space: math, ML theory, papers, tools, and community.">
 <meta property="og:image" content="https://mistatle.github.io/images/cover.jpg">
 <meta property="og:site_name" content="MIStatlE Lab">
-<meta name="twitter:title" content="Welcome – MIStatlE Lab">
+<meta name="twitter:title" content="MIStatlE Lab">
 <meta name="twitter:description" content="A high-signal growth space: math, ML theory, papers, tools, and community.">
 <meta name="twitter:image" content="https://mistatle.github.io/images/cover.jpg">
 <meta name="twitter:creator" content="@MIStatlE">
@@ -394,7 +351,9 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#hello-im-mistatle" id="toc-hello-im-mistatle" class="nav-link active" data-scroll-target="#hello-im-mistatle">Hello, I’m <strong>MIStatlE</strong> 👋</a></li>
+  <li><a href="#about-me" id="toc-about-me" class="nav-link active" data-scroll-target="#about-me">🌱 About Me</a></li>
+  <li><a href="#about-this-site" id="toc-about-this-site" class="nav-link" data-scroll-target="#about-this-site">🧭 About This Site</a></li>
+  <li><a href="#stay-connected" id="toc-stay-connected" class="nav-link" data-scroll-target="#stay-connected">📬 Stay Connected</a></li>
   </ul>
 </nav>
     </div>
@@ -404,7 +363,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Welcome</h1>
+<h1 class="title">MIStatlE Lab</h1>
 </div>
 
 
@@ -421,17 +380,56 @@ window.Quarto = {
 </header>
 
 
-<section id="hello-im-mistatle" class="level1">
-<h1>Hello, I’m <strong>MIStatlE</strong> 👋</h1>
-<p>This is my minimal <strong>Quarto</strong> website. Math works out of the box:</p>
+<div style="display:flex;align-items:center;gap:20px;margin-top:10px;">
+<img src="images/avatar.png" alt="MIStatlE Avatar" style="width:120px;height:120px;border-radius:50%;box-shadow:0 0 6px rgba(0,0,0,0.1);">
+<div>
+<pre><code>&lt;h2 style="margin-bottom:0;"&gt;Hi, I'm &lt;strong&gt;MIStatlE&lt;/strong&gt; 👋&lt;/h2&gt;
+&lt;p style="margin-top:4px;color:#666;"&gt;PhD student · Machine Learning Theory · Fudan University&lt;/p&gt;</code></pre>
+</div>
+</div>
+<hr>
+<section id="about-me" class="level3">
+<h3 class="anchored" data-anchor-id="about-me">🌱 About Me</h3>
+<p>I’m a researcher exploring the <strong>theory of learning and optimization</strong> — probability, convex analysis, and reinforcement learning.<br>
+I enjoy building <strong>mathematical bridges</strong> between abstract theory and practical intelligence.</p>
+<p>Outside research, I’m passionate about writing, design, and creating <strong>public learning ecosystems</strong> that empower others to grow.</p>
+<hr>
+</section>
+<section id="about-this-site" class="level3">
+<h3 class="anchored" data-anchor-id="about-this-site">🧭 About This Site</h3>
+<p><strong>MIStatlE Lab</strong> is designed as a high-signal growth space —<br>
+a place to learn, share, and think in public.</p>
+<p>Here you’ll find:</p>
 <ul>
-<li>Inline math: <span class="math inline">\int_0^1 x^2\,dx = 1/3</span></li>
-<li>Display math:</li>
+<li>🎓 <strong>Guides</strong> — structured notes on math, optimization, and ML theory<br>
+</li>
+<li>📑 <strong>Paper Picks</strong> — key research papers, summarized and annotated<br>
+</li>
+<li>🛠 <strong>Tools &amp; Workflows</strong> — reproducible setups for research &amp; engineering<br>
+</li>
+<li>📚 <strong>Good Reads</strong> — high-quality articles, books, and courses<br>
+</li>
+<li>🤝 <strong>Community</strong> — open discussions, collaborations, and ideas</li>
 </ul>
-<p><span class="math display">
-\mathbb{P}(|S_n - n\mu| \ge t) \le 2\exp\!\left(-\frac{t^2}{2\sigma^2 n}\right).
-</span></p>
-<p>Use the <strong>Posts</strong> section for articles and notes. Edit <code>_quarto.yml</code> to customize the navbar and theme1.</p>
+<blockquote class="blockquote">
+<p>✨ The goal: <strong>build a truly useful, high-density space for growth and creation</strong> —<br>
+open, rigorous, and quietly idealistic.</p>
+</blockquote>
+<hr>
+</section>
+<section id="stay-connected" class="level3">
+<h3 class="anchored" data-anchor-id="stay-connected">📬 Stay Connected</h3>
+<ul>
+<li>GitHub → <a href="https://github.com/MIStatlE">MIStatlE</a><br>
+</li>
+<li>WeChat Official Account → <strong>Beyond Proof</strong><br>
+</li>
+<li>Email → <code>mistatle[at]gmail.com</code></li>
+</ul>
+<hr>
+<div style="text-align:center;margin-top:40px;font-style:italic;color:#999;">
+<p>“Order and Romanticism can coexist — when curiosity meets precision.”</p>
+</div>
 
 
 </section>
