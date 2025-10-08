@@ -1,4 +1,4 @@
-name: Build & Deploy Quarto (EN+ZH)
+name: Build & Deploy Quarto
 
 on:
   push:
@@ -18,48 +18,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: 1.8.25   # 固定稳定版
+          version: 1.8.25
 
-      - name: Clean _site
-        run: rm -rf _site && mkdir -p _site/en _site/zh
-
-      # --- 最小验证：先只渲染 Home + About，确保通关 ---
-      - name: Render EN (minimal)
-        run: |
-          test -f index.qmd && test -f about.qmd
-          quarto render index.qmd about.qmd \
-            --profile en \
-            --output-dir _site/en \
-            --log-level=debug
-
-      - name: Render ZH (minimal)
-        run: |
-          test -f index.zh.qmd && test -f about.zh.qmd
-          quarto render index.zh.qmd about.zh.qmd \
-            --profile zh \
-            --output-dir _site/zh \
-            --log-level=debug
-
-      # --- 全量构建（通过最小验证后再打开这两步） ---
-      # - name: Render EN (full site)
-      #   run: |
-      #     quarto render \
-      #       --profile en \
-      #       --output-dir _site/en \
-      #       --log-level=debug
-      #
-      # - name: Render ZH (full site)
-      #   run: |
-      #     quarto render \
-      #       --profile zh \
-      #       --output-dir _site/zh \
-      #       --log-level=debug
+      - name: Render site
+        run: quarto render --log-level=debug
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
