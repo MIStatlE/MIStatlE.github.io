@@ -1,5 +1,4 @@
 project:
-  profile: zh
   output-dir: _site/zh
 
 website:
