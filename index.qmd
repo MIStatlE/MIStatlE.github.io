@@ -1,18 +1,51 @@
 ---
-title: "Welcome"
+title: "MIStatlE Lab"
 image: images/cover.jpg
 page-layout: article
 ---
 
-# Hello, I'm **MIStatlE** 👋
+<div style="display:flex;align-items:center;gap:20px;margin-top:10px;">
+  <img src="images/avatar.png" alt="MIStatlE Avatar" style="width:120px;height:120px;border-radius:50%;box-shadow:0 0 6px rgba(0,0,0,0.1);">
+  <div>
+    <h2 style="margin-bottom:0;">Hi, I'm <strong>MIStatlE</strong> 👋</h2>
+    <p style="margin-top:4px;color:#666;">PhD student · Machine Learning Theory · Fudan University</p>
+  </div>
+</div>
 
-This is my minimal **Quarto** website. Math works out of the box:
+---
 
-- Inline math: $\int_0^1 x^2\,dx = 1/3$
-- Display math:
+### 🌱 About Me
+I'm a researcher exploring the **theory of learning and optimization** — probability, convex analysis, and reinforcement learning.  
+I enjoy building **mathematical bridges** between abstract theory and practical intelligence.
 
-$$
-\mathbb{P}(|S_n - n\mu| \ge t) \le 2\exp\!\left(-\frac{t^2}{2\sigma^2 n}\right).
-$$
+Outside research, I’m passionate about writing, design, and creating **public learning ecosystems** that empower others to grow.
 
-Use the **Posts** section for articles and notes. Edit `_quarto.yml` to customize the navbar and theme1.
+---
+
+### 🧭 About This Site
+**MIStatlE Lab** is designed as a high-signal growth space —  
+a place to learn, share, and think in public.
+
+Here you’ll find:
+
+- 🎓 **Guides** — structured notes on math, optimization, and ML theory  
+- 📑 **Paper Picks** — key research papers, summarized and annotated  
+- 🛠 **Tools & Workflows** — reproducible setups for research & engineering  
+- 📚 **Good Reads** — high-quality articles, books, and courses  
+- 🤝 **Community** — open discussions, collaborations, and ideas
+
+> ✨ The goal: **build a truly useful, high-density space for growth and creation** —  
+> open, rigorous, and quietly idealistic.
+
+---
+
+### 📬 Stay Connected
+- GitHub → [MIStatlE](https://github.com/MIStatlE)  
+- WeChat Official Account → **Beyond Proof**  
+- Email → `mistatle[at]gmail.com`
+
+---
+
+<div style="text-align:center;margin-top:40px;font-style:italic;color:#999;">
+“Order and Romanticism can coexist — when curiosity meets precision.”  
+</div>
