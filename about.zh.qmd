@@ -1,0 +1,5 @@
+title: "关于"
+---
+MIStatlE Lab 面向严谨学习与开放分享：数学、机器学习理论、论文精选、工具与学习者社区。
+
+[English Intro](/en/about.html)

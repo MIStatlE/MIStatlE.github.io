@@ -1,53 +1,19 @@
----
-title: "MIStatlE Lab"
-image: images/WechatIMG522.jpg   # 确保文件存在且大小写一致
-page-layout: article
+title: "Welcome"
+format: html
 ---
 
-::: {.columns}
-::: {.column width="25%"}
-![](images/avatar.png){width=120px style="border-radius:50%; box-shadow:0 0 6px rgba(0,0,0,0.1);"}
-:::
-::: {.column width="75%"}
-## Hi, I'm **MIStatlE**
-<p style="margin-top:4px;color:#666;">PhD student · Machine Learning Theory · Fudan University</p>
-:::
-:::
+<div class="hero">
+<p class="kicker">MIStatlE Lab</p>
+# A high-signal growth space
 
----
+Math • ML Theory • Papers • Tools • Community
 
-### About Me
-I'm a researcher exploring the **theory of learning and optimization** — probability, convex analysis, and reinforcement learning.  
-I enjoy building **mathematical bridges** between abstract theory and practical intelligence.
-
-Outside research, I’m passionate about writing, design, and creating **public learning ecosystems** that empower others to grow.
-
----
-
-### About This Site
-**MIStatlE Lab** is designed as a high-signal growth space —  
-a place to learn, share, and think in public.
-
-Here you’ll find:
-
-- **Guides** — structured notes on math, optimization, and ML theory  
-- **Paper Picks** — key research papers, summarized and annotated  
-- **Tools & Workflows** — reproducible setups for research & engineering  
-- **Good Reads** — high-quality articles, books, and courses  
-- **Community** — open discussions, collaborations, and ideas
-
-> The goal: **build a truly useful, high-density space for growth and creation** —  
-> open, rigorous, and quietly idealistic.
-
----
-
-### Stay Connected
-- GitHub → [MIStatlE](https://github.com/MIStatlE)  
-- WeChat Official Account → **Beyond Proof**  
-- Email → `mistatle[at]gmail.com`
-
----
-
-<div style="text-align:center;margin-top:40px;font-style:italic;color:#999;">
-“Order and Romanticism can coexist — when curiosity meets precision.”
+[中文版 ›](/zh/index.html){.button .primary}
 </div>
+
+## What's inside
+- Guides: Probability, Optimization, ML Theory, RL/Online
+- Paper Picks & Posts
+- Tools & Good Reads
+- Community
+

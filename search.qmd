@@ -1,0 +1,5 @@
+title: "Search"
+---
+::: callout-tip
+Use the navbar search (browser) or your site search engine.
+:::
