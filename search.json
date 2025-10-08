@@ -63,13 +63,6 @@
     "text": "Tip\n\n\n\nUse the navbar search (browser) or your site search engine."
   },
   {
-    "objectID": "reads/index.html",
-    "href": "reads/index.html",
-    "title": "Good Reads",
-    "section": "",
-    "text": "高信息密度外部资源：长文、书单、课程、视频与博客。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\nNo matching items"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "A high-signal growth space",
@@ -82,6 +75,13 @@
     "title": "A high-signal growth space",
     "section": "What’s inside",
     "text": "What’s inside\n\nGuides: Probability, Optimization, ML Theory, RL/Online\nPaper Picks & Posts\nTools & Good Reads\nCommunity"
+  },
+  {
+    "objectID": "reads/index.html",
+    "href": "reads/index.html",
+    "title": "Good Reads",
+    "section": "",
+    "text": "高信息密度外部资源：长文、书单、课程、视频与博客。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/index.html",
