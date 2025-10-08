@@ -1,0 +1,61 @@
+name: Build & Deploy Quarto (EN+ZH)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.8.25   # 固定稳定版，避免 vlatest 404
+
+      # 可选：Pandoc（一般 Quarto 自带，不装也行）
+      # - name: Setup Pandoc
+      #   uses: r-lib/actions/setup-pandoc@v2
+
+      - name: Clean _site
+        run: rm -rf _site
+
+      # 关键：直接渲染到目标目录，避免渲染后重命名导致的 NotFound
+      - name: Render EN
+        run: |
+          mkdir -p _site/en
+          quarto render --profile en --render-dir _site/en --output-dir _site/en --log-level=debug
+
+      - name: Render ZH
+        run: |
+          mkdir -p _site/zh
+          quarto render --profile zh --render-dir _site/zh --output-dir _site/zh --log-level=debug
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
