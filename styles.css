@@ -6,3 +6,12 @@
 .quarto-title-banner { background: linear-gradient(90deg,#0f172a,#334155); color:#fff; }
 .callout-tip { border-left-color: var(--brand); }
 a { text-decoration: none; }
+.navbar .nav-link img.nav-icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  opacity: .9;
+}
+.navbar .nav-link img.nav-icon:hover {
+  opacity: 1;
+}
