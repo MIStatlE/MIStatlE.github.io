@@ -36,18 +36,14 @@ website:
       - text: About
         href: about.qmd
     right:
-      - image: images/icons/bilibili.svg
+      - text: "<img src='images/icons/bilibili.svg' alt='Bilibili' class='nav-icon'/>"
         href: https://space.bilibili.com/你的UID
-        aria-label: Bilibili
-      - image: images/icons/xiaohongshu.svg
+      - text: "<img src='images/icons/xiaohongshu.svg' alt='Xiaohongshu' class='nav-icon'/>"
         href: https://www.xiaohongshu.com/user/profile/你的ID
-        aria-label: Xiaohongshu
-      - image: images/icons/zhihu.svg
+      - text: "<img src='images/icons/zhihu.svg' alt='Zhihu' class='nav-icon'/>"
         href: https://www.zhihu.com/people/你的ID
-        aria-label: Zhihu
-      - image: images/icons/youtube.svg
+      - icon: youtube
         href: https://www.youtube.com/@你的频道
-        aria-label: YouTube
       - icon: github
         href: https://github.com/MIStatlE
       - icon: rss
