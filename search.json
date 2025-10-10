@@ -63,18 +63,32 @@
     "text": "学习目标\n从零到一理解扩散模型：动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。"
   },
   {
-    "objectID": "guides/diffusion/index.html#网课资源",
-    "href": "guides/diffusion/index.html#网课资源",
+    "objectID": "guides/diffusion/index.html#扩散模型要解决的问题",
+    "href": "guides/diffusion/index.html#扩散模型要解决的问题",
     "title": "Diffusion Models",
-    "section": "网课资源",
-    "text": "网课资源\n\n\n书籍资料"
+    "section": "🧭 扩散模型要解决的问题",
+    "text": "🧭 扩散模型要解决的问题\n生成模型希望学习未知分布 p^*(x)，从而生成近似样本。\n直接从噪声“一步”生成复杂数据往往困难，而扩散模型的关键在于：\n\n前向扩散（Forward Diffusion）：逐步加噪，使数据分布趋近高斯；\n反向过程（Reverse Diffusion）：学习去噪映射，把噪声还原为数据；\n每一步都只需建模相邻分布 p(x_{t-\\Delta t}\\mid x_t)，学习更稳定。\n\n\n核心等价关系：\n\\text{Denoising} \\;\\Leftrightarrow\\; \\text{Learning } \\nabla_x \\log p_t(x)\n学习去噪即学习“得分函数”，方向即密度上升最快的方向。"
   },
   {
-    "objectID": "guides/diffusion/index.html#入门推荐step-by-step-diffusionarxiv2406.08929",
-    "href": "guides/diffusion/index.html#入门推荐step-by-step-diffusionarxiv2406.08929",
+    "objectID": "guides/diffusion/index.html#模型概览",
+    "href": "guides/diffusion/index.html#模型概览",
     "title": "Diffusion Models",
-    "section": "入门推荐：Step-by-Step Diffusion（arXiv:2406.08929）",
-    "text": "入门推荐：Step-by-Step Diffusion（arXiv:2406.08929）\n\n原文：https://arxiv.org/pdf/2406.08929\n\n这篇教程以最小数学依赖讲解扩散模型的核心直觉与采样流程，强调“加噪→去噪”的构造思路，帮助快速形成整体认知（DDPM、DDIM、Flow Matching 的联系与差异）。\n谁适合读？ - 想先抓“为什么这样做”的直觉，而非从繁琐推导的数学理论开始；\n\n下方自动汇总本栏目下的所有「Diffusion」笔记（notes/*.qmd）。\n如需新增，直接在 guides/diffusion/notes/ 目录中添加新 .qmd 文件即可。"
+    "section": "🧩 模型概览",
+    "text": "🧩 模型概览\n\n\n\n\n\n\n\n\n模型\n核心特征\n适合理解的方向\n\n\n\n\nDDPM (Ho et al., 2020)\n随机反演，采样多样性强\n适合学习随机微分方程与噪声调度思想\n\n\nDDIM (Song et al., 2020)\n确定性采样，速度快\n适合工程与推理效率研究\n\n\nFlow Matching (Lipman et al., 2023)\n统一连续流框架\n适合理解 ODE/SDE 统一与几何流"
+  },
+  {
+    "objectID": "guides/diffusion/index.html#推荐网课与讲座",
+    "href": "guides/diffusion/index.html#推荐网课与讲座",
+    "title": "Diffusion Models",
+    "section": "🎓 推荐网课与讲座",
+    "text": "🎓 推荐网课与讲座\n\n\n\n课程\n来源\n定位与特点\n适合人群\n\n\n\n\nMIT 6.S980 — Diffusion Models\nMIT\n最系统的扩散入门课程；讲清从加噪→去噪→采样的完整流程，覆盖 DDPM、SDE、Flow Matching\n希望“系统掌握原理+数学背景”的研究生\n\n\nCS236 — Deep Generative Models\nStanford\n将扩散模型放在生成模型的整体框架中讲解（与VAE、GAN对比）\n想理解扩散在整个生成建模中的位置\n\n\nSTAT 157 — Deep Unsupervised Learning\nBerkeley\n从“概率建模 + 实验”的角度介绍 score-based 方法，重视动机和实践\n想边学边做、快速上手的同学\n\n\nDiffusion Seminar Series\nDeepMind × UCL\n汇集各大实验室研究者讲解前沿思想（Consistency、Flow Matching 等）\n已有基础，想了解学界前沿动向的人"
+  },
+  {
+    "objectID": "guides/diffusion/index.html#推荐资料与书籍",
+    "href": "guides/diffusion/index.html#推荐资料与书籍",
+    "title": "Diffusion Models",
+    "section": "📚 推荐资料与书籍",
+    "text": "📚 推荐资料与书籍\n💡 入门阅读推荐：Step-by-Step Diffusion（arXiv:2406.08929）\n这篇教程是理想的“第一本扩散模型笔记”。\n作者以“加噪-去噪”为主线，用最直觉的方式解释每一步“为什么这样做”，并附带简洁的伪代码与图示。\n如果你对 SDE、ELBO、Score Matching 等概念不熟，它能帮你先建立正确的全局图景。\n\n\n📂 下方自动汇总所有 Diffusion 相关笔记（notes/*.qmd）\n在 guides/diffusion/notes/ 目录中添加新 .qmd 文件即可自动展示。"
   },
   {
     "objectID": "tools/quarto-setup.html",
