@@ -1,9 +1,13 @@
 [
   {
-    "listing": "/tools/index.html",
+    "listing": "/guides/diffusion/index.html",
     "items": [
-      "/tools/quarto-setup.html"
+      "/guides/diffusion/notes/ddpm.html"
     ]
+  },
+  {
+    "listing": "/reads/index.html",
+    "items": []
   },
   {
     "listing": "/posts/index.html",
@@ -12,12 +16,10 @@
     ]
   },
   {
-    "listing": "/reads/index.html",
-    "items": []
-  },
-  {
-    "listing": "/guides/diffusion/index.html",
-    "items": []
+    "listing": "/tools/index.html",
+    "items": [
+      "/tools/quarto-setup.html"
+    ]
   },
   {
     "listing": "/papers/index.html",

@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2025-01-10">
+<meta name="description" content="最小实现思路、噪声调度、步数与质量的权衡。">
 
-<title>Posts – FRAIMEL</title>
+<title>DDPM：从反向 SDE 到采样器 – FRAIMEL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,31 +25,29 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../images/image1.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-e24644aab278aee125c7f2d0a581bc5b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/image1.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-e24644aab278aee125c7f2d0a581bc5b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -75,35 +75,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-date','listing-categories','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -150,12 +121,14 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="../styles.css">
-<link rel="alternate" type="application/rss+xml" title="FRAIMEL" href="index.xml" data-external="1"><meta property="og:title" content="Posts – FRAIMEL">
-<meta property="og:description" content="A high-signal growth space: math, ML theory, papers, tools, and community.">
+<link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="DDPM：从反向 SDE 到采样器 – FRAIMEL">
+<meta property="og:description" content="最小实现思路、噪声调度、步数与质量的权衡。">
+<meta property="og:image" content="https://mistatle.github.io/guides/images/tool-card.png">
 <meta property="og:site_name" content="FRAIMEL">
-<meta name="twitter:title" content="Posts – FRAIMEL">
-<meta name="twitter:description" content="A high-signal growth space: math, ML theory, papers, tools, and community.">
+<meta name="twitter:title" content="DDPM：从反向 SDE 到采样器 – FRAIMEL">
+<meta name="twitter:description" content="最小实现思路、噪声调度、步数与质量的权衡。">
+<meta name="twitter:image" content="https://mistatle.github.io/guides/images/tool-card.png">
 <meta name="twitter:creator" content="@MIStatlE">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -329,11 +302,11 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../images/image1.png" alt="" class="navbar-logo light-content">
-    <img src="../images/image1.png" alt="" class="navbar-logo dark-content">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../images/image1.png" alt="" class="navbar-logo light-content">
+    <img src="../../../images/image1.png" alt="" class="navbar-logo dark-content">
     </a>
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">FRAIMEL</span>
     </a>
   </div>
@@ -344,7 +317,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -353,49 +326,49 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-guides">    
         <li>
-    <a class="dropdown-item" href="../guides/prob/index.qmd">
+    <a class="dropdown-item" href="../../../guides/prob/index.qmd">
  <span class="dropdown-text">Probability &amp; Stats</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../guides/opt/index.qmd">
+    <a class="dropdown-item" href="../../../guides/opt/index.qmd">
  <span class="dropdown-text">Optimization</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../guides/mlt/index.qmd">
+    <a class="dropdown-item" href="../../../guides/mlt/index.qmd">
  <span class="dropdown-text">ML Theory</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../guides/diffusion/index.html">
+    <a class="dropdown-item" href="../../../guides/diffusion/index.html">
  <span class="dropdown-text">Diffusion</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../guides/rl/index.qmd">
+    <a class="dropdown-item" href="../../../guides/rl/index.qmd">
  <span class="dropdown-text">RL / Online Learning</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../papers/index.html"> 
+    <a class="nav-link" href="../../../papers/index.html"> 
 <span class="menu-text">Paper Picks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../posts/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../../posts/index.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tools/index.html"> 
+    <a class="nav-link" href="../../../tools/index.html"> 
 <span class="menu-text">Tools</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../reads/index.html"> 
+    <a class="nav-link" href="../../../reads/index.html"> 
 <span class="menu-text">Good Reads</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../community/index.html"> 
+    <a class="nav-link" href="../../../community/index.html"> 
 <span class="menu-text">Community</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
+    <a class="nav-link" href="../../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -423,12 +396,12 @@ window.Quarto = {
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="../posts/index.xml"> <i class="bi bi-rss" role="img">
+    <a class="nav-link" href="../../../posts/index.xml"> <i class="bi bi-rss" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../search.html"> 
+    <a class="nav-link" href="../../../search.html"> 
 <span class="menu-text">Search</span></a>
   </li>  
 </ul>
@@ -443,8 +416,16 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#动机" id="toc-动机" class="nav-link active" data-scroll-target="#动机">动机</a></li>
+  <li><a href="#关键等式" id="toc-关键等式" class="nav-link" data-scroll-target="#关键等式">关键等式</a></li>
+  <li><a href="#代码片段" id="toc-代码片段" class="nav-link" data-scroll-target="#代码片段">代码片段</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -452,14 +433,30 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Posts</h1>
-</div>
+<h1 class="title">DDPM：从反向 SDE 到采样器</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">diffusion</div>
+    <div class="quarto-category">ddpm</div>
+    <div class="quarto-category">sde</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    最小实现思路、噪声调度、步数与质量的权衡。
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 10, 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -469,40 +466,22 @@ window.Quarto = {
 </header>
 
 
-<p>Welcome to my posts.</p>
+<section id="动机" class="level2">
+<h2 class="anchored" data-anchor-id="动机">动机</h2>
+<p>给定 <span class="math inline">p^*(x)</span> 的样本，学习反向一步 <span class="math inline">p(x_{t-\Delta t}\mid x_t)</span> 的均值…</p>
+</section>
+<section id="关键等式" class="level2">
+<h2 class="anchored" data-anchor-id="关键等式">关键等式</h2>
+<p><span class="math inline">\,\arg\min_f \mathbb E\| f(x_t)-x_{t-\Delta t}\|^2 = \mathbb E[x_{t-\Delta t}\mid x_t]</span> …</p>
+</section>
+<section id="代码片段" class="level2">
+<h2 class="anchored" data-anchor-id="代码片段">代码片段</h2>
+<p>```python # 你的伪代码 / 真实代码</p>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="bWV0YSUyQ3NldHVw" data-listing-date-sort="1759795200000" data-listing-file-modified-sort="1760076622452" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="35">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../posts/2025-10-07-welcome.html" class="no-external">Starting Over: Building MIStatlE Lab</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('bWV0YQ=='); return false;">meta</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('c2V0dXA='); return false;">setup</div>
-
-</div>
-<div class="delink listing-description"><a href="../posts/2025-10-07-welcome.html" class="no-external">
-<p>A simple Quarto starter with math support, post listings, and GitHub Pages auto-deploy.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../posts/2025-10-07-welcome.html" class="no-external">
-<div class="listing-date">
-Oct 7, 2025
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -939,5 +918,5 @@ Oct 7, 2025
 
 
 
-<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

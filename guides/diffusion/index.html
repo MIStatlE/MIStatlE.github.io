@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。">
+<meta name="description" content="从零到一：前向加噪、反向去噪、DDPM/DDIM、Flow Matching 与理论基础。">
 
 <title>Diffusion — Index – FRAIMEL</title>
 <style>
@@ -86,9 +86,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-title','listing-date','listing-categories','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-image','listing-title','listing-categories','listing-date','listing-description','listing-reading-time',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-categories"],
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -153,10 +153,12 @@ window.Quarto = {
 
 <link rel="stylesheet" href="../../styles.css">
 <meta property="og:title" content="Diffusion — Index – FRAIMEL">
-<meta property="og:description" content="从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。">
+<meta property="og:description" content="从零到一：前向加噪、反向去噪、DDPM/DDIM、Flow Matching 与理论基础。">
+<meta property="og:image" content="https://mistatle.github.io/images/tool-card.png">
 <meta property="og:site_name" content="FRAIMEL">
 <meta name="twitter:title" content="Diffusion — Index – FRAIMEL">
-<meta name="twitter:description" content="从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。">
+<meta name="twitter:description" content="从零到一：前向加噪、反向去噪、DDPM/DDIM、Flow Matching 与理论基础。">
+<meta name="twitter:image" content="https://mistatle.github.io/images/tool-card.png">
 <meta name="twitter:creator" content="@MIStatlE">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -450,11 +452,9 @@ window.Quarto = {
    
   <ul>
   <li><a href="#学习路径简版" id="toc-学习路径简版" class="nav-link active" data-scroll-target="#学习路径简版">学习路径（简版）</a></li>
-  <li><a href="#推荐起点" id="toc-推荐起点" class="nav-link" data-scroll-target="#推荐起点">推荐起点</a></li>
-  <li><a href="#笔记按时间倒序" id="toc-笔记按时间倒序" class="nav-link" data-scroll-target="#笔记按时间倒序">笔记（按时间倒序）</a></li>
   </ul>
 </nav>
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(0)</span></div></div></div>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -462,11 +462,14 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Diffusion — Index</h1>
-</div>
+  <div class="quarto-categories">
+    <div class="quarto-category">diffusion</div>
+  </div>
+  </div>
 
 <div>
   <div class="description">
-    从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。
+    从零到一：前向加噪、反向去噪、DDPM/DDIM、Flow Matching 与理论基础。
   </div>
 </div>
 
@@ -490,43 +493,53 @@ window.Quarto = {
 <section id="学习路径简版" class="level2">
 <h2 class="anchored" data-anchor-id="学习路径简版">学习路径（简版）</h2>
 <ul>
-<li>Forward：<span class="math inline">x_{t+\Delta t}=x_t+\eta_t,\ \eta_t\sim\mathcal N(0,\sigma_q^2\Delta t)</span><br>
-</li>
-<li>Reverse：学习 <span class="math inline">p(x_{t-\Delta t}\mid x_t)</span> 或其均值方向（得分）<br>
-</li>
-<li>ODE 视角（DDIM）与 SDE 视角（DDPM）统一<br>
-</li>
-<li>Flow Matching：确定性流的训练与加速</li>
+<li>先修：概率/最优化/矩阵微积分</li>
+<li>入门：前向/反向、得分与 Tweedie</li>
+<li>统一：SDE↔︎ODE，DDPM vs DDIM</li>
+<li>进阶：Flow Matching / Consistency</li>
+<li>实践：复现 &amp; ablation</li>
 </ul>
-</section>
-<section id="推荐起点" class="level2">
-<h2 class="anchored" data-anchor-id="推荐起点">推荐起点</h2>
-<ul>
-<li>Ho et al.&nbsp;(2020), Song &amp; Ermon (2019)<br>
-</li>
-<li>Song et al.&nbsp;(2021 SDE 统一), DDIM (2020)<br>
-</li>
-<li>Lipman et al.&nbsp;(2023 Flow Matching)</li>
-</ul>
-<hr>
-</section>
-<section id="笔记按时间倒序" class="level2">
-<h2 class="anchored" data-anchor-id="笔记按时间倒序">笔记（按时间倒序）</h2>
-<p>（下方为自动生成的卡片列表）</p>
+<blockquote class="blockquote">
+<p>下方为该专题的所有笔记卡片（来自 <code>guides/diffusion/notes/*.qmd</code>）。</p>
+</blockquote>
 
 
 
 </section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="listing-actions-group">
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
+<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="ZGlmZnVzaW9uJTJDZGRwbSUyQ3NkZQ==" data-listing-date-sort="1736467200000" data-listing-file-modified-sort="1760076622450" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="22">
+<a href="../../guides/diffusion/notes/ddpm.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../../guides/images/tool-card.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+DDPM：从反向 SDE 到采样器
+</h5>
+<div class="listing-reading-time card-text text-muted">1 min</div>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('ZGlmZnVzaW9u'); return false;">diffusion</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('ZGRwbQ=='); return false;">ddpm</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('c2Rl'); return false;">sde</div>
+
 </div>
-<div class="list quarto-listing-default">
-
+<div class="card-text listing-description delink">
+<p>最小实现思路、噪声调度、步数与质量的权衡。</p>
+</div>
+<div class="card-attribution card-text-small end">
+<div class="listing-date">
+Jan 10, 2025
+</div>
+</div>
+</div>
+</div></a>
+</div>
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
 </div></main> <!-- /main -->
