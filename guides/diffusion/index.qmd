@@ -1,6 +1,6 @@
 ---
 title: "Diffusion Models"
-description: "从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。"
+description: "从前向加噪与反向去噪出发，学习 DDPM、DDIM、Flow Matching 与理论基础。"
 page-layout: article
 toc: true
 toc-title: "On this page"
@@ -20,38 +20,19 @@ listing:
 
 ---
 
-## 学习路径建议
-
-| 阶段 | 学什么 | 目标 |
-|------|--------|------|
-| 入门 | 扩散动机、前向/反向、得分函数与 Tweedie | 复现一个最小去噪器 |
-| 统一 | 理解 $\,\text{SDE}\leftrightarrow\text{ODE}\,$、DDPM vs DDIM | 看懂连续视角与采样差异 |
-| 进阶 | Flow Matching / Consistency / 噪声调度 | 构建确定性快速采样流 |
-| 理论 | Fokker–Planck, KL, Localization | 掌握收敛性与复杂度直觉 |
-| 实践 | CIFAR10 / FFHQ / 文本条件 | 跑通完整 pipeline |
+## 网课资源
 
 ---
-
+### 书籍资料
 ## 入门推荐：Step-by-Step Diffusion（arXiv:2406.08929）
-
-> *“Teach diffusion as simply as possible, with minimal mathematical prerequisites.”*  
-> — Nakkiran, Bradley, Zhou, Advani (2024)  
+ 
 > 原文：<https://arxiv.org/pdf/2406.08929>
 
 这篇教程以**最小数学依赖**讲解扩散模型的核心直觉与采样流程，强调“加噪→去噪”的构造思路，帮助快速形成整体认知（DDPM、DDIM、Flow Matching 的联系与差异）。
 
 **谁适合读？**
-- 初学扩散但具备基本概率/线代基础；
-- 想先抓“为什么这样做”的直觉，而非从繁琐推导开始；
-- 需要一条从直觉到算法实现的清晰路径。
+- 想先抓“为什么这样做”的直觉，而非从繁琐推导的数学理论开始；
 
-**延伸阅读**
-- **DDPM**：Ho et al., 2020 — <https://arxiv.org/abs/2006.11239>  
-- **DDIM**：Song et al., 2020 — <https://arxiv.org/abs/2010.02502>  
-- **SDE 统一**：Song et al., 2021 — <https://arxiv.org/abs/2011.13456>  
-- **Flow Matching**：Lipman et al., 2023 — <https://arxiv.org/abs/2210.02747>
-
----
 
 > 下方自动汇总本栏目下的所有「Diffusion」笔记（`notes/*.qmd`）。  
 > 如需新增，直接在 `guides/diffusion/notes/` 目录中添加新 `.qmd` 文件即可。
