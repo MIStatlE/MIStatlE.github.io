@@ -1,18 +1,11 @@
-# guides/diffusion/_metadata.yml
-format:
-  html:
-    toc: true
-    toc-depth: 3
-    code-copy: true
-    anchor-sections: true
+# 让 notes 目录下的所有 .qmd 默认带这些 Front Matter 字段（可被单篇覆盖）
+title-block-banner: false
+freeze: auto
 
-# 让 notes 下的文章默认有文章风格、启用草图卡片信息
-defaults:
-  - scope:
-      path: notes
-      type: file
-    values:
-      page-layout: article
-      draft: false
-      categories: ["diffusion"]
-      # 如果你常放首图，可在每篇里设置 image: images/xxx.jpg
+# 通用默认：没有设置 image 时使用占位图；默认分类 tags
+image: ../../images/tool-card.png
+categories: [diffusion]
+draft: false
+
+# （可选）默认显示在卡片中的信息（配合 index.qmd 的 listing.fields）
+description: "Notes on diffusion models."
