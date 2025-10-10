@@ -5,7 +5,7 @@
       xmlns:dc="http://purl.org/dc/elements/1.1/" 
       version="2.0">
 <channel>
-<title>MIStatlE Lab</title>
+<title>FRAIMEL</title>
 <link>https://mistatle.github.io/posts/</link>
 <atom:link href="https://mistatle.github.io/posts/index.xml" rel="self" type="application/rss+xml"/>
 <description>A high-signal growth space: math, ML theory, papers, tools, and community.</description>
