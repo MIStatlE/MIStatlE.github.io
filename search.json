@@ -147,70 +147,56 @@
     "href": "guides/diffusion/index.html",
     "title": "Diffusion Models — Index",
     "section": "",
-    "text": "What you’ll get\n一条从零到一的学习路径：动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。"
+    "text": "Learning Path: 动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。"
   },
   {
     "objectID": "guides/diffusion/index.html#why-diffusion",
     "href": "guides/diffusion/index.html#why-diffusion",
     "title": "Diffusion Models — Index",
     "section": "1. Why Diffusion?",
-    "text": "1. Why Diffusion?\n给定来自未知分布 (p^*(x)) 的 i.i.d. 样本（如狗的图片），目标是构造一个采样器再生出近似的样本。\n扩散模型的“巧思”在于：把“难的一步到位生成”改写成前向加噪（复杂 () 简单）与反向去噪（简单 () 复杂）的多步可逆过程，每一步都更容易学习。\n\n\n\n\n\n\nNote关键视角\n\n\n\n\n前向过程（Forward）：(x_{t+t} = x_t + _t, _tN(0,_q^2t))\n\n反向过程（Reverse）：学习 (p(x_{t-t}x_t)) 或其均值（回归/得分）\n\n得分函数：(_x p_t(x)) 连接去噪与生成（Tweedie/Score Matching）"
+    "text": "1. Why Diffusion?\n给定来自未知分布 p^*(x) 的样本（如狗的图片），目标是构造采样器再生出近似样本。\n扩散模型通过“先加噪，再去噪”把生成任务分解成多步：\n从复杂分布 \\to 高斯噪声（forward），再从高斯噪声 \\to 原始分布（reverse）。\n\n\n\n\n\n\nNote\n\n\n\n\nForward: x_{t+\\Delta t}=x_t+\\eta_t,\\ \\eta_t\\sim\\mathcal N(0,\\sigma_q^2\\Delta t)\n\nReverse: 学习 p(x_{t-\\Delta t}\\mid x_t) 的均值或梯度\n\nScore: \\nabla_x\\log p_t(x) 连接去噪与生成（Tweedie）"
   },
   {
-    "objectID": "guides/diffusion/index.html#learning-roadmap建议顺序",
-    "href": "guides/diffusion/index.html#learning-roadmap建议顺序",
+    "objectID": "guides/diffusion/index.html#learning-roadmap",
+    "href": "guides/diffusion/index.html#learning-roadmap",
     "title": "Diffusion Models — Index",
-    "section": "2. Learning Roadmap（建议顺序）",
-    "text": "2. Learning Roadmap（建议顺序）\n\n\n\n阶段\n学什么\n目标与产出\n参考\n\n\n\n\n0. 先修\n概率、矩阵微积分、最优化、基础深度学习\n读懂符号与损失\n任一本概率/凸优化速览\n\n\n1. 入门\n扩散动机、前向/反向、得分函数与 Tweedie 公式\n写出最小可用去噪器\nHo et al. 2020；Song & Ermon 2019\n\n\n2. 统一视角\nSDE/ODE、概率流方程、DDPM vs DDIM\n推导 SDE()ODE 对应\nSong et al. 2021；DDIM 2020\n\n\n3. 进阶\nFlow Matching / Consistency / 噪声调度\n训练可快速采样的确定性流\nLipman et al. 2023；Albergo et al. 2023\n\n\n4. 理论\nFokker–Planck、KL 轨迹、随机定位\n理解收敛与复杂度\n经典随机过程教材 + 综述\n\n\n5. 实践\n从 CIFAR10/FFHQ 复现，到自定义数据集\n端到端跑通并做 ablation\n开源实现与 Colab\n\n\n阶段\n学什么\n推荐资源\n\n\n\n——\n——–\n———-\n\n\n\n基础入门\n生成模型动机、得分函数\nHo et al. (2020), DeepMind Diffusion Lectures\n\n\n\n数学基础\n随机过程与 SDE\n《Stochastic Differential Equations》 by Øksendal, MIT 18.675\n\n\n\n确定性流\nDDIM 与 Flow Matching\nDDIM Paper, Flow Matching (Lipman, 2023)"
+    "section": "2. Learning Roadmap",
+    "text": "2. Learning Roadmap\n\n\n\n\n\n\n\n\n\n阶段\n学什么\n目标\n参考\n\n\n\n\n0. 先修\n概率、优化、基础深度学习\n掌握符号\n任意教材\n\n\n1. 入门\n扩散动机、Tweedie、得分函数\n写出最小去噪器\nHo et al. 2020；Song & Ermon 2019\n\n\n2. 统一视角\nSDE/ODE、概率流方程\n推导 SDE↔︎ODE\nSong et al. 2021；DDIM 2020\n\n\n3. 进阶\nFlow Matching / Consistency\n训练确定性流\nLipman 2023；Albergo 2023\n\n\n4. 理论\nFokker–Planck、随机定位\n理解收敛\n经典教材\n\n\n5. 实践\nCIFAR10/自定义数据\n跑通采样器\nColab / 开源实现"
   },
   {
-    "objectID": "guides/diffusion/index.html#core-concepts核心概念",
-    "href": "guides/diffusion/index.html#core-concepts核心概念",
+    "objectID": "guides/diffusion/index.html#core-concepts",
+    "href": "guides/diffusion/index.html#core-concepts",
     "title": "Diffusion Models — Index",
-    "section": "3. Core Concepts（核心概念）",
-    "text": "3. Core Concepts（核心概念）\n\n3.1 Forward Diffusion（前向加噪）\n[ x_{t+t} = x_t + _t,_tN(0,_q^2t), ] 使 (p_t) 逐渐趋近高斯；离散步数 (T) 越大，相邻分布越“近”。\n\n\n3.2 Reverse SDE / DDPM（随机反演）\n通过反向 SDE 采样：在每一步对 (x_t) 注入小随机性，保证分布覆盖与多样性。\n\n\n3.3 Probability Flow ODE / DDIM（确定性反演）\n用概率流方程得到确定性轨迹：相同 ({p_t}) 边缘分布下，轨迹唯一、可重复，适合加速与编辑。\n\n\n3.4 Tweedie 与得分\n在高斯观测下， [ (x)=E[x] = x + ^2_xp(x), ] 说明最优去噪方向就是密度上升最快方向；学习去噪()学习得分。"
-  },
-  {
-    "objectID": "guides/diffusion/index.html#prerequisites先修清单",
-    "href": "guides/diffusion/index.html#prerequisites先修清单",
-    "title": "Diffusion Models — Index",
-    "section": "4. Prerequisites（先修清单）",
-    "text": "4. Prerequisites（先修清单）\n\n概率论与统计：条件期望、KL/JS、集中不等式（选修）\n随机过程：布朗运动、伊藤引理、Fokker–Planck（可边学边用）\n优化/深度学习：MSE/L2，AdamW，学习率与噪声调度\n\n\n\n\n\n\n\nTip\n\n\n\n建议边学边做：在玩具 2D 数据上可视化前向/反向轨迹，直观看到“加噪→降噪”的几何过程。"
+    "section": "3. Core Concepts",
+    "text": "3. Core Concepts\n\nForward Diffusion: x_{t+\\Delta t}=x_t+\\eta_t，噪声逐步增大，p_t 近似高斯。\n\nReverse SDE / DDPM: 每步对 x_t 去噪，保证样本多样性。\n\nProbability Flow ODE / DDIM: 确定性反演，轨迹唯一，可加速采样。\n\nTweedie 公式: \\hat\\theta(x)=x+\\sigma^2\\nabla_x\\log p(x)，最优去噪方向即密度上升方向。"
   },
   {
     "objectID": "guides/diffusion/index.html#study-plan810-周",
     "href": "guides/diffusion/index.html#study-plan810-周",
     "title": "Diffusion Models — Index",
-    "section": "5. Study Plan（8–10 周）",
-    "text": "5. Study Plan（8–10 周）\n\nWeek 1–2：复现最小去噪器（单步/多步），理解 MSE 与 (E[x_{t-t}x_t])\n\nWeek 3–4：实现 DDPM 采样；分析噪声调度、步数与 FID/IS\n\nWeek 5–6：切到 DDIM（ODE）；做步数扫描（50→20→10）与一致性对比\n\nWeek 7–8：读 Flow Matching/Consistency，做一次蒸馏或单步模型尝试\n\nWeek 9+：专项：编辑/插值/视频/控制，或做一篇读书/实验报告"
+    "section": "4. Study Plan（8–10 周）",
+    "text": "4. Study Plan（8–10 周）\n\nW1–2: 单步去噪器，实现 \\mathbb E[x_{t-\\Delta t}\\mid x_t]\n\nW3–4: 实现 DDPM；分析步数与噪声调度\n\nW5–6: 转 DDIM；比较采样速度\n\nW7–8: 阅读 Flow Matching/Consistency，做蒸馏实验\n\nW9+: 应用扩展（编辑/插值/视频/控制）"
   },
   {
-    "objectID": "guides/diffusion/index.html#assignments实践作业",
-    "href": "guides/diffusion/index.html#assignments实践作业",
+    "objectID": "guides/diffusion/index.html#assignments",
+    "href": "guides/diffusion/index.html#assignments",
     "title": "Diffusion Models — Index",
-    "section": "6. Assignments（实践作业）",
-    "text": "6. Assignments（实践作业）\n\nToy-2D 可视化：画出 ((p_{t-1},p_t)) 以及反向均值轨迹\n\n回归等式验证：数值验证 (f E|f(x_t)-x{t-1}|^2 = E[x_{t-1}x_t])\n\nDDPM↔︎DDIM 对照：相同步数下比较质量、多样性与速度\n\n得分一致性：估计 (_xp_t) 并验证 Tweedie 方向的“拉回”效应"
+    "section": "5. Assignments",
+    "text": "5. Assignments\n\n2D 可视化： 绘制 (p_{t-1},p_t) 与反向均值轨迹\n\n回归验证： 验证 \\arg\\min_f\\E\\|f(x_t)-x_{t-1}\\|^2=\\E[x_{t-1}\\mid x_t]\n\nDDPM↔︎DDIM： 比较采样速度与质量\n\nScore 一致性： 验证 Tweedie “拉回”效应"
   },
   {
-    "objectID": "guides/diffusion/index.html#recommended-reading分层阅读",
-    "href": "guides/diffusion/index.html#recommended-reading分层阅读",
+    "objectID": "guides/diffusion/index.html#resources学习资料",
+    "href": "guides/diffusion/index.html#resources学习资料",
     "title": "Diffusion Models — Index",
-    "section": "7. Recommended Reading（分层阅读）",
-    "text": "7. Recommended Reading（分层阅读）\n\n起点\n\nDDPM: Denoising Diffusion Probabilistic Models (Ho et al., 2020)\n\nScore Matching: Generative Modeling by Estimating Gradients of the Data Distribution (Song & Ermon, 2019)\n\n\n统一与加速\n\nSDE 统一: Score-based Generative Modeling through SDEs (Song et al., 2021)\n\nDDIM: Denoising Diffusion Implicit Models (Song, Meng, Ermon, 2020)\n\n\n确定性流 / 统一框架\n\nFlow Matching for Generative Modeling (Lipman et al., 2023)\n\nStochastic / Probability Flow Interpolants (Albergo et al., 2023)\n\n理论延展\n\n随机过程教材（Williams, 1991；Liptser & Shirayev, 1977）\n\n复杂度与信息论视角（Montanari 系论文、随机定位/Localization 综述）"
+    "section": "6. Resources（学习资料）",
+    "text": "6. Resources（学习资料）\n\n📗 Books\n\n《Pattern Recognition and Machine Learning》 — Bishop\n\n《Stochastic Differential Equations》 — Øksendal\n\n《High-Dimensional Probability》 — Vershynin\n\n《Machine Learning: A Probabilistic Perspective》 — Murphy\n\n\n\n🎥 Courses\n\nMIT 6.S980: Diffusion Models\n\nStanford CS236: Deep Generative Models\n\nBerkeley STAT 157: Deep Unsupervised Learning\n\nDeepMind x UCL Diffusion Seminar\n\n\n\n💻 Code & Demos\n\nDDPM (Ho)\n\nOpenAI Guided Diffusion\n\nScore SDE Pytorch\n\nFlow Matching\n\n\n\n🧠 Tutorials / Notes\n\nLilian Weng: What are Diffusion Models?\n\nDistill.pub: Tweedie’s Formula Explained\n\nMIStatlE Diffusion Notes"
   },
   {
-    "objectID": "guides/diffusion/index.html#faq常见困惑",
-    "href": "guides/diffusion/index.html#faq常见困惑",
+    "objectID": "guides/diffusion/index.html#knowledge-map",
+    "href": "guides/diffusion/index.html#knowledge-map",
     "title": "Diffusion Models — Index",
-    "section": "8. FAQ（常见困惑）",
-    "text": "8. FAQ（常见困惑）\n\nDDPM vs DDIM：谁更好？\nDDPM 多样性更强、理论更贴近 SDE；DDIM 轨迹确定、采样快、适合编辑。实际常两者结合：先用 DDIM 快速预览，再用 DDPM 精修。\n为什么学习“均值”就够了？\n小步噪声下 (p(x_{t-t}!x_t)N(,^2 I))，已知方差，只需学均值（做回归）即可近似整个条件。\nTweedie 与扩散的关系？\n都把“去噪方向”与“得分 (p)”绑定：扩散的反向均值沿着 Tweedie 方向修正。"
-  },
-  {
-    "objectID": "guides/diffusion/index.html#knowledge-mapmermaid",
-    "href": "guides/diffusion/index.html#knowledge-mapmermaid",
-    "title": "Diffusion Models — Index",
-    "section": "9. Knowledge Map（Mermaid）",
-    "text": "9. Knowledge Map（Mermaid）\n```mermaid flowchart LR A[Target p*(x)] –&gt;|Forward: add noise| B[p_t ~ N(0, σ_t^2)] B –&gt;|Reverse SDE (DDPM)| C[Samples ~ p*] B –&gt;|Probability Flow ODE (DDIM)| C C –&gt; D[Flow Matching / Consistency] A -. score ∇log p_t .-&gt; C ## 10. Resources（学习资料）\n\n📗 Books\n\n《Pattern Recognition and Machine Learning》 — Bishop, ch.12 生成模型\n《Stochastic Processes and Applications》 — Gardiner\n《High-Dimensional Probability》 — Roman Vershynin\n《Machine Learning: a Probabilistic Perspective》 — Murphy\n\n\n\n🎥 Courses / Lectures\n\nMIT 6.S980: Diffusion Models\nStanford CS236: Deep Generative Models\nBerkeley STAT 157: Deep Unsupervised Learning\nDeepMind x UCL Diffusion Seminar (YouTube Playlist)\n\n\n\n💻 Code & Demos\n\nDDPM Official Implementation\nOpenAI Guided Diffusion\nScore SDE Pytorch\nFlow Matching\n\n\n\n🧠 Tutorials / Notes\n\nLilian Weng’s Blog: What are Diffusion Models?\nDistill.pub: Tweedie’s Formula Explained\nMIStatlE Diffusion Notes (本站内部链接) ### 🔗 Next Steps\n📘 Gaussian Diffusion 基础\n🧩 DDPM 推导与实现\n⚙️ DDIM & ODE 视角\n🌊 Flow Matching 实战\n📚 理论延伸与阅读\n📗 外部课程与书籍资源 ::: {.callout-tip title=“📘 推荐资料（点击展开）” collapse=“true”}\nDeep Generative Models — Stanford CS236\nFlow Matching (Lipman et al. 2023)\nMIT 18.675: Stochastic Processes :::"
+    "section": "7. Knowledge Map",
+    "text": "7. Knowledge Map\n```mermaid flowchart LR A[p*(x)] –&gt;|Forward: add noise| B[p_t ~ N(0, σ_t²)] B –&gt;|Reverse SDE (DDPM)| C[Samples ~ p*] B –&gt;|Flow ODE (DDIM)| C C –&gt; D[Flow Matching / Consistency] A -. score ∇log p_t .-&gt; C"
   },
   {
     "objectID": "papers/index.html",

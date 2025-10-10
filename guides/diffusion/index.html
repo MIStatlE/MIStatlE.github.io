@@ -76,6 +76,49 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 <meta property="og:title" content="Diffusion Models — Index – FRAIMEL">
@@ -376,26 +419,18 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#why-diffusion" id="toc-why-diffusion" class="nav-link active" data-scroll-target="#why-diffusion">1. Why Diffusion?</a></li>
-  <li><a href="#learning-roadmap建议顺序" id="toc-learning-roadmap建议顺序" class="nav-link" data-scroll-target="#learning-roadmap建议顺序">2. Learning Roadmap（建议顺序）</a></li>
-  <li><a href="#core-concepts核心概念" id="toc-core-concepts核心概念" class="nav-link" data-scroll-target="#core-concepts核心概念">3. Core Concepts（核心概念）</a>
-  <ul class="collapse">
-  <li><a href="#forward-diffusion前向加噪" id="toc-forward-diffusion前向加噪" class="nav-link" data-scroll-target="#forward-diffusion前向加噪">3.1 Forward Diffusion（前向加噪）</a></li>
-  <li><a href="#reverse-sde-ddpm随机反演" id="toc-reverse-sde-ddpm随机反演" class="nav-link" data-scroll-target="#reverse-sde-ddpm随机反演">3.2 Reverse SDE / DDPM（随机反演）</a></li>
-  <li><a href="#probability-flow-ode-ddim确定性反演" id="toc-probability-flow-ode-ddim确定性反演" class="nav-link" data-scroll-target="#probability-flow-ode-ddim确定性反演">3.3 Probability Flow ODE / DDIM（确定性反演）</a></li>
-  <li><a href="#tweedie-与得分" id="toc-tweedie-与得分" class="nav-link" data-scroll-target="#tweedie-与得分">3.4 Tweedie 与得分</a></li>
-  </ul></li>
-  <li><a href="#prerequisites先修清单" id="toc-prerequisites先修清单" class="nav-link" data-scroll-target="#prerequisites先修清单">4. Prerequisites（先修清单）</a></li>
-  <li><a href="#study-plan810-周" id="toc-study-plan810-周" class="nav-link" data-scroll-target="#study-plan810-周">5. Study Plan（8–10 周）</a></li>
-  <li><a href="#assignments实践作业" id="toc-assignments实践作业" class="nav-link" data-scroll-target="#assignments实践作业">6. Assignments（实践作业）</a></li>
-  <li><a href="#recommended-reading分层阅读" id="toc-recommended-reading分层阅读" class="nav-link" data-scroll-target="#recommended-reading分层阅读">7. Recommended Reading（分层阅读）</a></li>
-  <li><a href="#faq常见困惑" id="toc-faq常见困惑" class="nav-link" data-scroll-target="#faq常见困惑">8. FAQ（常见困惑）</a></li>
-  <li><a href="#knowledge-mapmermaid" id="toc-knowledge-mapmermaid" class="nav-link" data-scroll-target="#knowledge-mapmermaid">9. Knowledge Map（Mermaid）</a>
+  <li><a href="#learning-roadmap" id="toc-learning-roadmap" class="nav-link" data-scroll-target="#learning-roadmap">2. Learning Roadmap</a></li>
+  <li><a href="#core-concepts" id="toc-core-concepts" class="nav-link" data-scroll-target="#core-concepts">3. Core Concepts</a></li>
+  <li><a href="#study-plan810-周" id="toc-study-plan810-周" class="nav-link" data-scroll-target="#study-plan810-周">4. Study Plan（8–10 周）</a></li>
+  <li><a href="#assignments" id="toc-assignments" class="nav-link" data-scroll-target="#assignments">5. Assignments</a></li>
+  <li><a href="#resources学习资料" id="toc-resources学习资料" class="nav-link" data-scroll-target="#resources学习资料">6. Resources（学习资料）</a>
   <ul class="collapse">
   <li><a href="#books" id="toc-books" class="nav-link" data-scroll-target="#books">📗 Books</a></li>
-  <li><a href="#courses-lectures" id="toc-courses-lectures" class="nav-link" data-scroll-target="#courses-lectures">🎥 Courses / Lectures</a></li>
+  <li><a href="#courses" id="toc-courses" class="nav-link" data-scroll-target="#courses">🎥 Courses</a></li>
   <li><a href="#code-demos" id="toc-code-demos" class="nav-link" data-scroll-target="#code-demos">💻 Code &amp; Demos</a></li>
   <li><a href="#tutorials-notes" id="toc-tutorials-notes" class="nav-link" data-scroll-target="#tutorials-notes">🧠 Tutorials / Notes</a></li>
   </ul></li>
+  <li><a href="#knowledge-map" id="toc-knowledge-map" class="nav-link" data-scroll-target="#knowledge-map">7. Knowledge Map</a></li>
   </ul>
 </nav>
     </div>
@@ -407,8 +442,8 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title">
 <h1 class="title">Diffusion Models — Index</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">generative-models</div>
     <div class="quarto-category">diffusion</div>
+    <div class="quarto-category">generative-models</div>
     <div class="quarto-category">sde</div>
     <div class="quarto-category">ode</div>
     <div class="quarto-category">flow-matching</div>
@@ -435,271 +470,182 @@ ul.task-list li input[type="checkbox"] {
 
 
 <blockquote class="blockquote">
-<p><strong>What you’ll get</strong><br>
-一条从零到一的学习路径：动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。</p>
+<p><strong>Learning Path:</strong> 动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。</p>
 </blockquote>
 <section id="why-diffusion" class="level2">
 <h2 class="anchored" data-anchor-id="why-diffusion">1. Why Diffusion?</h2>
-<p>给定来自未知分布 (p^*(x)) 的 i.i.d. 样本（如狗的图片），目标是<strong>构造一个采样器</strong>再生出近似的样本。<br>
-扩散模型的“巧思”在于：把“难的一步到位生成”改写成<strong>前向加噪</strong>（复杂 () 简单）与<strong>反向去噪</strong>（简单 () 复杂）的<strong>多步可逆过程</strong>，每一步都更容易学习。</p>
+<p>给定来自未知分布 <span class="math inline">p^*(x)</span> 的样本（如狗的图片），目标是<strong>构造采样器</strong>再生出近似样本。<br>
+扩散模型通过“<strong>先加噪，再去噪</strong>”把生成任务分解成多步：<br>
+从复杂分布 <span class="math inline">\to</span> 高斯噪声（forward），再从高斯噪声 <span class="math inline">\to</span> 原始分布（reverse）。</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>关键视角
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><strong>前向过程（Forward）</strong>：(x_{t+t} = x_t + _t,&nbsp;_tN(0,_q^2t))<br>
+<li><strong>Forward:</strong> <span class="math inline">x_{t+\Delta t}=x_t+\eta_t,\ \eta_t\sim\mathcal N(0,\sigma_q^2\Delta t)</span><br>
 </li>
-<li><strong>反向过程（Reverse）</strong>：学习 (p(x_{t-t}x_t)) 或其均值（回归/得分）<br>
+<li><strong>Reverse:</strong> 学习 <span class="math inline">p(x_{t-\Delta t}\mid x_t)</span> 的均值或梯度<br>
 </li>
-<li><strong>得分函数</strong>：(_x p_t(x)) 连接去噪与生成（Tweedie/Score Matching）</li>
+<li><strong>Score:</strong> <span class="math inline">\nabla_x\log p_t(x)</span> 连接去噪与生成（Tweedie）</li>
 </ul>
 </div>
 </div>
 </section>
-<section id="learning-roadmap建议顺序" class="level2">
-<h2 class="anchored" data-anchor-id="learning-roadmap建议顺序">2. Learning Roadmap（建议顺序）</h2>
+<section id="learning-roadmap" class="level2">
+<h2 class="anchored" data-anchor-id="learning-roadmap">2. Learning Roadmap</h2>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 30%">
+<col style="width: 23%">
+<col style="width: 23%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>阶段</th>
 <th>学什么</th>
-<th>目标与产出</th>
+<th>目标</th>
 <th>参考</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>0. 先修</td>
-<td>概率、矩阵微积分、最优化、基础深度学习</td>
-<td>读懂符号与损失</td>
-<td>任一本概率/凸优化速览</td>
+<td>概率、优化、基础深度学习</td>
+<td>掌握符号</td>
+<td>任意教材</td>
 </tr>
 <tr class="even">
 <td>1. 入门</td>
-<td>扩散动机、前向/反向、得分函数与 Tweedie 公式</td>
-<td>写出最小可用去噪器</td>
+<td>扩散动机、Tweedie、得分函数</td>
+<td>写出最小去噪器</td>
 <td>Ho et al.&nbsp;2020；Song &amp; Ermon 2019</td>
 </tr>
 <tr class="odd">
 <td>2. 统一视角</td>
-<td>SDE/ODE、概率流方程、DDPM vs DDIM</td>
-<td>推导 SDE()ODE 对应</td>
+<td>SDE/ODE、概率流方程</td>
+<td>推导 SDE↔︎ODE</td>
 <td>Song et al.&nbsp;2021；DDIM 2020</td>
 </tr>
 <tr class="even">
 <td>3. 进阶</td>
-<td>Flow Matching / Consistency / 噪声调度</td>
-<td>训练可快速采样的确定性流</td>
-<td>Lipman et al.&nbsp;2023；Albergo et al.&nbsp;2023</td>
+<td>Flow Matching / Consistency</td>
+<td>训练确定性流</td>
+<td>Lipman 2023；Albergo 2023</td>
 </tr>
 <tr class="odd">
 <td>4. 理论</td>
-<td>Fokker–Planck、KL 轨迹、随机定位</td>
-<td>理解收敛与复杂度</td>
-<td>经典随机过程教材 + 综述</td>
+<td>Fokker–Planck、随机定位</td>
+<td>理解收敛</td>
+<td>经典教材</td>
 </tr>
 <tr class="even">
 <td>5. 实践</td>
-<td>从 CIFAR10/FFHQ 复现，到自定义数据集</td>
-<td>端到端跑通并做 ablation</td>
-<td>开源实现与 Colab</td>
-</tr>
-<tr class="odd">
-<td>阶段</td>
-<td>学什么</td>
-<td>推荐资源</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>——</td>
-<td>——–</td>
-<td>———-</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>基础入门</strong></td>
-<td>生成模型动机、得分函数</td>
-<td><a href="https://arxiv.org/abs/2006.11239">Ho et al.&nbsp;(2020)</a>, <a href="https://deepmind.com/learning-resources">DeepMind Diffusion Lectures</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>数学基础</strong></td>
-<td>随机过程与 SDE</td>
-<td>《Stochastic Differential Equations》 by Øksendal, <a href="https://ocw.mit.edu">MIT 18.675</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>确定性流</strong></td>
-<td>DDIM 与 Flow Matching</td>
-<td><a href="https://arxiv.org/abs/2010.02502">DDIM Paper</a>, <a href="https://arxiv.org/abs/2210.02747">Flow Matching (Lipman, 2023)</a></td>
-<td></td>
+<td>CIFAR10/自定义数据</td>
+<td>跑通采样器</td>
+<td>Colab / 开源实现</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="core-concepts核心概念" class="level2">
-<h2 class="anchored" data-anchor-id="core-concepts核心概念">3. Core Concepts（核心概念）</h2>
-<section id="forward-diffusion前向加噪" class="level3">
-<h3 class="anchored" data-anchor-id="forward-diffusion前向加噪">3.1 Forward Diffusion（前向加噪）</h3>
-<p>[ x_{t+t} = x_t + _t,_tN(0,_q^2t), ] 使 (p_t) 逐渐趋近高斯；离散步数 (T) 越大，相邻分布越“近”。</p>
-</section>
-<section id="reverse-sde-ddpm随机反演" class="level3">
-<h3 class="anchored" data-anchor-id="reverse-sde-ddpm随机反演">3.2 Reverse SDE / DDPM（随机反演）</h3>
-<p>通过反向 SDE 采样：在每一步对 (x_t) 注入<strong>小随机性</strong>，保证<strong>分布覆盖与多样性</strong>。</p>
-</section>
-<section id="probability-flow-ode-ddim确定性反演" class="level3">
-<h3 class="anchored" data-anchor-id="probability-flow-ode-ddim确定性反演">3.3 Probability Flow ODE / DDIM（确定性反演）</h3>
-<p>用<strong>概率流方程</strong>得到确定性轨迹：相同 ({p_t}) 边缘分布下，<strong>轨迹唯一、可重复</strong>，适合加速与编辑。</p>
-</section>
-<section id="tweedie-与得分" class="level3">
-<h3 class="anchored" data-anchor-id="tweedie-与得分">3.4 Tweedie 与得分</h3>
-<p>在高斯观测下， [ (x)=E[x] = x + ^2_xp(x), ] 说明<strong>最优去噪方向</strong>就是<strong>密度上升最快方向</strong>；学习去噪()学习得分。</p>
-</section>
-</section>
-<section id="prerequisites先修清单" class="level2">
-<h2 class="anchored" data-anchor-id="prerequisites先修清单">4. Prerequisites（先修清单）</h2>
+<section id="core-concepts" class="level2">
+<h2 class="anchored" data-anchor-id="core-concepts">3. Core Concepts</h2>
 <ul>
-<li>概率论与统计：条件期望、KL/JS、集中不等式（选修）</li>
-<li>随机过程：布朗运动、伊藤引理、Fokker–Planck（可边学边用）</li>
-<li>优化/深度学习：MSE/L2，AdamW，学习率与噪声调度</li>
+<li><strong>Forward Diffusion:</strong> <span class="math inline">x_{t+\Delta t}=x_t+\eta_t</span>，噪声逐步增大，<span class="math inline">p_t</span> 近似高斯。<br>
+</li>
+<li><strong>Reverse SDE / DDPM:</strong> 每步对 <span class="math inline">x_t</span> 去噪，保证样本多样性。<br>
+</li>
+<li><strong>Probability Flow ODE / DDIM:</strong> 确定性反演，轨迹唯一，可加速采样。<br>
+</li>
+<li><strong>Tweedie 公式:</strong> <span class="math inline">\hat\theta(x)=x+\sigma^2\nabla_x\log p(x)</span>，最优去噪方向即密度上升方向。</li>
 </ul>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>建议边学边做：在玩具 2D 数据上可视化前向/反向轨迹，直观看到“加噪→降噪”的几何过程。</p>
-</div>
-</div>
 </section>
 <section id="study-plan810-周" class="level2">
-<h2 class="anchored" data-anchor-id="study-plan810-周">5. Study Plan（8–10 周）</h2>
+<h2 class="anchored" data-anchor-id="study-plan810-周">4. Study Plan（8–10 周）</h2>
 <ul>
-<li><strong>Week 1–2</strong>：复现最小去噪器（单步/多步），理解 MSE 与 (E[x_{t-t}x_t])<br>
+<li><strong>W1–2:</strong> 单步去噪器，实现 <span class="math inline">\mathbb E[x_{t-\Delta t}\mid x_t]</span><br>
 </li>
-<li><strong>Week 3–4</strong>：实现 DDPM 采样；分析噪声调度、步数与 FID/IS<br>
+<li><strong>W3–4:</strong> 实现 DDPM；分析步数与噪声调度<br>
 </li>
-<li><strong>Week 5–6</strong>：切到 DDIM（ODE）；做步数扫描（50→20→10）与一致性对比<br>
+<li><strong>W5–6:</strong> 转 DDIM；比较采样速度<br>
 </li>
-<li><strong>Week 7–8</strong>：读 Flow Matching/Consistency，做一次蒸馏或单步模型尝试<br>
+<li><strong>W7–8:</strong> 阅读 Flow Matching/Consistency，做蒸馏实验<br>
 </li>
-<li><strong>Week 9+</strong>：专项：编辑/插值/视频/控制，或做一篇读书/实验报告</li>
+<li><strong>W9+:</strong> 应用扩展（编辑/插值/视频/控制）</li>
 </ul>
 </section>
-<section id="assignments实践作业" class="level2">
-<h2 class="anchored" data-anchor-id="assignments实践作业">6. Assignments（实践作业）</h2>
+<section id="assignments" class="level2">
+<h2 class="anchored" data-anchor-id="assignments">5. Assignments</h2>
 <ol type="1">
-<li><strong>Toy-2D 可视化</strong>：画出 ((p_{t-1},p_t)) 以及反向均值轨迹<br>
+<li><strong>2D 可视化：</strong> 绘制 <span class="math inline">(p_{t-1},p_t)</span> 与反向均值轨迹<br>
 </li>
-<li><strong>回归等式验证</strong>：数值验证 (<em>f E|f(x_t)-x</em>{t-1}|^2 = E[x_{t-1}x_t])<br>
+<li><strong>回归验证：</strong> 验证 <span class="math inline">\arg\min_f\E\|f(x_t)-x_{t-1}\|^2=\E[x_{t-1}\mid x_t]</span><br>
 </li>
-<li><strong>DDPM↔︎DDIM 对照</strong>：相同步数下比较质量、多样性与速度<br>
+<li><strong>DDPM↔︎DDIM：</strong> 比较采样速度与质量<br>
 </li>
-<li><strong>得分一致性</strong>：估计 (_xp_t) 并验证 Tweedie 方向的“拉回”效应</li>
+<li><strong>Score 一致性：</strong> 验证 Tweedie “拉回”效应</li>
 </ol>
 </section>
-<section id="recommended-reading分层阅读" class="level2">
-<h2 class="anchored" data-anchor-id="recommended-reading分层阅读">7. Recommended Reading（分层阅读）</h2>
-<ul>
-<li><strong>起点</strong>
-<ul>
-<li><em>DDPM</em>: Denoising Diffusion Probabilistic Models (Ho et al., 2020)<br>
-</li>
-<li><em>Score Matching</em>: Generative Modeling by Estimating Gradients of the Data Distribution (Song &amp; Ermon, 2019)<br>
-</li>
-</ul></li>
-<li><strong>统一与加速</strong>
-<ul>
-<li><em>SDE 统一</em>: Score-based Generative Modeling through SDEs (Song et al., 2021)<br>
-</li>
-<li><em>DDIM</em>: Denoising Diffusion Implicit Models (Song, Meng, Ermon, 2020)<br>
-</li>
-</ul></li>
-<li><strong>确定性流 / 统一框架</strong>
-<ul>
-<li>Flow Matching for Generative Modeling (Lipman et al., 2023)<br>
-</li>
-<li>Stochastic / Probability Flow Interpolants (Albergo et al., 2023)</li>
-</ul></li>
-<li><strong>理论延展</strong>
-<ul>
-<li>随机过程教材（Williams, 1991；Liptser &amp; Shirayev, 1977）<br>
-</li>
-<li>复杂度与信息论视角（Montanari 系论文、随机定位/Localization 综述）</li>
-</ul></li>
-</ul>
-</section>
-<section id="faq常见困惑" class="level2">
-<h2 class="anchored" data-anchor-id="faq常见困惑">8. FAQ（常见困惑）</h2>
-<ul>
-<li><strong>DDPM vs DDIM：谁更好？</strong><br>
-DDPM 多样性更强、理论更贴近 SDE；DDIM 轨迹确定、采样快、适合编辑。实际常两者结合：先用 DDIM 快速预览，再用 DDPM 精修。</li>
-<li><strong>为什么学习“均值”就够了？</strong><br>
-小步噪声下 (p(x_{t-t}!x_t)N(,^2 I))，已知方差，只需学均值（做回归）即可近似整个条件。</li>
-<li><strong>Tweedie 与扩散的关系？</strong><br>
-都把“去噪方向”与“得分 (p)”绑定：扩散的反向均值沿着 Tweedie 方向修正。</li>
-</ul>
-</section>
-<section id="knowledge-mapmermaid" class="level2">
-<h2 class="anchored" data-anchor-id="knowledge-mapmermaid">9. Knowledge Map（Mermaid）</h2>
-<p>```mermaid flowchart LR A[Target p*(x)] –&gt;|Forward: add noise| B[p_t ~ N(0, σ_t^2)] B –&gt;|Reverse SDE (DDPM)| C[Samples ~ p*] B –&gt;|Probability Flow ODE (DDIM)| C C –&gt; D[Flow Matching / Consistency] A -. score ∇log p_t .-&gt; C ## 10. Resources（学习资料）</p>
+<section id="resources学习资料" class="level2">
+<h2 class="anchored" data-anchor-id="resources学习资料">6. Resources（学习资料）</h2>
 <section id="books" class="level3">
 <h3 class="anchored" data-anchor-id="books">📗 Books</h3>
 <ul>
-<li><a href="https://www.springer.com/gp/book/9780387310732">《Pattern Recognition and Machine Learning》</a> — Bishop, ch.12 生成模型</li>
-<li><a href="https://www.cambridge.org/core/books/abs/stochastic-processes-and-applications">《Stochastic Processes and Applications》</a> — Gardiner</li>
-<li><a href="https://www.cambridge.org/core/books/highdimensional-probability/43D9A8A3A9E5C2B9A91AF5D69368D94B">《High-Dimensional Probability》</a> — Roman Vershynin</li>
-<li><a href="https://probml.github.io/pml-book/">《Machine Learning: a Probabilistic Perspective》</a> — Murphy</li>
+<li><a href="https://www.springer.com/gp/book/9780387310732">《Pattern Recognition and Machine Learning》</a> — Bishop<br>
+</li>
+<li><a href="https://www.springer.com/gp/book/9783540047582">《Stochastic Differential Equations》</a> — Øksendal<br>
+</li>
+<li><a href="https://www.cambridge.org/core/books/highdimensional-probability/43D9A8A3A9E5C2B9A91AF5D69368D94B">《High-Dimensional Probability》</a> — Vershynin<br>
+</li>
+<li><a href="https://probml.github.io/pml-book/">《Machine Learning: A Probabilistic Perspective》</a> — Murphy</li>
 </ul>
 </section>
-<section id="courses-lectures" class="level3">
-<h3 class="anchored" data-anchor-id="courses-lectures">🎥 Courses / Lectures</h3>
+<section id="courses" class="level3">
+<h3 class="anchored" data-anchor-id="courses">🎥 Courses</h3>
 <ul>
-<li><a href="https://mit-diffusion.github.io">MIT 6.S980: Diffusion Models</a></li>
-<li><a href="https://deepgenerativemodels.github.io">Stanford CS236: Deep Generative Models</a></li>
-<li><a href="https://sites.google.com/view/berkeley-stat-157/">Berkeley STAT 157: Deep Unsupervised Learning</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLqYmG7hTraZCkftCvihsG2zQ_N9l3QOjo">DeepMind x UCL Diffusion Seminar (YouTube Playlist)</a></li>
+<li><a href="https://mit-diffusion.github.io">MIT 6.S980: Diffusion Models</a><br>
+</li>
+<li><a href="https://deepgenerativemodels.github.io">Stanford CS236: Deep Generative Models</a><br>
+</li>
+<li><a href="https://sites.google.com/view/berkeley-stat-157/">Berkeley STAT 157: Deep Unsupervised Learning</a><br>
+</li>
+<li><a href="https://www.youtube.com/playlist?list=PLqYmG7hTraZCkftCvihsG2zQ_N9l3QOjo">DeepMind x UCL Diffusion Seminar</a></li>
 </ul>
 </section>
 <section id="code-demos" class="level3">
 <h3 class="anchored" data-anchor-id="code-demos">💻 Code &amp; Demos</h3>
 <ul>
-<li><a href="https://github.com/hojonathanho/diffusion">DDPM Official Implementation</a></li>
-<li><a href="https://github.com/openai/guided-diffusion">OpenAI Guided Diffusion</a></li>
-<li><a href="https://github.com/yang-song/score_sde_pytorch">Score SDE Pytorch</a></li>
+<li><a href="https://github.com/hojonathanho/diffusion">DDPM (Ho)</a><br>
+</li>
+<li><a href="https://github.com/openai/guided-diffusion">OpenAI Guided Diffusion</a><br>
+</li>
+<li><a href="https://github.com/yang-song/score_sde_pytorch">Score SDE Pytorch</a><br>
+</li>
 <li><a href="https://github.com/atong01/flow-matching">Flow Matching</a></li>
 </ul>
 </section>
 <section id="tutorials-notes" class="level3">
 <h3 class="anchored" data-anchor-id="tutorials-notes">🧠 Tutorials / Notes</h3>
 <ul>
-<li><a href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/">Lilian Weng’s Blog: What are Diffusion Models?</a></li>
-<li><a href="https://distill.pub/">Distill.pub: Tweedie’s Formula Explained</a></li>
-<li><a href="../notes/">MIStatlE Diffusion Notes (本站内部链接)</a> ### 🔗 Next Steps</li>
-<li><a href="./gaussian-basics.qmd">📘 Gaussian Diffusion 基础</a></li>
-<li><a href="./ddpm.qmd">🧩 DDPM 推导与实现</a></li>
-<li><a href="./ddim.qmd">⚙️ DDIM &amp; ODE 视角</a></li>
-<li><a href="./flow-matching.qmd">🌊 Flow Matching 实战</a></li>
-<li><a href="./theory.qmd">📚 理论延伸与阅读</a></li>
-<li><a href="#resources">📗 外部课程与书籍资源</a> ::: {.callout-tip title=“📘 推荐资料（点击展开）” collapse=“true”}</li>
-<li><a href="https://deepgenerativemodels.github.io">Deep Generative Models — Stanford CS236</a></li>
-<li><a href="https://arxiv.org/abs/2210.02747">Flow Matching (Lipman et al.&nbsp;2023)</a></li>
-<li><a href="https://ocw.mit.edu">MIT 18.675: Stochastic Processes</a> :::</li>
+<li><a href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/">Lilian Weng: What are Diffusion Models?</a><br>
+</li>
+<li><a href="https://distill.pub/">Distill.pub: Tweedie’s Formula Explained</a><br>
+</li>
+<li><a href="../notes/">MIStatlE Diffusion Notes</a></li>
 </ul>
-
-
 </section>
+</section>
+<section id="knowledge-map" class="level2">
+<h2 class="anchored" data-anchor-id="knowledge-map">7. Knowledge Map</h2>
+<p>```mermaid flowchart LR A[p*(x)] –&gt;|Forward: add noise| B[p_t ~ N(0, σ_t²)] B –&gt;|Reverse SDE (DDPM)| C[Samples ~ p*] B –&gt;|Flow ODE (DDIM)| C C –&gt; D[Flow Matching / Consistency] A -. score ∇log p_t .-&gt; C</p>
+
+
 </section>
 
 </main> <!-- /main -->
