@@ -451,10 +451,13 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#扩散模型要解决的问题" id="toc-扩散模型要解决的问题" class="nav-link active" data-scroll-target="#扩散模型要解决的问题">🧭 扩散模型要解决的问题</a></li>
-  <li><a href="#模型概览" id="toc-模型概览" class="nav-link" data-scroll-target="#模型概览">🧩 模型概览</a></li>
+  <li><a href="#扩散模型要解决的问题" id="toc-扩散模型要解决的问题" class="nav-link active" data-scroll-target="#扩散模型要解决的问题">扩散模型要解决的问题</a></li>
+  <li><a href="#模型概览" id="toc-模型概览" class="nav-link" data-scroll-target="#模型概览">模型概览</a></li>
   <li><a href="#推荐网课与讲座" id="toc-推荐网课与讲座" class="nav-link" data-scroll-target="#推荐网课与讲座">🎓 推荐网课与讲座</a></li>
-  <li><a href="#推荐资料与书籍" id="toc-推荐资料与书籍" class="nav-link" data-scroll-target="#推荐资料与书籍">📚 推荐资料与书籍</a></li>
+  <li><a href="#推荐资料与书籍" id="toc-推荐资料与书籍" class="nav-link" data-scroll-target="#推荐资料与书籍">推荐资料与书籍</a>
+  <ul class="collapse">
+  <li><a href="#入门推荐step-by-step-diffusionarxiv2406.08929" id="toc-入门推荐step-by-step-diffusionarxiv2406.08929" class="nav-link" data-scroll-target="#入门推荐step-by-step-diffusionarxiv2406.08929">入门推荐：Step-by-Step Diffusion（arXiv:2406.08929）</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -495,7 +498,7 @@ window.Quarto = {
 </blockquote>
 <hr>
 <section id="扩散模型要解决的问题" class="level2">
-<h2 class="anchored" data-anchor-id="扩散模型要解决的问题">🧭 扩散模型要解决的问题</h2>
+<h2 class="anchored" data-anchor-id="扩散模型要解决的问题">扩散模型要解决的问题</h2>
 <p>生成模型希望学习未知分布 <span class="math inline">p^*(x)</span>，从而生成近似样本。<br>
 直接从噪声“一步”生成复杂数据往往困难，而扩散模型的关键在于：</p>
 <ol type="1">
@@ -511,7 +514,7 @@ window.Quarto = {
 <hr>
 </section>
 <section id="模型概览" class="level2">
-<h2 class="anchored" data-anchor-id="模型概览">🧩 模型概览</h2>
+<h2 class="anchored" data-anchor-id="模型概览">模型概览</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 17%">
@@ -586,24 +589,28 @@ window.Quarto = {
 <hr>
 </section>
 <section id="推荐资料与书籍" class="level2">
-<h2 class="anchored" data-anchor-id="推荐资料与书籍">📚 推荐资料与书籍</h2>
-<p>💡 入门阅读推荐：Step-by-Step Diffusion（arXiv:2406.08929）</p>
-<p>这篇教程是理想的“第一本扩散模型笔记”。<br>
-作者以“加噪-去噪”为主线，用最直觉的方式解释每一步“为什么这样做”，并附带简洁的伪代码与图示。<br>
-如果你对 SDE、ELBO、Score Matching 等概念不熟，它能帮你先建立正确的全局图景。</p>
+<h2 class="anchored" data-anchor-id="推荐资料与书籍">推荐资料与书籍</h2>
+<section id="入门推荐step-by-step-diffusionarxiv2406.08929" class="level3">
+<h3 class="anchored" data-anchor-id="入门推荐step-by-step-diffusionarxiv2406.08929">入门推荐：Step-by-Step Diffusion（arXiv:2406.08929）</h3>
+<blockquote class="blockquote">
+<p>原文：<a href="https://arxiv.org/pdf/2406.08929" class="uri">https://arxiv.org/pdf/2406.08929</a></p>
+</blockquote>
+<p>这篇教程以<strong>最小数学依赖</strong>讲解扩散模型的核心直觉与采样流程，强调“加噪→去噪”的构造思路，帮助快速形成整体认知（DDPM、DDIM、Flow Matching 的联系与差异），在Appendix里整理了更深入的内容。</p>
+<p><strong>谁适合读？</strong> - 想先抓“为什么这样做”的直觉，而非从繁琐推导的数学理论开始；</p>
 <hr>
 <blockquote class="blockquote">
-<p>📂 <strong>下方自动汇总所有 Diffusion 相关笔记（<code>notes/*.qmd</code>）</strong><br>
+<p><strong>下方自动汇总所有 Diffusion 相关笔记（<code>notes/*.qmd</code>）</strong><br>
 在 <code>guides/diffusion/notes/</code> 目录中添加新 <code>.qmd</code> 文件即可自动展示。</p>
 </blockquote>
 
 
 
 </section>
+</section>
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="ZGlmZnVzaW9uJTJDZGRwbQ==" data-listing-date-sort="1759276800000" data-listing-file-modified-sort="1760088588292" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="14">
+<div class="quarto-post image-right" data-index="0" data-categories="ZGlmZnVzaW9uJTJDZGRwbQ==" data-listing-date-sort="1759276800000" data-listing-file-modified-sort="1760088981017" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="14">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../../guides/diffusion/notes/ddpm.html" class="no-external">DDPM 基础推导</a>
