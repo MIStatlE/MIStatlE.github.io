@@ -31,7 +31,11 @@ draft: false
 | 3. 进阶 | Flow Matching / Consistency / 噪声调度 | 训练可快速采样的确定性流 | Lipman et al. 2023；Albergo et al. 2023 |
 | 4. 理论 | Fokker–Planck、KL 轨迹、随机定位 | 理解收敛与复杂度 | 经典随机过程教材 + 综述 |
 | 5. 实践 | 从 CIFAR10/FFHQ 复现，到自定义数据集 | 端到端跑通并做 ablation | 开源实现与 Colab |
-
+| 阶段 | 学什么 | 推荐资源 |
+|------|--------|----------|
+| **基础入门** | 生成模型动机、得分函数 | [Ho et al. (2020)](https://arxiv.org/abs/2006.11239), [DeepMind Diffusion Lectures](https://deepmind.com/learning-resources) |
+| **数学基础** | 随机过程与 SDE | 《Stochastic Differential Equations》 by Øksendal, [MIT 18.675](https://ocw.mit.edu) |
+| **确定性流** | DDIM 与 Flow Matching | [DDIM Paper](https://arxiv.org/abs/2010.02502), [Flow Matching (Lipman, 2023)](https://arxiv.org/abs/2210.02747) |
 ## 3. Core Concepts（核心概念）
 ### 3.1 Forward Diffusion（前向加噪）
 \[
@@ -104,3 +108,39 @@ flowchart LR
   B -->|Probability Flow ODE (DDIM)| C
   C --> D[Flow Matching / Consistency]
   A -. score ∇log p_t .-> C
+## 10. Resources（学习资料）
+
+### 📗 Books
+- [《Pattern Recognition and Machine Learning》](https://www.springer.com/gp/book/9780387310732) — Bishop, ch.12 生成模型
+- [《Stochastic Processes and Applications》](https://www.cambridge.org/core/books/abs/stochastic-processes-and-applications) — Gardiner
+- [《High-Dimensional Probability》](https://www.cambridge.org/core/books/highdimensional-probability/43D9A8A3A9E5C2B9A91AF5D69368D94B) — Roman Vershynin
+- [《Machine Learning: a Probabilistic Perspective》](https://probml.github.io/pml-book/) — Murphy
+
+### 🎥 Courses / Lectures
+- [MIT 6.S980: Diffusion Models](https://mit-diffusion.github.io)
+- [Stanford CS236: Deep Generative Models](https://deepgenerativemodels.github.io)
+- [Berkeley STAT 157: Deep Unsupervised Learning](https://sites.google.com/view/berkeley-stat-157/)
+- [DeepMind x UCL Diffusion Seminar (YouTube Playlist)](https://www.youtube.com/playlist?list=PLqYmG7hTraZCkftCvihsG2zQ_N9l3QOjo)
+
+### 💻 Code & Demos
+- [DDPM Official Implementation](https://github.com/hojonathanho/diffusion)
+- [OpenAI Guided Diffusion](https://github.com/openai/guided-diffusion)
+- [Score SDE Pytorch](https://github.com/yang-song/score_sde_pytorch)
+- [Flow Matching](https://github.com/atong01/flow-matching)
+
+### 🧠 Tutorials / Notes
+- [Lilian Weng’s Blog: What are Diffusion Models?](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)
+- [Distill.pub: Tweedie’s Formula Explained](https://distill.pub/)
+- [MIStatlE Diffusion Notes (本站内部链接)](../notes/)
+### 🔗 Next Steps
+- [📘 Gaussian Diffusion 基础](./gaussian-basics.qmd)
+- [🧩 DDPM 推导与实现](./ddpm.qmd)
+- [⚙️ DDIM & ODE 视角](./ddim.qmd)
+- [🌊 Flow Matching 实战](./flow-matching.qmd)
+- [📚 理论延伸与阅读](./theory.qmd)
+- [📗 外部课程与书籍资源](#resources)
+::: {.callout-tip title="📘 推荐资料（点击展开）" collapse="true"}
+- [Deep Generative Models — Stanford CS236](https://deepgenerativemodels.github.io)
+- [Flow Matching (Lipman et al. 2023)](https://arxiv.org/abs/2210.02747)
+- [MIT 18.675: Stochastic Processes](https://ocw.mit.edu)
+:::
