@@ -1,17 +1,16 @@
 ---
 title: "Diffusion Models"
-description: "从前向加噪与反向去噪出发，学习 DDPM、DDIM、Flow Matching 与理论基础。"
+description: "从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。"
 page-layout: article
 toc: true
 toc-title: "On this page"
 
-# 列出本栏目下的所有笔记（像 Posts 一样纵向排列）
 listing:
   contents:
     - notes/*.qmd
   sort: "date desc"
   type: default
-  page-size: 12
+  page-size: 10
   fields: [title, date, categories, description]
 ---
 
@@ -20,19 +19,50 @@ listing:
 
 ---
 
-## 网课资源
+## 🧭 扩散模型要解决的问题
+
+生成模型希望学习未知分布 $p^*(x)$，从而生成近似样本。  
+直接从噪声“一步”生成复杂数据往往困难，而扩散模型的关键在于：
+
+1. **前向扩散（Forward Diffusion）**：逐步加噪，使数据分布趋近高斯；
+2. **反向过程（Reverse Diffusion）**：学习去噪映射，把噪声还原为数据；
+3. 每一步都只需建模相邻分布 $p(x_{t-\Delta t}\mid x_t)$，学习更稳定。
+
+> 核心等价关系：  
+> $$\text{Denoising} \;\Leftrightarrow\; \text{Learning } \nabla_x \log p_t(x)$$  
+> 学习去噪即学习“得分函数”，方向即密度上升最快的方向。
 
 ---
-### 书籍资料
-## 入门推荐：Step-by-Step Diffusion（arXiv:2406.08929）
- 
-> 原文：<https://arxiv.org/pdf/2406.08929>
 
-这篇教程以**最小数学依赖**讲解扩散模型的核心直觉与采样流程，强调“加噪→去噪”的构造思路，帮助快速形成整体认知（DDPM、DDIM、Flow Matching 的联系与差异）。
+## 🧩 模型概览
 
-**谁适合读？**
-- 想先抓“为什么这样做”的直觉，而非从繁琐推导的数学理论开始；
+| 模型 | 核心特征 | 适合理解的方向 |
+|------|------------|----------------|
+| **DDPM** (Ho et al., 2020) | 随机反演，采样多样性强 | 适合学习随机微分方程与噪声调度思想 |
+| **DDIM** (Song et al., 2020) | 确定性采样，速度快 | 适合工程与推理效率研究 |
+| **Flow Matching** (Lipman et al., 2023) | 统一连续流框架 | 适合理解 ODE/SDE 统一与几何流 |
 
+---
 
-> 下方自动汇总本栏目下的所有「Diffusion」笔记（`notes/*.qmd`）。  
-> 如需新增，直接在 `guides/diffusion/notes/` 目录中添加新 `.qmd` 文件即可。
+## 🎓 推荐网课与讲座
+
+| 课程 | 来源 | 定位与特点 | 适合人群 |
+|------|------|-------------|------------|
+| [**MIT 6.S980 — Diffusion Models**](https://mit-diffusion.github.io) | MIT | 最系统的扩散入门课程；讲清从加噪→去噪→采样的完整流程，覆盖 DDPM、SDE、Flow Matching | 希望“系统掌握原理+数学背景”的研究生 |
+| [**CS236 — Deep Generative Models**](https://deepgenerativemodels.github.io) | Stanford | 将扩散模型放在生成模型的整体框架中讲解（与VAE、GAN对比） | 想理解扩散在整个生成建模中的位置 |
+| [**STAT 157 — Deep Unsupervised Learning**](https://sites.google.com/view/berkeley-stat-157) | Berkeley | 从“概率建模 + 实验”的角度介绍 score-based 方法，重视动机和实践 | 想边学边做、快速上手的同学 |
+| [**Diffusion Seminar Series**](https://www.youtube.com/playlist?list=PLqYmG7hTraZCkftCvihsG2zQ_N9l3QOjo) | DeepMind × UCL | 汇集各大实验室研究者讲解前沿思想（Consistency、Flow Matching 等） | 已有基础，想了解学界前沿动向的人 |
+
+---
+
+## 📚 推荐资料与书籍
+💡 入门阅读推荐：Step-by-Step Diffusion（arXiv:2406.08929）
+
+这篇教程是理想的“第一本扩散模型笔记”。  
+作者以“加噪-去噪”为主线，用最直觉的方式解释每一步“为什么这样做”，并附带简洁的伪代码与图示。  
+如果你对 SDE、ELBO、Score Matching 等概念不熟，它能帮你先建立正确的全局图景。
+
+---
+
+> 📂 **下方自动汇总所有 Diffusion 相关笔记（`notes/*.qmd`）**  
+> 在 `guides/diffusion/notes/` 目录中添加新 `.qmd` 文件即可自动展示。
