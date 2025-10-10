@@ -21,6 +21,8 @@ website:
             href: guides/opt/index.qmd
           - text: ML Theory
             href: guides/mlt/index.qmd
+          - text: Diffusion
+            href: guides/diffusion/index.qmd
           - text: RL / Online Learning
             href: guides/rl/index.qmd
       - text: Paper Picks
