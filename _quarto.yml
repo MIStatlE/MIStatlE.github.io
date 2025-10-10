@@ -58,13 +58,11 @@ website:
     right: |
       Built with [Quarto](https://quarto.org) · Content CC BY 4.0
 
-  # ← 把 SEO/OG/Twitter 合并到同一个 website 块里
   open-graph: true
   twitter-card:
     creator: "@MIStatlE"
     card-style: summary_large_image
 
-  # Guides 专区侧边栏（保留你之前的）
   sidebar:
     - id: guides
       style: "floating"
@@ -88,7 +86,18 @@ website:
           contents:
             - guides/mlt/index.qmd
             - guides/mlt/generalization.qmd
-        - section: "RL / Online"
+        - section: "Diffusion"
+          contents:
+            - guides/diffusion/index.qmd
+            - text: "Gaussian Basics"
+              href: guides/diffusion/notes/gaussian-basics.qmd
+            - text: "DDPM"
+              href: guides/diffusion/notes/ddpm.qmd
+            - text: "DDIM & ODE"
+              href: guides/diffusion/notes/ddim.qmd
+            - text: "Flow Matching"
+              href: guides/diffusion/notes/flow-matching.qmd
+        - section: "RL / Online Learning"
           contents:
             - guides/rl/index.qmd
             - guides/rl/bandits.qmd
@@ -119,16 +128,16 @@ collections:
       sort: "date desc"
       type: default
   papers:
-    feed: true
     categories: true
+    feed: true
     listing:
       type: table
       sort: "date desc"
       filter-ui: true
       fields: [title, authors, venue, year, tags]
   tools:
-    feed: true
     categories: true
+    feed: true
     listing:
       type: grid
       sort: "title"
