@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。">
+<meta name="description" content="从前向加噪与反向去噪出发，学习 DDPM、DDIM、Flow Matching 与理论基础。">
 
 <title>Diffusion Models – FRAIMEL</title>
 <style>
@@ -153,11 +153,11 @@ window.Quarto = {
 
 <link rel="stylesheet" href="../../styles.css">
 <meta property="og:title" content="Diffusion Models – FRAIMEL">
-<meta property="og:description" content="从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。">
+<meta property="og:description" content="从前向加噪与反向去噪出发，学习 DDPM、DDIM、Flow Matching 与理论基础。">
 <meta property="og:image" content="https://mistatle.github.io/images/tool-card.png">
 <meta property="og:site_name" content="FRAIMEL">
 <meta name="twitter:title" content="Diffusion Models – FRAIMEL">
-<meta name="twitter:description" content="从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。">
+<meta name="twitter:description" content="从前向加噪与反向去噪出发，学习 DDPM、DDIM、Flow Matching 与理论基础。">
 <meta name="twitter:image" content="https://mistatle.github.io/images/tool-card.png">
 <meta name="twitter:creator" content="@MIStatlE">
 <meta name="twitter:card" content="summary_large_image">
@@ -451,7 +451,10 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#学习路径建议" id="toc-学习路径建议" class="nav-link active" data-scroll-target="#学习路径建议">学习路径建议</a></li>
+  <li><a href="#网课资源" id="toc-网课资源" class="nav-link active" data-scroll-target="#网课资源">网课资源</a>
+  <ul class="collapse">
+  <li><a href="#书籍资料" id="toc-书籍资料" class="nav-link" data-scroll-target="#书籍资料">书籍资料</a></li>
+  </ul></li>
   <li><a href="#入门推荐step-by-step-diffusionarxiv2406.08929" id="toc-入门推荐step-by-step-diffusionarxiv2406.08929" class="nav-link" data-scroll-target="#入门推荐step-by-step-diffusionarxiv2406.08929">入门推荐：Step-by-Step Diffusion（arXiv:2406.08929）</a></li>
   </ul>
 </nav>
@@ -470,7 +473,7 @@ window.Quarto = {
 
 <div>
   <div class="description">
-    从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。
+    从前向加噪与反向去噪出发，学习 DDPM、DDIM、Flow Matching 与理论基础。
   </div>
 </div>
 
@@ -492,65 +495,20 @@ window.Quarto = {
 从零到一理解扩散模型：动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。</p>
 </blockquote>
 <hr>
-<section id="学习路径建议" class="level2">
-<h2 class="anchored" data-anchor-id="学习路径建议">学习路径建议</h2>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 30%">
-<col style="width: 40%">
-<col style="width: 30%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>阶段</th>
-<th>学什么</th>
-<th>目标</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>入门</td>
-<td>扩散动机、前向/反向、得分函数与 Tweedie</td>
-<td>复现一个最小去噪器</td>
-</tr>
-<tr class="even">
-<td>统一</td>
-<td>理解 <span class="math inline">\,\text{SDE}\leftrightarrow\text{ODE}\,</span>、DDPM vs DDIM</td>
-<td>看懂连续视角与采样差异</td>
-</tr>
-<tr class="odd">
-<td>进阶</td>
-<td>Flow Matching / Consistency / 噪声调度</td>
-<td>构建确定性快速采样流</td>
-</tr>
-<tr class="even">
-<td>理论</td>
-<td>Fokker–Planck, KL, Localization</td>
-<td>掌握收敛性与复杂度直觉</td>
-</tr>
-<tr class="odd">
-<td>实践</td>
-<td>CIFAR10 / FFHQ / 文本条件</td>
-<td>跑通完整 pipeline</td>
-</tr>
-</tbody>
-</table>
+<section id="网课资源" class="level2">
+<h2 class="anchored" data-anchor-id="网课资源">网课资源</h2>
 <hr>
+<section id="书籍资料" class="level3">
+<h3 class="anchored" data-anchor-id="书籍资料">书籍资料</h3>
+</section>
 </section>
 <section id="入门推荐step-by-step-diffusionarxiv2406.08929" class="level2">
 <h2 class="anchored" data-anchor-id="入门推荐step-by-step-diffusionarxiv2406.08929">入门推荐：Step-by-Step Diffusion（arXiv:2406.08929）</h2>
 <blockquote class="blockquote">
-<p><em>“Teach diffusion as simply as possible, with minimal mathematical prerequisites.”</em><br>
-— Nakkiran, Bradley, Zhou, Advani (2024)<br>
-原文：<a href="https://arxiv.org/pdf/2406.08929" class="uri">https://arxiv.org/pdf/2406.08929</a></p>
+<p>原文：<a href="https://arxiv.org/pdf/2406.08929" class="uri">https://arxiv.org/pdf/2406.08929</a></p>
 </blockquote>
 <p>这篇教程以<strong>最小数学依赖</strong>讲解扩散模型的核心直觉与采样流程，强调“加噪→去噪”的构造思路，帮助快速形成整体认知（DDPM、DDIM、Flow Matching 的联系与差异）。</p>
-<p><strong>谁适合读？</strong> - 初学扩散但具备基本概率/线代基础； - 想先抓“为什么这样做”的直觉，而非从繁琐推导开始； - 需要一条从直觉到算法实现的清晰路径。</p>
-<p><strong>延伸阅读</strong> - <strong>DDPM</strong>：Ho et al., 2020 — <a href="https://arxiv.org/abs/2006.11239" class="uri">https://arxiv.org/abs/2006.11239</a><br>
-- <strong>DDIM</strong>：Song et al., 2020 — <a href="https://arxiv.org/abs/2010.02502" class="uri">https://arxiv.org/abs/2010.02502</a><br>
-- <strong>SDE 统一</strong>：Song et al., 2021 — <a href="https://arxiv.org/abs/2011.13456" class="uri">https://arxiv.org/abs/2011.13456</a><br>
-- <strong>Flow Matching</strong>：Lipman et al., 2023 — <a href="https://arxiv.org/abs/2210.02747" class="uri">https://arxiv.org/abs/2210.02747</a></p>
-<hr>
+<p><strong>谁适合读？</strong> - 想先抓“为什么这样做”的直觉，而非从繁琐推导的数学理论开始；</p>
 <blockquote class="blockquote">
 <p>下方自动汇总本栏目下的所有「Diffusion」笔记（<code>notes/*.qmd</code>）。<br>
 如需新增，直接在 <code>guides/diffusion/notes/</code> 目录中添加新 <code>.qmd</code> 文件即可。</p>
@@ -562,7 +520,7 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="ZGlmZnVzaW9uJTJDZGRwbQ==" data-listing-date-sort="1759276800000" data-listing-file-modified-sort="1760087261681" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="14">
+<div class="quarto-post image-right" data-index="0" data-categories="ZGlmZnVzaW9uJTJDZGRwbQ==" data-listing-date-sort="1759276800000" data-listing-file-modified-sort="1760087534843" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="14">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../../guides/diffusion/notes/ddpm.html" class="no-external">DDPM 基础推导</a>
