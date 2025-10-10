@@ -1,29 +1,44 @@
 ---
-title: "Diffusion — Index"
-description: "从零到一：前向加噪、反向去噪、DDPM/DDIM、Flow Matching 与理论基础。"
+title: "Diffusion Models"
+description: "从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。"
 page-layout: article
 toc: true
 toc-title: "On this page"
 
-# 👉 关键：在本页挂一个 listing，抓取 notes/*.qmd 并以卡片展示
 listing:
   contents:
-    - notes/*.qmd
-  type: grid          # 卡片/网格
+    - notes/*.qmd        # ← 指向笔记文件目录
   sort: "date desc"
+  type: default          # ← 像 Posts 一样纵向排列
   page-size: 12
-  image-placeholder: ../../images/tool-card.png
-  fields: [image, title, categories, date, description, reading-time]
+  fields: [title, date, categories, description]
 ---
 
-> **What you’ll get**  
-> 动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。
+> **学习目标**  
+> 从零到一理解扩散模型：动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。
 
-## 学习路径（简版）
-- 先修：概率/最优化/矩阵微积分
-- 入门：前向/反向、得分与 Tweedie
-- 统一：SDE↔ODE，DDPM vs DDIM
-- 进阶：Flow Matching / Consistency
-- 实践：复现 & ablation
+---
 
-> 下方为该专题的所有笔记卡片（来自 `guides/diffusion/notes/*.qmd`）。
+## 学习路径建议
+
+| 阶段 | 学什么 | 目标 |
+|------|--------|------|
+| 入门 | 扩散动机、前向/反向、得分函数与 Tweedie | 能复现一个最小去噪器 |
+| 统一 | 理解 SDE↔ODE、DDPM vs DDIM | 理解连续视角与采样差异 |
+| 进阶 | Flow Matching / Consistency / 噪声调度 | 构建确定性快速采样流 |
+| 理论 | Fokker–Planck, KL, Localization | 掌握理论本质与收敛性 |
+| 实践 | CIFAR10 / FFHQ / 文本条件 | 完整跑通 pipeline |
+
+---
+
+## 推荐资料
+
+- **DDPM:** [Ho et al. (2020)](https://arxiv.org/abs/2006.11239)  
+- **DDIM:** [Song et al. (2020)](https://arxiv.org/abs/2010.02502)  
+- **SDE 统一:** [Song et al. (2021)](https://arxiv.org/abs/2011.13456)  
+- **Flow Matching:** [Lipman et al. (2023)](https://arxiv.org/abs/2210.02747)  
+- **理论延伸:** Williams (1991), Montanari (2023)
+
+---
+
+> 下方是所有与「Diffusion」相关的学习笔记：
