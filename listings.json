@@ -16,6 +16,10 @@
     "items": []
   },
   {
+    "listing": "/guides/diffusion/index.html",
+    "items": []
+  },
+  {
     "listing": "/papers/index.html",
     "items": [
       "/papers/2025-10-08-paper-template.html"

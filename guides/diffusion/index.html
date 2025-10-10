@@ -8,7 +8,7 @@
 
 <meta name="description" content="从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。">
 
-<title>Diffusion Models — Index – FRAIMEL</title>
+<title>Diffusion — Index – FRAIMEL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,6 +32,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
 <link href="../../images/image1.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-listing/list.min.js"></script>
+<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -74,6 +76,35 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-date','listing-categories','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-categories"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -121,10 +152,10 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="../../styles.css">
-<meta property="og:title" content="Diffusion Models — Index – FRAIMEL">
+<meta property="og:title" content="Diffusion — Index – FRAIMEL">
 <meta property="og:description" content="从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。">
 <meta property="og:site_name" content="FRAIMEL">
-<meta name="twitter:title" content="Diffusion Models — Index – FRAIMEL">
+<meta name="twitter:title" content="Diffusion — Index – FRAIMEL">
 <meta name="twitter:description" content="从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。">
 <meta name="twitter:creator" content="@MIStatlE">
 <meta name="twitter:card" content="summary_large_image">
@@ -418,37 +449,20 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#why-diffusion" id="toc-why-diffusion" class="nav-link active" data-scroll-target="#why-diffusion">1. Why Diffusion?</a></li>
-  <li><a href="#learning-roadmap" id="toc-learning-roadmap" class="nav-link" data-scroll-target="#learning-roadmap">2. Learning Roadmap</a></li>
-  <li><a href="#core-concepts" id="toc-core-concepts" class="nav-link" data-scroll-target="#core-concepts">3. Core Concepts</a></li>
-  <li><a href="#study-plan810-周" id="toc-study-plan810-周" class="nav-link" data-scroll-target="#study-plan810-周">4. Study Plan（8–10 周）</a></li>
-  <li><a href="#assignments" id="toc-assignments" class="nav-link" data-scroll-target="#assignments">5. Assignments</a></li>
-  <li><a href="#resources学习资料" id="toc-resources学习资料" class="nav-link" data-scroll-target="#resources学习资料">6. Resources（学习资料）</a>
-  <ul class="collapse">
-  <li><a href="#books" id="toc-books" class="nav-link" data-scroll-target="#books">📗 Books</a></li>
-  <li><a href="#courses" id="toc-courses" class="nav-link" data-scroll-target="#courses">🎥 Courses</a></li>
-  <li><a href="#code-demos" id="toc-code-demos" class="nav-link" data-scroll-target="#code-demos">💻 Code &amp; Demos</a></li>
-  <li><a href="#tutorials-notes" id="toc-tutorials-notes" class="nav-link" data-scroll-target="#tutorials-notes">🧠 Tutorials / Notes</a></li>
-  </ul></li>
-  <li><a href="#knowledge-map" id="toc-knowledge-map" class="nav-link" data-scroll-target="#knowledge-map">7. Knowledge Map</a></li>
+  <li><a href="#学习路径简版" id="toc-学习路径简版" class="nav-link active" data-scroll-target="#学习路径简版">学习路径（简版）</a></li>
+  <li><a href="#推荐起点" id="toc-推荐起点" class="nav-link" data-scroll-target="#推荐起点">推荐起点</a></li>
+  <li><a href="#笔记按时间倒序" id="toc-笔记按时间倒序" class="nav-link" data-scroll-target="#笔记按时间倒序">笔记（按时间倒序）</a></li>
   </ul>
 </nav>
-    </div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(0)</span></div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Diffusion Models — Index</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">diffusion</div>
-    <div class="quarto-category">generative-models</div>
-    <div class="quarto-category">sde</div>
-    <div class="quarto-category">ode</div>
-    <div class="quarto-category">flow-matching</div>
-  </div>
-  </div>
+<h1 class="title">Diffusion — Index</h1>
+</div>
 
 <div>
   <div class="description">
@@ -470,185 +484,52 @@ window.Quarto = {
 
 
 <blockquote class="blockquote">
-<p><strong>Learning Path:</strong> 动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。</p>
+<p><strong>What you’ll get</strong><br>
+动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。</p>
 </blockquote>
-<section id="why-diffusion" class="level2">
-<h2 class="anchored" data-anchor-id="why-diffusion">1. Why Diffusion?</h2>
-<p>给定来自未知分布 <span class="math inline">p^*(x)</span> 的样本（如狗的图片），目标是<strong>构造采样器</strong>再生出近似样本。<br>
-扩散模型通过“<strong>先加噪，再去噪</strong>”把生成任务分解成多步：<br>
-从复杂分布 <span class="math inline">\to</span> 高斯噪声（forward），再从高斯噪声 <span class="math inline">\to</span> 原始分布（reverse）。</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<section id="学习路径简版" class="level2">
+<h2 class="anchored" data-anchor-id="学习路径简版">学习路径（简版）</h2>
 <ul>
-<li><strong>Forward:</strong> <span class="math inline">x_{t+\Delta t}=x_t+\eta_t,\ \eta_t\sim\mathcal N(0,\sigma_q^2\Delta t)</span><br>
+<li>Forward：<span class="math inline">x_{t+\Delta t}=x_t+\eta_t,\ \eta_t\sim\mathcal N(0,\sigma_q^2\Delta t)</span><br>
 </li>
-<li><strong>Reverse:</strong> 学习 <span class="math inline">p(x_{t-\Delta t}\mid x_t)</span> 的均值或梯度<br>
+<li>Reverse：学习 <span class="math inline">p(x_{t-\Delta t}\mid x_t)</span> 或其均值方向（得分）<br>
 </li>
-<li><strong>Score:</strong> <span class="math inline">\nabla_x\log p_t(x)</span> 连接去噪与生成（Tweedie）</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="learning-roadmap" class="level2">
-<h2 class="anchored" data-anchor-id="learning-roadmap">2. Learning Roadmap</h2>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 23%">
-<col style="width: 30%">
-<col style="width: 23%">
-<col style="width: 23%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>阶段</th>
-<th>学什么</th>
-<th>目标</th>
-<th>参考</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0. 先修</td>
-<td>概率、优化、基础深度学习</td>
-<td>掌握符号</td>
-<td>任意教材</td>
-</tr>
-<tr class="even">
-<td>1. 入门</td>
-<td>扩散动机、Tweedie、得分函数</td>
-<td>写出最小去噪器</td>
-<td>Ho et al.&nbsp;2020；Song &amp; Ermon 2019</td>
-</tr>
-<tr class="odd">
-<td>2. 统一视角</td>
-<td>SDE/ODE、概率流方程</td>
-<td>推导 SDE↔︎ODE</td>
-<td>Song et al.&nbsp;2021；DDIM 2020</td>
-</tr>
-<tr class="even">
-<td>3. 进阶</td>
-<td>Flow Matching / Consistency</td>
-<td>训练确定性流</td>
-<td>Lipman 2023；Albergo 2023</td>
-</tr>
-<tr class="odd">
-<td>4. 理论</td>
-<td>Fokker–Planck、随机定位</td>
-<td>理解收敛</td>
-<td>经典教材</td>
-</tr>
-<tr class="even">
-<td>5. 实践</td>
-<td>CIFAR10/自定义数据</td>
-<td>跑通采样器</td>
-<td>Colab / 开源实现</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="core-concepts" class="level2">
-<h2 class="anchored" data-anchor-id="core-concepts">3. Core Concepts</h2>
-<ul>
-<li><strong>Forward Diffusion:</strong> <span class="math inline">x_{t+\Delta t}=x_t+\eta_t</span>，噪声逐步增大，<span class="math inline">p_t</span> 近似高斯。<br>
+<li>ODE 视角（DDIM）与 SDE 视角（DDPM）统一<br>
 </li>
-<li><strong>Reverse SDE / DDPM:</strong> 每步对 <span class="math inline">x_t</span> 去噪，保证样本多样性。<br>
-</li>
-<li><strong>Probability Flow ODE / DDIM:</strong> 确定性反演，轨迹唯一，可加速采样。<br>
-</li>
-<li><strong>Tweedie 公式:</strong> <span class="math inline">\hat\theta(x)=x+\sigma^2\nabla_x\log p(x)</span>，最优去噪方向即密度上升方向。</li>
+<li>Flow Matching：确定性流的训练与加速</li>
 </ul>
 </section>
-<section id="study-plan810-周" class="level2">
-<h2 class="anchored" data-anchor-id="study-plan810-周">4. Study Plan（8–10 周）</h2>
+<section id="推荐起点" class="level2">
+<h2 class="anchored" data-anchor-id="推荐起点">推荐起点</h2>
 <ul>
-<li><strong>W1–2:</strong> 单步去噪器，实现 <span class="math inline">\mathbb E[x_{t-\Delta t}\mid x_t]</span><br>
+<li>Ho et al.&nbsp;(2020), Song &amp; Ermon (2019)<br>
 </li>
-<li><strong>W3–4:</strong> 实现 DDPM；分析步数与噪声调度<br>
+<li>Song et al.&nbsp;(2021 SDE 统一), DDIM (2020)<br>
 </li>
-<li><strong>W5–6:</strong> 转 DDIM；比较采样速度<br>
-</li>
-<li><strong>W7–8:</strong> 阅读 Flow Matching/Consistency，做蒸馏实验<br>
-</li>
-<li><strong>W9+:</strong> 应用扩展（编辑/插值/视频/控制）</li>
+<li>Lipman et al.&nbsp;(2023 Flow Matching)</li>
 </ul>
+<hr>
 </section>
-<section id="assignments" class="level2">
-<h2 class="anchored" data-anchor-id="assignments">5. Assignments</h2>
-<ol type="1">
-<li><strong>2D 可视化：</strong> 绘制 <span class="math inline">(p_{t-1},p_t)</span> 与反向均值轨迹<br>
-</li>
-<li><strong>回归验证：</strong> 验证 <span class="math inline">\arg\min_f\E\|f(x_t)-x_{t-1}\|^2=\E[x_{t-1}\mid x_t]</span><br>
-</li>
-<li><strong>DDPM↔︎DDIM：</strong> 比较采样速度与质量<br>
-</li>
-<li><strong>Score 一致性：</strong> 验证 Tweedie “拉回”效应</li>
-</ol>
-</section>
-<section id="resources学习资料" class="level2">
-<h2 class="anchored" data-anchor-id="resources学习资料">6. Resources（学习资料）</h2>
-<section id="books" class="level3">
-<h3 class="anchored" data-anchor-id="books">📗 Books</h3>
-<ul>
-<li><a href="https://www.springer.com/gp/book/9780387310732">《Pattern Recognition and Machine Learning》</a> — Bishop<br>
-</li>
-<li><a href="https://www.springer.com/gp/book/9783540047582">《Stochastic Differential Equations》</a> — Øksendal<br>
-</li>
-<li><a href="https://www.cambridge.org/core/books/highdimensional-probability/43D9A8A3A9E5C2B9A91AF5D69368D94B">《High-Dimensional Probability》</a> — Vershynin<br>
-</li>
-<li><a href="https://probml.github.io/pml-book/">《Machine Learning: A Probabilistic Perspective》</a> — Murphy</li>
-</ul>
-</section>
-<section id="courses" class="level3">
-<h3 class="anchored" data-anchor-id="courses">🎥 Courses</h3>
-<ul>
-<li><a href="https://mit-diffusion.github.io">MIT 6.S980: Diffusion Models</a><br>
-</li>
-<li><a href="https://deepgenerativemodels.github.io">Stanford CS236: Deep Generative Models</a><br>
-</li>
-<li><a href="https://sites.google.com/view/berkeley-stat-157/">Berkeley STAT 157: Deep Unsupervised Learning</a><br>
-</li>
-<li><a href="https://www.youtube.com/playlist?list=PLqYmG7hTraZCkftCvihsG2zQ_N9l3QOjo">DeepMind x UCL Diffusion Seminar</a></li>
-</ul>
-</section>
-<section id="code-demos" class="level3">
-<h3 class="anchored" data-anchor-id="code-demos">💻 Code &amp; Demos</h3>
-<ul>
-<li><a href="https://github.com/hojonathanho/diffusion">DDPM (Ho)</a><br>
-</li>
-<li><a href="https://github.com/openai/guided-diffusion">OpenAI Guided Diffusion</a><br>
-</li>
-<li><a href="https://github.com/yang-song/score_sde_pytorch">Score SDE Pytorch</a><br>
-</li>
-<li><a href="https://github.com/atong01/flow-matching">Flow Matching</a></li>
-</ul>
-</section>
-<section id="tutorials-notes" class="level3">
-<h3 class="anchored" data-anchor-id="tutorials-notes">🧠 Tutorials / Notes</h3>
-<ul>
-<li><a href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/">Lilian Weng: What are Diffusion Models?</a><br>
-</li>
-<li><a href="https://distill.pub/">Distill.pub: Tweedie’s Formula Explained</a><br>
-</li>
-<li><a href="../notes/">MIStatlE Diffusion Notes</a></li>
-</ul>
-</section>
-</section>
-<section id="knowledge-map" class="level2">
-<h2 class="anchored" data-anchor-id="knowledge-map">7. Knowledge Map</h2>
-<p>```mermaid flowchart LR A[p*(x)] –&gt;|Forward: add noise| B[p_t ~ N(0, σ_t²)] B –&gt;|Reverse SDE (DDPM)| C[Samples ~ p*] B –&gt;|Flow ODE (DDIM)| C C –&gt; D[Flow Matching / Consistency] A -. score ∇log p_t .-&gt; C</p>
+<section id="笔记按时间倒序" class="level2">
+<h2 class="anchored" data-anchor-id="笔记按时间倒序">笔记（按时间倒序）</h2>
+<p>（下方为自动生成的卡片列表）</p>
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="listing-actions-group">
+    <div class="input-group input-group-sm quarto-listing-filter">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
+      <input type="text" class="search form-control" placeholder="Filter">
+    </div>
+</div>
+<div class="list quarto-listing-default">
+
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
