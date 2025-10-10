@@ -1,0 +1,106 @@
+---
+title: "Diffusion Models — Index"
+description: "从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。"
+categories: [generative-models, diffusion, sde, ode, flow-matching]
+toc: true
+toc-title: "On this page"
+page-layout: article
+draft: false
+---
+
+> **What you’ll get**  
+> 一条从零到一的学习路径：动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。
+
+## 1. Why Diffusion?
+给定来自未知分布 \(p^*(x)\) 的 i.i.d. 样本（如狗的图片），目标是**构造一个采样器**再生出近似的样本。  
+扩散模型的“巧思”在于：把“难的一步到位生成”改写成**前向加噪**（复杂 \(\to\) 简单）与**反向去噪**（简单 \(\to\) 复杂）的**多步可逆过程**，每一步都更容易学习。
+
+::: callout-note
+### 关键视角
+- **前向过程（Forward）**：\(x_{t+\Delta t} = x_t + \eta_t,\ \eta_t\sim\mathcal N(0,\sigma_q^2\Delta t)\)  
+- **反向过程（Reverse）**：学习 \(p(x_{t-\Delta t}\mid x_t)\) 或其均值（回归/得分）  
+- **得分函数**：\(\nabla_x \log p_t(x)\) 连接去噪与生成（Tweedie/Score Matching）
+:::
+
+## 2. Learning Roadmap（建议顺序）
+| 阶段 | 学什么 | 目标与产出 | 参考 |
+|---|---|---|---|
+| 0. 先修 | 概率、矩阵微积分、最优化、基础深度学习 | 读懂符号与损失 | 任一本概率/凸优化速览 |
+| 1. 入门 | 扩散动机、前向/反向、得分函数与 Tweedie 公式 | 写出最小可用去噪器 | Ho et al. 2020；Song & Ermon 2019 |
+| 2. 统一视角 | SDE/ODE、概率流方程、DDPM vs DDIM | 推导 SDE\(\leftrightarrow\)ODE 对应 | Song et al. 2021；DDIM 2020 |
+| 3. 进阶 | Flow Matching / Consistency / 噪声调度 | 训练可快速采样的确定性流 | Lipman et al. 2023；Albergo et al. 2023 |
+| 4. 理论 | Fokker–Planck、KL 轨迹、随机定位 | 理解收敛与复杂度 | 经典随机过程教材 + 综述 |
+| 5. 实践 | 从 CIFAR10/FFHQ 复现，到自定义数据集 | 端到端跑通并做 ablation | 开源实现与 Colab |
+
+## 3. Core Concepts（核心概念）
+### 3.1 Forward Diffusion（前向加噪）
+\[
+x_{t+\Delta t} = x_t + \eta_t,\quad \eta_t\sim\mathcal N(0,\sigma_q^2\Delta t),
+\]
+使 \(p_t\) 逐渐趋近高斯；离散步数 \(T\) 越大，相邻分布越“近”。
+
+### 3.2 Reverse SDE / DDPM（随机反演）
+通过反向 SDE 采样：在每一步对 \(x_t\) 注入**小随机性**，保证**分布覆盖与多样性**。
+
+### 3.3 Probability Flow ODE / DDIM（确定性反演）
+用**概率流方程**得到确定性轨迹：相同 \(\{p_t\}\) 边缘分布下，**轨迹唯一、可重复**，适合加速与编辑。
+
+### 3.4 Tweedie 与得分
+在高斯观测下，
+\[
+\hat\theta(x)=\mathbb E[\theta\mid x] = x + \sigma^2\nabla_x\log p(x),
+\]
+说明**最优去噪方向**就是**密度上升最快方向**；学习去噪\(\Leftrightarrow\)学习得分。
+
+## 4. Prerequisites（先修清单）
+- 概率论与统计：条件期望、KL/JS、集中不等式（选修）
+- 随机过程：布朗运动、伊藤引理、Fokker–Planck（可边学边用）
+- 优化/深度学习：MSE/L2，AdamW，学习率与噪声调度
+
+::: callout-tip
+建议边学边做：在玩具 2D 数据上可视化前向/反向轨迹，直观看到“加噪→降噪”的几何过程。
+:::
+
+## 5. Study Plan（8–10 周）
+- **Week 1–2**：复现最小去噪器（单步/多步），理解 MSE 与 \(\mathbb E[x_{t-\Delta t}\mid x_t]\)  
+- **Week 3–4**：实现 DDPM 采样；分析噪声调度、步数与 FID/IS  
+- **Week 5–6**：切到 DDIM（ODE）；做步数扫描（50→20→10）与一致性对比  
+- **Week 7–8**：读 Flow Matching/Consistency，做一次蒸馏或单步模型尝试  
+- **Week 9+**：专项：编辑/插值/视频/控制，或做一篇读书/实验报告
+
+## 6. Assignments（实践作业）
+1. **Toy-2D 可视化**：画出 \((p_{t-1},p_t)\) 以及反向均值轨迹  
+2. **回归等式验证**：数值验证 \(\arg\min_f \mathbb E\|f(x_t)-x_{t-1}\|^2 = \mathbb E[x_{t-1}\mid x_t]\)  
+3. **DDPM↔DDIM 对照**：相同步数下比较质量、多样性与速度  
+4. **得分一致性**：估计 \(\nabla_x\log p_t\) 并验证 Tweedie 方向的“拉回”效应
+
+## 7. Recommended Reading（分层阅读）
+- **起点**  
+  - *DDPM*: Denoising Diffusion Probabilistic Models (Ho et al., 2020)  
+  - *Score Matching*: Generative Modeling by Estimating Gradients of the Data Distribution (Song & Ermon, 2019)  
+- **统一与加速**  
+  - *SDE 统一*: Score-based Generative Modeling through SDEs (Song et al., 2021)  
+  - *DDIM*: Denoising Diffusion Implicit Models (Song, Meng, Ermon, 2020)  
+- **确定性流 / 统一框架**  
+  - Flow Matching for Generative Modeling (Lipman et al., 2023)  
+  - Stochastic / Probability Flow Interpolants (Albergo et al., 2023)
+- **理论延展**  
+  - 随机过程教材（Williams, 1991；Liptser & Shirayev, 1977）  
+  - 复杂度与信息论视角（Montanari 系论文、随机定位/Localization 综述）
+
+## 8. FAQ（常见困惑）
+- **DDPM vs DDIM：谁更好？**  
+  DDPM 多样性更强、理论更贴近 SDE；DDIM 轨迹确定、采样快、适合编辑。实际常两者结合：先用 DDIM 快速预览，再用 DDPM 精修。
+- **为什么学习“均值”就够了？**  
+  小步噪声下 \(p(x_{t-\Delta t}\!\mid x_t)\approx\mathcal N(\mu,\sigma^2 I)\)，已知方差，只需学均值（做回归）即可近似整个条件。
+- **Tweedie 与扩散的关系？**  
+  都把“去噪方向”与“得分 \(\nabla\log p\)”绑定：扩散的反向均值沿着 Tweedie 方向修正。
+
+## 9. Knowledge Map（Mermaid）
+```mermaid
+flowchart LR
+  A[Target p*(x)] -->|Forward: add noise| B[p_t ~ N(0, σ_t^2)]
+  B -->|Reverse SDE (DDPM)| C[Samples ~ p*]
+  B -->|Probability Flow ODE (DDIM)| C
+  C --> D[Flow Matching / Consistency]
+  A -. score ∇log p_t .-> C
