@@ -67,14 +67,14 @@
     "href": "guides/diffusion/index.html#学习路径建议",
     "title": "Diffusion Models",
     "section": "学习路径建议",
-    "text": "学习路径建议\n\n\n\n\n\n\n\n\n阶段\n学什么\n目标\n\n\n\n\n入门\n扩散动机、前向/反向、得分函数与 Tweedie\n能复现一个最小去噪器\n\n\n统一\n理解 SDE↔︎ODE、DDPM vs DDIM\n理解连续视角与采样差异\n\n\n进阶\nFlow Matching / Consistency / 噪声调度\n构建确定性快速采样流\n\n\n理论\nFokker–Planck, KL, Localization\n掌握理论本质与收敛性\n\n\n实践\nCIFAR10 / FFHQ / 文本条件\n完整跑通 pipeline"
+    "text": "学习路径建议\n\n\n\n\n\n\n\n\n阶段\n学什么\n目标\n\n\n\n\n入门\n扩散动机、前向/反向、得分函数与 Tweedie\n复现一个最小去噪器\n\n\n统一\n理解 \\,\\text{SDE}\\leftrightarrow\\text{ODE}\\,、DDPM vs DDIM\n看懂连续视角与采样差异\n\n\n进阶\nFlow Matching / Consistency / 噪声调度\n构建确定性快速采样流\n\n\n理论\nFokker–Planck, KL, Localization\n掌握收敛性与复杂度直觉\n\n\n实践\nCIFAR10 / FFHQ / 文本条件\n跑通完整 pipeline"
   },
   {
-    "objectID": "guides/diffusion/index.html#推荐资料",
-    "href": "guides/diffusion/index.html#推荐资料",
+    "objectID": "guides/diffusion/index.html#入门推荐step-by-step-diffusionarxiv2406.08929",
+    "href": "guides/diffusion/index.html#入门推荐step-by-step-diffusionarxiv2406.08929",
     "title": "Diffusion Models",
-    "section": "推荐资料",
-    "text": "推荐资料\n\nDDPM: Ho et al. (2020)\n\nDDIM: Song et al. (2020)\n\nSDE 统一: Song et al. (2021)\n\nFlow Matching: Lipman et al. (2023)\n\n理论延伸: Williams (1991), Montanari (2023)\n\n\n\n下方是所有与「Diffusion」相关的学习笔记："
+    "section": "入门推荐：Step-by-Step Diffusion（arXiv:2406.08929）",
+    "text": "入门推荐：Step-by-Step Diffusion（arXiv:2406.08929）\n\n“Teach diffusion as simply as possible, with minimal mathematical prerequisites.”\n— Nakkiran, Bradley, Zhou, Advani (2024)\n原文：https://arxiv.org/pdf/2406.08929\n\n这篇教程以最小数学依赖讲解扩散模型的核心直觉与采样流程，强调“加噪→去噪”的构造思路，帮助快速形成整体认知（DDPM、DDIM、Flow Matching 的联系与差异）。\n谁适合读？ - 初学扩散但具备基本概率/线代基础； - 想先抓“为什么这样做”的直觉，而非从繁琐推导开始； - 需要一条从直觉到算法实现的清晰路径。\n延伸阅读 - DDPM：Ho et al., 2020 — https://arxiv.org/abs/2006.11239\n- DDIM：Song et al., 2020 — https://arxiv.org/abs/2010.02502\n- SDE 统一：Song et al., 2021 — https://arxiv.org/abs/2011.13456\n- Flow Matching：Lipman et al., 2023 — https://arxiv.org/abs/2210.02747\n\n\n下方自动汇总本栏目下的所有「Diffusion」笔记（notes/*.qmd）。\n如需新增，直接在 guides/diffusion/notes/ 目录中添加新 .qmd 文件即可。"
   },
   {
     "objectID": "tools/quarto-setup.html",
