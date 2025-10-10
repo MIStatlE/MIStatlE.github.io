@@ -161,7 +161,7 @@
     "href": "guides/diffusion/index.html#learning-roadmap建议顺序",
     "title": "Diffusion Models — Index",
     "section": "2. Learning Roadmap（建议顺序）",
-    "text": "2. Learning Roadmap（建议顺序）\n\n\n\n\n\n\n\n\n\n阶段\n学什么\n目标与产出\n参考\n\n\n\n\n0. 先修\n概率、矩阵微积分、最优化、基础深度学习\n读懂符号与损失\n任一本概率/凸优化速览\n\n\n1. 入门\n扩散动机、前向/反向、得分函数与 Tweedie 公式\n写出最小可用去噪器\nHo et al. 2020；Song & Ermon 2019\n\n\n2. 统一视角\nSDE/ODE、概率流方程、DDPM vs DDIM\n推导 SDE()ODE 对应\nSong et al. 2021；DDIM 2020\n\n\n3. 进阶\nFlow Matching / Consistency / 噪声调度\n训练可快速采样的确定性流\nLipman et al. 2023；Albergo et al. 2023\n\n\n4. 理论\nFokker–Planck、KL 轨迹、随机定位\n理解收敛与复杂度\n经典随机过程教材 + 综述\n\n\n5. 实践\n从 CIFAR10/FFHQ 复现，到自定义数据集\n端到端跑通并做 ablation\n开源实现与 Colab"
+    "text": "2. Learning Roadmap（建议顺序）\n\n\n\n阶段\n学什么\n目标与产出\n参考\n\n\n\n\n0. 先修\n概率、矩阵微积分、最优化、基础深度学习\n读懂符号与损失\n任一本概率/凸优化速览\n\n\n1. 入门\n扩散动机、前向/反向、得分函数与 Tweedie 公式\n写出最小可用去噪器\nHo et al. 2020；Song & Ermon 2019\n\n\n2. 统一视角\nSDE/ODE、概率流方程、DDPM vs DDIM\n推导 SDE()ODE 对应\nSong et al. 2021；DDIM 2020\n\n\n3. 进阶\nFlow Matching / Consistency / 噪声调度\n训练可快速采样的确定性流\nLipman et al. 2023；Albergo et al. 2023\n\n\n4. 理论\nFokker–Planck、KL 轨迹、随机定位\n理解收敛与复杂度\n经典随机过程教材 + 综述\n\n\n5. 实践\n从 CIFAR10/FFHQ 复现，到自定义数据集\n端到端跑通并做 ablation\n开源实现与 Colab\n\n\n阶段\n学什么\n推荐资源\n\n\n\n——\n——–\n———-\n\n\n\n基础入门\n生成模型动机、得分函数\nHo et al. (2020), DeepMind Diffusion Lectures\n\n\n\n数学基础\n随机过程与 SDE\n《Stochastic Differential Equations》 by Øksendal, MIT 18.675\n\n\n\n确定性流\nDDIM 与 Flow Matching\nDDIM Paper, Flow Matching (Lipman, 2023)"
   },
   {
     "objectID": "guides/diffusion/index.html#core-concepts核心概念",
@@ -210,7 +210,7 @@
     "href": "guides/diffusion/index.html#knowledge-mapmermaid",
     "title": "Diffusion Models — Index",
     "section": "9. Knowledge Map（Mermaid）",
-    "text": "9. Knowledge Map（Mermaid）\n```mermaid flowchart LR A[Target p*(x)] –&gt;|Forward: add noise| B[p_t ~ N(0, σ_t^2)] B –&gt;|Reverse SDE (DDPM)| C[Samples ~ p*] B –&gt;|Probability Flow ODE (DDIM)| C C –&gt; D[Flow Matching / Consistency] A -. score ∇log p_t .-&gt; C"
+    "text": "9. Knowledge Map（Mermaid）\n```mermaid flowchart LR A[Target p*(x)] –&gt;|Forward: add noise| B[p_t ~ N(0, σ_t^2)] B –&gt;|Reverse SDE (DDPM)| C[Samples ~ p*] B –&gt;|Probability Flow ODE (DDIM)| C C –&gt; D[Flow Matching / Consistency] A -. score ∇log p_t .-&gt; C ## 10. Resources（学习资料）\n\n📗 Books\n\n《Pattern Recognition and Machine Learning》 — Bishop, ch.12 生成模型\n《Stochastic Processes and Applications》 — Gardiner\n《High-Dimensional Probability》 — Roman Vershynin\n《Machine Learning: a Probabilistic Perspective》 — Murphy\n\n\n\n🎥 Courses / Lectures\n\nMIT 6.S980: Diffusion Models\nStanford CS236: Deep Generative Models\nBerkeley STAT 157: Deep Unsupervised Learning\nDeepMind x UCL Diffusion Seminar (YouTube Playlist)\n\n\n\n💻 Code & Demos\n\nDDPM Official Implementation\nOpenAI Guided Diffusion\nScore SDE Pytorch\nFlow Matching\n\n\n\n🧠 Tutorials / Notes\n\nLilian Weng’s Blog: What are Diffusion Models?\nDistill.pub: Tweedie’s Formula Explained\nMIStatlE Diffusion Notes (本站内部链接) ### 🔗 Next Steps\n📘 Gaussian Diffusion 基础\n🧩 DDPM 推导与实现\n⚙️ DDIM & ODE 视角\n🌊 Flow Matching 实战\n📚 理论延伸与阅读\n📗 外部课程与书籍资源 ::: {.callout-tip title=“📘 推荐资料（点击展开）” collapse=“true”}\nDeep Generative Models — Stanford CS236\nFlow Matching (Lipman et al. 2023)\nMIT 18.675: Stochastic Processes :::"
   },
   {
     "objectID": "papers/index.html",

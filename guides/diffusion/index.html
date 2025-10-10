@@ -385,7 +385,13 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#assignments实践作业" id="toc-assignments实践作业" class="nav-link" data-scroll-target="#assignments实践作业">6. Assignments（实践作业）</a></li>
   <li><a href="#recommended-reading分层阅读" id="toc-recommended-reading分层阅读" class="nav-link" data-scroll-target="#recommended-reading分层阅读">7. Recommended Reading（分层阅读）</a></li>
   <li><a href="#faq常见困惑" id="toc-faq常见困惑" class="nav-link" data-scroll-target="#faq常见困惑">8. FAQ（常见困惑）</a></li>
-  <li><a href="#knowledge-mapmermaid" id="toc-knowledge-mapmermaid" class="nav-link" data-scroll-target="#knowledge-mapmermaid">9. Knowledge Map（Mermaid）</a></li>
+  <li><a href="#knowledge-mapmermaid" id="toc-knowledge-mapmermaid" class="nav-link" data-scroll-target="#knowledge-mapmermaid">9. Knowledge Map（Mermaid）</a>
+  <ul class="collapse">
+  <li><a href="#books" id="toc-books" class="nav-link" data-scroll-target="#books">📗 Books</a></li>
+  <li><a href="#courses-lectures" id="toc-courses-lectures" class="nav-link" data-scroll-target="#courses-lectures">🎥 Courses / Lectures</a></li>
+  <li><a href="#code-demos" id="toc-code-demos" class="nav-link" data-scroll-target="#code-demos">💻 Code &amp; Demos</a></li>
+  <li><a href="#tutorials-notes" id="toc-tutorials-notes" class="nav-link" data-scroll-target="#tutorials-notes">🧠 Tutorials / Notes</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -455,12 +461,6 @@ ul.task-list li input[type="checkbox"] {
 <section id="learning-roadmap建议顺序" class="level2">
 <h2 class="anchored" data-anchor-id="learning-roadmap建议顺序">2. Learning Roadmap（建议顺序）</h2>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>阶段</th>
@@ -505,6 +505,36 @@ ul.task-list li input[type="checkbox"] {
 <td>从 CIFAR10/FFHQ 复现，到自定义数据集</td>
 <td>端到端跑通并做 ablation</td>
 <td>开源实现与 Colab</td>
+</tr>
+<tr class="odd">
+<td>阶段</td>
+<td>学什么</td>
+<td>推荐资源</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>——</td>
+<td>——–</td>
+<td>———-</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>基础入门</strong></td>
+<td>生成模型动机、得分函数</td>
+<td><a href="https://arxiv.org/abs/2006.11239">Ho et al.&nbsp;(2020)</a>, <a href="https://deepmind.com/learning-resources">DeepMind Diffusion Lectures</a></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>数学基础</strong></td>
+<td>随机过程与 SDE</td>
+<td>《Stochastic Differential Equations》 by Øksendal, <a href="https://ocw.mit.edu">MIT 18.675</a></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>确定性流</strong></td>
+<td>DDIM 与 Flow Matching</td>
+<td><a href="https://arxiv.org/abs/2010.02502">DDIM Paper</a>, <a href="https://arxiv.org/abs/2210.02747">Flow Matching (Lipman, 2023)</a></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -619,9 +649,53 @@ DDPM 多样性更强、理论更贴近 SDE；DDIM 轨迹确定、采样快、适
 </section>
 <section id="knowledge-mapmermaid" class="level2">
 <h2 class="anchored" data-anchor-id="knowledge-mapmermaid">9. Knowledge Map（Mermaid）</h2>
-<p>```mermaid flowchart LR A[Target p*(x)] –&gt;|Forward: add noise| B[p_t ~ N(0, σ_t^2)] B –&gt;|Reverse SDE (DDPM)| C[Samples ~ p*] B –&gt;|Probability Flow ODE (DDIM)| C C –&gt; D[Flow Matching / Consistency] A -. score ∇log p_t .-&gt; C</p>
+<p>```mermaid flowchart LR A[Target p*(x)] –&gt;|Forward: add noise| B[p_t ~ N(0, σ_t^2)] B –&gt;|Reverse SDE (DDPM)| C[Samples ~ p*] B –&gt;|Probability Flow ODE (DDIM)| C C –&gt; D[Flow Matching / Consistency] A -. score ∇log p_t .-&gt; C ## 10. Resources（学习资料）</p>
+<section id="books" class="level3">
+<h3 class="anchored" data-anchor-id="books">📗 Books</h3>
+<ul>
+<li><a href="https://www.springer.com/gp/book/9780387310732">《Pattern Recognition and Machine Learning》</a> — Bishop, ch.12 生成模型</li>
+<li><a href="https://www.cambridge.org/core/books/abs/stochastic-processes-and-applications">《Stochastic Processes and Applications》</a> — Gardiner</li>
+<li><a href="https://www.cambridge.org/core/books/highdimensional-probability/43D9A8A3A9E5C2B9A91AF5D69368D94B">《High-Dimensional Probability》</a> — Roman Vershynin</li>
+<li><a href="https://probml.github.io/pml-book/">《Machine Learning: a Probabilistic Perspective》</a> — Murphy</li>
+</ul>
+</section>
+<section id="courses-lectures" class="level3">
+<h3 class="anchored" data-anchor-id="courses-lectures">🎥 Courses / Lectures</h3>
+<ul>
+<li><a href="https://mit-diffusion.github.io">MIT 6.S980: Diffusion Models</a></li>
+<li><a href="https://deepgenerativemodels.github.io">Stanford CS236: Deep Generative Models</a></li>
+<li><a href="https://sites.google.com/view/berkeley-stat-157/">Berkeley STAT 157: Deep Unsupervised Learning</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLqYmG7hTraZCkftCvihsG2zQ_N9l3QOjo">DeepMind x UCL Diffusion Seminar (YouTube Playlist)</a></li>
+</ul>
+</section>
+<section id="code-demos" class="level3">
+<h3 class="anchored" data-anchor-id="code-demos">💻 Code &amp; Demos</h3>
+<ul>
+<li><a href="https://github.com/hojonathanho/diffusion">DDPM Official Implementation</a></li>
+<li><a href="https://github.com/openai/guided-diffusion">OpenAI Guided Diffusion</a></li>
+<li><a href="https://github.com/yang-song/score_sde_pytorch">Score SDE Pytorch</a></li>
+<li><a href="https://github.com/atong01/flow-matching">Flow Matching</a></li>
+</ul>
+</section>
+<section id="tutorials-notes" class="level3">
+<h3 class="anchored" data-anchor-id="tutorials-notes">🧠 Tutorials / Notes</h3>
+<ul>
+<li><a href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/">Lilian Weng’s Blog: What are Diffusion Models?</a></li>
+<li><a href="https://distill.pub/">Distill.pub: Tweedie’s Formula Explained</a></li>
+<li><a href="../notes/">MIStatlE Diffusion Notes (本站内部链接)</a> ### 🔗 Next Steps</li>
+<li><a href="./gaussian-basics.qmd">📘 Gaussian Diffusion 基础</a></li>
+<li><a href="./ddpm.qmd">🧩 DDPM 推导与实现</a></li>
+<li><a href="./ddim.qmd">⚙️ DDIM &amp; ODE 视角</a></li>
+<li><a href="./flow-matching.qmd">🌊 Flow Matching 实战</a></li>
+<li><a href="./theory.qmd">📚 理论延伸与阅读</a></li>
+<li><a href="#resources">📗 外部课程与书籍资源</a> ::: {.callout-tip title=“📘 推荐资料（点击展开）” collapse=“true”}</li>
+<li><a href="https://deepgenerativemodels.github.io">Deep Generative Models — Stanford CS236</a></li>
+<li><a href="https://arxiv.org/abs/2210.02747">Flow Matching (Lipman et al.&nbsp;2023)</a></li>
+<li><a href="https://ocw.mit.edu">MIT 18.675: Stochastic Processes</a> :::</li>
+</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
