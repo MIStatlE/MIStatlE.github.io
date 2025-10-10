@@ -1,0 +1,18 @@
+# guides/diffusion/_metadata.yml
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-copy: true
+    anchor-sections: true
+
+# 让 notes 下的文章默认有文章风格、启用草图卡片信息
+defaults:
+  - scope:
+      path: notes
+      type: file
+    values:
+      page-layout: article
+      draft: false
+      categories: ["diffusion"]
+      # 如果你常放首图，可在每篇里设置 image: images/xxx.jpg
