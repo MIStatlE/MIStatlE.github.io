@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-01-10">
-<meta name="description" content="最小实现思路、噪声调度、步数与质量的权衡。">
+<meta name="dcterms.date" content="2025-10-01">
+<meta name="description" content="从前向噪声到反向回归目标，理解为什么只需学均值。">
 
-<title>DDPM：从反向 SDE 到采样器 – FRAIMEL</title>
+<title>DDPM 基础推导 – FRAIMEL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -122,13 +122,13 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="../../../styles.css">
-<meta property="og:title" content="DDPM：从反向 SDE 到采样器 – FRAIMEL">
-<meta property="og:description" content="最小实现思路、噪声调度、步数与质量的权衡。">
-<meta property="og:image" content="https://mistatle.github.io/guides/images/tool-card.png">
+<meta property="og:title" content="DDPM 基础推导 – FRAIMEL">
+<meta property="og:description" content="从前向噪声到反向回归目标，理解为什么只需学均值。">
+<meta property="og:image" content="https://mistatle.github.io/guides/images/diffusion-cover.png">
 <meta property="og:site_name" content="FRAIMEL">
-<meta name="twitter:title" content="DDPM：从反向 SDE 到采样器 – FRAIMEL">
-<meta name="twitter:description" content="最小实现思路、噪声调度、步数与质量的权衡。">
-<meta name="twitter:image" content="https://mistatle.github.io/guides/images/tool-card.png">
+<meta name="twitter:title" content="DDPM 基础推导 – FRAIMEL">
+<meta name="twitter:description" content="从前向噪声到反向回归目标，理解为什么只需学均值。">
+<meta name="twitter:image" content="https://mistatle.github.io/guides/images/diffusion-cover.png">
 <meta name="twitter:creator" content="@MIStatlE">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -416,16 +416,8 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#动机" id="toc-动机" class="nav-link active" data-scroll-target="#动机">动机</a></li>
-  <li><a href="#关键等式" id="toc-关键等式" class="nav-link" data-scroll-target="#关键等式">关键等式</a></li>
-  <li><a href="#代码片段" id="toc-代码片段" class="nav-link" data-scroll-target="#代码片段">代码片段</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -433,17 +425,16 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">DDPM：从反向 SDE 到采样器</h1>
+<h1 class="title">DDPM 基础推导</h1>
   <div class="quarto-categories">
     <div class="quarto-category">diffusion</div>
     <div class="quarto-category">ddpm</div>
-    <div class="quarto-category">sde</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    最小实现思路、噪声调度、步数与质量的权衡。
+    从前向噪声到反向回归目标，理解为什么只需学均值。
   </div>
 </div>
 
@@ -454,7 +445,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 10, 2025</p>
+      <p class="date">October 1, 2025</p>
     </div>
   </div>
   
@@ -466,20 +457,9 @@ window.Quarto = {
 </header>
 
 
-<section id="动机" class="level2">
-<h2 class="anchored" data-anchor-id="动机">动机</h2>
-<p>给定 <span class="math inline">p^*(x)</span> 的样本，学习反向一步 <span class="math inline">p(x_{t-\Delta t}\mid x_t)</span> 的均值…</p>
-</section>
-<section id="关键等式" class="level2">
-<h2 class="anchored" data-anchor-id="关键等式">关键等式</h2>
-<p><span class="math inline">\,\arg\min_f \mathbb E\| f(x_t)-x_{t-\Delta t}\|^2 = \mathbb E[x_{t-\Delta t}\mid x_t]</span> …</p>
-</section>
-<section id="代码片段" class="level2">
-<h2 class="anchored" data-anchor-id="代码片段">代码片段</h2>
-<p>```python # 你的伪代码 / 真实代码</p>
+<p>简述：<span class="math inline">x_{t+\Delta t}=x_t+\eta_t,\ \eta_t\sim\mathcal N(0,\sigma_q^2\Delta t)</span>。小步噪声下， <span class="math inline">p(x_{t-\Delta t}\mid x_t)\approx \mathcal N(\mu_t(x_t),\sigma_q^2\Delta t)</span>， 回归目标 <span class="math inline">\arg\min_f \mathbb E\|f(x_t)-x_{t-\Delta t}\|^2</span>。</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

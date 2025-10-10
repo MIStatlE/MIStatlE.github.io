@@ -159,30 +159,9 @@
   {
     "objectID": "guides/diffusion/notes/ddpm.html",
     "href": "guides/diffusion/notes/ddpm.html",
-    "title": "DDPM：从反向 SDE 到采样器",
+    "title": "DDPM 基础推导",
     "section": "",
-    "text": "给定 p^*(x) 的样本，学习反向一步 p(x_{t-\\Delta t}\\mid x_t) 的均值…"
-  },
-  {
-    "objectID": "guides/diffusion/notes/ddpm.html#动机",
-    "href": "guides/diffusion/notes/ddpm.html#动机",
-    "title": "DDPM：从反向 SDE 到采样器",
-    "section": "",
-    "text": "给定 p^*(x) 的样本，学习反向一步 p(x_{t-\\Delta t}\\mid x_t) 的均值…"
-  },
-  {
-    "objectID": "guides/diffusion/notes/ddpm.html#关键等式",
-    "href": "guides/diffusion/notes/ddpm.html#关键等式",
-    "title": "DDPM：从反向 SDE 到采样器",
-    "section": "关键等式",
-    "text": "关键等式\n\\,\\arg\\min_f \\mathbb E\\| f(x_t)-x_{t-\\Delta t}\\|^2 = \\mathbb E[x_{t-\\Delta t}\\mid x_t] …"
-  },
-  {
-    "objectID": "guides/diffusion/notes/ddpm.html#代码片段",
-    "href": "guides/diffusion/notes/ddpm.html#代码片段",
-    "title": "DDPM：从反向 SDE 到采样器",
-    "section": "代码片段",
-    "text": "代码片段\n```python # 你的伪代码 / 真实代码"
+    "text": "简述：x_{t+\\Delta t}=x_t+\\eta_t,\\ \\eta_t\\sim\\mathcal N(0,\\sigma_q^2\\Delta t)。小步噪声下， p(x_{t-\\Delta t}\\mid x_t)\\approx \\mathcal N(\\mu_t(x_t),\\sigma_q^2\\Delta t)， 回归目标 \\arg\\min_f \\mathbb E\\|f(x_t)-x_{t-\\Delta t}\\|^2。"
   },
   {
     "objectID": "papers/index.html",
