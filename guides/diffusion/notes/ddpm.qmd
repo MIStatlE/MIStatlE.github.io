@@ -1,0 +1,18 @@
+---
+title: "DDPM：从反向 SDE 到采样器"
+description: "最小实现思路、噪声调度、步数与质量的权衡。"
+date: 2025-01-10
+categories: [diffusion, ddpm, sde]
+# 可选首图：显示在 listing 卡片
+# image: ../../images/diffusion/ddpm-card.jpg
+---
+
+## 动机
+给定 $p^*(x)$ 的样本，学习反向一步 $p(x_{t-\Delta t}\mid x_t)$ 的均值…
+
+## 关键等式
+$\,\arg\min_f \mathbb E\| f(x_t)-x_{t-\Delta t}\|^2 = \mathbb E[x_{t-\Delta t}\mid x_t]$ …
+
+## 代码片段
+```python
+# 你的伪代码 / 真实代码
