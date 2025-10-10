@@ -32,7 +32,40 @@ listing:
 ---
 
 ## 推荐资料
+# 推荐入门教程：Step-by-Step Diffusion（arXiv:2406.08929）
 
+> *“Teach diffusion as simply as possible, with minimal mathematical prerequisites.”*  
+> — Nakkiran, Bradley, Zhou, Advani 2024  [oai_citation:0‡arXiv](https://arxiv.org/pdf/2406.08929)  
+
+---
+
+## 📘 简介与定位
+
+这篇教程旨在为首次接触扩散模型的读者搭建一条“直觉 + 算法”通道。作者在“最小数学依赖”的前提下，讲透扩散模型、DDPM、DDIM 与 Flow Matching 的核心思想与生成采样流程。 [oai_citation:1‡arXiv](https://arxiv.org/pdf/2406.08929)  
+
+> 它**不会**以 SDE、ELBO 或复杂概率推导为起点；而是从最直观的加噪-去噪视角出发，让非专家也能理解扩散建模背后的逻辑。
+
+---
+
+## 🎯 适合人群 & 优势
+
+| 适合人群 | 优势 |
+|---|---|
+| 刚接触 diffusion 但有概率 / 代数基础 | 阅读门槛低，不会被复杂推导吓退 |
+| 想快速形成框架性理解 | 贯通前向、反向、确定性流、Flow Matching 的整体结构 |
+| 想知道每一步“为什么这样做” | 提供直觉、算法和对应选择对比 |
+
+具体优势有：
+
+- **极简数学依赖**：只需基本概率、线性代数、正态分布知识即可上手  
+- **模块化结构**：分章节讲清DDPM、DDIM、Flow Matching、实践指导与设计选择    
+- **直觉优先**：许多地方使用 heuristic 或“放弃高严格性”的方式解释，使人快速抓住本质  
+
+---
+
+它以“先给直觉 + 简单算法”起步，再逐步介绍可选“可跳过”的高级章节（如 SDE 视角、严格推导），让你既能快速入门，也有路径深入。 [oai_citation:6‡arXiv](https://arxiv.org/pdf/2406.08929)  
+
+---
 - **DDPM:** [Ho et al. (2020)](https://arxiv.org/abs/2006.11239)  
 - **DDIM:** [Song et al. (2020)](https://arxiv.org/abs/2010.02502)  
 - **SDE 统一:** [Song et al. (2021)](https://arxiv.org/abs/2011.13456)  
