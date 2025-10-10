@@ -1,36 +1,29 @@
 ---
 title: "Diffusion — Index"
-description: "从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。"
+description: "从零到一：前向加噪、反向去噪、DDPM/DDIM、Flow Matching 与理论基础。"
 page-layout: article
 toc: true
 toc-title: "On this page"
 
-# 关键：在本页下方自动列出 notes/*.qmd（像 Posts）
+# 👉 关键：在本页挂一个 listing，抓取 notes/*.qmd 并以卡片展示
 listing:
   contents:
-    - notes/*.qmd           # 自动抓取 notes 目录下的笔记
+    - notes/*.qmd
+  type: grid          # 卡片/网格
   sort: "date desc"
-  type: default             # 卡片/列表风格（带摘要、标签）
-  categories: true
-  filter-ui: true           # 顶部筛选
-  fields: [title, date, categories, description]  # 显示字段
+  page-size: 12
+  image-placeholder: ../../images/tool-card.png
+  fields: [image, title, categories, date, description, reading-time]
 ---
 
 > **What you’ll get**  
 > 动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。
 
 ## 学习路径（简版）
-- Forward：$x_{t+\Delta t}=x_t+\eta_t,\ \eta_t\sim\mathcal N(0,\sigma_q^2\Delta t)$  
-- Reverse：学习 $p(x_{t-\Delta t}\mid x_t)$ 或其均值方向（得分）  
-- ODE 视角（DDIM）与 SDE 视角（DDPM）统一  
-- Flow Matching：确定性流的训练与加速
+- 先修：概率/最优化/矩阵微积分
+- 入门：前向/反向、得分与 Tweedie
+- 统一：SDE↔ODE，DDPM vs DDIM
+- 进阶：Flow Matching / Consistency
+- 实践：复现 & ablation
 
-## 推荐起点
-- Ho et al. (2020), Song & Ermon (2019)  
-- Song et al. (2021 SDE 统一), DDIM (2020)  
-- Lipman et al. (2023 Flow Matching)
-
----
-
-## 笔记（按时间倒序）
-（下方为自动生成的卡片列表）
+> 下方为该专题的所有笔记卡片（来自 `guides/diffusion/notes/*.qmd`）。
