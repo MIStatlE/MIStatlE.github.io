@@ -3,7 +3,7 @@ project:
   output-dir: _site
 
 website:
-  title: "MIStatlE Lab"
+  title: "FRAIMEL"
   description: "A high-signal growth space: math, ML theory, papers, tools, and community."
   site-url: "https://mistatle.github.io"
   favicon: images/image1.png
@@ -54,7 +54,7 @@ website:
         href: search.qmd
 
   page-footer:
-    left: "© MIStatlE Lab · Built for learners"
+    left: "© FRAIMEL · Built for learners"
     right: |
       Built with [Quarto](https://quarto.org) · Content CC BY 4.0
 
