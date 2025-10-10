@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。">
 
-<title>Paper Picks – MIStatlE Lab</title>
+<title>Diffusion Models — Index – MIStatlE Lab</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,31 +24,29 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../images/image1.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-e24644aab278aee125c7f2d0a581bc5b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/image1.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-e24644aab278aee125c7f2d0a581bc5b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -75,85 +74,15 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-authors','listing-venue','listing-year','listing-tags',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Paper Picks – MIStatlE Lab">
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Diffusion Models — Index – MIStatlE Lab">
+<meta property="og:description" content="从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。">
 <meta property="og:site_name" content="MIStatlE Lab">
-<meta name="twitter:title" content="Paper Picks – MIStatlE Lab">
+<meta name="twitter:title" content="Diffusion Models — Index – MIStatlE Lab">
+<meta name="twitter:description" content="从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。">
 <meta name="twitter:creator" content="@MIStatlE">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -327,11 +256,11 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../images/image1.png" alt="" class="navbar-logo light-content">
-    <img src="../images/image1.png" alt="" class="navbar-logo dark-content">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/image1.png" alt="" class="navbar-logo light-content">
+    <img src="../../images/image1.png" alt="" class="navbar-logo dark-content">
     </a>
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">MIStatlE Lab</span>
     </a>
   </div>
@@ -342,7 +271,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -351,45 +280,45 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-guides">    
         <li>
-    <a class="dropdown-item" href="../guides/prob/index.qmd">
+    <a class="dropdown-item" href="../../guides/prob/index.qmd">
  <span class="dropdown-text">Probability &amp; Stats</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../guides/opt/index.qmd">
+    <a class="dropdown-item" href="../../guides/opt/index.qmd">
  <span class="dropdown-text">Optimization</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../guides/mlt/index.qmd">
+    <a class="dropdown-item" href="../../guides/mlt/index.qmd">
  <span class="dropdown-text">ML Theory</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../guides/rl/index.qmd">
+    <a class="dropdown-item" href="../../guides/rl/index.qmd">
  <span class="dropdown-text">RL / Online Learning</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="../papers/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../papers/index.html"> 
 <span class="menu-text">Paper Picks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../posts/index.html"> 
+    <a class="nav-link" href="../../posts/index.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tools/index.html"> 
+    <a class="nav-link" href="../../tools/index.html"> 
 <span class="menu-text">Tools</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../reads/index.html"> 
+    <a class="nav-link" href="../../reads/index.html"> 
 <span class="menu-text">Good Reads</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../community/index.html"> 
+    <a class="nav-link" href="../../community/index.html"> 
 <span class="menu-text">Community</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -417,12 +346,12 @@ window.Quarto = {
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="../posts/index.xml"> <i class="bi bi-rss" role="img">
+    <a class="nav-link" href="../../posts/index.xml"> <i class="bi bi-rss" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../search.html"> 
+    <a class="nav-link" href="../../search.html"> 
 <span class="menu-text">Search</span></a>
   </li>  
 </ul>
@@ -434,24 +363,56 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="T3B0aW1pemF0aW9u">Optimization <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#why-diffusion" id="toc-why-diffusion" class="nav-link active" data-scroll-target="#why-diffusion">1. Why Diffusion?</a></li>
+  <li><a href="#learning-roadmap建议顺序" id="toc-learning-roadmap建议顺序" class="nav-link" data-scroll-target="#learning-roadmap建议顺序">2. Learning Roadmap（建议顺序）</a></li>
+  <li><a href="#core-concepts核心概念" id="toc-core-concepts核心概念" class="nav-link" data-scroll-target="#core-concepts核心概念">3. Core Concepts（核心概念）</a>
+  <ul class="collapse">
+  <li><a href="#forward-diffusion前向加噪" id="toc-forward-diffusion前向加噪" class="nav-link" data-scroll-target="#forward-diffusion前向加噪">3.1 Forward Diffusion（前向加噪）</a></li>
+  <li><a href="#reverse-sde-ddpm随机反演" id="toc-reverse-sde-ddpm随机反演" class="nav-link" data-scroll-target="#reverse-sde-ddpm随机反演">3.2 Reverse SDE / DDPM（随机反演）</a></li>
+  <li><a href="#probability-flow-ode-ddim确定性反演" id="toc-probability-flow-ode-ddim确定性反演" class="nav-link" data-scroll-target="#probability-flow-ode-ddim确定性反演">3.3 Probability Flow ODE / DDIM（确定性反演）</a></li>
+  <li><a href="#tweedie-与得分" id="toc-tweedie-与得分" class="nav-link" data-scroll-target="#tweedie-与得分">3.4 Tweedie 与得分</a></li>
+  </ul></li>
+  <li><a href="#prerequisites先修清单" id="toc-prerequisites先修清单" class="nav-link" data-scroll-target="#prerequisites先修清单">4. Prerequisites（先修清单）</a></li>
+  <li><a href="#study-plan810-周" id="toc-study-plan810-周" class="nav-link" data-scroll-target="#study-plan810-周">5. Study Plan（8–10 周）</a></li>
+  <li><a href="#assignments实践作业" id="toc-assignments实践作业" class="nav-link" data-scroll-target="#assignments实践作业">6. Assignments（实践作业）</a></li>
+  <li><a href="#recommended-reading分层阅读" id="toc-recommended-reading分层阅读" class="nav-link" data-scroll-target="#recommended-reading分层阅读">7. Recommended Reading（分层阅读）</a></li>
+  <li><a href="#faq常见困惑" id="toc-faq常见困惑" class="nav-link" data-scroll-target="#faq常见困惑">8. FAQ（常见困惑）</a></li>
+  <li><a href="#knowledge-mapmermaid" id="toc-knowledge-mapmermaid" class="nav-link" data-scroll-target="#knowledge-mapmermaid">9. Knowledge Map（Mermaid）</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Paper Picks</h1>
+<h1 class="title">Diffusion Models — Index</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">generative-models</div>
+    <div class="quarto-category">diffusion</div>
+    <div class="quarto-category">sde</div>
+    <div class="quarto-category">ode</div>
+    <div class="quarto-category">flow-matching</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。
+  </div>
 </div>
 
 
-
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta">
 
     
   
@@ -464,80 +425,206 @@ window.Quarto = {
 
 
 <blockquote class="blockquote">
-<p>高信号论文精选：关注 ML Theory / RL / Optimization / Generative Models。</p>
+<p><strong>What you’ll get</strong><br>
+一条从零到一的学习路径：动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。</p>
 </blockquote>
-
-
-
-
-<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-    <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-    <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-      <option value="" disabled="" selected="" hidden="">Order By</option>
-      <option value="index" data-direction="asc">Default</option>
-      <option value="listing-title-sort" data-direction="asc">
-        Title
-      </option>
-    </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
+<section id="why-diffusion" class="level2">
+<h2 class="anchored" data-anchor-id="why-diffusion">1. Why Diffusion?</h2>
+<p>给定来自未知分布 (p^*(x)) 的 i.i.d. 样本（如狗的图片），目标是<strong>构造一个采样器</strong>再生出近似的样本。<br>
+扩散模型的“巧思”在于：把“难的一步到位生成”改写成<strong>前向加噪</strong>（复杂 () 简单）与<strong>反向去噪</strong>（简单 () 复杂）的<strong>多步可逆过程</strong>，每一步都更容易学习。</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<table class="quarto-listing-table table">
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>关键视角
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>前向过程（Forward）</strong>：(x_{t+t} = x_t + _t,&nbsp;_tN(0,_q^2t))<br>
+</li>
+<li><strong>反向过程（Reverse）</strong>：学习 (p(x_{t-t}x_t)) 或其均值（回归/得分）<br>
+</li>
+<li><strong>得分函数</strong>：(_x p_t(x)) 连接去噪与生成（Tweedie/Score Matching）</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="learning-roadmap建议顺序" class="level2">
+<h2 class="anchored" data-anchor-id="learning-roadmap建议顺序">2. Learning Roadmap（建议顺序）</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
 <thead>
-<tr>
-
-<th>
-<a class="sort" data-sort="listing-title-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Title</a>
-</th>
-
-<th>
-authors
-</th>
-
-<th>
-venue
-</th>
-
-<th>
-year
-</th>
-
-<th>
-tags
-</th>
-
+<tr class="header">
+<th>阶段</th>
+<th>学什么</th>
+<th>目标与产出</th>
+<th>参考</th>
 </tr>
 </thead>
-<tbody class="list">
-
-<tr data-index="0" data-categories="T3B0aW1pemF0aW9u" data-listing-date-sort="1759881600000" data-listing-file-modified-sort="1760075550905" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="19" data-listing-title-sort="Self-Concordant Barriers Revisited" data-listing-filename-sort="2025-10-08-paper-template.qmd">
-<td>
-<a href="../papers/2025-10-08-paper-template.html" class="title listing-title">Self-Concordant Barriers Revisited</a>
-</td>
-<td>
-<span class="listing-authors">Nesterov, Nemirovski</span>
-</td>
-<td>
-<span class="listing-venue">Math. Programming</span>
-</td>
-<td>
-<span class="listing-year">1994</span>
-</td>
-<td>
-<span class="listing-tags">optimization, self-concordant, interior-point</span>
-</td>
-
+<tbody>
+<tr class="odd">
+<td>0. 先修</td>
+<td>概率、矩阵微积分、最优化、基础深度学习</td>
+<td>读懂符号与损失</td>
+<td>任一本概率/凸优化速览</td>
 </tr>
-
+<tr class="even">
+<td>1. 入门</td>
+<td>扩散动机、前向/反向、得分函数与 Tweedie 公式</td>
+<td>写出最小可用去噪器</td>
+<td>Ho et al.&nbsp;2020；Song &amp; Ermon 2019</td>
+</tr>
+<tr class="odd">
+<td>2. 统一视角</td>
+<td>SDE/ODE、概率流方程、DDPM vs DDIM</td>
+<td>推导 SDE()ODE 对应</td>
+<td>Song et al.&nbsp;2021；DDIM 2020</td>
+</tr>
+<tr class="even">
+<td>3. 进阶</td>
+<td>Flow Matching / Consistency / 噪声调度</td>
+<td>训练可快速采样的确定性流</td>
+<td>Lipman et al.&nbsp;2023；Albergo et al.&nbsp;2023</td>
+</tr>
+<tr class="odd">
+<td>4. 理论</td>
+<td>Fokker–Planck、KL 轨迹、随机定位</td>
+<td>理解收敛与复杂度</td>
+<td>经典随机过程教材 + 综述</td>
+</tr>
+<tr class="even">
+<td>5. 实践</td>
+<td>从 CIFAR10/FFHQ 复现，到自定义数据集</td>
+<td>端到端跑通并做 ablation</td>
+<td>开源实现与 Colab</td>
+</tr>
 </tbody>
 </table>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</section>
+<section id="core-concepts核心概念" class="level2">
+<h2 class="anchored" data-anchor-id="core-concepts核心概念">3. Core Concepts（核心概念）</h2>
+<section id="forward-diffusion前向加噪" class="level3">
+<h3 class="anchored" data-anchor-id="forward-diffusion前向加噪">3.1 Forward Diffusion（前向加噪）</h3>
+<p>[ x_{t+t} = x_t + _t,_tN(0,_q^2t), ] 使 (p_t) 逐渐趋近高斯；离散步数 (T) 越大，相邻分布越“近”。</p>
+</section>
+<section id="reverse-sde-ddpm随机反演" class="level3">
+<h3 class="anchored" data-anchor-id="reverse-sde-ddpm随机反演">3.2 Reverse SDE / DDPM（随机反演）</h3>
+<p>通过反向 SDE 采样：在每一步对 (x_t) 注入<strong>小随机性</strong>，保证<strong>分布覆盖与多样性</strong>。</p>
+</section>
+<section id="probability-flow-ode-ddim确定性反演" class="level3">
+<h3 class="anchored" data-anchor-id="probability-flow-ode-ddim确定性反演">3.3 Probability Flow ODE / DDIM（确定性反演）</h3>
+<p>用<strong>概率流方程</strong>得到确定性轨迹：相同 ({p_t}) 边缘分布下，<strong>轨迹唯一、可重复</strong>，适合加速与编辑。</p>
+</section>
+<section id="tweedie-与得分" class="level3">
+<h3 class="anchored" data-anchor-id="tweedie-与得分">3.4 Tweedie 与得分</h3>
+<p>在高斯观测下， [ (x)=E[x] = x + ^2_xp(x), ] 说明<strong>最优去噪方向</strong>就是<strong>密度上升最快方向</strong>；学习去噪()学习得分。</p>
+</section>
+</section>
+<section id="prerequisites先修清单" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites先修清单">4. Prerequisites（先修清单）</h2>
+<ul>
+<li>概率论与统计：条件期望、KL/JS、集中不等式（选修）</li>
+<li>随机过程：布朗运动、伊藤引理、Fokker–Planck（可边学边用）</li>
+<li>优化/深度学习：MSE/L2，AdamW，学习率与噪声调度</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>建议边学边做：在玩具 2D 数据上可视化前向/反向轨迹，直观看到“加噪→降噪”的几何过程。</p>
+</div>
+</div>
+</section>
+<section id="study-plan810-周" class="level2">
+<h2 class="anchored" data-anchor-id="study-plan810-周">5. Study Plan（8–10 周）</h2>
+<ul>
+<li><strong>Week 1–2</strong>：复现最小去噪器（单步/多步），理解 MSE 与 (E[x_{t-t}x_t])<br>
+</li>
+<li><strong>Week 3–4</strong>：实现 DDPM 采样；分析噪声调度、步数与 FID/IS<br>
+</li>
+<li><strong>Week 5–6</strong>：切到 DDIM（ODE）；做步数扫描（50→20→10）与一致性对比<br>
+</li>
+<li><strong>Week 7–8</strong>：读 Flow Matching/Consistency，做一次蒸馏或单步模型尝试<br>
+</li>
+<li><strong>Week 9+</strong>：专项：编辑/插值/视频/控制，或做一篇读书/实验报告</li>
+</ul>
+</section>
+<section id="assignments实践作业" class="level2">
+<h2 class="anchored" data-anchor-id="assignments实践作业">6. Assignments（实践作业）</h2>
+<ol type="1">
+<li><strong>Toy-2D 可视化</strong>：画出 ((p_{t-1},p_t)) 以及反向均值轨迹<br>
+</li>
+<li><strong>回归等式验证</strong>：数值验证 (<em>f E|f(x_t)-x</em>{t-1}|^2 = E[x_{t-1}x_t])<br>
+</li>
+<li><strong>DDPM↔︎DDIM 对照</strong>：相同步数下比较质量、多样性与速度<br>
+</li>
+<li><strong>得分一致性</strong>：估计 (_xp_t) 并验证 Tweedie 方向的“拉回”效应</li>
+</ol>
+</section>
+<section id="recommended-reading分层阅读" class="level2">
+<h2 class="anchored" data-anchor-id="recommended-reading分层阅读">7. Recommended Reading（分层阅读）</h2>
+<ul>
+<li><strong>起点</strong>
+<ul>
+<li><em>DDPM</em>: Denoising Diffusion Probabilistic Models (Ho et al., 2020)<br>
+</li>
+<li><em>Score Matching</em>: Generative Modeling by Estimating Gradients of the Data Distribution (Song &amp; Ermon, 2019)<br>
+</li>
+</ul></li>
+<li><strong>统一与加速</strong>
+<ul>
+<li><em>SDE 统一</em>: Score-based Generative Modeling through SDEs (Song et al., 2021)<br>
+</li>
+<li><em>DDIM</em>: Denoising Diffusion Implicit Models (Song, Meng, Ermon, 2020)<br>
+</li>
+</ul></li>
+<li><strong>确定性流 / 统一框架</strong>
+<ul>
+<li>Flow Matching for Generative Modeling (Lipman et al., 2023)<br>
+</li>
+<li>Stochastic / Probability Flow Interpolants (Albergo et al., 2023)</li>
+</ul></li>
+<li><strong>理论延展</strong>
+<ul>
+<li>随机过程教材（Williams, 1991；Liptser &amp; Shirayev, 1977）<br>
+</li>
+<li>复杂度与信息论视角（Montanari 系论文、随机定位/Localization 综述）</li>
+</ul></li>
+</ul>
+</section>
+<section id="faq常见困惑" class="level2">
+<h2 class="anchored" data-anchor-id="faq常见困惑">8. FAQ（常见困惑）</h2>
+<ul>
+<li><strong>DDPM vs DDIM：谁更好？</strong><br>
+DDPM 多样性更强、理论更贴近 SDE；DDIM 轨迹确定、采样快、适合编辑。实际常两者结合：先用 DDIM 快速预览，再用 DDPM 精修。</li>
+<li><strong>为什么学习“均值”就够了？</strong><br>
+小步噪声下 (p(x_{t-t}!x_t)N(,^2 I))，已知方差，只需学均值（做回归）即可近似整个条件。</li>
+<li><strong>Tweedie 与扩散的关系？</strong><br>
+都把“去噪方向”与“得分 (p)”绑定：扩散的反向均值沿着 Tweedie 方向修正。</li>
+</ul>
+</section>
+<section id="knowledge-mapmermaid" class="level2">
+<h2 class="anchored" data-anchor-id="knowledge-mapmermaid">9. Knowledge Map（Mermaid）</h2>
+<p>```mermaid flowchart LR A[Target p*(x)] –&gt;|Forward: add noise| B[p_t ~ N(0, σ_t^2)] B –&gt;|Reverse SDE (DDPM)| C[Samples ~ p*] B –&gt;|Probability Flow ODE (DDIM)| C C –&gt; D[Flow Matching / Consistency] A -. score ∇log p_t .-&gt; C</p>
+
+
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -974,5 +1061,5 @@ tags
 
 
 
-<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

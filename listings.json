@@ -1,7 +1,9 @@
 [
   {
-    "listing": "/reads/index.html",
-    "items": []
+    "listing": "/tools/index.html",
+    "items": [
+      "/tools/quarto-setup.html"
+    ]
   },
   {
     "listing": "/posts/index.html",
@@ -10,10 +12,8 @@
     ]
   },
   {
-    "listing": "/tools/index.html",
-    "items": [
-      "/tools/quarto-setup.html"
-    ]
+    "listing": "/reads/index.html",
+    "items": []
   },
   {
     "listing": "/papers/index.html",
