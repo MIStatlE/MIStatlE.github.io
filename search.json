@@ -58,16 +58,23 @@
   {
     "objectID": "guides/diffusion/index.html",
     "href": "guides/diffusion/index.html",
-    "title": "Diffusion — Index",
+    "title": "Diffusion Models",
     "section": "",
-    "text": "What you’ll get\n动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。"
+    "text": "学习目标\n从零到一理解扩散模型：动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。"
   },
   {
-    "objectID": "guides/diffusion/index.html#学习路径简版",
-    "href": "guides/diffusion/index.html#学习路径简版",
-    "title": "Diffusion — Index",
-    "section": "学习路径（简版）",
-    "text": "学习路径（简版）\n\n先修：概率/最优化/矩阵微积分\n入门：前向/反向、得分与 Tweedie\n统一：SDE↔︎ODE，DDPM vs DDIM\n进阶：Flow Matching / Consistency\n实践：复现 & ablation\n\n\n下方为该专题的所有笔记卡片（来自 guides/diffusion/notes/*.qmd）。"
+    "objectID": "guides/diffusion/index.html#学习路径建议",
+    "href": "guides/diffusion/index.html#学习路径建议",
+    "title": "Diffusion Models",
+    "section": "学习路径建议",
+    "text": "学习路径建议\n\n\n\n\n\n\n\n\n阶段\n学什么\n目标\n\n\n\n\n入门\n扩散动机、前向/反向、得分函数与 Tweedie\n能复现一个最小去噪器\n\n\n统一\n理解 SDE↔︎ODE、DDPM vs DDIM\n理解连续视角与采样差异\n\n\n进阶\nFlow Matching / Consistency / 噪声调度\n构建确定性快速采样流\n\n\n理论\nFokker–Planck, KL, Localization\n掌握理论本质与收敛性\n\n\n实践\nCIFAR10 / FFHQ / 文本条件\n完整跑通 pipeline"
+  },
+  {
+    "objectID": "guides/diffusion/index.html#推荐资料",
+    "href": "guides/diffusion/index.html#推荐资料",
+    "title": "Diffusion Models",
+    "section": "推荐资料",
+    "text": "推荐资料\n\nDDPM: Ho et al. (2020)\n\nDDIM: Song et al. (2020)\n\nSDE 统一: Song et al. (2021)\n\nFlow Matching: Lipman et al. (2023)\n\n理论延伸: Williams (1991), Montanari (2023)\n\n\n\n下方是所有与「Diffusion」相关的学习笔记："
   },
   {
     "objectID": "tools/quarto-setup.html",
