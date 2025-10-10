@@ -1,85 +1,36 @@
 ---
-title: "Diffusion Models — Index"
+title: "Diffusion — Index"
 description: "从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。"
-categories: [diffusion, generative-models, sde, ode, flow-matching]
+page-layout: article
 toc: true
 toc-title: "On this page"
-page-layout: article
-draft: false
+
+# 关键：在本页下方自动列出 notes/*.qmd（像 Posts）
+listing:
+  contents:
+    - notes/*.qmd           # 自动抓取 notes 目录下的笔记
+  sort: "date desc"
+  type: default             # 卡片/列表风格（带摘要、标签）
+  categories: true
+  filter-ui: true           # 顶部筛选
+  fields: [title, date, categories, description]  # 显示字段
 ---
 
-> **Learning Path:** 动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。
+> **What you’ll get**  
+> 动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。
 
-## 1. Why Diffusion?
-给定来自未知分布 $p^*(x)$ 的样本（如狗的图片），目标是**构造采样器**再生出近似样本。  
-扩散模型通过“**先加噪，再去噪**”把生成任务分解成多步：  
-从复杂分布 $\to$ 高斯噪声（forward），再从高斯噪声 $\to$ 原始分布（reverse）。
+## 学习路径（简版）
+- Forward：$x_{t+\Delta t}=x_t+\eta_t,\ \eta_t\sim\mathcal N(0,\sigma_q^2\Delta t)$  
+- Reverse：学习 $p(x_{t-\Delta t}\mid x_t)$ 或其均值方向（得分）  
+- ODE 视角（DDIM）与 SDE 视角（DDPM）统一  
+- Flow Matching：确定性流的训练与加速
 
-::: callout-note
-- **Forward:** $x_{t+\Delta t}=x_t+\eta_t,\ \eta_t\sim\mathcal N(0,\sigma_q^2\Delta t)$  
-- **Reverse:** 学习 $p(x_{t-\Delta t}\mid x_t)$ 的均值或梯度  
-- **Score:** $\nabla_x\log p_t(x)$ 连接去噪与生成（Tweedie）
-:::
+## 推荐起点
+- Ho et al. (2020), Song & Ermon (2019)  
+- Song et al. (2021 SDE 统一), DDIM (2020)  
+- Lipman et al. (2023 Flow Matching)
 
-## 2. Learning Roadmap
-| 阶段 | 学什么 | 目标 | 参考 |
-|------|--------|------|------|
-| 0. 先修 | 概率、优化、基础深度学习 | 掌握符号 | 任意教材 |
-| 1. 入门 | 扩散动机、Tweedie、得分函数 | 写出最小去噪器 | Ho et al. 2020；Song & Ermon 2019 |
-| 2. 统一视角 | SDE/ODE、概率流方程 | 推导 SDE↔ODE | Song et al. 2021；DDIM 2020 |
-| 3. 进阶 | Flow Matching / Consistency | 训练确定性流 | Lipman 2023；Albergo 2023 |
-| 4. 理论 | Fokker–Planck、随机定位 | 理解收敛 | 经典教材 |
-| 5. 实践 | CIFAR10/自定义数据 | 跑通采样器 | Colab / 开源实现 |
+---
 
-## 3. Core Concepts
-- **Forward Diffusion:** $x_{t+\Delta t}=x_t+\eta_t$，噪声逐步增大，$p_t$ 近似高斯。  
-- **Reverse SDE / DDPM:** 每步对 $x_t$ 去噪，保证样本多样性。  
-- **Probability Flow ODE / DDIM:** 确定性反演，轨迹唯一，可加速采样。  
-- **Tweedie 公式:** $\hat\theta(x)=x+\sigma^2\nabla_x\log p(x)$，最优去噪方向即密度上升方向。  
-
-## 4. Study Plan（8–10 周）
-- **W1–2:** 单步去噪器，实现 $\mathbb E[x_{t-\Delta t}\mid x_t]$  
-- **W3–4:** 实现 DDPM；分析步数与噪声调度  
-- **W5–6:** 转 DDIM；比较采样速度  
-- **W7–8:** 阅读 Flow Matching/Consistency，做蒸馏实验  
-- **W9+:** 应用扩展（编辑/插值/视频/控制）
-
-## 5. Assignments
-1. **2D 可视化：** 绘制 $(p_{t-1},p_t)$ 与反向均值轨迹  
-2. **回归验证：** 验证 $\arg\min_f\E\|f(x_t)-x_{t-1}\|^2=\E[x_{t-1}\mid x_t]$  
-3. **DDPM↔DDIM：** 比较采样速度与质量  
-4. **Score 一致性：** 验证 Tweedie “拉回”效应  
-
-## 6. Resources（学习资料）
-
-### 📗 Books
-- [《Pattern Recognition and Machine Learning》](https://www.springer.com/gp/book/9780387310732) — Bishop  
-- [《Stochastic Differential Equations》](https://www.springer.com/gp/book/9783540047582) — Øksendal  
-- [《High-Dimensional Probability》](https://www.cambridge.org/core/books/highdimensional-probability/43D9A8A3A9E5C2B9A91AF5D69368D94B) — Vershynin  
-- [《Machine Learning: A Probabilistic Perspective》](https://probml.github.io/pml-book/) — Murphy  
-
-### 🎥 Courses
-- [MIT 6.S980: Diffusion Models](https://mit-diffusion.github.io)  
-- [Stanford CS236: Deep Generative Models](https://deepgenerativemodels.github.io)  
-- [Berkeley STAT 157: Deep Unsupervised Learning](https://sites.google.com/view/berkeley-stat-157/)  
-- [DeepMind x UCL Diffusion Seminar](https://www.youtube.com/playlist?list=PLqYmG7hTraZCkftCvihsG2zQ_N9l3QOjo)  
-
-### 💻 Code & Demos
-- [DDPM (Ho)](https://github.com/hojonathanho/diffusion)  
-- [OpenAI Guided Diffusion](https://github.com/openai/guided-diffusion)  
-- [Score SDE Pytorch](https://github.com/yang-song/score_sde_pytorch)  
-- [Flow Matching](https://github.com/atong01/flow-matching)  
-
-### 🧠 Tutorials / Notes
-- [Lilian Weng: What are Diffusion Models?](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)  
-- [Distill.pub: Tweedie’s Formula Explained](https://distill.pub/)  
-- [MIStatlE Diffusion Notes](../notes/)  
-
-## 7. Knowledge Map
-```mermaid
-flowchart LR
-  A[p*(x)] -->|Forward: add noise| B[p_t ~ N(0, σ_t²)]
-  B -->|Reverse SDE (DDPM)| C[Samples ~ p*]
-  B -->|Flow ODE (DDIM)| C
-  C --> D[Flow Matching / Consistency]
-  A -. score ∇log p_t .-> C
+## 笔记（按时间倒序）
+（下方为自动生成的卡片列表）
