@@ -1,13 +1,9 @@
 [
   {
-    "listing": "/guides/diffusion/index.html",
+    "listing": "/tools/index.html",
     "items": [
-      "/guides/diffusion/notes/ddpm.html"
+      "/tools/quarto-setup.html"
     ]
-  },
-  {
-    "listing": "/reads/index.html",
-    "items": []
   },
   {
     "listing": "/posts/index.html",
@@ -16,9 +12,14 @@
     ]
   },
   {
-    "listing": "/tools/index.html",
+    "listing": "/reads/index.html",
+    "items": []
+  },
+  {
+    "listing": "/guides/diffusion/index.html",
     "items": [
-      "/tools/quarto-setup.html"
+      "/guides/diffusion/notes/vae.html",
+      "/guides/diffusion/notes/ddpm.html"
     ]
   },
   {
