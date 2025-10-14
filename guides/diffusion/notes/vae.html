@@ -40,10 +40,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-af233734312349fa49a74d906b7b192a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-e24644aab278aee125c7f2d0a581bc5b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -129,7 +133,169 @@ window.Quarto = {
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -257,18 +423,17 @@ window.Quarto = {
   <ul>
   <li><a href="#vae从最大似然到-elbo" id="toc-vae从最大似然到-elbo" class="nav-link active" data-scroll-target="#vae从最大似然到-elbo">VAE：从最大似然到 ELBO</a>
   <ul class="collapse">
-  <li><a href="#从极大似然出发" id="toc-从极大似然出发" class="nav-link" data-scroll-target="#从极大似然出发">🎯 从极大似然出发</a></li>
-  <li><a href="#引入可计算的近似分布" id="toc-引入可计算的近似分布" class="nav-link" data-scroll-target="#引入可计算的近似分布">🧩 引入可计算的近似分布</a></li>
-  <li><a href="#从最大似然到-elbo" id="toc-从最大似然到-elbo" class="nav-link" data-scroll-target="#从最大似然到-elbo">🧮 从最大似然到 ELBO</a></li>
-  <li><a href="#elbo-的结构与意义" id="toc-elbo-的结构与意义" class="nav-link" data-scroll-target="#elbo-的结构与意义">🧠 ELBO 的结构与意义</a></li>
-  <li><a href="#梯度与可微优化" id="toc-梯度与可微优化" class="nav-link" data-scroll-target="#梯度与可微优化">⚙️ 梯度与可微优化</a></li>
-  <li><a href="#本节速览" id="toc-本节速览" class="nav-link" data-scroll-target="#本节速览">📋 本节速览</a></li>
+  <li><a href="#从极大似然出发" id="toc-从极大似然出发" class="nav-link" data-scroll-target="#从极大似然出发">从极大似然出发</a></li>
+  <li><a href="#引入可计算的近似分布" id="toc-引入可计算的近似分布" class="nav-link" data-scroll-target="#引入可计算的近似分布">引入可计算的近似分布</a></li>
+  <li><a href="#从最大似然到-elbo" id="toc-从最大似然到-elbo" class="nav-link" data-scroll-target="#从最大似然到-elbo">从最大似然到 ELBO</a></li>
+  <li><a href="#elbo-的结构与意义" id="toc-elbo-的结构与意义" class="nav-link" data-scroll-target="#elbo-的结构与意义">ELBO 的结构与意义</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
+
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -310,7 +475,7 @@ window.Quarto = {
 <section id="vae从最大似然到-elbo" class="level1">
 <h1>VAE：从最大似然到 ELBO</h1>
 <section id="从极大似然出发" class="level2">
-<h2 class="anchored" data-anchor-id="从极大似然出发">🎯 从极大似然出发</h2>
+<h2 class="anchored" data-anchor-id="从极大似然出发">从极大似然出发</h2>
 <p>我们希望估计某个分布 <span class="math inline">p(x)</span>，用参数化模型 <span class="math inline">p_\theta(x)</span> 来近似，并通过极大似然估计优化参数：</p>
 <p><span class="math display">
 \max_\theta \ \mathbb{E}_{x\sim p^*}[\log p_\theta(x)].
@@ -323,7 +488,7 @@ p_\theta(x)=\int p_\theta(x|z)p(z)\,dz,
 <hr>
 </section>
 <section id="引入可计算的近似分布" class="level2">
-<h2 class="anchored" data-anchor-id="引入可计算的近似分布">🧩 引入可计算的近似分布</h2>
+<h2 class="anchored" data-anchor-id="引入可计算的近似分布">引入可计算的近似分布</h2>
 <p>真实的后验 <span class="math inline">p_\theta(z|x)</span> 无法直接计算，于是定义可计算的近似分布：</p>
 <p><span class="math display">
 q_\phi(z|x) \approx p_\theta(z|x),
@@ -337,7 +502,7 @@ p_\theta(x|z)=\mathcal N(x|f_\theta(z),\sigma_{\text{dec}}^2 I).
 <hr>
 </section>
 <section id="从最大似然到-elbo" class="level2">
-<h2 class="anchored" data-anchor-id="从最大似然到-elbo">🧮 从最大似然到 ELBO</h2>
+<h2 class="anchored" data-anchor-id="从最大似然到-elbo">从最大似然到 ELBO</h2>
 <p>直接优化 <span class="math inline">\log p_\theta(x)</span> 不可行，因为积分项难计算：</p>
 <p><span class="math display">
 p_\theta(x)=\int p_\theta(x,z)\,dz.
@@ -358,7 +523,7 @@ p_\theta(x)=\int p_\theta(x,z)\,dz.
 <hr>
 </section>
 <section id="elbo-的结构与意义" class="level2">
-<h2 class="anchored" data-anchor-id="elbo-的结构与意义">🧠 ELBO 的结构与意义</h2>
+<h2 class="anchored" data-anchor-id="elbo-的结构与意义">ELBO 的结构与意义</h2>
 <p>展开 <span class="math inline">p_\theta(x,z)=p_\theta(x|z)p(z)</span>，有：</p>
 <p><span class="math display">
 \mathcal L(\theta,\phi;x)
@@ -377,44 +542,6 @@ p_\theta(x)=\int p_\theta(x,z)\,dz.
 </span></p>
 <p>因此 ELBO 始终是 <span class="math inline">\log p_\theta(x)</span> 的下界。</p>
 <hr>
-</section>
-<section id="梯度与可微优化" class="level2">
-<h2 class="anchored" data-anchor-id="梯度与可微优化">⚙️ 梯度与可微优化</h2>
-<p><strong>对 <span class="math inline">\theta</span>（生成器）求导：</strong></p>
-<p><span class="math display">
-\nabla_\theta \mathcal L
-= \mathbb{E}_{q_\phi(z|x)}[\nabla_\theta \log p_\theta(x|z)].
-</span></p>
-<p>可用 Monte Carlo 近似实现。</p>
-<p><strong>对 <span class="math inline">\phi</span>（编码器）求导：</strong></p>
-<p>若能重参数化 <span class="math inline">z=g_\phi(x,\varepsilon)</span> 且 <span class="math inline">\varepsilon\sim p(\varepsilon)</span>：</p>
-<p><span class="math display">
-z=\mu_\phi(x)+\sigma_\phi(x)\odot\varepsilon,\quad \varepsilon\sim\mathcal N(0,I),
-</span></p>
-<p>则：</p>
-<p><span class="math display">
-\nabla_\phi \mathbb{E}_{q_\phi}[\log p_\theta(x|z)]
-= \mathbb{E}_\varepsilon[\nabla_\phi \log p_\theta(x|g_\phi(x,\varepsilon))].
-</span></p>
-<p>这就是 <strong>重参数化技巧</strong>，可显著降低方差。<br>
-对于离散 <span class="math inline">z</span>，则可使用 REINFORCE 或 Gumbel–Softmax。</p>
-<hr>
-</section>
-<section id="本节速览" class="level2">
-<h2 class="anchored" data-anchor-id="本节速览">📋 本节速览</h2>
-<ul>
-<li>目标：极大似然估计 → 引入潜变量 <span class="math inline">z</span><br>
-</li>
-<li>核心公式：<br>
-<span class="math inline">\mathcal L = \mathbb{E}_{q_\phi}[\log p_\theta(x|z)] - \mathrm{KL}(q_\phi\|p)</span><br>
-</li>
-<li>关系：<br>
-<span class="math inline">\log p_\theta(x) = \mathcal L + \mathrm{KL}(q_\phi\|p_\theta(\cdot|x))</span><br>
-</li>
-<li>实现：<br>
-重参数化采样、解析 KL、KL 退火 / <span class="math inline">\beta</span>-VAE 防坍缩</li>
-</ul>
-<hr>
 <p><strong>推荐阅读：</strong><br>
 📖 <em>arXiv:2406.08929</em> —— 一份以直觉为主的 Diffusion 入门材料。<br>
 先建立整体框架，再看推导细节，会更高效。</p>
@@ -427,6 +554,19 @@ z=\mu_\phi(x)+\sigma_\phi(x)\odot\varepsilon,\quad \varepsilon\sim\mathcal N(0,I
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
