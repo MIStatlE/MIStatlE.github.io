@@ -12,18 +12,13 @@ tags:
   - Variational Inference
   - Machine Learning Theory
 image: "../../images/diffusion-cover.png"  # 可替换封面；否则用默认占位图
-format:
-  html:
-    toc: true
-    toc-depth: 3
-    theme: flatly
 ---
 
 # VAE：从最大似然到 ELBO
 
 
 
-## 🎯 从极大似然出发
+## 从极大似然出发
 
 我们希望估计某个分布 $p(x)$，用参数化模型 $p_\theta(x)$ 来近似，并通过极大似然估计优化参数：
 
@@ -41,7 +36,7 @@ $$
 
 ---
 
-## 🧩 引入可计算的近似分布
+## 引入可计算的近似分布
 
 真实的后验 $p_\theta(z|x)$ 无法直接计算，于是定义可计算的近似分布：
 
@@ -59,7 +54,7 @@ $$
 
 ---
 
-## 🧮 从最大似然到 ELBO
+## 从最大似然到 ELBO
 
 直接优化 $\log p_\theta(x)$ 不可行，因为积分项难计算：
 
@@ -87,7 +82,7 @@ $$
 
 ---
 
-## 🧠 ELBO 的结构与意义
+## ELBO 的结构与意义
 
 展开 $p_\theta(x,z)=p_\theta(x|z)p(z)$，有：
 
@@ -112,48 +107,7 @@ $$
 
 ---
 
-## ⚙️ 梯度与可微优化
 
-**对 $\theta$（生成器）求导：**
-
-$$
-\nabla_\theta \mathcal L
-= \mathbb{E}_{q_\phi(z|x)}[\nabla_\theta \log p_\theta(x|z)].
-$$
-
-可用 Monte Carlo 近似实现。
-
-**对 $\phi$（编码器）求导：**
-
-若能重参数化 $z=g_\phi(x,\varepsilon)$ 且 $\varepsilon\sim p(\varepsilon)$：
-
-$$
-z=\mu_\phi(x)+\sigma_\phi(x)\odot\varepsilon,\quad \varepsilon\sim\mathcal N(0,I),
-$$
-
-则：
-
-$$
-\nabla_\phi \mathbb{E}_{q_\phi}[\log p_\theta(x|z)]
-= \mathbb{E}_\varepsilon[\nabla_\phi \log p_\theta(x|g_\phi(x,\varepsilon))].
-$$
-
-这就是 **重参数化技巧**，可显著降低方差。  
-对于离散 $z$，则可使用 REINFORCE 或 Gumbel–Softmax。
-
----
-
-## 📋 本节速览
-
-- 目标：极大似然估计 → 引入潜变量 $z$  
-- 核心公式：  
-  $\mathcal L = \mathbb{E}_{q_\phi}[\log p_\theta(x|z)] - \mathrm{KL}(q_\phi\|p)$  
-- 关系：  
-  $\log p_\theta(x) = \mathcal L + \mathrm{KL}(q_\phi\|p_\theta(\cdot|x))$  
-- 实现：  
-  重参数化采样、解析 KL、KL 退火 / $\beta$-VAE 防坍缩  
-
----
 
 **推荐阅读：**  
 📖 *arXiv:2406.08929* —— 一份以直觉为主的 Diffusion 入门材料。  
