@@ -255,7 +255,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#vae从最大似然到-elbo速记版" id="toc-vae从最大似然到-elbo速记版" class="nav-link active" data-scroll-target="#vae从最大似然到-elbo速记版">VAE：从最大似然到 ELBO（速记版）</a>
+  <li><a href="#vae从最大似然到-elbo" id="toc-vae从最大似然到-elbo" class="nav-link active" data-scroll-target="#vae从最大似然到-elbo">VAE：从最大似然到 ELBO</a>
   <ul class="collapse">
   <li><a href="#从极大似然出发" id="toc-从极大似然出发" class="nav-link" data-scroll-target="#从极大似然出发">🎯 从极大似然出发</a></li>
   <li><a href="#引入可计算的近似分布" id="toc-引入可计算的近似分布" class="nav-link" data-scroll-target="#引入可计算的近似分布">🧩 引入可计算的近似分布</a></li>
@@ -307,14 +307,8 @@ window.Quarto = {
 </header>
 
 
-<section id="vae从最大似然到-elbo速记版" class="level1">
-<h1>VAE：从最大似然到 ELBO（速记版）</h1>
-<hr>
-<p>趁着 IG vs T1 场间来更新一下。<br>
-VAE 算是生成模型里最基础的一环，但背后的逻辑其实很优雅。<br>
-这次主要是梳理它从「最大似然」到「变分下界（ELBO）」的推导思路，<br>
-也是理解 diffusion、flow 等更复杂模型的起点。</p>
-<hr>
+<section id="vae从最大似然到-elbo" class="level1">
+<h1>VAE：从最大似然到 ELBO</h1>
 <section id="从极大似然出发" class="level2">
 <h2 class="anchored" data-anchor-id="从极大似然出发">🎯 从极大似然出发</h2>
 <p>我们希望估计某个分布 <span class="math inline">p(x)</span>，用参数化模型 <span class="math inline">p_\theta(x)</span> 来近似，并通过极大似然估计优化参数：</p>
