@@ -1,0 +1,134 @@
+---
+title: "连续映射定理与 Slutsky 定理"
+subtitle: "从收敛概念到渐近分析的统一逻辑"
+description: "理解连续变换与不同收敛类型之间的关系，是概率极限定理体系的核心。"
+date: 2025-10-24
+categories:
+  - Probability
+  - Asymptotic Theory
+  - Statistical Inference
+tags:
+  - Convergence
+  - Continuous Mapping
+  - Slutsky
+  - Probability Theory
+image: "../../images/probability-cover.png"  # 可替换封面；否则用默认占位图
+---
+
+# 连续映射定理与 Slutsky 定理
+
+> **学习目标**  
+> 掌握随机变量收敛的三种形式（几乎处处、依概率、分布收敛），  
+> 理解连续映射定理与 Slutsky 定理在渐近理论中的作用。
+
+---
+
+## 背景与动机
+
+在概率论与统计推断中，许多核心结论（如中心极限定理、渐近正态性、估计量一致性）都依赖于两个基本问题：
+
+1. 当我们对随机变量做连续变换时，收敛性质是否仍然保持？
+2. 当我们把不同类型的收敛（如分布收敛和概率收敛）结合在一起时，能否得到稳定的极限描述？
+
+这两点分别由 **连续映射定理** 与 **Slutsky 定理** 保证。
+
+---
+
+## 连续映射定理（Continuous Mapping Theorem）
+
+> **定理.**  
+> 设函数 $g$ 在集合 $B$ 上连续，且 $P(X\in B)=1$。则以下三种收敛关系均成立：  
+>
+> 1. 若 $X_n \xrightarrow{a.s.} X$，则 $g(X_n) \xrightarrow{a.s.} g(X)$；  
+> 2. 若 $X_n \xrightarrow{p} X$，则 $g(X_n) \xrightarrow{p} g(X)$；  
+> 3. 若 $X_n \xrightarrow{d} X$，则 $g(X_n) \xrightarrow{d} g(X)$。
+
+---
+
+### 证明思路
+
+**连续性与收敛的相容性：**
+
+- **几乎处处收敛：** 在概率为 1 的集合上，$X_n(\omega)\to X(\omega)$，而 $g$ 在该点连续，故 $g(X_n(\omega))\to g(X(\omega))$，即 $g(X_n)\xrightarrow{a.s.} g(X)$。  
+- **依概率收敛：** 利用 *子列刻画定理*。任意子列 $X_{n_k}$ 都可抽出子子列几乎处处收敛到 $X$；由上一步得到 $g(X_{n_k})$ 的对应子子列依概率收敛到 $g(X)$；因此 $g(X_n)\xrightarrow{p} g(X)$。  
+- **分布收敛：** 使用 *Portmanteau 定理*。考察闭集与开集的原像  
+  $C_t=\{x: g(x)\le t\}$ 与 $O_t=\{x: g(x)<t\}$，结合 $g$ 的连续性与 $P(X\in B)=1$，即可比较 $P(g(X_n)\le t)$ 与 $P(g(X)\le t)$，得出 $g(X_n)\xrightarrow{d} g(X)$。
+
+---
+
+### 直觉理解
+
+**收敛类型在连续变换下是稳定的。**
+
+例如，当 $X_n \to c$ 时：
+
+$$
+\sin(X_n)\to \sin(c), \quad
+X_n^2\to c^2, \quad
+e^{X_n}\to e^c.
+$$
+
+这意味着即使我们对随机变量进行非线性变换（如平方、指数、激活函数等），  
+收敛性质依然保持不变。
+
+---
+
+## Slutsky 定理（Slutsky’s Theorem）
+
+> **定理.**  
+> 1. 若 $X_n \xrightarrow{d} c$，则 $X_n \xrightarrow{p} c$；反之亦然。  
+> 2. 若 $X_n \xrightarrow{d} X$ 且 $d(X_n,Y_n) \xrightarrow{p} 0$，则 $Y_n \xrightarrow{d} X$。  
+> 3. 若 $X_n \xrightarrow{d} X$ 且 $Y_n \xrightarrow{p} c$，则  
+> $$
+> \begin{pmatrix}
+> X_n, Y_n
+> \end{pmatrix}
+> \xrightarrow{d}
+> \begin{pmatrix}
+> X, c
+> \end{pmatrix}.
+> $$
+
+---
+
+### 证明思路
+
+- **(1)** 若 $X_n \xrightarrow{d} c$，则其概率质量集中于 $c$ 附近，即 $\Pr(|X_n-c|>\varepsilon)\to 0$；反之亦然。  
+- **(2)** 取有界连续函数 $\varphi$，比较 $\E[\varphi(Y_n)]-\E[\varphi(X)]$，并拆为  
+  $\E[\varphi(Y_n)-\varphi(X_n)]+\E[\varphi(X_n)-\varphi(X)]$。  
+  前者由均匀连续性与 $d(X_n,Y_n)\xrightarrow{p}0$ 控制为 0，后者由 $X_n\xrightarrow{d}X$ 控制，故 $Y_n\xrightarrow{d}X$。  
+- **(3)** 取二维连续函数 $\psi(x,y)$，插入 $\psi(X_n,c)$，结合 $X_n\xrightarrow{d}X$ 与 $Y_n\xrightarrow{p}c$，即可得  
+  $(X_n,Y_n)\xrightarrow{d}(X,c)$。
+
+---
+
+### 推论与应用
+
+由 *连续映射定理* 与 *Slutsky 定理* 可得以下常用结论：
+
+$$
+X_n + Y_n \xrightarrow{d} X + c, \quad
+X_n Y_n \xrightarrow{d} cX.
+$$
+
+若 $c \neq 0$，还可得到：
+
+$$
+\frac{X_n}{Y_n} \xrightarrow{d} \frac{X}{c}.
+$$
+
+---
+
+## 总结与启发
+
+> **要点回顾：**
+>
+> - 连续映射定理保证了“函数变换”下的收敛保持；
+> - Slutsky 定理则描述了“混合类型收敛”的稳定性；
+> - 二者共同构成极限理论与渐近统计分析的技术基础。
+
+> **延伸阅读：**  
+> 📘 *Probability and Measure* — Billingsley, Ch.  (Chapter 2–3)  
+> 📗 *Asymptotic Statistics* — van der Vaart, A. W.  
+> 📙 *High-Dimensional Probability* — Vershynin, R.  
+> 推荐顺序：先掌握三类收敛，再阅读 Portmanteau 与 Slutsky 的证明。
