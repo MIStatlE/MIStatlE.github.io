@@ -1,1 +1,99 @@
+---
+title: "Probability Theory"
+description: "从随机变量、极限定理到集中不等式，系统学习现代概率论的核心框架与应用。"
+page-layout: article
+toc: true
+toc-title: "On this page"
 
+listing:
+  contents:
+    - notes/*.qmd
+  sort: "date desc"
+  type: default
+  page-size: 10
+  fields: [title, date, categories, description]
+---
+
+> **学习目标**  
+> 从直觉出发构建现代概率论体系：随机变量 → 收敛与极限定理 → 大数与中心极限定理 → 集中不等式 → 随机过程。
+
+---
+
+## 概率论的核心问题
+
+概率论的目标是：**刻画不确定性，并在随机性中寻找规律。**
+
+在现代数学体系中，概率论不仅是统计推断的基础，更是机器学习理论、信息论、随机优化等领域的核心语言。  
+
+它回答三个根本问题：
+
+1. **随机性如何被形式化？**  
+   —— 通过 $(\Omega, \mathcal{F}, \mathbb{P})$ 概率空间定义不确定事件。
+2. **如何度量“趋近确定”的过程？**  
+   —— 研究不同类型的收敛（几乎处处、依概率、分布收敛）。
+3. **大量随机样本的规律是什么？**  
+   —— 大数定律与中心极限定理揭示了“稳定性”的来源。
+
+> **核心思想：**  
+> $$\text{Randomness} \;\Rightarrow\; \text{Structure via Law of Large Numbers}$$  
+> 随机中的秩序，是现代概率论的灵魂。
+
+---
+
+## 模块概览
+
+| 模块 | 内容要点 | 理解重点 |
+|------|-----------|----------|
+| **测度化概率基础** | 概率空间、可测函数、Lebesgue 积分 | 把“事件”和“期望”放在统一框架中 |
+| **随机变量收敛** | $a.s.$, $p$, $d$ 三类收敛与关系 | 收敛的层次结构与连续映射定理 |
+| **极限定理体系** | 大数定律、中心极限定理、Borel–Cantelli | 从样本到总体的统计稳定性 |
+| **集中不等式** | Hoeffding, Bernstein, McDiarmid | 概率尾界与泛化分析的核心工具 |
+| **随机过程** | Martingale, Markov, Brownian Motion | 时序依赖下的不确定性分析 |
+
+---
+
+## 🎓 推荐课程与讲座
+
+| 课程 | 来源 | 特点 | 适合人群 |
+|------|------|------|-----------|
+| [**MIT 18.600 — Probability and Random Variables**](https://ocw.mit.edu) | MIT OCW | 逻辑清晰、涵盖经典概率框架 | 想系统掌握概率与分布理论的本科/研究生 |
+| [**Stanford STATS 310 — Probability Theory**](https://statweb.stanford.edu/~cgates/PERSI/papers.html) | Stanford | 以严谨分析为主，覆盖测度化概率 | 想理解概率论数学基础与推导 |
+| [**UCLA Math 170E/F — Probability and Stochastic Processes**](https://math.ucla.edu) | UCLA | 理论与应用结合，包含马尔可夫过程 | 想了解随机过程在 ML 中的应用 |
+| [**Berkeley STAT 205A/B**](https://stat.berkeley.edu/~stark/SticiGui/Text/prob.htm) | Berkeley | 渐近与集中理论并重 | 希望进阶理论与集中不等式的学生 |
+
+---
+
+## 📚 推荐书籍与资料
+
+### 入门与直觉
+- **《Introduction to Probability》 — Dimitri Bertsekas & John Tsitsiklis**  
+  工程视角下的概率入门，直觉性强。
+- **《Probability and Random Processes》 — Grimmett & Stirzaker**  
+  理论与推导兼顾，经典教材。
+
+### 理论与严谨
+- **《Probability: Theory and Examples》 — Rick Durrett**  
+  高级概率教材，深入大数定律与马尔可夫链。
+- **《A Course in Probability Theory》 — Kai Lai Chung**  
+  经典而简洁，适合建立测度化概率框架。
+- **《High-Dimensional Probability》 — Roman Vershynin**  
+  现代视角下的集中不等式与随机矩阵分析。
+
+---
+
+## 📈 学习建议
+
+> **学习路径建议：**
+
+1. 从有限概率与独立性开始（如骰子、抽签模型）；
+2. 学习随机变量与期望的测度定义；
+3. 掌握各种收敛的区别与联系；
+4. 逐步引入极限定理（LLN、CLT）；
+5. 学会使用集中不等式分析学习算法；
+6. 进阶阅读 Martingale 与随机过程。
+
+---
+
+> **自动汇总笔记**  
+> 本页面将自动展示所有位于 `notes/*.qmd` 下的概率论笔记。  
+> 在 `guides/probability/notes/` 文件夹中新增 `.qmd` 文件即可自动更新列表。
