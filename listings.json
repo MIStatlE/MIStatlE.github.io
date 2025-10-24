@@ -1,12 +1,8 @@
 [
   {
-    "listing": "/reads/index.html",
-    "items": []
-  },
-  {
-    "listing": "/posts/index.html",
+    "listing": "/guides/probability/index.html",
     "items": [
-      "/posts/2025-10-07-welcome.html"
+      "/guides/probability/notes/slutsky.html"
     ]
   },
   {
@@ -16,7 +12,13 @@
     ]
   },
   {
-    "listing": "/guides/probability/index.html",
+    "listing": "/posts/index.html",
+    "items": [
+      "/posts/2025-10-07-welcome.html"
+    ]
+  },
+  {
+    "listing": "/reads/index.html",
     "items": []
   },
   {

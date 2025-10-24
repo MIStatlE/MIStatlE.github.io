@@ -101,83 +101,6 @@
     ]
   },
   {
-    "objectID": "tools/quarto-setup.html",
-    "href": "tools/quarto-setup.html",
-    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
-    "section": "",
-    "text": "Markdown+数学+列表页+RSS，一体化…\n适合“利他型”学习空间：低摩擦、高输出。"
-  },
-  {
-    "objectID": "tools/quarto-setup.html#why-quarto",
-    "href": "tools/quarto-setup.html#why-quarto",
-    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
-    "section": "",
-    "text": "Markdown+数学+列表页+RSS，一体化…\n适合“利他型”学习空间：低摩擦、高输出。"
-  },
-  {
-    "objectID": "tools/quarto-setup.html#setup",
-    "href": "tools/quarto-setup.html#setup",
-    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
-    "section": "Setup",
-    "text": "Setup\n```bash quarto create-project MIStatlE-Lab quarto add quarto-ext/fontawesome"
-  },
-  {
-    "objectID": "posts/2025-10-07-welcome.html",
-    "href": "posts/2025-10-07-welcome.html",
-    "title": "Starting Over: Building MIStatlE Lab",
-    "section": "",
-    "text": "This is a starter post. You can write math like e^{i\\pi}+1=0 and code blocks:\ndef add(a, b): return a + b\nprint(add(2, 3))\nTo publish, just push to main — GitHub Actions will render and deploy to gh-pages."
-  },
-  {
-    "objectID": "search.html",
-    "href": "search.html",
-    "title": "FRAIMEL",
-    "section": "",
-    "text": "Tip\n\n\n\nUse the navbar search (browser) or your site search engine."
-  },
-  {
-    "objectID": "search.html#title-search",
-    "href": "search.html#title-search",
-    "title": "FRAIMEL",
-    "section": "",
-    "text": "Tip\n\n\n\nUse the navbar search (browser) or your site search engine."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Welcome",
-    "section": "",
-    "text": "Hello, I’m MIStatlE 👋\nThis is my minimal Quarto website. Math works out of the box:\n\nInline math: \\int_0^1 x^2\\,dx = 1/3\nDisplay math:\n\n\n\\mathbb{P}(|S_n - n\\mu| \\ge t) \\le 2\\exp\\!\\left(-\\frac{t^2}{2\\sigma^2 n}\\right).\n\nUse the Posts section for articles and notes. Edit _quarto.yml to customize the navbar and theme."
-  },
-  {
-    "objectID": "reads/index.html",
-    "href": "reads/index.html",
-    "title": "Good Reads",
-    "section": "",
-    "text": "高信息密度外部资源：长文、书单、课程、视频与博客。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "community/index.html",
-    "href": "community/index.html",
-    "title": "Community",
-    "section": "",
-    "text": "Community\nEvents, announcements, and resources."
-  },
-  {
-    "objectID": "posts/index.html",
-    "href": "posts/index.html",
-    "title": "Posts",
-    "section": "",
-    "text": "Welcome to my posts.\n\n\n\n\n\n\n\n\n\nStarting Over: Building MIStatlE Lab\n\n\n\nmeta\n\nsetup\n\n\n\nA simple Quarto starter with math support, post listings, and GitHub Pages auto-deploy.\n\n\n\n\n\nOct 7, 2025\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "tools/index.html",
-    "href": "tools/index.html",
-    "title": "Tools & Workflows",
-    "section": "",
-    "text": "可复用的研究/工程工具与工作流，强调 可操作 与 效率。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\n\n\n\n\nQuarto 最佳实践：从 0 到“高信息密度”站点\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
     "objectID": "guides/probability/index.html",
     "href": "guides/probability/index.html",
     "title": "Probability Theory",
@@ -218,6 +141,118 @@
     "title": "Probability Theory",
     "section": "📈 学习建议",
     "text": "📈 学习建议\n\n学习路径建议：\n\n\n从有限概率与独立性开始（如骰子、抽签模型）；\n学习随机变量与期望的测度定义；\n掌握各种收敛的区别与联系；\n逐步引入极限定理（LLN、CLT）；\n学会使用集中不等式分析学习算法；\n进阶阅读 Martingale 与随机过程。\n\n\n\n自动汇总笔记\n本页面将自动展示所有位于 notes/*.qmd 下的概率论笔记。\n在 guides/probability/notes/ 文件夹中新增 .qmd 文件即可自动更新列表。"
+  },
+  {
+    "objectID": "tools/index.html",
+    "href": "tools/index.html",
+    "title": "Tools & Workflows",
+    "section": "",
+    "text": "可复用的研究/工程工具与工作流，强调 可操作 与 效率。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\n\n\n\n\nQuarto 最佳实践：从 0 到“高信息密度”站点\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/index.html",
+    "href": "posts/index.html",
+    "title": "Posts",
+    "section": "",
+    "text": "Welcome to my posts.\n\n\n\n\n\n\n\n\n\nStarting Over: Building MIStatlE Lab\n\n\n\nmeta\n\nsetup\n\n\n\nA simple Quarto starter with math support, post listings, and GitHub Pages auto-deploy.\n\n\n\n\n\nOct 7, 2025\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "community/index.html",
+    "href": "community/index.html",
+    "title": "Community",
+    "section": "",
+    "text": "Community\nEvents, announcements, and resources."
+  },
+  {
+    "objectID": "reads/index.html",
+    "href": "reads/index.html",
+    "title": "Good Reads",
+    "section": "",
+    "text": "高信息密度外部资源：长文、书单、课程、视频与博客。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome",
+    "section": "",
+    "text": "Hello, I’m MIStatlE 👋\nThis is my minimal Quarto website. Math works out of the box:\n\nInline math: \\int_0^1 x^2\\,dx = 1/3\nDisplay math:\n\n\n\\mathbb{P}(|S_n - n\\mu| \\ge t) \\le 2\\exp\\!\\left(-\\frac{t^2}{2\\sigma^2 n}\\right).\n\nUse the Posts section for articles and notes. Edit _quarto.yml to customize the navbar and theme."
+  },
+  {
+    "objectID": "search.html",
+    "href": "search.html",
+    "title": "FRAIMEL",
+    "section": "",
+    "text": "Tip\n\n\n\nUse the navbar search (browser) or your site search engine."
+  },
+  {
+    "objectID": "search.html#title-search",
+    "href": "search.html#title-search",
+    "title": "FRAIMEL",
+    "section": "",
+    "text": "Tip\n\n\n\nUse the navbar search (browser) or your site search engine."
+  },
+  {
+    "objectID": "posts/2025-10-07-welcome.html",
+    "href": "posts/2025-10-07-welcome.html",
+    "title": "Starting Over: Building MIStatlE Lab",
+    "section": "",
+    "text": "This is a starter post. You can write math like e^{i\\pi}+1=0 and code blocks:\ndef add(a, b): return a + b\nprint(add(2, 3))\nTo publish, just push to main — GitHub Actions will render and deploy to gh-pages."
+  },
+  {
+    "objectID": "tools/quarto-setup.html",
+    "href": "tools/quarto-setup.html",
+    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
+    "section": "",
+    "text": "Markdown+数学+列表页+RSS，一体化…\n适合“利他型”学习空间：低摩擦、高输出。"
+  },
+  {
+    "objectID": "tools/quarto-setup.html#why-quarto",
+    "href": "tools/quarto-setup.html#why-quarto",
+    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
+    "section": "",
+    "text": "Markdown+数学+列表页+RSS，一体化…\n适合“利他型”学习空间：低摩擦、高输出。"
+  },
+  {
+    "objectID": "tools/quarto-setup.html#setup",
+    "href": "tools/quarto-setup.html#setup",
+    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
+    "section": "Setup",
+    "text": "Setup\n```bash quarto create-project MIStatlE-Lab quarto add quarto-ext/fontawesome"
+  },
+  {
+    "objectID": "guides/probability/notes/slutsky.html",
+    "href": "guides/probability/notes/slutsky.html",
+    "title": "连续映射定理与 Slutsky 定理",
+    "section": "",
+    "text": "学习目标\n掌握随机变量收敛的三种形式（几乎处处、依概率、分布收敛），\n理解连续映射定理与 Slutsky 定理在渐近理论中的作用。\n\n\n\n\n在概率论与统计推断中，许多核心结论（如中心极限定理、渐近正态性、估计量一致性）都依赖于两个基本问题：\n\n当我们对随机变量做连续变换时，收敛性质是否仍然保持？\n当我们把不同类型的收敛（如分布收敛和概率收敛）结合在一起时，能否得到稳定的极限描述？\n\n这两点分别由 连续映射定理 与 Slutsky 定理 保证。\n\n\n\n\n\n定理.\n设函数 g 在集合 B 上连续，且 P(X\\in B)=1。则以下三种收敛关系均成立：\n\n若 X_n \\xrightarrow{a.s.} X，则 g(X_n) \\xrightarrow{a.s.} g(X)；\n\n若 X_n \\xrightarrow{p} X，则 g(X_n) \\xrightarrow{p} g(X)；\n\n若 X_n \\xrightarrow{d} X，则 g(X_n) \\xrightarrow{d} g(X)。\n\n\n\n\n\n连续性与收敛的相容性：\n\n几乎处处收敛： 在概率为 1 的集合上，X_n(\\omega)\\to X(\\omega)，而 g 在该点连续，故 g(X_n(\\omega))\\to g(X(\\omega))，即 g(X_n)\\xrightarrow{a.s.} g(X)。\n\n依概率收敛： 利用 子列刻画定理。任意子列 X_{n_k} 都可抽出子子列几乎处处收敛到 X；由上一步得到 g(X_{n_k}) 的对应子子列依概率收敛到 g(X)；因此 g(X_n)\\xrightarrow{p} g(X)。\n\n分布收敛： 使用 Portmanteau 定理。考察闭集与开集的原像\nC_t=\\{x: g(x)\\le t\\} 与 O_t=\\{x: g(x)&lt;t\\}，结合 g 的连续性与 P(X\\in B)=1，即可比较 P(g(X_n)\\le t) 与 P(g(X)\\le t)，得出 g(X_n)\\xrightarrow{d} g(X)。\n\n\n\n\n\n收敛类型在连续变换下是稳定的。\n例如，当 X_n \\to c 时：\n\n\\sin(X_n)\\to \\sin(c), \\quad\nX_n^2\\to c^2, \\quad\ne^{X_n}\\to e^c.\n\n这意味着即使我们对随机变量进行非线性变换（如平方、指数、激活函数等），\n收敛性质依然保持不变。\n\n\n\n\n\n\n定理.\n1. 若 X_n \\xrightarrow{d} c，则 X_n \\xrightarrow{p} c；反之亦然。\n2. 若 X_n \\xrightarrow{d} X 且 d(X_n,Y_n) \\xrightarrow{p} 0，则 Y_n \\xrightarrow{d} X。\n3. 若 X_n \\xrightarrow{d} X 且 Y_n \\xrightarrow{p} c，则\n\n\\begin{pmatrix}\nX_n, Y_n\n\\end{pmatrix}\n\\xrightarrow{d}\n\\begin{pmatrix}\nX, c\n\\end{pmatrix}.\n\n\n\n\n\n\n(1) 若 X_n \\xrightarrow{d} c，则其概率质量集中于 c 附近，即 \\Pr(|X_n-c|&gt;\\varepsilon)\\to 0；反之亦然。\n\n(2) 取有界连续函数 \\varphi，比较 \\E[\\varphi(Y_n)]-\\E[\\varphi(X)]，并拆为\n\\E[\\varphi(Y_n)-\\varphi(X_n)]+\\E[\\varphi(X_n)-\\varphi(X)]。\n前者由均匀连续性与 d(X_n,Y_n)\\xrightarrow{p}0 控制为 0，后者由 X_n\\xrightarrow{d}X 控制，故 Y_n\\xrightarrow{d}X。\n\n(3) 取二维连续函数 \\psi(x,y)，插入 \\psi(X_n,c)，结合 X_n\\xrightarrow{d}X 与 Y_n\\xrightarrow{p}c，即可得\n(X_n,Y_n)\\xrightarrow{d}(X,c)。\n\n\n\n\n\n由 连续映射定理 与 Slutsky 定理 可得以下常用结论：\n\nX_n + Y_n \\xrightarrow{d} X + c, \\quad\nX_n Y_n \\xrightarrow{d} cX.\n\n若 c \\neq 0，还可得到：\n\n\\frac{X_n}{Y_n} \\xrightarrow{d} \\frac{X}{c}.\n\n\n\n\n\n\n\n要点回顾：\n\n连续映射定理保证了“函数变换”下的收敛保持；\nSlutsky 定理则描述了“混合类型收敛”的稳定性；\n二者共同构成极限理论与渐近统计分析的技术基础。\n\n\n\n延伸阅读：\n📘 Probability and Measure — Billingsley, Ch. (Chapter 2–3)\n📗 Asymptotic Statistics — van der Vaart, A. W.\n📙 High-Dimensional Probability — Vershynin, R.\n推荐顺序：先掌握三类收敛，再阅读 Portmanteau 与 Slutsky 的证明。"
+  },
+  {
+    "objectID": "guides/probability/notes/slutsky.html#背景与动机",
+    "href": "guides/probability/notes/slutsky.html#背景与动机",
+    "title": "连续映射定理与 Slutsky 定理",
+    "section": "",
+    "text": "在概率论与统计推断中，许多核心结论（如中心极限定理、渐近正态性、估计量一致性）都依赖于两个基本问题：\n\n当我们对随机变量做连续变换时，收敛性质是否仍然保持？\n当我们把不同类型的收敛（如分布收敛和概率收敛）结合在一起时，能否得到稳定的极限描述？\n\n这两点分别由 连续映射定理 与 Slutsky 定理 保证。"
+  },
+  {
+    "objectID": "guides/probability/notes/slutsky.html#连续映射定理continuous-mapping-theorem",
+    "href": "guides/probability/notes/slutsky.html#连续映射定理continuous-mapping-theorem",
+    "title": "连续映射定理与 Slutsky 定理",
+    "section": "",
+    "text": "定理.\n设函数 g 在集合 B 上连续，且 P(X\\in B)=1。则以下三种收敛关系均成立：\n\n若 X_n \\xrightarrow{a.s.} X，则 g(X_n) \\xrightarrow{a.s.} g(X)；\n\n若 X_n \\xrightarrow{p} X，则 g(X_n) \\xrightarrow{p} g(X)；\n\n若 X_n \\xrightarrow{d} X，则 g(X_n) \\xrightarrow{d} g(X)。\n\n\n\n\n\n连续性与收敛的相容性：\n\n几乎处处收敛： 在概率为 1 的集合上，X_n(\\omega)\\to X(\\omega)，而 g 在该点连续，故 g(X_n(\\omega))\\to g(X(\\omega))，即 g(X_n)\\xrightarrow{a.s.} g(X)。\n\n依概率收敛： 利用 子列刻画定理。任意子列 X_{n_k} 都可抽出子子列几乎处处收敛到 X；由上一步得到 g(X_{n_k}) 的对应子子列依概率收敛到 g(X)；因此 g(X_n)\\xrightarrow{p} g(X)。\n\n分布收敛： 使用 Portmanteau 定理。考察闭集与开集的原像\nC_t=\\{x: g(x)\\le t\\} 与 O_t=\\{x: g(x)&lt;t\\}，结合 g 的连续性与 P(X\\in B)=1，即可比较 P(g(X_n)\\le t) 与 P(g(X)\\le t)，得出 g(X_n)\\xrightarrow{d} g(X)。\n\n\n\n\n\n收敛类型在连续变换下是稳定的。\n例如，当 X_n \\to c 时：\n\n\\sin(X_n)\\to \\sin(c), \\quad\nX_n^2\\to c^2, \\quad\ne^{X_n}\\to e^c.\n\n这意味着即使我们对随机变量进行非线性变换（如平方、指数、激活函数等），\n收敛性质依然保持不变。"
+  },
+  {
+    "objectID": "guides/probability/notes/slutsky.html#slutsky-定理slutskys-theorem",
+    "href": "guides/probability/notes/slutsky.html#slutsky-定理slutskys-theorem",
+    "title": "连续映射定理与 Slutsky 定理",
+    "section": "",
+    "text": "定理.\n1. 若 X_n \\xrightarrow{d} c，则 X_n \\xrightarrow{p} c；反之亦然。\n2. 若 X_n \\xrightarrow{d} X 且 d(X_n,Y_n) \\xrightarrow{p} 0，则 Y_n \\xrightarrow{d} X。\n3. 若 X_n \\xrightarrow{d} X 且 Y_n \\xrightarrow{p} c，则\n\n\\begin{pmatrix}\nX_n, Y_n\n\\end{pmatrix}\n\\xrightarrow{d}\n\\begin{pmatrix}\nX, c\n\\end{pmatrix}.\n\n\n\n\n\n\n(1) 若 X_n \\xrightarrow{d} c，则其概率质量集中于 c 附近，即 \\Pr(|X_n-c|&gt;\\varepsilon)\\to 0；反之亦然。\n\n(2) 取有界连续函数 \\varphi，比较 \\E[\\varphi(Y_n)]-\\E[\\varphi(X)]，并拆为\n\\E[\\varphi(Y_n)-\\varphi(X_n)]+\\E[\\varphi(X_n)-\\varphi(X)]。\n前者由均匀连续性与 d(X_n,Y_n)\\xrightarrow{p}0 控制为 0，后者由 X_n\\xrightarrow{d}X 控制，故 Y_n\\xrightarrow{d}X。\n\n(3) 取二维连续函数 \\psi(x,y)，插入 \\psi(X_n,c)，结合 X_n\\xrightarrow{d}X 与 Y_n\\xrightarrow{p}c，即可得\n(X_n,Y_n)\\xrightarrow{d}(X,c)。\n\n\n\n\n\n由 连续映射定理 与 Slutsky 定理 可得以下常用结论：\n\nX_n + Y_n \\xrightarrow{d} X + c, \\quad\nX_n Y_n \\xrightarrow{d} cX.\n\n若 c \\neq 0，还可得到：\n\n\\frac{X_n}{Y_n} \\xrightarrow{d} \\frac{X}{c}."
+  },
+  {
+    "objectID": "guides/probability/notes/slutsky.html#总结与启发",
+    "href": "guides/probability/notes/slutsky.html#总结与启发",
+    "title": "连续映射定理与 Slutsky 定理",
+    "section": "",
+    "text": "要点回顾：\n\n连续映射定理保证了“函数变换”下的收敛保持；\nSlutsky 定理则描述了“混合类型收敛”的稳定性；\n二者共同构成极限理论与渐近统计分析的技术基础。\n\n\n\n延伸阅读：\n📘 Probability and Measure — Billingsley, Ch. (Chapter 2–3)\n📗 Asymptotic Statistics — van der Vaart, A. W.\n📙 High-Dimensional Probability — Vershynin, R.\n推荐顺序：先掌握三类收敛，再阅读 Portmanteau 与 Slutsky 的证明。"
   },
   {
     "objectID": "guides/diffusion/index.html",
