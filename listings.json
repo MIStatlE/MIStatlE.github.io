@@ -16,6 +16,10 @@
     ]
   },
   {
+    "listing": "/guides/probability/index.html",
+    "items": []
+  },
+  {
     "listing": "/guides/diffusion/index.html",
     "items": [
       "/guides/diffusion/notes/vae.html",

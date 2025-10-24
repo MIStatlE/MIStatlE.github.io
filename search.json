@@ -178,6 +178,48 @@
     "text": "可复用的研究/工程工具与工作流，强调 可操作 与 效率。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\n\n\n\n\nQuarto 最佳实践：从 0 到“高信息密度”站点\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
+    "objectID": "guides/probability/index.html",
+    "href": "guides/probability/index.html",
+    "title": "Probability Theory",
+    "section": "",
+    "text": "学习目标\n从直觉出发构建现代概率论体系：随机变量 → 收敛与极限定理 → 大数与中心极限定理 → 集中不等式 → 随机过程。"
+  },
+  {
+    "objectID": "guides/probability/index.html#概率论的核心问题",
+    "href": "guides/probability/index.html#概率论的核心问题",
+    "title": "Probability Theory",
+    "section": "概率论的核心问题",
+    "text": "概率论的核心问题\n概率论的目标是：刻画不确定性，并在随机性中寻找规律。\n在现代数学体系中，概率论不仅是统计推断的基础，更是机器学习理论、信息论、随机优化等领域的核心语言。\n它回答三个根本问题：\n\n随机性如何被形式化？\n—— 通过 (\\Omega, \\mathcal{F}, \\mathbb{P}) 概率空间定义不确定事件。\n如何度量“趋近确定”的过程？\n—— 研究不同类型的收敛（几乎处处、依概率、分布收敛）。\n大量随机样本的规律是什么？\n—— 大数定律与中心极限定理揭示了“稳定性”的来源。\n\n\n核心思想：\n\\text{Randomness} \\;\\Rightarrow\\; \\text{Structure via Law of Large Numbers}\n随机中的秩序，是现代概率论的灵魂。"
+  },
+  {
+    "objectID": "guides/probability/index.html#模块概览",
+    "href": "guides/probability/index.html#模块概览",
+    "title": "Probability Theory",
+    "section": "模块概览",
+    "text": "模块概览\n\n\n\n\n\n\n\n\n模块\n内容要点\n理解重点\n\n\n\n\n测度化概率基础\n概率空间、可测函数、Lebesgue 积分\n把“事件”和“期望”放在统一框架中\n\n\n随机变量收敛\na.s., p, d 三类收敛与关系\n收敛的层次结构与连续映射定理\n\n\n极限定理体系\n大数定律、中心极限定理、Borel–Cantelli\n从样本到总体的统计稳定性\n\n\n集中不等式\nHoeffding, Bernstein, McDiarmid\n概率尾界与泛化分析的核心工具\n\n\n随机过程\nMartingale, Markov, Brownian Motion\n时序依赖下的不确定性分析"
+  },
+  {
+    "objectID": "guides/probability/index.html#推荐课程与讲座",
+    "href": "guides/probability/index.html#推荐课程与讲座",
+    "title": "Probability Theory",
+    "section": "🎓 推荐课程与讲座",
+    "text": "🎓 推荐课程与讲座\n\n\n\n课程\n来源\n特点\n适合人群\n\n\n\n\nMIT 18.600 — Probability and Random Variables\nMIT OCW\n逻辑清晰、涵盖经典概率框架\n想系统掌握概率与分布理论的本科/研究生\n\n\nStanford STATS 310 — Probability Theory\nStanford\n以严谨分析为主，覆盖测度化概率\n想理解概率论数学基础与推导\n\n\nUCLA Math 170E/F — Probability and Stochastic Processes\nUCLA\n理论与应用结合，包含马尔可夫过程\n想了解随机过程在 ML 中的应用\n\n\nBerkeley STAT 205A/B\nBerkeley\n渐近与集中理论并重\n希望进阶理论与集中不等式的学生"
+  },
+  {
+    "objectID": "guides/probability/index.html#推荐书籍与资料",
+    "href": "guides/probability/index.html#推荐书籍与资料",
+    "title": "Probability Theory",
+    "section": "📚 推荐书籍与资料",
+    "text": "📚 推荐书籍与资料\n\n入门与直觉\n\n《Introduction to Probability》 — Dimitri Bertsekas & John Tsitsiklis\n工程视角下的概率入门，直觉性强。\n《Probability and Random Processes》 — Grimmett & Stirzaker\n理论与推导兼顾，经典教材。\n\n\n\n理论与严谨\n\n《Probability: Theory and Examples》 — Rick Durrett\n高级概率教材，深入大数定律与马尔可夫链。\n《A Course in Probability Theory》 — Kai Lai Chung\n经典而简洁，适合建立测度化概率框架。\n《High-Dimensional Probability》 — Roman Vershynin\n现代视角下的集中不等式与随机矩阵分析。"
+  },
+  {
+    "objectID": "guides/probability/index.html#学习建议",
+    "href": "guides/probability/index.html#学习建议",
+    "title": "Probability Theory",
+    "section": "📈 学习建议",
+    "text": "📈 学习建议\n\n学习路径建议：\n\n\n从有限概率与独立性开始（如骰子、抽签模型）；\n学习随机变量与期望的测度定义；\n掌握各种收敛的区别与联系；\n逐步引入极限定理（LLN、CLT）；\n学会使用集中不等式分析学习算法；\n进阶阅读 Martingale 与随机过程。\n\n\n\n自动汇总笔记\n本页面将自动展示所有位于 notes/*.qmd 下的概率论笔记。\n在 guides/probability/notes/ 文件夹中新增 .qmd 文件即可自动更新列表。"
+  },
+  {
     "objectID": "guides/diffusion/index.html",
     "href": "guides/diffusion/index.html",
     "title": "Diffusion Models",

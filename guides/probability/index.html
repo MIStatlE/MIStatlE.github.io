@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="从随机变量、极限定理到集中不等式，系统学习现代概率论的核心框架与应用。">
 
-<title>index – FRAIMEL</title>
+<title>Probability Theory – FRAIMEL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,6 +32,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
 <link href="../../images/image1.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-listing/list.min.js"></script>
+<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -73,13 +76,89 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-date','listing-categories','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: [],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
-<meta property="og:title" content="FRAIMEL">
+<meta property="og:title" content="Probability Theory – FRAIMEL">
+<meta property="og:description" content="从随机变量、极限定理到集中不等式，系统学习现代概率论的核心框架与应用。">
+<meta property="og:image" content="https://mistatle.github.io/images/tool-card.png">
 <meta property="og:site_name" content="FRAIMEL">
-<meta name="twitter:title" content="FRAIMEL">
+<meta name="twitter:title" content="Probability Theory – FRAIMEL">
+<meta name="twitter:description" content="从随机变量、极限定理到集中不等式，系统学习现代概率论的核心框架与应用。">
+<meta name="twitter:image" content="https://mistatle.github.io/images/tool-card.png">
 <meta name="twitter:creator" content="@MIStatlE">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -367,20 +446,218 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#概率论的核心问题" id="toc-概率论的核心问题" class="nav-link active" data-scroll-target="#概率论的核心问题">概率论的核心问题</a></li>
+  <li><a href="#模块概览" id="toc-模块概览" class="nav-link" data-scroll-target="#模块概览">模块概览</a></li>
+  <li><a href="#推荐课程与讲座" id="toc-推荐课程与讲座" class="nav-link" data-scroll-target="#推荐课程与讲座">🎓 推荐课程与讲座</a></li>
+  <li><a href="#推荐书籍与资料" id="toc-推荐书籍与资料" class="nav-link" data-scroll-target="#推荐书籍与资料">📚 推荐书籍与资料</a>
+  <ul class="collapse">
+  <li><a href="#入门与直觉" id="toc-入门与直觉" class="nav-link" data-scroll-target="#入门与直觉">入门与直觉</a></li>
+  <li><a href="#理论与严谨" id="toc-理论与严谨" class="nav-link" data-scroll-target="#理论与严谨">理论与严谨</a></li>
+  </ul></li>
+  <li><a href="#学习建议" id="toc-学习建议" class="nav-link" data-scroll-target="#学习建议">📈 学习建议</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Probability Theory</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">probability</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    从随机变量、极限定理到集中不等式，系统学习现代概率论的核心框架与应用。
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<blockquote class="blockquote">
+<p><strong>学习目标</strong><br>
+从直觉出发构建现代概率论体系：随机变量 → 收敛与极限定理 → 大数与中心极限定理 → 集中不等式 → 随机过程。</p>
+</blockquote>
+<hr>
+<section id="概率论的核心问题" class="level2">
+<h2 class="anchored" data-anchor-id="概率论的核心问题">概率论的核心问题</h2>
+<p>概率论的目标是：<strong>刻画不确定性，并在随机性中寻找规律。</strong></p>
+<p>在现代数学体系中，概率论不仅是统计推断的基础，更是机器学习理论、信息论、随机优化等领域的核心语言。</p>
+<p>它回答三个根本问题：</p>
+<ol type="1">
+<li><strong>随机性如何被形式化？</strong><br>
+—— 通过 <span class="math inline">(\Omega, \mathcal{F}, \mathbb{P})</span> 概率空间定义不确定事件。</li>
+<li><strong>如何度量“趋近确定”的过程？</strong><br>
+—— 研究不同类型的收敛（几乎处处、依概率、分布收敛）。</li>
+<li><strong>大量随机样本的规律是什么？</strong><br>
+—— 大数定律与中心极限定理揭示了“稳定性”的来源。</li>
+</ol>
+<blockquote class="blockquote">
+<p><strong>核心思想：</strong><br>
+<span class="math display">\text{Randomness} \;\Rightarrow\; \text{Structure via Law of Large Numbers}</span><br>
+随机中的秩序，是现代概率论的灵魂。</p>
+</blockquote>
+<hr>
+</section>
+<section id="模块概览" class="level2">
+<h2 class="anchored" data-anchor-id="模块概览">模块概览</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 40%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>模块</th>
+<th>内容要点</th>
+<th>理解重点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>测度化概率基础</strong></td>
+<td>概率空间、可测函数、Lebesgue 积分</td>
+<td>把“事件”和“期望”放在统一框架中</td>
+</tr>
+<tr class="even">
+<td><strong>随机变量收敛</strong></td>
+<td><span class="math inline">a.s.</span>, <span class="math inline">p</span>, <span class="math inline">d</span> 三类收敛与关系</td>
+<td>收敛的层次结构与连续映射定理</td>
+</tr>
+<tr class="odd">
+<td><strong>极限定理体系</strong></td>
+<td>大数定律、中心极限定理、Borel–Cantelli</td>
+<td>从样本到总体的统计稳定性</td>
+</tr>
+<tr class="even">
+<td><strong>集中不等式</strong></td>
+<td>Hoeffding, Bernstein, McDiarmid</td>
+<td>概率尾界与泛化分析的核心工具</td>
+</tr>
+<tr class="odd">
+<td><strong>随机过程</strong></td>
+<td>Martingale, Markov, Brownian Motion</td>
+<td>时序依赖下的不确定性分析</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="推荐课程与讲座" class="level2">
+<h2 class="anchored" data-anchor-id="推荐课程与讲座">🎓 推荐课程与讲座</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>课程</th>
+<th>来源</th>
+<th>特点</th>
+<th>适合人群</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://ocw.mit.edu"><strong>MIT 18.600 — Probability and Random Variables</strong></a></td>
+<td>MIT OCW</td>
+<td>逻辑清晰、涵盖经典概率框架</td>
+<td>想系统掌握概率与分布理论的本科/研究生</td>
+</tr>
+<tr class="even">
+<td><a href="https://statweb.stanford.edu/~cgates/PERSI/papers.html"><strong>Stanford STATS 310 — Probability Theory</strong></a></td>
+<td>Stanford</td>
+<td>以严谨分析为主，覆盖测度化概率</td>
+<td>想理解概率论数学基础与推导</td>
+</tr>
+<tr class="odd">
+<td><a href="https://math.ucla.edu"><strong>UCLA Math 170E/F — Probability and Stochastic Processes</strong></a></td>
+<td>UCLA</td>
+<td>理论与应用结合，包含马尔可夫过程</td>
+<td>想了解随机过程在 ML 中的应用</td>
+</tr>
+<tr class="even">
+<td><a href="https://stat.berkeley.edu/~stark/SticiGui/Text/prob.htm"><strong>Berkeley STAT 205A/B</strong></a></td>
+<td>Berkeley</td>
+<td>渐近与集中理论并重</td>
+<td>希望进阶理论与集中不等式的学生</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="推荐书籍与资料" class="level2">
+<h2 class="anchored" data-anchor-id="推荐书籍与资料">📚 推荐书籍与资料</h2>
+<section id="入门与直觉" class="level3">
+<h3 class="anchored" data-anchor-id="入门与直觉">入门与直觉</h3>
+<ul>
+<li><strong>《Introduction to Probability》 — Dimitri Bertsekas &amp; John Tsitsiklis</strong><br>
+工程视角下的概率入门，直觉性强。</li>
+<li><strong>《Probability and Random Processes》 — Grimmett &amp; Stirzaker</strong><br>
+理论与推导兼顾，经典教材。</li>
+</ul>
+</section>
+<section id="理论与严谨" class="level3">
+<h3 class="anchored" data-anchor-id="理论与严谨">理论与严谨</h3>
+<ul>
+<li><strong>《Probability: Theory and Examples》 — Rick Durrett</strong><br>
+高级概率教材，深入大数定律与马尔可夫链。</li>
+<li><strong>《A Course in Probability Theory》 — Kai Lai Chung</strong><br>
+经典而简洁，适合建立测度化概率框架。</li>
+<li><strong>《High-Dimensional Probability》 — Roman Vershynin</strong><br>
+现代视角下的集中不等式与随机矩阵分析。</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="学习建议" class="level2">
+<h2 class="anchored" data-anchor-id="学习建议">📈 学习建议</h2>
+<blockquote class="blockquote">
+<p><strong>学习路径建议：</strong></p>
+</blockquote>
+<ol type="1">
+<li>从有限概率与独立性开始（如骰子、抽签模型）；</li>
+<li>学习随机变量与期望的测度定义；</li>
+<li>掌握各种收敛的区别与联系；</li>
+<li>逐步引入极限定理（LLN、CLT）；</li>
+<li>学会使用集中不等式分析学习算法；</li>
+<li>进阶阅读 Martingale 与随机过程。</li>
+</ol>
+<hr>
+<blockquote class="blockquote">
+<p><strong>自动汇总笔记</strong><br>
+本页面将自动展示所有位于 <code>notes/*.qmd</code> 下的概率论笔记。<br>
+在 <code>guides/probability/notes/</code> 文件夹中新增 <code>.qmd</code> 文件即可自动更新列表。</p>
+</blockquote>
 
 
 
+</section>
 
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
 
-
-
-
-</main> <!-- /main -->
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
