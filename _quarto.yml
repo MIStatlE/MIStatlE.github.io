@@ -15,8 +15,8 @@ website:
         href: index.qmd
       - text: Guides
         menu:
-          - text: Probability & Stats
-            href: guides/prob/index.qmd
+          - text: Probability
+            href: guides/probility/index.qmd
           - text: Optimization
             href: guides/opt/index.qmd
           - text: ML Theory
