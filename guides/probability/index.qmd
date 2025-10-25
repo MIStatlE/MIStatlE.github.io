@@ -1,20 +1,20 @@
 ---
 title: "Probability Theory"
-description: "系统学习现代概率论的核心框架。"
+description: "从随机变量、极限定理到集中不等式，系统学习现代概率论的核心框架与应用。"
 page-layout: article
-toc: false
+toc: true
+toc-title: "On this page"
 
 listing:
   contents:
     - notes/*.qmd
-  sort: "date asc"
-  type: table-grid
+  sort: "date desc"
+  type: default
+  page-size: 10
   fields: [title, date, categories, description]
 ---
 
-# Probability Theory
 
-> 欢迎来到《概率论》系列笔记。  
-> 以下是本系列的全部章节（自动生成）。
-
----
+> **自动汇总笔记**  
+> 本页面将自动展示所有位于 `notes/*.qmd` 下的概率论笔记。  
+> 在 `guides/probability/notes/` 文件夹中新增 `.qmd` 文件即可自动更新列表。
