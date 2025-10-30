@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Quarto 最佳实践：从 0 到“高信息密度”站点 – FRAIMEL</title>
+<title>RL / Diffusion Notebook – FRAIMEL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,29 +23,29 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../images/image1.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-e24644aab278aee125c7f2d0a581bc5b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/image1.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-e24644aab278aee125c7f2d0a581bc5b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -76,11 +76,11 @@ ul.task-list li input[type="checkbox"] {
 <style>html{ scroll-behavior: smooth; }</style>
 
 
-<link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Quarto 最佳实践：从 0 到“高信息密度”站点 – FRAIMEL">
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="RL / Diffusion Notebook – FRAIMEL">
 <meta property="og:description" content="A high-signal growth space: math, ML theory, papers, tools, and community.">
 <meta property="og:site_name" content="FRAIMEL">
-<meta name="twitter:title" content="Quarto 最佳实践：从 0 到“高信息密度”站点 – FRAIMEL">
+<meta name="twitter:title" content="RL / Diffusion Notebook – FRAIMEL">
 <meta name="twitter:description" content="A high-signal growth space: math, ML theory, papers, tools, and community.">
 <meta name="twitter:creator" content="@MIStatlE">
 <meta name="twitter:card" content="summary_large_image">
@@ -255,11 +255,11 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../images/image1.png" alt="" class="navbar-logo light-content">
-    <img src="../images/image1.png" alt="" class="navbar-logo dark-content">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/image1.png" alt="" class="navbar-logo light-content">
+    <img src="../../images/image1.png" alt="" class="navbar-logo dark-content">
     </a>
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">FRAIMEL</span>
     </a>
   </div>
@@ -270,7 +270,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -279,53 +279,53 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-guides">    
         <li>
-    <a class="dropdown-item" href="../guides/probability/index.html">
+    <a class="dropdown-item" href="../../guides/probability/index.html">
  <span class="dropdown-text">Probability</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../guides/opt/index.qmd">
+    <a class="dropdown-item" href="../../guides/opt/index.qmd">
  <span class="dropdown-text">Optimization</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../guides/mlt/index.qmd">
+    <a class="dropdown-item" href="../../guides/mlt/index.qmd">
  <span class="dropdown-text">ML Theory</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../guides/diffusion/index.html">
+    <a class="dropdown-item" href="../../guides/diffusion/index.html">
  <span class="dropdown-text">Diffusion</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../guides/rl/index.qmd">
+    <a class="dropdown-item" href="../../guides/rl/index.qmd">
  <span class="dropdown-text">RL / Online Learning</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../guides/book/index.html">
+    <a class="dropdown-item" href="../../guides/book/index.html">
  <span class="dropdown-text">book</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../papers/index.html"> 
+    <a class="nav-link" href="../../papers/index.html"> 
 <span class="menu-text">Paper Picks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../posts/index.html"> 
+    <a class="nav-link" href="../../posts/index.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tools/index.html"> 
+    <a class="nav-link" href="../../tools/index.html"> 
 <span class="menu-text">Tools</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../reads/index.html"> 
+    <a class="nav-link" href="../../reads/index.html"> 
 <span class="menu-text">Good Reads</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../community/index.html"> 
+    <a class="nav-link" href="../../community/index.html"> 
 <span class="menu-text">Community</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -353,12 +353,12 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="../posts/index.xml"> <i class="bi bi-rss" role="img">
+    <a class="nav-link" href="../../posts/index.xml"> <i class="bi bi-rss" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../search.html"> 
+    <a class="nav-link" href="../../search.html"> 
 <span class="menu-text">Search</span></a>
   </li>  
 </ul>
@@ -378,8 +378,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#why-quarto" id="toc-why-quarto" class="nav-link active" data-scroll-target="#why-quarto">Why Quarto</a></li>
-  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#引言为何做这本书" id="toc-引言为何做这本书" class="nav-link active" data-scroll-target="#引言为何做这本书">引言：为何做这本书</a>
+  <ul class="collapse">
+  <li><a href="#结构概览" id="toc-结构概览" class="nav-link" data-scroll-target="#结构概览">结构概览</a></li>
+  <li><a href="#阅读方式" id="toc-阅读方式" class="nav-link" data-scroll-target="#阅读方式">阅读方式</a></li>
+  <li><a href="#符号约定" id="toc-符号约定" class="nav-link" data-scroll-target="#符号约定">符号约定</a></li>
+  <li><a href="#关于作者" id="toc-关于作者" class="nav-link" data-scroll-target="#关于作者">关于作者</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -389,11 +394,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Quarto 最佳实践：从 0 到“高信息密度”站点</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">Tools</div>
-  </div>
-  </div>
+<h1 class="title">RL / Diffusion Notebook</h1>
+</div>
 
 
 
@@ -409,18 +411,75 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="why-quarto" class="level2">
-<h2 class="anchored" data-anchor-id="why-quarto">Why Quarto</h2>
+<section id="引言为何做这本书" class="level1">
+<h1>引言：为何做这本书</h1>
+<p>这本笔记旨在系统整理我在强化学习与扩散模型研究中的思考与推导。<br>
+它并不是教程，而是一种 <em>理解路径（path to clarity）</em>——<br>
+把复杂的理论、模糊的直觉、严谨的公式，用一种兼具推理与感性的方式串联起来。</p>
+<hr>
+<section id="结构概览" class="level2">
+<h2 class="anchored" data-anchor-id="结构概览">结构概览</h2>
 <ul>
-<li>Markdown+数学+列表页+RSS，一体化…</li>
-<li>适合“利他型”学习空间：低摩擦、高输出。</li>
+<li><p><strong>Part I. Reinforcement Learning</strong><br>
+从最简单的决策过程开始，构建期望回报、策略梯度与信用分配的统一理解。</p></li>
+<li><p><strong>Part II. Diffusion Models</strong><br>
+从随机过程视角理解扩散模型，逐步推导得分匹配与反向 SDE。</p></li>
 </ul>
+<hr>
 </section>
-<section id="setup" class="level2">
-<h2 class="anchored" data-anchor-id="setup">Setup</h2>
-<p>```bash quarto create-project MIStatlE-Lab quarto add quarto-ext/fontawesome</p>
+<section id="阅读方式" class="level2">
+<h2 class="anchored" data-anchor-id="阅读方式">阅读方式</h2>
+<ul>
+<li>左侧为全书章节导航，可自由跳转。<br>
+</li>
+<li>右侧为当前页小节目录，帮助快速定位。<br>
+</li>
+<li>数学公式使用 KaTeX 渲染，可直接复制。<br>
+</li>
+<li>代码片段可展开、复制。</li>
+</ul>
+<hr>
+</section>
+<section id="符号约定" class="level2">
+<h2 class="anchored" data-anchor-id="符号约定">符号约定</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>( s_t, a_t, r_t )</td>
+<td>状态、动作、奖励</td>
+</tr>
+<tr class="even">
+<td>( _(a</td>
+<td>s) )</td>
+</tr>
+<tr class="odd">
+<td>( J() )</td>
+<td>策略目标函数</td>
+</tr>
+<tr class="even">
+<td>( p_t(x) )</td>
+<td>扩散过程在时间 (t) 的分布</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="关于作者" class="level2">
+<h2 class="anchored" data-anchor-id="关于作者">关于作者</h2>
+<blockquote class="blockquote">
+<p><em>“我希望这本书既是科研笔记，也是一种自我认知的延伸。”</em><br>
+— MIStatlE</p>
+</blockquote>
+<hr>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -860,5 +919,5 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
