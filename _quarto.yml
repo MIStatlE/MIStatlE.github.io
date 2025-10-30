@@ -25,6 +25,8 @@ website:
             href: guides/diffusion/index.qmd
           - text: RL / Online Learning
             href: guides/rl/index.qmd
+          - text: book
+          href: guides/book/index.html  
       - text: Paper Picks
         href: papers/index.qmd
       - text: Posts
