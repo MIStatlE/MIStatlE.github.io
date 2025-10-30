@@ -101,6 +101,125 @@
     ]
   },
   {
+    "objectID": "guides/book/index.html",
+    "href": "guides/book/index.html",
+    "title": "RL / Diffusion Notebook",
+    "section": "",
+    "text": "这本笔记旨在系统整理我在强化学习与扩散模型研究中的思考与推导。\n它并不是教程，而是一种 理解路径（path to clarity）——\n把复杂的理论、模糊的直觉、严谨的公式，用一种兼具推理与感性的方式串联起来。\n\n\n\n\nPart I. Reinforcement Learning\n从最简单的决策过程开始，构建期望回报、策略梯度与信用分配的统一理解。\nPart II. Diffusion Models\n从随机过程视角理解扩散模型，逐步推导得分匹配与反向 SDE。\n\n\n\n\n\n\n左侧为全书章节导航，可自由跳转。\n\n右侧为当前页小节目录，帮助快速定位。\n\n数学公式使用 KaTeX 渲染，可直接复制。\n\n代码片段可展开、复制。\n\n\n\n\n\n\n\n\n符号\n含义\n\n\n\n\n( s_t, a_t, r_t )\n状态、动作、奖励\n\n\n( _(a\ns) )\n\n\n( J() )\n策略目标函数\n\n\n( p_t(x) )\n扩散过程在时间 (t) 的分布\n\n\n\n\n\n\n\n\n“我希望这本书既是科研笔记，也是一种自我认知的延伸。”\n— MIStatlE"
+  },
+  {
+    "objectID": "guides/book/index.html#结构概览",
+    "href": "guides/book/index.html#结构概览",
+    "title": "RL / Diffusion Notebook",
+    "section": "",
+    "text": "Part I. Reinforcement Learning\n从最简单的决策过程开始，构建期望回报、策略梯度与信用分配的统一理解。\nPart II. Diffusion Models\n从随机过程视角理解扩散模型，逐步推导得分匹配与反向 SDE。"
+  },
+  {
+    "objectID": "guides/book/index.html#阅读方式",
+    "href": "guides/book/index.html#阅读方式",
+    "title": "RL / Diffusion Notebook",
+    "section": "",
+    "text": "左侧为全书章节导航，可自由跳转。\n\n右侧为当前页小节目录，帮助快速定位。\n\n数学公式使用 KaTeX 渲染，可直接复制。\n\n代码片段可展开、复制。"
+  },
+  {
+    "objectID": "guides/book/index.html#符号约定",
+    "href": "guides/book/index.html#符号约定",
+    "title": "RL / Diffusion Notebook",
+    "section": "",
+    "text": "符号\n含义\n\n\n\n\n( s_t, a_t, r_t )\n状态、动作、奖励\n\n\n( _(a\ns) )\n\n\n( J() )\n策略目标函数\n\n\n( p_t(x) )\n扩散过程在时间 (t) 的分布"
+  },
+  {
+    "objectID": "guides/book/index.html#关于作者",
+    "href": "guides/book/index.html#关于作者",
+    "title": "RL / Diffusion Notebook",
+    "section": "",
+    "text": "“我希望这本书既是科研笔记，也是一种自我认知的延伸。”\n— MIStatlE"
+  },
+  {
+    "objectID": "guides/probability/index.html",
+    "href": "guides/probability/index.html",
+    "title": "Probability Theory",
+    "section": "",
+    "text": "自动汇总笔记\n本页面将自动展示所有位于 notes/*.qmd 下的概率论笔记。\n在 guides/probability/notes/ 文件夹中新增 .qmd 文件即可自动更新列表。\n\n\n\n\n\n\n\n\n\n\n连续映射定理与 Slutsky 定理\n\n\n\nprobability\n\nProbability\n\nAsymptotic Theory\n\nStatistical Inference\n\n\n\n理解连续变换与不同收敛类型之间的关系，是概率极限定理体系的核心。\n\n\n\n\n\nOct 24, 2025\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "tools/index.html",
+    "href": "tools/index.html",
+    "title": "Tools & Workflows",
+    "section": "",
+    "text": "可复用的研究/工程工具与工作流，强调 可操作 与 效率。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\n\n\n\n\nQuarto 最佳实践：从 0 到“高信息密度”站点\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/index.html",
+    "href": "posts/index.html",
+    "title": "Posts",
+    "section": "",
+    "text": "Welcome to my posts.\n\n\n\n\n\n\n\n\n\nStarting Over: Building MIStatlE Lab\n\n\n\nmeta\n\nsetup\n\n\n\nA simple Quarto starter with math support, post listings, and GitHub Pages auto-deploy.\n\n\n\n\n\nOct 7, 2025\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "community/index.html",
+    "href": "community/index.html",
+    "title": "Community",
+    "section": "",
+    "text": "Community\nEvents, announcements, and resources."
+  },
+  {
+    "objectID": "reads/index.html",
+    "href": "reads/index.html",
+    "title": "Good Reads",
+    "section": "",
+    "text": "高信息密度外部资源：长文、书单、课程、视频与博客。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome",
+    "section": "",
+    "text": "Hello, I’m MIStatlE 👋\nThis is my minimal Quarto website. Math works out of the box:\n\nInline math: \\int_0^1 x^2\\,dx = 1/3\nDisplay math:\n\n\n\\mathbb{P}(|S_n - n\\mu| \\ge t) \\le 2\\exp\\!\\left(-\\frac{t^2}{2\\sigma^2 n}\\right).\n\nUse the Posts section for articles and notes. Edit _quarto.yml to customize the navbar and theme."
+  },
+  {
+    "objectID": "search.html",
+    "href": "search.html",
+    "title": "FRAIMEL",
+    "section": "",
+    "text": "Tip\n\n\n\nUse the navbar search (browser) or your site search engine."
+  },
+  {
+    "objectID": "search.html#title-search",
+    "href": "search.html#title-search",
+    "title": "FRAIMEL",
+    "section": "",
+    "text": "Tip\n\n\n\nUse the navbar search (browser) or your site search engine."
+  },
+  {
+    "objectID": "posts/2025-10-07-welcome.html",
+    "href": "posts/2025-10-07-welcome.html",
+    "title": "Starting Over: Building MIStatlE Lab",
+    "section": "",
+    "text": "This is a starter post. You can write math like e^{i\\pi}+1=0 and code blocks:\ndef add(a, b): return a + b\nprint(add(2, 3))\nTo publish, just push to main — GitHub Actions will render and deploy to gh-pages."
+  },
+  {
+    "objectID": "tools/quarto-setup.html",
+    "href": "tools/quarto-setup.html",
+    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
+    "section": "",
+    "text": "Markdown+数学+列表页+RSS，一体化…\n适合“利他型”学习空间：低摩擦、高输出。"
+  },
+  {
+    "objectID": "tools/quarto-setup.html#why-quarto",
+    "href": "tools/quarto-setup.html#why-quarto",
+    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
+    "section": "",
+    "text": "Markdown+数学+列表页+RSS，一体化…\n适合“利他型”学习空间：低摩擦、高输出。"
+  },
+  {
+    "objectID": "tools/quarto-setup.html#setup",
+    "href": "tools/quarto-setup.html#setup",
+    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
+    "section": "Setup",
+    "text": "Setup\n```bash quarto create-project MIStatlE-Lab quarto add quarto-ext/fontawesome"
+  },
+  {
     "objectID": "guides/probability/notes/slutsky.html",
     "href": "guides/probability/notes/slutsky.html",
     "title": "连续映射定理与 Slutsky 定理",
@@ -136,123 +255,25 @@
     "text": "要点回顾：\n\n连续映射定理保证了“函数变换”下的收敛保持；\nSlutsky 定理则描述了“混合类型收敛”的稳定性；\n二者共同构成极限理论与渐近统计分析的技术基础。\n\n\n\n延伸阅读：\n📘 Probability and Measure — Billingsley, Ch. (Chapter 2–3)\n📗 Asymptotic Statistics — van der Vaart, A. W.\n📙 High-Dimensional Probability — Vershynin, R.\n推荐顺序：先掌握三类收敛，再阅读 Portmanteau 与 Slutsky 的证明。"
   },
   {
-    "objectID": "tools/quarto-setup.html",
-    "href": "tools/quarto-setup.html",
-    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
+    "objectID": "guides/book/02-policy-gradient.html",
+    "href": "guides/book/02-policy-gradient.html",
+    "title": "Policy Gradient 其实没那么神秘",
     "section": "",
-    "text": "Markdown+数学+列表页+RSS，一体化…\n适合“利他型”学习空间：低摩擦、高输出。"
+    "text": "我们定义回报 \nJ(\\theta) = \\mathbb{E}_\\pi \\left[ \\sum_{t=0}^\\infty \\gamma^t r_t \\right].\n\n这不是玄学，这是优化目标。\n\n\n经典策略梯度定理给出： \n\\nabla_\\theta J(\\theta)\n= \\mathbb{E}_\\pi \\big[\n   \\nabla_\\theta \\log \\pi_\\theta(a|s) \\, R\n\\big].\n\n\n\n\n“谁带来高回报，就让它以后更容易再次发生。”"
   },
   {
-    "objectID": "tools/quarto-setup.html#why-quarto",
-    "href": "tools/quarto-setup.html#why-quarto",
-    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
+    "objectID": "guides/book/02-policy-gradient.html#梯度长什么样",
+    "href": "guides/book/02-policy-gradient.html#梯度长什么样",
+    "title": "Policy Gradient 其实没那么神秘",
     "section": "",
-    "text": "Markdown+数学+列表页+RSS，一体化…\n适合“利他型”学习空间：低摩擦、高输出。"
+    "text": "经典策略梯度定理给出： \n\\nabla_\\theta J(\\theta)\n= \\mathbb{E}_\\pi \\big[\n   \\nabla_\\theta \\log \\pi_\\theta(a|s) \\, R\n\\big]."
   },
   {
-    "objectID": "tools/quarto-setup.html#setup",
-    "href": "tools/quarto-setup.html#setup",
-    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
-    "section": "Setup",
-    "text": "Setup\n```bash quarto create-project MIStatlE-Lab quarto add quarto-ext/fontawesome"
-  },
-  {
-    "objectID": "posts/2025-10-07-welcome.html",
-    "href": "posts/2025-10-07-welcome.html",
-    "title": "Starting Over: Building MIStatlE Lab",
+    "objectID": "guides/book/02-policy-gradient.html#直觉",
+    "href": "guides/book/02-policy-gradient.html#直觉",
+    "title": "Policy Gradient 其实没那么神秘",
     "section": "",
-    "text": "This is a starter post. You can write math like e^{i\\pi}+1=0 and code blocks:\ndef add(a, b): return a + b\nprint(add(2, 3))\nTo publish, just push to main — GitHub Actions will render and deploy to gh-pages."
-  },
-  {
-    "objectID": "search.html",
-    "href": "search.html",
-    "title": "FRAIMEL",
-    "section": "",
-    "text": "Tip\n\n\n\nUse the navbar search (browser) or your site search engine."
-  },
-  {
-    "objectID": "search.html#title-search",
-    "href": "search.html#title-search",
-    "title": "FRAIMEL",
-    "section": "",
-    "text": "Tip\n\n\n\nUse the navbar search (browser) or your site search engine."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Welcome",
-    "section": "",
-    "text": "Hello, I’m MIStatlE 👋\nThis is my minimal Quarto website. Math works out of the box:\n\nInline math: \\int_0^1 x^2\\,dx = 1/3\nDisplay math:\n\n\n\\mathbb{P}(|S_n - n\\mu| \\ge t) \\le 2\\exp\\!\\left(-\\frac{t^2}{2\\sigma^2 n}\\right).\n\nUse the Posts section for articles and notes. Edit _quarto.yml to customize the navbar and theme."
-  },
-  {
-    "objectID": "reads/index.html",
-    "href": "reads/index.html",
-    "title": "Good Reads",
-    "section": "",
-    "text": "高信息密度外部资源：长文、书单、课程、视频与博客。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "community/index.html",
-    "href": "community/index.html",
-    "title": "Community",
-    "section": "",
-    "text": "Community\nEvents, announcements, and resources."
-  },
-  {
-    "objectID": "posts/index.html",
-    "href": "posts/index.html",
-    "title": "Posts",
-    "section": "",
-    "text": "Welcome to my posts.\n\n\n\n\n\n\n\n\n\nStarting Over: Building MIStatlE Lab\n\n\n\nmeta\n\nsetup\n\n\n\nA simple Quarto starter with math support, post listings, and GitHub Pages auto-deploy.\n\n\n\n\n\nOct 7, 2025\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "tools/index.html",
-    "href": "tools/index.html",
-    "title": "Tools & Workflows",
-    "section": "",
-    "text": "可复用的研究/工程工具与工作流，强调 可操作 与 效率。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\n\n\n\n\nQuarto 最佳实践：从 0 到“高信息密度”站点\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "guides/probability/index.html",
-    "href": "guides/probability/index.html",
-    "title": "Probability Theory",
-    "section": "",
-    "text": "自动汇总笔记\n本页面将自动展示所有位于 notes/*.qmd 下的概率论笔记。\n在 guides/probability/notes/ 文件夹中新增 .qmd 文件即可自动更新列表。\n\n\n\n\n\n\n\n\n\n\n连续映射定理与 Slutsky 定理\n\n\n\nprobability\n\nProbability\n\nAsymptotic Theory\n\nStatistical Inference\n\n\n\n理解连续变换与不同收敛类型之间的关系，是概率极限定理体系的核心。\n\n\n\n\n\nOct 24, 2025\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "guides/book/index.html",
-    "href": "guides/book/index.html",
-    "title": "RL / Diffusion Notebook",
-    "section": "",
-    "text": "这本笔记旨在系统整理我在强化学习与扩散模型研究中的思考与推导。\n它并不是教程，而是一种 理解路径（path to clarity）——\n把复杂的理论、模糊的直觉、严谨的公式，用一种兼具推理与感性的方式串联起来。\n\n\n\n\nPart I. Reinforcement Learning\n从最简单的决策过程开始，构建期望回报、策略梯度与信用分配的统一理解。\nPart II. Diffusion Models\n从随机过程视角理解扩散模型，逐步推导得分匹配与反向 SDE。\n\n\n\n\n\n\n左侧为全书章节导航，可自由跳转。\n\n右侧为当前页小节目录，帮助快速定位。\n\n数学公式使用 KaTeX 渲染，可直接复制。\n\n代码片段可展开、复制。\n\n\n\n\n\n\n\n\n符号\n含义\n\n\n\n\n( s_t, a_t, r_t )\n状态、动作、奖励\n\n\n( _(a\ns) )\n\n\n( J() )\n策略目标函数\n\n\n( p_t(x) )\n扩散过程在时间 (t) 的分布\n\n\n\n\n\n\n\n\n“我希望这本书既是科研笔记，也是一种自我认知的延伸。”\n— MIStatlE"
-  },
-  {
-    "objectID": "guides/book/index.html#结构概览",
-    "href": "guides/book/index.html#结构概览",
-    "title": "RL / Diffusion Notebook",
-    "section": "",
-    "text": "Part I. Reinforcement Learning\n从最简单的决策过程开始，构建期望回报、策略梯度与信用分配的统一理解。\nPart II. Diffusion Models\n从随机过程视角理解扩散模型，逐步推导得分匹配与反向 SDE。"
-  },
-  {
-    "objectID": "guides/book/index.html#阅读方式",
-    "href": "guides/book/index.html#阅读方式",
-    "title": "RL / Diffusion Notebook",
-    "section": "",
-    "text": "左侧为全书章节导航，可自由跳转。\n\n右侧为当前页小节目录，帮助快速定位。\n\n数学公式使用 KaTeX 渲染，可直接复制。\n\n代码片段可展开、复制。"
-  },
-  {
-    "objectID": "guides/book/index.html#符号约定",
-    "href": "guides/book/index.html#符号约定",
-    "title": "RL / Diffusion Notebook",
-    "section": "",
-    "text": "符号\n含义\n\n\n\n\n( s_t, a_t, r_t )\n状态、动作、奖励\n\n\n( _(a\ns) )\n\n\n( J() )\n策略目标函数\n\n\n( p_t(x) )\n扩散过程在时间 (t) 的分布"
-  },
-  {
-    "objectID": "guides/book/index.html#关于作者",
-    "href": "guides/book/index.html#关于作者",
-    "title": "RL / Diffusion Notebook",
-    "section": "",
-    "text": "“我希望这本书既是科研笔记，也是一种自我认知的延伸。”\n— MIStatlE"
+    "text": "“谁带来高回报，就让它以后更容易再次发生。”"
   },
   {
     "objectID": "guides/diffusion/index.html",
