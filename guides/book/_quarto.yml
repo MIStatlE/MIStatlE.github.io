@@ -1,0 +1,45 @@
+project:
+  type: book
+  # 渲染输出位置，注意这里：
+  # 我们让子书直接把生成的HTML放进主站最终发布目录的
+  # `_site/guides/theory-book/`
+  output-dir: ../../_site/guides/theory-book
+
+book:
+  title: "RL / Diffusion Notebook"
+  author: "MIStatlE"
+  page-navigation: true
+  sidebar:
+    style: "floating"
+    collapse-level: 1
+  search: true
+
+  chapters:
+    - index.qmd
+    - part: "Reinforcement Learning"
+      chapters:
+        - 01-rl-basics.qmd
+        - 02-policy-gradient.qmd
+        - 03-credit-assignment.qmd
+    - part: "Diffusion Models"
+      chapters:
+        - 04-diffusion-score.qmd
+        # 继续加章节即可
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: slate
+    css: styles.css
+    toc: true
+    toc-location: right
+    toc-depth: 3
+    number-sections: true
+    smooth-scroll: true
+    code-copy: true
+    code-overflow: wrap
+    link-external-newwindow: true
+    citations-hover: true
+    html-math-method: katex
+    footnotes-hover: true
