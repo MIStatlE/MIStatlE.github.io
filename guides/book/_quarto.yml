@@ -3,7 +3,7 @@ project:
   # 渲染输出位置，注意这里：
   # 我们让子书直接把生成的HTML放进主站最终发布目录的
   # `_site/guides/theory-book/`
-  output-dir: ../../_site/guides/theory-book
+  output-dir: https://mistatle.github.io/guides/book
 
 book:
   title: "RL / Diffusion Notebook"
