@@ -1,0 +1,67 @@
+/* === 全局调整 === */
+body {
+  font-family: "Times New Roman", "Noto Serif CJK SC", serif;
+  line-height: 1.6;
+}
+
+/* === 左右栏 === */
+.sidebar {
+  font-size: 0.95rem;
+}
+
+.sidebar-item {
+  margin-bottom: 0.2rem;
+}
+
+.sidebar-right {
+  width: 18rem;
+}
+
+/* === 内容区 === */
+.content {
+  max-width: 880px;
+  margin: auto;
+}
+
+/* === 标题美化 === */
+h1, h2, h3, h4 {
+  font-family: "Times New Roman", "Noto Serif CJK SC", serif;
+  font-weight: 600;
+}
+
+h1 {
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 0.3em;
+}
+
+/* === 引用块 === */
+blockquote {
+  border-left: 3px solid #1a9d8f;
+  padding-left: 1rem;
+  color: #444;
+  background: #fafafa;
+  font-style: italic;
+}
+
+/* === 表格 === */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 0.4em 0.6em;
+}
+
+/* === 公式居中显示更宽松 === */
+.katex-display {
+  margin: 1em 0 1em 0;
+}
+
+/* === 小屏优化 === */
+@media (max-width: 768px) {
+  .sidebar-right {
+    display: none;
+  }
+}
