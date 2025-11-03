@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2025-10-24">
+<meta name="description" content="本节系统整理 Wasserstein 距离的定义、Kantorovich–Rubinstein 对偶性及其证明框架，并解释为何它优于 KL 散度和全变差距离。">
 
-<title>Paper Picks – FRAIMEL</title>
+<title>Wasserstein 距离与最优传输理论 – FRAIMEL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,31 +25,29 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../images/image1.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-e24644aab278aee125c7f2d0a581bc5b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/image1.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-e24644aab278aee125c7f2d0a581bc5b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -75,35 +75,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-authors','listing-venue','listing-year','listing-tags',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -150,10 +121,14 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Paper Picks – FRAIMEL">
+<link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="Wasserstein 距离与最优传输理论 – FRAIMEL">
+<meta property="og:description" content="本节系统整理 Wasserstein 距离的定义、Kantorovich–Rubinstein 对偶性及其证明框架，并解释为何它优于 KL 散度和全变差距离。">
+<meta property="og:image" content="https://mistatle.github.io/guides/images/probability-cover.png">
 <meta property="og:site_name" content="FRAIMEL">
-<meta name="twitter:title" content="Paper Picks – FRAIMEL">
+<meta name="twitter:title" content="Wasserstein 距离与最优传输理论 – FRAIMEL">
+<meta name="twitter:description" content="本节系统整理 Wasserstein 距离的定义、Kantorovich–Rubinstein 对偶性及其证明框架，并解释为何它优于 KL 散度和全变差距离。">
+<meta name="twitter:image" content="https://mistatle.github.io/guides/images/probability-cover.png">
 <meta name="twitter:creator" content="@MIStatlE">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -327,11 +302,11 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../images/image1.png" alt="" class="navbar-logo light-content">
-    <img src="../images/image1.png" alt="" class="navbar-logo dark-content">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../images/image1.png" alt="" class="navbar-logo light-content">
+    <img src="../../../images/image1.png" alt="" class="navbar-logo dark-content">
     </a>
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">FRAIMEL</span>
     </a>
   </div>
@@ -342,7 +317,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -351,53 +326,53 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-guides">    
         <li>
-    <a class="dropdown-item" href="../guides/probability/index.html">
+    <a class="dropdown-item" href="../../../guides/probability/index.html">
  <span class="dropdown-text">Probability</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../guides/opt/index.qmd">
+    <a class="dropdown-item" href="../../../guides/opt/index.qmd">
  <span class="dropdown-text">Optimization</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../guides/mlt/index.qmd">
+    <a class="dropdown-item" href="../../../guides/mlt/index.qmd">
  <span class="dropdown-text">ML Theory</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../guides/diffusion/index.html">
+    <a class="dropdown-item" href="../../../guides/diffusion/index.html">
  <span class="dropdown-text">Diffusion</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../guides/rl/index.qmd">
+    <a class="dropdown-item" href="../../../guides/rl/index.qmd">
  <span class="dropdown-text">RL / Online Learning</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../guides/book/index.html">
+    <a class="dropdown-item" href="../../../guides/book/index.html">
  <span class="dropdown-text">book</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="../papers/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../../papers/index.html"> 
 <span class="menu-text">Paper Picks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../posts/index.html"> 
+    <a class="nav-link" href="../../../posts/index.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tools/index.html"> 
+    <a class="nav-link" href="../../../tools/index.html"> 
 <span class="menu-text">Tools</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../reads/index.html"> 
+    <a class="nav-link" href="../../../reads/index.html"> 
 <span class="menu-text">Good Reads</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../community/index.html"> 
+    <a class="nav-link" href="../../../community/index.html"> 
 <span class="menu-text">Community</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
+    <a class="nav-link" href="../../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -425,12 +400,12 @@ window.Quarto = {
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="../posts/index.xml"> <i class="bi bi-rss" role="img">
+    <a class="nav-link" href="../../../posts/index.xml"> <i class="bi bi-rss" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../search.html"> 
+    <a class="nav-link" href="../../../search.html"> 
 <span class="menu-text">Search</span></a>
   </li>  
 </ul>
@@ -442,26 +417,56 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="T3B0aW1pemF0aW9u">Optimization <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#wasserstein-距离与最优传输理论" id="toc-wasserstein-距离与最优传输理论" class="nav-link active" data-scroll-target="#wasserstein-距离与最优传输理论">Wasserstein 距离与最优传输理论</a>
+  <ul class="collapse">
+  <li><a href="#wasserstein-距离定义" id="toc-wasserstein-距离定义" class="nav-link" data-scroll-target="#wasserstein-距离定义">Wasserstein 距离定义</a></li>
+  <li><a href="#kantorovichrubinstein-对偶性证明" id="toc-kantorovichrubinstein-对偶性证明" class="nav-link" data-scroll-target="#kantorovichrubinstein-对偶性证明">Kantorovich–Rubinstein 对偶性证明</a></li>
+  <li><a href="#全变差距离-total-variation-distance" id="toc-全变差距离-total-variation-distance" class="nav-link" data-scroll-target="#全变差距离-total-variation-distance">全变差距离 (Total Variation Distance)</a></li>
+  <li><a href="#结论" id="toc-结论" class="nav-link" data-scroll-target="#结论">结论</a></li>
+  <li><a href="#参考文献" id="toc-参考文献" class="nav-link" data-scroll-target="#参考文献">参考文献</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Paper Picks</h1>
+<h1 class="title">Wasserstein 距离与最优传输理论</h1>
+<p class="subtitle lead">从支撑集到对偶性：为何我们需要 Wasserstein 距离</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">Optimal Transport</div>
+    <div class="quarto-category">Probability</div>
+    <div class="quarto-category">Machine Learning Theory</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    本节系统整理 Wasserstein 距离的定义、Kantorovich–Rubinstein 对偶性及其证明框架，并解释为何它优于 KL 散度和全变差距离。
+  </div>
 </div>
 
 
-
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 24, 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -471,81 +476,167 @@ window.Quarto = {
 </header>
 
 
+<section id="wasserstein-距离与最优传输理论" class="level2">
+<h2 class="anchored" data-anchor-id="wasserstein-距离与最优传输理论">Wasserstein 距离与最优传输理论</h2>
 <blockquote class="blockquote">
-<p>高信号论文精选：关注 ML Theory / RL / Optimization / Generative Models。</p>
+<p><strong>解释.</strong><br>
+<em>支撑集 (support)</em> 指的是分布取值概率非零的点集。形式上，对于分布 <span class="math inline">P</span>，</p>
+<p><span class="math display">
+\mathrm{supp}(P) = \{x \in \mathcal X : P(x) &gt; 0\}.
+</span></p>
+<p>支撑集反映了随机变量在空间中可能出现的位置范围。若两个分布的支撑集不重叠，即 <span class="math inline">\mathrm{supp}(P) \cap \mathrm{supp}(Q) = \varnothing</span>，则许多常见散度无法有效比较它们之间的差异。</p>
+<h5 id="例kl-散度失效" class="anchored">例：KL 散度失效</h5>
+<p>Kullback–Leibler 散度定义为</p>
+<p><span class="math display">
+D_{\mathrm{KL}}(P\Vert Q) = \int p(x)\log\frac{p(x)}{q(x)}\,dx.
+</span></p>
+<p>当存在某个区域上 <span class="math inline">p(x)&gt;0</span> 而 <span class="math inline">q(x)=0</span> 时，<span class="math inline">\log \frac{p(x)}{q(x)}</span> 发散，从而 <span class="math inline">D_{\mathrm{KL}}(P\Vert Q) = +\infty</span>。 这意味着若两分布支撑集不重叠，KL 散度无法提供有限且有意义的度量。 全变差距离（total variation distance）虽可定义，但它仅反映概率质量差异，忽略几何信息。</p>
+<p>为解决这些问题，引入 <em>Wasserstein 距离</em>，其思想来源于 <em>最优传输 (Optimal Transport)</em>： 通过“最小搬运成本”定义分布间的距离。</p>
 </blockquote>
+<hr>
+<section id="wasserstein-距离定义" class="level3">
+<h3 class="anchored" data-anchor-id="wasserstein-距离定义">Wasserstein 距离定义</h3>
+<blockquote class="blockquote">
+<p><strong>定义（Wasserstein Distance）.</strong><br>
+形式上，</p>
+<p><span class="math display">
+W_1(P,Q)
+= \sup_{\|f\|_L \le 1}
+\bigl[
+\mathbb E_{x\sim P}[f(x)] - \mathbb E_{x\sim Q}[f(x)]
+\bigr],
+</span></p>
+<p>其中上确界取遍所有 <span class="math inline">1</span>-Lipschitz 函数 <span class="math inline">f</span>，即</p>
+<p><span class="math display">
+|f(x)-f(y)| \le d(x,y), \quad \forall x,y.
+</span></p>
+<p>此约束确保 <span class="math inline">f</span> 的变化不超过度量空间的几何尺度 <span class="math inline">d(x,y)</span>。</p>
+</blockquote>
+<hr>
+<blockquote class="blockquote">
+<p><strong>定理（Kantorovich–Rubinstein Duality）.</strong><br>
+令 <span class="math inline">P, Q</span> 为定义在度量空间 <span class="math inline">(\mathcal X, d)</span> 上、具有有界支撑的两个分布，则</p>
+<p><span class="math display">
+W_1(P, Q)
+= \sup_{\mathrm{Lip}(f)\le1}
+\bigl[
+\mathbb E_{x\sim P}[f(x)]
+- \mathbb E_{x\sim Q}[f(x)]
+\bigr]
+= \inf_{\pi}
+\mathbb E_{(x,y)\sim\pi}[d(x,y)],
+</span></p>
+<p>其中 <span class="math inline">\pi</span> 为 <span class="math inline">P,Q</span> 的耦合（coupling），即定义在 <span class="math inline">\mathcal X\times\mathcal X</span> 上的联合分布，其边缘分别为 <span class="math inline">P,Q</span>。</p>
+</blockquote>
+<hr>
+</section>
+<section id="kantorovichrubinstein-对偶性证明" class="level3">
+<h3 class="anchored" data-anchor-id="kantorovichrubinstein-对偶性证明">Kantorovich–Rubinstein 对偶性证明</h3>
+<p><strong>证明.</strong><br>
+定义集合</p>
+<p><span class="math display">
+\Pi(P,Q) = \{\pi \in \mathcal P(\mathcal X\times\mathcal X) : \pi_x=P, \pi_y=Q\},
+</span></p>
+<p>其中 <span class="math inline">\pi_x, \pi_y</span> 分别为边缘分布。</p>
+<p>对任意 <span class="math inline">1</span>-Lipschitz 函数 <span class="math inline">f</span>，有</p>
+<p><span class="math display">
+f(x) - f(y) \le d(x,y), \quad \forall (x,y)\in\mathcal X\times\mathcal X.
+</span></p>
+<p>因此，</p>
+<p><span class="math display">
+\mathbb E_{x\sim P}[f(x)] - \mathbb E_{y\sim Q}[f(y)]
+= \int (f(x)-f(y))\,d\pi(x,y)
+\le \int d(x,y)\,d\pi(x,y),
+</span></p>
+<p>对任意耦合 <span class="math inline">\pi</span> 成立。取上确界得</p>
+<p><span class="math display">
+\sup_{\mathrm{Lip}(f)\le1}
+\bigl[\mathbb E_{x\sim P}[f(x)]-\mathbb E_{x\sim Q}[f(x)]\bigr]
+\le
+\inf_{\pi\in\Pi(P,Q)}\int d(x,y)\,d\pi(x,y).
+</span></p>
+<p>考虑线性规划形式：</p>
+<p><span class="math display">
+\min_{\pi\in\Pi(P,Q)} \int d(x,y)\,d\pi(x,y)
+\quad\text{s.t.}\quad
+\pi\ge0,~ \pi_x=P,~ \pi_y=Q.
+</span></p>
+<p>其对偶问题为</p>
+<p><span class="math display">
+\max_{f,g}
+\Bigl\{
+\int f(x)\,dP(x) + \int g(y)\,dQ(y)
+:\,
+f(x)-g(y)\le d(x,y)
+\Bigr\}.
+</span></p>
+<p>由于约束满足强对偶性，最优值相等。再取 <span class="math inline">g=-f</span>，即得</p>
+<p><span class="math display">
+W_1(P,Q)
+= \sup_{\mathrm{Lip}(f)\le1}
+\bigl[\mathbb E_{x\sim P}[f(x)] - \mathbb E_{x\sim Q}[f(x)]\bigr]
+= \inf_{\pi\in\Pi(P,Q)}\mathbb E_{(x,y)\sim\pi}[d(x,y)].
+</span></p>
+<p>□</p>
+<hr>
+<blockquote class="blockquote">
+<p><strong>解释.</strong><br>
+直观上，该定理表明比较两个分布的距离有两种等价形式：</p>
+<ol type="1">
+<li>寻找一个 <span class="math inline">1</span>-Lipschitz 函数，使两分布上期望差最大；</li>
+<li>寻找一种运输方案 <span class="math inline">\pi</span>，使从 <span class="math inline">P</span> 到 <span class="math inline">Q</span> 的平均运输代价最小。</li>
+</ol>
+</blockquote>
+<hr>
+</section>
+<section id="全变差距离-total-variation-distance" class="level3">
+<h3 class="anchored" data-anchor-id="全变差距离-total-variation-distance">全变差距离 (Total Variation Distance)</h3>
+<p><span class="math display">
+\mathrm{TV}(P,Q)
+= \sup_{A\subseteq\mathcal X}|P(A)-Q(A)|
+= \sup_{\|f\|_\infty\le1}
+\bigl|
+\mathbb E_{x\sim P}[f(x)]-\mathbb E_{x\sim Q}[f(x)]
+\bigr|.
+</span></p>
+<p>若在 Wasserstein 定义中取度量 <span class="math inline">d(x,y)=\mathbb I\{x\ne y\}</span>，则</p>
+<p><span class="math display">
+\mathrm{TV}(P,Q) = W_1(P,Q).
+</span></p>
+<p>全变差距离忽略几何结构，仅关注概率质量差异；而 Wasserstein 距离能捕捉“空间位移”层面的差距。</p>
+<hr>
+<blockquote class="blockquote">
+<p><strong>解释.</strong><br>
+<strong>Wasserstein 距离的直觉是“搬运质量”。</strong><br>
+若将分布 <span class="math inline">P,Q</span> 看作两堆沙子，<span class="math inline">W_1(P,Q)</span> 表示将一堆沙搬运成另一堆所需的最小运输成本。<br>
+与传统散度不同，即使两堆沙不重叠，它仍给出有限、平滑的几何度量。</p>
+</blockquote>
+<hr>
+</section>
+<section id="结论" class="level3">
+<h3 class="anchored" data-anchor-id="结论">结论</h3>
+<p><strong>Wasserstein 距离在机器学习中具有广泛应用。</strong></p>
+<p>典型应用包括：</p>
+<ul>
+<li>生成模型（WGAN）；</li>
+<li>分布匹配与领域自适应；</li>
+<li>鲁棒学习与对抗训练。</li>
+</ul>
+<p>通过 Kantorovich–Rubinstein 对偶性，Wasserstein 距离在理论分析与优化计算之间建立了稳定可导的桥梁，使分布差异的估计兼具几何可解释性与连续性。</p>
+<hr>
+</section>
+<section id="参考文献" class="level3">
+<h3 class="anchored" data-anchor-id="参考文献">参考文献</h3>
+<ul>
+<li><p>Kantorovich, L. V. (1942). <em>On the translocation of masses.</em> <em>Doklady Akademii Nauk</em>, 37, 199–201.</p></li>
+<li><p>Villani, C. (2008). <em>Optimal Transport: Old and New.</em> <em>Springer-Verlag, Berlin Heidelberg.</em></p></li>
+</ul>
 
 
+</section>
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-    <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-    <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-      <option value="" disabled="" selected="" hidden="">Order By</option>
-      <option value="index" data-direction="asc">Default</option>
-      <option value="listing-title-sort" data-direction="asc">
-        Title
-      </option>
-    </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
-</div>
-<table class="quarto-listing-table table">
-<thead>
-<tr>
-
-<th>
-<a class="sort" data-sort="listing-title-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Title</a>
-</th>
-
-<th>
-authors
-</th>
-
-<th>
-venue
-</th>
-
-<th>
-year
-</th>
-
-<th>
-tags
-</th>
-
-</tr>
-</thead>
-<tbody class="list">
-
-<tr data-index="0" data-categories="T3B0aW1pemF0aW9u" data-listing-date-sort="1759881600000" data-listing-file-modified-sort="1762136308045" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="19" data-listing-title-sort="Self-Concordant Barriers Revisited" data-listing-filename-sort="2025-10-08-paper-template.qmd">
-<td>
-<a href="../papers/2025-10-08-paper-template.html" class="title listing-title">Self-Concordant Barriers Revisited</a>
-</td>
-<td>
-<span class="listing-authors">Nesterov, Nemirovski</span>
-</td>
-<td>
-<span class="listing-venue">Math. Programming</span>
-</td>
-<td>
-<span class="listing-year">1994</span>
-</td>
-<td>
-<span class="listing-tags">optimization, self-concordant, interior-point</span>
-</td>
-
-</tr>
-
-</tbody>
-</table>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -982,5 +1073,5 @@ tags
 
 
 
-<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
