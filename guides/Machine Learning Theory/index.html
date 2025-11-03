@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。">
 
-<title>Diffusion Models – FRAIMEL</title>
+<title>index – FRAIMEL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,8 +31,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
 <link href="../../images/image1.png" rel="icon" type="image/png">
-<script src="../../site_libs/quarto-listing/list.min.js"></script>
-<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -76,89 +73,13 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-date','listing-categories','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../../styles.css">
-<meta property="og:title" content="Diffusion Models – FRAIMEL">
-<meta property="og:description" content="从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。">
-<meta property="og:image" content="https://mistatle.github.io/images/tool-card.png">
+<meta property="og:title" content="FRAIMEL">
 <meta property="og:site_name" content="FRAIMEL">
-<meta name="twitter:title" content="Diffusion Models – FRAIMEL">
-<meta name="twitter:description" content="从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。">
-<meta name="twitter:image" content="https://mistatle.github.io/images/tool-card.png">
+<meta name="twitter:title" content="FRAIMEL">
 <meta name="twitter:creator" content="@MIStatlE">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -450,225 +371,20 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#扩散模型要解决的问题" id="toc-扩散模型要解决的问题" class="nav-link active" data-scroll-target="#扩散模型要解决的问题">扩散模型要解决的问题</a></li>
-  <li><a href="#模型概览" id="toc-模型概览" class="nav-link" data-scroll-target="#模型概览">模型概览</a></li>
-  <li><a href="#推荐网课与讲座" id="toc-推荐网课与讲座" class="nav-link" data-scroll-target="#推荐网课与讲座">🎓 推荐网课与讲座</a></li>
-  <li><a href="#推荐资料与书籍" id="toc-推荐资料与书籍" class="nav-link" data-scroll-target="#推荐资料与书籍">推荐资料与书籍</a>
-  <ul class="collapse">
-  <li><a href="#入门推荐step-by-step-diffusionarxiv2406.08929" id="toc-入门推荐step-by-step-diffusionarxiv2406.08929" class="nav-link" data-scroll-target="#入门推荐step-by-step-diffusionarxiv2406.08929">入门推荐：Step-by-Step Diffusion（arXiv:2406.08929）</a></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Diffusion Models</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">diffusion</div>
-  </div>
-  </div>
-
-<div>
-  <div class="description">
-    从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。
-  </div>
-</div>
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<blockquote class="blockquote">
-<p><strong>学习目标</strong><br>
-从零到一理解扩散模型：动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。</p>
-</blockquote>
-<hr>
-<section id="扩散模型要解决的问题" class="level2">
-<h2 class="anchored" data-anchor-id="扩散模型要解决的问题">扩散模型要解决的问题</h2>
-<p>生成模型希望学习未知分布 <span class="math inline">p^*(x)</span>，从而生成近似样本。<br>
-直接从噪声“一步”生成复杂数据往往困难，而扩散模型的关键在于：</p>
-<ol type="1">
-<li><strong>前向扩散（Forward Diffusion）</strong>：逐步加噪，使数据分布趋近高斯；</li>
-<li><strong>反向过程（Reverse Diffusion）</strong>：学习去噪映射，把噪声还原为数据；</li>
-<li>每一步都只需建模相邻分布 <span class="math inline">p(x_{t-\Delta t}\mid x_t)</span>，学习更稳定。</li>
-</ol>
-<blockquote class="blockquote">
-<p>核心等价关系：<br>
-<span class="math display">\text{Denoising} \;\Leftrightarrow\; \text{Learning } \nabla_x \log p_t(x)</span><br>
-学习去噪即学习“得分函数”，方向即密度上升最快的方向。</p>
-</blockquote>
-<hr>
-</section>
-<section id="模型概览" class="level2">
-<h2 class="anchored" data-anchor-id="模型概览">模型概览</h2>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 17%">
-<col style="width: 35%">
-<col style="width: 47%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>模型</th>
-<th>核心特征</th>
-<th>适合理解的方向</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>DDPM</strong> (Ho et al., 2020)</td>
-<td>随机反演，采样多样性强</td>
-<td>适合学习随机微分方程与噪声调度思想</td>
-</tr>
-<tr class="even">
-<td><strong>DDIM</strong> (Song et al., 2020)</td>
-<td>确定性采样，速度快</td>
-<td>适合工程与推理效率研究</td>
-</tr>
-<tr class="odd">
-<td><strong>Flow Matching</strong> (Lipman et al., 2023)</td>
-<td>统一连续流框架</td>
-<td>适合理解 ODE/SDE 统一与几何流</td>
-</tr>
-</tbody>
-</table>
-<hr>
-</section>
-<section id="推荐网课与讲座" class="level2">
-<h2 class="anchored" data-anchor-id="推荐网课与讲座">🎓 推荐网课与讲座</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>课程</th>
-<th>来源</th>
-<th>定位与特点</th>
-<th>适合人群</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="https://mit-diffusion.github.io"><strong>MIT 6.S980 — Diffusion Models</strong></a></td>
-<td>MIT</td>
-<td>最系统的扩散入门课程；讲清从加噪→去噪→采样的完整流程，覆盖 DDPM、SDE、Flow Matching</td>
-<td>希望“系统掌握原理+数学背景”的研究生</td>
-</tr>
-<tr class="even">
-<td><a href="https://deepgenerativemodels.github.io"><strong>CS236 — Deep Generative Models</strong></a></td>
-<td>Stanford</td>
-<td>将扩散模型放在生成模型的整体框架中讲解（与VAE、GAN对比）</td>
-<td>想理解扩散在整个生成建模中的位置</td>
-</tr>
-<tr class="odd">
-<td><a href="https://sites.google.com/view/berkeley-stat-157"><strong>STAT 157 — Deep Unsupervised Learning</strong></a></td>
-<td>Berkeley</td>
-<td>从“概率建模 + 实验”的角度介绍 score-based 方法，重视动机和实践</td>
-<td>想边学边做、快速上手的同学</td>
-</tr>
-<tr class="even">
-<td><a href="https://www.youtube.com/playlist?list=PLqYmG7hTraZCkftCvihsG2zQ_N9l3QOjo"><strong>Diffusion Seminar Series</strong></a></td>
-<td>DeepMind × UCL</td>
-<td>汇集各大实验室研究者讲解前沿思想（Consistency、Flow Matching 等）</td>
-<td>已有基础，想了解学界前沿动向的人</td>
-</tr>
-</tbody>
-</table>
-<hr>
-</section>
-<section id="推荐资料与书籍" class="level2">
-<h2 class="anchored" data-anchor-id="推荐资料与书籍">推荐资料与书籍</h2>
-<section id="入门推荐step-by-step-diffusionarxiv2406.08929" class="level3">
-<h3 class="anchored" data-anchor-id="入门推荐step-by-step-diffusionarxiv2406.08929">入门推荐：Step-by-Step Diffusion（arXiv:2406.08929）</h3>
-<blockquote class="blockquote">
-<p>原文：<a href="https://arxiv.org/pdf/2406.08929" class="uri">https://arxiv.org/pdf/2406.08929</a></p>
-</blockquote>
-<p>这篇教程以<strong>最小数学依赖</strong>讲解扩散模型的核心直觉与采样流程，强调“加噪→去噪”的构造思路，帮助快速形成整体认知（DDPM、DDIM、Flow Matching 的联系与差异），在Appendix里整理了更深入的内容。</p>
-<p><strong>谁适合读？</strong> - 想先抓“为什么这样做”的直觉，而非从繁琐推导的数学理论开始；</p>
-<hr>
-<blockquote class="blockquote">
-<p><strong>下方自动汇总所有 Diffusion 相关笔记（<code>notes/*.qmd</code>）</strong><br>
-在 <code>guides/diffusion/notes/</code> 目录中添加新 <code>.qmd</code> 文件即可自动展示。</p>
-</blockquote>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
-</section>
-</section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="ZGlmZnVzaW9uJTJDRGlmZnVzaW9uJTJDVkFFJTJDR2VuZXJhdGl2ZSUyME1vZGVscw==" data-listing-date-sort="1760400000000" data-listing-file-modified-sort="1762136234852" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="94">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../guides/diffusion/notes/vae.html" class="no-external">VAE 基础推导</a>
-</h3>
-<div class="listing-categories">
 
-<div class="listing-category" onclick="window.quartoListingCategory('ZGlmZnVzaW9u'); return false;">diffusion</div>
 
-<div class="listing-category" onclick="window.quartoListingCategory('RGlmZnVzaW9u'); return false;">Diffusion</div>
 
-<div class="listing-category" onclick="window.quartoListingCategory('VkFF'); return false;">VAE</div>
 
-<div class="listing-category" onclick="window.quartoListingCategory('R2VuZXJhdGl2ZSUyME1vZGVscw=='); return false;">Generative Models</div>
-
-</div>
-<div class="delink listing-description"><a href="../../guides/diffusion/notes/vae.html" class="no-external">
-<p>从前向噪声到反向回归目标，理解为什么只需学习均值。</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../../guides/diffusion/notes/vae.html" class="no-external">
-<div class="listing-date">
-Oct 14, 2025
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="ZGlmZnVzaW9uJTJDZGRwbQ==" data-listing-date-sort="1759276800000" data-listing-file-modified-sort="1762136234852" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="14">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../guides/diffusion/notes/ddpm.html" class="no-external">DDPM 基础推导</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGlmZnVzaW9u'); return false;">diffusion</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGRwbQ=='); return false;">ddpm</div>
-
-</div>
-<div class="delink listing-description"><a href="../../guides/diffusion/notes/ddpm.html" class="no-external">
-<p>从前向噪声到反向回归目标，理解为什么只需学均值。</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../../guides/diffusion/notes/ddpm.html" class="no-external">
-<div class="listing-date">
-Oct 1, 2025
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
