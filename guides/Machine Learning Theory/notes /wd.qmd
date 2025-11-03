@@ -1,0 +1,212 @@
+---
+title: "Wasserstein 距离与最优传输理论"
+subtitle: "从支撑集到对偶性：为何我们需要 Wasserstein 距离"
+description: "本节系统整理 Wasserstein 距离的定义、Kantorovich–Rubinstein 对偶性及其证明框架，并解释为何它优于 KL 散度和全变差距离。"
+date: 2025-10-24
+categories:
+  - Optimal Transport
+  - Probability
+  - Machine Learning Theory
+tags:
+  - Wasserstein Distance
+  - Kantorovich–Rubinstein Duality
+  - Optimal Transport
+  - Distributional Distance
+  - Generative Models
+image: "../../images/probability-cover.png"
+draft: false
+toc: true
+toc-depth: 3
+page-layout: article
+---
+
+## Wasserstein 距离与最优传输理论
+
+> **解释.**  
+> *支撑集 (support)* 指的是分布取值概率非零的点集。形式上，对于分布 $P$，
+>
+> $$
+> \mathrm{supp}(P) = \{x \in \mathcal X : P(x) > 0\}.
+> $$
+>
+> 支撑集反映了随机变量在空间中可能出现的位置范围。若两个分布的支撑集不重叠，即
+> $\mathrm{supp}(P) \cap \mathrm{supp}(Q) = \varnothing$，则许多常见散度无法有效比较它们之间的差异。
+>
+> ##### 例：KL 散度失效
+> Kullback–Leibler 散度定义为
+>
+> $$
+> D_{\mathrm{KL}}(P\Vert Q) = \int p(x)\log\frac{p(x)}{q(x)}\,dx.
+> $$
+>
+> 当存在某个区域上 $p(x)>0$ 而 $q(x)=0$ 时，$\log \frac{p(x)}{q(x)}$ 发散，从而 $D_{\mathrm{KL}}(P\Vert Q) = +\infty$。
+> 这意味着若两分布支撑集不重叠，KL 散度无法提供有限且有意义的度量。
+> 全变差距离（total variation distance）虽可定义，但它仅反映概率质量差异，忽略几何信息。
+>
+> 为解决这些问题，引入 *Wasserstein 距离*，其思想来源于 *最优传输 (Optimal Transport)*：
+> 通过“最小搬运成本”定义分布间的距离。
+
+---
+
+### Wasserstein 距离定义
+
+> **定义（Wasserstein Distance）.**  
+> 形式上，
+>
+> $$
+> W_1(P,Q)
+> = \sup_{\|f\|_L \le 1}
+> \bigl[
+> \mathbb E_{x\sim P}[f(x)] - \mathbb E_{x\sim Q}[f(x)]
+> \bigr],
+> $$
+>
+> 其中上确界取遍所有 $1$-Lipschitz 函数 $f$，即
+>
+> $$
+> |f(x)-f(y)| \le d(x,y), \quad \forall x,y.
+> $$
+>
+> 此约束确保 $f$ 的变化不超过度量空间的几何尺度 $d(x,y)$。
+
+---
+
+> **定理（Kantorovich–Rubinstein Duality）.**  
+> 令 $P, Q$ 为定义在度量空间 $(\mathcal X, d)$ 上、具有有界支撑的两个分布，则
+>
+> $$
+> W_1(P, Q)
+> = \sup_{\mathrm{Lip}(f)\le1}
+> \bigl[
+> \mathbb E_{x\sim P}[f(x)]
+> - \mathbb E_{x\sim Q}[f(x)]
+> \bigr]
+> = \inf_{\pi}
+> \mathbb E_{(x,y)\sim\pi}[d(x,y)],
+> $$
+>
+> 其中 $\pi$ 为 $P,Q$ 的耦合（coupling），即定义在 $\mathcal X\times\mathcal X$ 上的联合分布，其边缘分别为 $P,Q$。
+
+---
+
+### Kantorovich–Rubinstein 对偶性证明
+
+**证明.**  
+定义集合
+
+$$
+\Pi(P,Q) = \{\pi \in \mathcal P(\mathcal X\times\mathcal X) : \pi_x=P, \pi_y=Q\},
+$$
+
+其中 $\pi_x, \pi_y$ 分别为边缘分布。
+
+对任意 $1$-Lipschitz 函数 $f$，有
+
+$$
+f(x) - f(y) \le d(x,y), \quad \forall (x,y)\in\mathcal X\times\mathcal X.
+$$
+
+因此，
+
+$$
+\mathbb E_{x\sim P}[f(x)] - \mathbb E_{y\sim Q}[f(y)]
+= \int (f(x)-f(y))\,d\pi(x,y)
+\le \int d(x,y)\,d\pi(x,y),
+$$
+
+对任意耦合 $\pi$ 成立。取上确界得
+
+$$
+\sup_{\mathrm{Lip}(f)\le1}
+\bigl[\mathbb E_{x\sim P}[f(x)]-\mathbb E_{x\sim Q}[f(x)]\bigr]
+\le
+\inf_{\pi\in\Pi(P,Q)}\int d(x,y)\,d\pi(x,y).
+$$
+
+考虑线性规划形式：
+
+$$
+\min_{\pi\in\Pi(P,Q)} \int d(x,y)\,d\pi(x,y)
+\quad\text{s.t.}\quad
+\pi\ge0,~ \pi_x=P,~ \pi_y=Q.
+$$
+
+其对偶问题为
+
+$$
+\max_{f,g}
+\Bigl\{
+\int f(x)\,dP(x) + \int g(y)\,dQ(y)
+:\,
+f(x)-g(y)\le d(x,y)
+\Bigr\}.
+$$
+
+由于约束满足强对偶性，最优值相等。再取 $g=-f$，即得
+
+$$
+W_1(P,Q)
+= \sup_{\mathrm{Lip}(f)\le1}
+\bigl[\mathbb E_{x\sim P}[f(x)] - \mathbb E_{x\sim Q}[f(x)]\bigr]
+= \inf_{\pi\in\Pi(P,Q)}\mathbb E_{(x,y)\sim\pi}[d(x,y)].
+$$
+
+□
+
+---
+
+> **解释.**  
+> 直观上，该定理表明比较两个分布的距离有两种等价形式：
+>
+> 1. 寻找一个 $1$-Lipschitz 函数，使两分布上期望差最大；
+> 2. 寻找一种运输方案 $\pi$，使从 $P$ 到 $Q$ 的平均运输代价最小。
+
+---
+
+### 全变差距离 (Total Variation Distance)
+
+$$
+\mathrm{TV}(P,Q)
+= \sup_{A\subseteq\mathcal X}|P(A)-Q(A)|
+= \sup_{\|f\|_\infty\le1}
+\bigl|
+\mathbb E_{x\sim P}[f(x)]-\mathbb E_{x\sim Q}[f(x)]
+\bigr|.
+$$
+
+若在 Wasserstein 定义中取度量 $d(x,y)=\mathbb I\{x\ne y\}$，则
+
+$$
+\mathrm{TV}(P,Q) = W_1(P,Q).
+$$
+
+全变差距离忽略几何结构，仅关注概率质量差异；而 Wasserstein 距离能捕捉“空间位移”层面的差距。
+
+---
+
+> **解释.**  
+> **Wasserstein 距离的直觉是“搬运质量”。**  
+> 若将分布 $P,Q$ 看作两堆沙子，$W_1(P,Q)$ 表示将一堆沙搬运成另一堆所需的最小运输成本。  
+> 与传统散度不同，即使两堆沙不重叠，它仍给出有限、平滑的几何度量。
+
+---
+
+### 结论
+
+**Wasserstein 距离在机器学习中具有广泛应用。**
+
+典型应用包括：
+
+- 生成模型（WGAN）；
+- 分布匹配与领域自适应；
+- 鲁棒学习与对抗训练。
+
+通过 Kantorovich–Rubinstein 对偶性，Wasserstein 距离在理论分析与优化计算之间建立了稳定可导的桥梁，使分布差异的估计兼具几何可解释性与连续性。
+
+---
+
+### 参考文献
+
+- Kantorovich, L. V. (1942). *On the translocation of masses.* *Doklady Akademii Nauk*, 37, 199–201.
+
+- Villani, C. (2008). *Optimal Transport: Old and New.* *Springer-Verlag, Berlin Heidelberg.*
