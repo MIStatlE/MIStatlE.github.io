@@ -6,9 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。">
+<meta name="dcterms.date" content="2025-11-04">
+<meta name="description" content="介绍 Score Function 的定义、Score Matching 的原始目标及 Hyvärinen 提出的可计算形式，说明其在非归一化模型与扩散模型中的意义。">
 
-<title>Diffusion Models – FRAIMEL</title>
+<title>Score Matching：从能量模型到可计算训练目标 – FRAIMEL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,31 +25,29 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<link href="../../images/image1.png" rel="icon" type="image/png">
-<script src="../../site_libs/quarto-listing/list.min.js"></script>
-<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-e24644aab278aee125c7f2d0a581bc5b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/image1.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-e24644aab278aee125c7f2d0a581bc5b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-635a35c16803d16fd9db22f392043487.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -76,35 +75,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-date','listing-categories','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -151,14 +121,14 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="../../styles.css">
-<meta property="og:title" content="Diffusion Models – FRAIMEL">
-<meta property="og:description" content="从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。">
-<meta property="og:image" content="https://mistatle.github.io/images/tool-card.png">
+<link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="Score Matching：从能量模型到可计算训练目标 – FRAIMEL">
+<meta property="og:description" content="介绍 Score Function 的定义、Score Matching 的原始目标及 Hyvärinen 提出的可计算形式，说明其在非归一化模型与扩散模型中的意义。">
+<meta property="og:image" content="https://mistatle.github.io/guides/images/diffusion-cover.png">
 <meta property="og:site_name" content="FRAIMEL">
-<meta name="twitter:title" content="Diffusion Models – FRAIMEL">
-<meta name="twitter:description" content="从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。">
-<meta name="twitter:image" content="https://mistatle.github.io/images/tool-card.png">
+<meta name="twitter:title" content="Score Matching：从能量模型到可计算训练目标 – FRAIMEL">
+<meta name="twitter:description" content="介绍 Score Function 的定义、Score Matching 的原始目标及 Hyvärinen 提出的可计算形式，说明其在非归一化模型与扩散模型中的意义。">
+<meta name="twitter:image" content="https://mistatle.github.io/guides/images/diffusion-cover.png">
 <meta name="twitter:creator" content="@MIStatlE">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -332,11 +302,11 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/image1.png" alt="" class="navbar-logo light-content">
-    <img src="../../images/image1.png" alt="" class="navbar-logo dark-content">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../images/image1.png" alt="" class="navbar-logo light-content">
+    <img src="../../../images/image1.png" alt="" class="navbar-logo dark-content">
     </a>
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">FRAIMEL</span>
     </a>
   </div>
@@ -347,7 +317,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link" href="../../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -356,53 +326,53 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-guides">    
         <li>
-    <a class="dropdown-item" href="../../guides/probability/index.html">
+    <a class="dropdown-item" href="../../../guides/probability/index.html">
  <span class="dropdown-text">Probability</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../guides/opt/index.qmd">
+    <a class="dropdown-item" href="../../../guides/opt/index.qmd">
  <span class="dropdown-text">Optimization</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../guides/mlt/index.qmd">
+    <a class="dropdown-item" href="../../../guides/mlt/index.qmd">
  <span class="dropdown-text">ML Theory</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../guides/diffusion/index.html">
+    <a class="dropdown-item" href="../../../guides/diffusion/index.html">
  <span class="dropdown-text">Diffusion</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../guides/rl/index.qmd">
+    <a class="dropdown-item" href="../../../guides/rl/index.qmd">
  <span class="dropdown-text">RL / Online Learning</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../guides/book/index.html">
+    <a class="dropdown-item" href="../../../guides/book/index.html">
  <span class="dropdown-text">book</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../../papers/index.html"> 
+    <a class="nav-link" href="../../../papers/index.html"> 
 <span class="menu-text">Paper Picks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../posts/index.html"> 
+    <a class="nav-link" href="../../../posts/index.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../tools/index.html"> 
+    <a class="nav-link" href="../../../tools/index.html"> 
 <span class="menu-text">Tools</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../reads/index.html"> 
+    <a class="nav-link" href="../../../reads/index.html"> 
 <span class="menu-text">Good Reads</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../community/index.html"> 
+    <a class="nav-link" href="../../../community/index.html"> 
 <span class="menu-text">Community</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
+    <a class="nav-link" href="../../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -430,12 +400,12 @@ window.Quarto = {
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="../../posts/index.xml"> <i class="bi bi-rss" role="img">
+    <a class="nav-link" href="../../../posts/index.xml"> <i class="bi bi-rss" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../search.html"> 
+    <a class="nav-link" href="../../../search.html"> 
 <span class="menu-text">Search</span></a>
   </li>  
 </ul>
@@ -455,12 +425,12 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#扩散模型要解决的问题" id="toc-扩散模型要解决的问题" class="nav-link active" data-scroll-target="#扩散模型要解决的问题">扩散模型要解决的问题</a></li>
-  <li><a href="#模型概览" id="toc-模型概览" class="nav-link" data-scroll-target="#模型概览">模型概览</a></li>
-  <li><a href="#推荐网课与讲座" id="toc-推荐网课与讲座" class="nav-link" data-scroll-target="#推荐网课与讲座">🎓 推荐网课与讲座</a></li>
-  <li><a href="#推荐资料与书籍" id="toc-推荐资料与书籍" class="nav-link" data-scroll-target="#推荐资料与书籍">推荐资料与书籍</a>
+  <li><a href="#score-matching" id="toc-score-matching" class="nav-link active" data-scroll-target="#score-matching">Score Matching</a>
   <ul class="collapse">
-  <li><a href="#入门推荐step-by-step-diffusionarxiv2406.08929" id="toc-入门推荐step-by-step-diffusionarxiv2406.08929" class="nav-link" data-scroll-target="#入门推荐step-by-step-diffusionarxiv2406.08929">入门推荐：Step-by-Step Diffusion（arXiv:2406.08929）</a></li>
+  <li><a href="#定义与基本形式" id="toc-定义与基本形式" class="nav-link" data-scroll-target="#定义与基本形式">定义与基本形式</a></li>
+  <li><a href="#score-matching-损失" id="toc-score-matching-损失" class="nav-link" data-scroll-target="#score-matching-损失">Score Matching 损失</a></li>
+  <li><a href="#理论意义" id="toc-理论意义" class="nav-link" data-scroll-target="#理论意义">理论意义</a></li>
+  <li><a href="#参考文献" id="toc-参考文献" class="nav-link" data-scroll-target="#参考文献">参考文献</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -471,15 +441,19 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Diffusion Models</h1>
+<h1 class="title">Score Matching：从能量模型到可计算训练目标</h1>
+<p class="subtitle lead">在无法计算归一化常数时如何学习数据分布的得分函数</p>
   <div class="quarto-categories">
     <div class="quarto-category">diffusion</div>
+    <div class="quarto-category">Generative Modeling</div>
+    <div class="quarto-category">Energy-Based Models</div>
+    <div class="quarto-category">Diffusion Models</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    从前向加噪与反向去噪出发，系统学习 DDPM、DDIM、Flow Matching 与理论基础。
+    介绍 Score Function 的定义、Score Matching 的原始目标及 Hyvärinen 提出的可计算形式，说明其在非归一化模型与扩散模型中的意义。
   </div>
 </div>
 
@@ -487,6 +461,12 @@ window.Quarto = {
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 4, 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -496,207 +476,170 @@ window.Quarto = {
 </header>
 
 
+<section id="score-matching" class="level1">
+<h1>Score Matching</h1>
 <blockquote class="blockquote">
-<p><strong>学习目标</strong><br>
-从零到一理解扩散模型：动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。</p>
+<p><strong>解释.</strong><br>
+在能量模型 (<em>Energy-Based Model</em>, EBM) 中，我们用能量函数 <span class="math inline">E_\phi(x)</span> 定义概率密度：</p>
+<p><span class="math display">
+p_\phi(x) = \frac{e^{-E_\phi(x)}}{Z_\phi},
+\qquad
+Z_\phi = \int e^{-E_\phi(x)}\,dx,
+</span></p>
+<p>其中 <span class="math inline">Z_\phi</span> 被称为 <em>partition function</em>，它保证 <span class="math inline">p_\phi(x)</span> 是概率密度函数。</p>
+<p>然而，在高维空间中计算 <span class="math inline">Z_\phi</span> 极其困难，因为积分范围通常是连续且维度极高。<br>
+这使得直接基于<strong>最大似然估计</strong>的训练变得不可行。<br>
+为解决这一问题，<em>Score Matching</em> 方法诞生了。</p>
 </blockquote>
 <hr>
-<section id="扩散模型要解决的问题" class="level2">
-<h2 class="anchored" data-anchor-id="扩散模型要解决的问题">扩散模型要解决的问题</h2>
-<p>生成模型希望学习未知分布 <span class="math inline">p^*(x)</span>，从而生成近似样本。<br>
-直接从噪声“一步”生成复杂数据往往困难，而扩散模型的关键在于：</p>
+<section id="定义与基本形式" class="level2">
+<h2 class="anchored" data-anchor-id="定义与基本形式">定义与基本形式</h2>
+<blockquote class="blockquote">
+<p><strong>定义（Score Function）.</strong><br>
+对于定义在 <span class="math inline">\mathbb{R}^d</span> 上的概率密度函数 <span class="math inline">p(\mathbf{x})</span>，其得分函数定义为：</p>
+<p><span class="math display">
+s(\mathbf{x}) := \nabla_\mathbf{x} \log p(\mathbf{x}).
+</span></p>
+</blockquote>
+<p><strong>Score Function</strong> 刻画了概率密度的局部增长方向。该向量场在每个点上指向概率质量更高的区域，反映出数据分布的局部“流向”。</p>
+<p><img src="截屏2025-11-04 09.29.54.png" class="img-fluid"></p>
+<p><strong>引入得分函数 (Score Function) 的好处有：</strong></p>
 <ol type="1">
-<li><strong>前向扩散（Forward Diffusion）</strong>：逐步加噪，使数据分布趋近高斯；</li>
-<li><strong>反向过程（Reverse Diffusion）</strong>：学习去噪映射，把噪声还原为数据；</li>
-<li>每一步都只需建模相邻分布 <span class="math inline">p(x_{t-\Delta t}\mid x_t)</span>，学习更稳定。</li>
+<li><p><strong>避免计算高维积分：</strong></p>
+<p>通过引入得分函数</p>
+<p><span class="math display">
+s_\phi(x) := \nabla_x \log p_\phi(x) = -\nabla_x E_\phi(x),
+</span></p>
+<p>训练目标仅依赖于能量函数的梯度，而不需要计算归一化常数 <span class="math inline">Z_\phi</span>。</p></li>
+<li><p><strong>可由得分恢复密度：</strong></p>
+<p>一旦学得得分函数 <span class="math inline">s_\phi(x)</span>，即可通过积分恢复对数密度：</p>
+<p><span class="math display">
+\log p_\phi(x) = \log p_\phi(x_0)
++ \int_{x_0}^{x} s_\phi(u)^\top du,
+</span></p>
+<p>其中 <span class="math inline">\log p_\phi(x_0)</span> 可以由归一化条件求出。</p></li>
 </ol>
+<p>因此，Score Function 使得我们能在“梯度空间”中学习分布结构，也能实现对 <span class="math inline">p_\phi(x)</span> 的间接建模。</p>
+<hr>
+</section>
+<section id="score-matching-损失" class="level2">
+<h2 class="anchored" data-anchor-id="score-matching-损失">Score Matching 损失</h2>
+<p>在模型学习中，希望模型的得分函数 <span class="math inline">s_\phi(\mathbf{x})</span> 能逼近真实分布的得分 <span class="math inline">s(\mathbf{x})</span>。<br>
+<em>Score Matching</em> 方法，其目标函数为：</p>
+<p><span class="math display">
+\mathcal{L}_{\mathrm{SM}}(\phi)
+= \frac{1}{2}\, \mathbb{E}_{x\sim p_{\mathrm{data}}}
+\| \nabla_x \log p_\phi(x) - \nabla_x \log p_{\mathrm{data}}(x) \|_2^2
+= \frac{1}{2}\, \mathbb{E}_{x\sim p_{\mathrm{data}}}
+\| s_\phi(x) - s(x) \|_2^2.
+</span></p>
+<p>最小化该损失能促使模型在高概率区域更好地拟合数据分布。</p>
+<p>然而，<span class="math inline">s(x)=\nabla_x\log p_{\mathrm{data}}(x)</span> 是<strong>未知</strong>的。<br>
+为此，Hyvärinen 通过 <em>分部积分（integration by parts）</em> 提出了可计算的等价形式。</p>
 <blockquote class="blockquote">
-<p>核心等价关系：<br>
-<span class="math display">\text{Denoising} \;\Leftrightarrow\; \text{Learning } \nabla_x \log p_t(x)</span><br>
-学习去噪即学习“得分函数”，方向即密度上升最快的方向。</p>
+<p><strong>引理（Hyvärinen’s Tractable Form of Score Matching）.</strong></p>
+<p><span class="math display">
+\mathcal L_{\mathrm{SM}}(\phi)
+= \tilde{\mathcal L}_{\mathrm{SM}}(\phi) + C,
+</span> 其中 <span class="math display">
+\tilde{\mathcal L}_{\mathrm{SM}}(\phi)
+:= \mathbb{E}_{x\sim p_{\mathrm{data}}}\!\left[
+\operatorname{Tr}\!\bigl(\nabla_x s_\phi(x)\bigr)
++ \tfrac{1}{2}\|s_\phi(x)\|_2^2
+\right],
+</span> <span class="math inline">C</span> 为与 <span class="math inline">\phi</span> 无关的常数。其最小化解为：</p>
+<p><span class="math display">
+s^*(x) = \nabla_x \log p(x).
+</span></p>
+</blockquote>
+<p><strong>证明.</strong><br>
+我们从 Score Matching 的定义式出发：</p>
+<p><span class="math display">
+\mathcal{L}_{\mathrm{SM}}(\phi)
+= \mathbb{E}_{x\sim p_{\mathrm{data}}(x)}
+\!\left[
+\tfrac{1}{2}\|s_\phi(x)\|_2^2 - s_\phi(x)^\top s(x)
+\right] + C,
+</span></p>
+<p>其中 <span class="math inline">s(x)=\nabla_x \log p_{\text{data}}(x)</span> 为真实数据分布的得分函数。</p>
+<p>接下来展开第二项：</p>
+<p><span class="math display">
+\mathbb{E}_{x\sim p_{\mathrm{data}}(x)}[s_\phi(x)^\top s(x)]
+= \int s_\phi(x)^\top \nabla_x p(x)\,dx
+= \sum_{i=1}^{d} \int s_{\phi,i}(x)\, \partial_{x_i} p(x)\,dx.
+</span></p>
+<p>根据 <em>高斯公式（Gauss formula）</em>，有：</p>
+<p><span class="math display">
+\sum_{i=1}^{d}\!
+\int_{\mathbb{B}(0,R)}\!
+s_{\phi,i}(x)\,\partial_{x_i}p(x)\,dx
+= -\sum_{i=1}^{d}\!
+\int_{\mathbb{B}(0,R)}\!
+(\partial_{x_i}s_{\phi,i}(x))\,p(x)\,dx
++ \sum_{i=1}^{d}\!
+\int_{\partial\mathbb{B}(0,R)}\!
+s_{\phi,i}(x)\,s_i(x)\,\nu_i\,dS.
+</span></p>
+<p>在假设边界项可忽略的条件下，</p>
+<p><span class="math display">
+|s_\phi(x)\,s(x)| \to 0,
+\qquad \text{当 } \|x\|\to\infty,
+</span></p>
+<p>则最后一项消失，得到：</p>
+<p><span class="math display">
+\mathbb{E}_{x\sim p_{\mathrm{data}}(x)}[s_\phi(x)^\top s(x)]
+= -\,\mathbb{E}_{x\sim p_{\mathrm{data}}(x)}[
+\operatorname{Tr}(\nabla_x s_\phi(x)) ].
+</span></p>
+<p>代回原式并整理可得：</p>
+<p><span class="math display">
+\tilde{\mathcal{L}}_{\mathrm{SM}}(\phi)
+:= \mathbb{E}_{x\sim p_{\mathrm{data}}(x)}\!\left[
+\operatorname{Tr}(\nabla_x s_\phi(x))
++ \tfrac{1}{2}\|s_\phi(x)\|_2^2
+\right].
+</span></p>
+<p>因此，Score Matching 的目标可以改写为一个仅依赖模型输出 <span class="math inline">s_\phi(x)</span> 及其梯度的可计算形式。<br>
+□</p>
+<blockquote class="blockquote">
+<p><strong>解释.</strong> 原式中需显式计算 <span class="math inline">\nabla_x \log p_{\mathrm{data}}(x)</span> 的项被完全消去，新的目标函数仅依赖于模型自身可导的结构，因此在训练时无需对模型分布进行采样。</p>
 </blockquote>
 <hr>
 </section>
-<section id="模型概览" class="level2">
-<h2 class="anchored" data-anchor-id="模型概览">模型概览</h2>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 17%">
-<col style="width: 35%">
-<col style="width: 47%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>模型</th>
-<th>核心特征</th>
-<th>适合理解的方向</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>DDPM</strong> (Ho et al., 2020)</td>
-<td>随机反演，采样多样性强</td>
-<td>适合学习随机微分方程与噪声调度思想</td>
-</tr>
-<tr class="even">
-<td><strong>DDIM</strong> (Song et al., 2020)</td>
-<td>确定性采样，速度快</td>
-<td>适合工程与推理效率研究</td>
-</tr>
-<tr class="odd">
-<td><strong>Flow Matching</strong> (Lipman et al., 2023)</td>
-<td>统一连续流框架</td>
-<td>适合理解 ODE/SDE 统一与几何流</td>
-</tr>
-</tbody>
-</table>
+<section id="理论意义" class="level2">
+<h2 class="anchored" data-anchor-id="理论意义">理论意义</h2>
+<p><strong>Score Matching 为非归一化模型提供了可导、可计算的训练目标。</strong></p>
+<p>相比极大似然法：</p>
+<ul>
+<li>避免了对归一化常数（partition function）的显式计算；因而无需从模型分布 <span class="math inline">p_\phi</span> 采样；</li>
+<li>优化仅依赖梯度信息。</li>
+</ul>
+<p>通过学习得分函数而非密度本身，Score Matching 为扩散模型的训练、采样与理论分析提供了统一的框架。<br>
+但是，<span class="math inline">\operatorname{Tr}(\nabla_x s_\phi(x))</span> 的计算仍是 <span class="math inline">O(d^2)</span> 复杂度。</p>
 <hr>
 </section>
-<section id="推荐网课与讲座" class="level2">
-<h2 class="anchored" data-anchor-id="推荐网课与讲座">🎓 推荐网课与讲座</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>课程</th>
-<th>来源</th>
-<th>定位与特点</th>
-<th>适合人群</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="https://mit-diffusion.github.io"><strong>MIT 6.S980 — Diffusion Models</strong></a></td>
-<td>MIT</td>
-<td>最系统的扩散入门课程；讲清从加噪→去噪→采样的完整流程，覆盖 DDPM、SDE、Flow Matching</td>
-<td>希望“系统掌握原理+数学背景”的研究生</td>
-</tr>
-<tr class="even">
-<td><a href="https://deepgenerativemodels.github.io"><strong>CS236 — Deep Generative Models</strong></a></td>
-<td>Stanford</td>
-<td>将扩散模型放在生成模型的整体框架中讲解（与VAE、GAN对比）</td>
-<td>想理解扩散在整个生成建模中的位置</td>
-</tr>
-<tr class="odd">
-<td><a href="https://sites.google.com/view/berkeley-stat-157"><strong>STAT 157 — Deep Unsupervised Learning</strong></a></td>
-<td>Berkeley</td>
-<td>从“概率建模 + 实验”的角度介绍 score-based 方法，重视动机和实践</td>
-<td>想边学边做、快速上手的同学</td>
-</tr>
-<tr class="even">
-<td><a href="https://www.youtube.com/playlist?list=PLqYmG7hTraZCkftCvihsG2zQ_N9l3QOjo"><strong>Diffusion Seminar Series</strong></a></td>
-<td>DeepMind × UCL</td>
-<td>汇集各大实验室研究者讲解前沿思想（Consistency、Flow Matching 等）</td>
-<td>已有基础，想了解学界前沿动向的人</td>
-</tr>
-</tbody>
-</table>
-<hr>
-</section>
-<section id="推荐资料与书籍" class="level2">
-<h2 class="anchored" data-anchor-id="推荐资料与书籍">推荐资料与书籍</h2>
-<section id="入门推荐step-by-step-diffusionarxiv2406.08929" class="level3">
-<h3 class="anchored" data-anchor-id="入门推荐step-by-step-diffusionarxiv2406.08929">入门推荐：Step-by-Step Diffusion（arXiv:2406.08929）</h3>
-<blockquote class="blockquote">
-<p>原文：<a href="https://arxiv.org/pdf/2406.08929" class="uri">https://arxiv.org/pdf/2406.08929</a></p>
-</blockquote>
-<p>这篇教程以<strong>最小数学依赖</strong>讲解扩散模型的核心直觉与采样流程，强调“加噪→去噪”的构造思路，帮助快速形成整体认知（DDPM、DDIM、Flow Matching 的联系与差异），在Appendix里整理了更深入的内容。</p>
-<p><strong>谁适合读？</strong> - 想先抓“为什么这样做”的直觉，而非从繁琐推导的数学理论开始；</p>
-<hr>
-<blockquote class="blockquote">
-<p><strong>下方自动汇总所有 Diffusion 相关笔记（<code>notes/*.qmd</code>）</strong><br>
-在 <code>guides/diffusion/notes/</code> 目录中添加新 <code>.qmd</code> 文件即可自动展示。</p>
-</blockquote>
-
+<section id="参考文献" class="level2">
+<h2 class="anchored" data-anchor-id="参考文献">参考文献</h2>
+<ul>
+<li><p>Hyvärinen, A. (2005).<br>
+<em>Estimation of Non-Normalized Statistical Models by Score Matching</em>.<br>
+<em>Journal of Machine Learning Research</em>, 6: 695–709.</p></li>
+<li><p>Song, Y., &amp; Ermon, S. (2019).<br>
+<em>Generative Modeling by Estimating Gradients of the Data Distribution</em>.<br>
+<em>Advances in Neural Information Processing Systems (NeurIPS)</em>.</p></li>
+<li><p>Song, Y., Sohl-Dickstein, J., Kingma, D. P., Kumar, A., Ermon, S., &amp; Poole, B. (2021).<br>
+<em>Score-Based Generative Modeling through Stochastic Differential Equations</em>.<br>
+<em>International Conference on Learning Representations (ICLR)</em>.</p></li>
+<li><p>Yang, L., Zhang, Z., Song, Y., Hong, S., Xu, R., Zhao, P., &amp; Ermon, S. (2023).<br>
+<em>The Principle of Diffusion Models</em>.<br>
+<em>arXiv preprint arXiv:2305.08891</em>.</p></li>
+</ul>
 
 
 </section>
 </section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="ZGlmZnVzaW9uJTJDR2VuZXJhdGl2ZSUyME1vZGVsaW5nJTJDRW5lcmd5LUJhc2VkJTIwTW9kZWxzJTJDRGlmZnVzaW9uJTIwTW9kZWxz" data-listing-date-sort="1762214400000" data-listing-file-modified-sort="1762247234981" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="391">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../guides/diffusion/notes/s-m.html" class="no-external">Score Matching：从能量模型到可计算训练目标</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGlmZnVzaW9u'); return false;">diffusion</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('R2VuZXJhdGl2ZSUyME1vZGVsaW5n'); return false;">Generative Modeling</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RW5lcmd5LUJhc2VkJTIwTW9kZWxz'); return false;">Energy-Based Models</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RGlmZnVzaW9uJTIwTW9kZWxz'); return false;">Diffusion Models</div>
-
-</div>
-<div class="delink listing-description"><a href="../../guides/diffusion/notes/s-m.html" class="no-external">
-<p>介绍 Score Function 的定义、Score Matching 的原始目标及 Hyvärinen 提出的可计算形式，说明其在非归一化模型与扩散模型中的意义。</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../../guides/diffusion/notes/s-m.html" class="no-external">
-<div class="listing-date">
-Nov 4, 2025
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="ZGlmZnVzaW9uJTJDRGlmZnVzaW9uJTJDVkFFJTJDR2VuZXJhdGl2ZSUyME1vZGVscw==" data-listing-date-sort="1760400000000" data-listing-file-modified-sort="1762247234981" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="94">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../guides/diffusion/notes/vae.html" class="no-external">VAE 基础推导</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGlmZnVzaW9u'); return false;">diffusion</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RGlmZnVzaW9u'); return false;">Diffusion</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VkFF'); return false;">VAE</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('R2VuZXJhdGl2ZSUyME1vZGVscw=='); return false;">Generative Models</div>
-
-</div>
-<div class="delink listing-description"><a href="../../guides/diffusion/notes/vae.html" class="no-external">
-<p>从前向噪声到反向回归目标，理解为什么只需学习均值。</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../../guides/diffusion/notes/vae.html" class="no-external">
-<div class="listing-date">
-Oct 14, 2025
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="ZGlmZnVzaW9uJTJDZGRwbQ==" data-listing-date-sort="1759276800000" data-listing-file-modified-sort="1762247234980" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="14">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../guides/diffusion/notes/ddpm.html" class="no-external">DDPM 基础推导</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGlmZnVzaW9u'); return false;">diffusion</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGRwbQ=='); return false;">ddpm</div>
-
-</div>
-<div class="delink listing-description"><a href="../../guides/diffusion/notes/ddpm.html" class="no-external">
-<p>从前向噪声到反向回归目标，理解为什么只需学均值。</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../../guides/diffusion/notes/ddpm.html" class="no-external">
-<div class="listing-date">
-Oct 1, 2025
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -1133,5 +1076,5 @@ Oct 1, 2025
 
 
 
-<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

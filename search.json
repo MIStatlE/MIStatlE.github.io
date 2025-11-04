@@ -56,168 +56,109 @@
     "text": "Contact\n\nGitHub: https://github.com/MIStatlE"
   },
   {
-    "objectID": "guides/diffusion/notes/vae.html",
-    "href": "guides/diffusion/notes/vae.html",
-    "title": "VAE 基础推导",
+    "objectID": "guides/diffusion/notes/s-m.html",
+    "href": "guides/diffusion/notes/s-m.html",
+    "title": "Score Matching：从能量模型到可计算训练目标",
     "section": "",
-    "text": "我们希望估计某个分布 p(x)，用参数化模型 p_\\theta(x) 来近似，并通过极大似然估计优化参数：\n\n\\max_\\theta \\ \\mathbb{E}_{x\\sim p^*}[\\log p_\\theta(x)].\n\n但在高维空间上直接建模 p_\\theta(x) 通常非常困难，因此我们引入潜变量 z，将复杂分布分解为条件形式：\n\np_\\theta(x)=\\int p_\\theta(x|z)p(z)\\,dz,\n\n其中 p_\\theta(x|z) 称为 decoder（生成器），p(z) 是先验（通常取标准正态）。\n\n\n\n\n真实的后验 p_\\theta(z|x) 无法直接计算，于是定义可计算的近似分布：\n\nq_\\phi(z|x) \\approx p_\\theta(z|x),\n\n称为 encoder（编码器）。\n两者通常使用神经网络参数化：\n\nq_\\phi(z|x)=\\mathcal N(z|\\mu_\\phi(x),\\mathrm{diag}(\\sigma_\\phi^2(x))), \\quad\np_\\theta(x|z)=\\mathcal N(x|f_\\theta(z),\\sigma_{\\text{dec}}^2 I).\n\n\n\n\n\n直接优化 \\log p_\\theta(x) 不可行，因为积分项难计算：\n\np_\\theta(x)=\\int p_\\theta(x,z)\\,dz.\n\n于是我们引入 q_\\phi(z|x) 并重写：\n\n\\log p_\\theta(x)\n= \\log\\int q_\\phi(z|x)\\frac{p_\\theta(x,z)}{q_\\phi(z|x)}\\,dz\n= \\log \\mathbb{E}_{q_\\phi}\\!\\left[\\frac{p_\\theta(x,z)}{q_\\phi(z|x)}\\right].\n\n应用 Jensen 不等式（\\log \\mathbb{E}[\\cdot] \\ge \\mathbb{E}[\\log\\cdot]）得到：\n\n\\log p_\\theta(x)\n\\ge \\mathbb{E}_{q_\\phi}\\!\\left[\\log\\frac{p_\\theta(x,z)}{q_\\phi(z|x)}\\right]\n=: \\mathcal L(\\theta,\\phi;x),\n\n这就是著名的 Evidence Lower Bound (ELBO)。\n\n\n\n\n展开 p_\\theta(x,z)=p_\\theta(x|z)p(z)，有：\n\n\\mathcal L(\\theta,\\phi;x)\n= \\mathbb{E}_{q_\\phi(z|x)}[\\log p_\\theta(x|z)]\n- \\mathrm{KL}(q_\\phi(z|x)\\|p(z)).\n\n\n重建项：衡量生成器 p_\\theta(x|z) 对输入 x 的复现能力；\n正则项：约束编码器 q_\\phi(z|x) 贴近先验 p(z)，防止潜变量退化。\n\n等价关系：\n\n\\log p_\\theta(x)\n= \\mathcal L(\\theta,\\phi;x)\n+ \\mathrm{KL}(q_\\phi(z|x)\\|p_\\theta(z|x)),\n\n因此 ELBO 始终是 \\log p_\\theta(x) 的下界。\n\n推荐阅读：\n📖 arXiv:2406.08929 —— 一份以直觉为主的 Diffusion 入门材料。\n先建立整体框架，再看推导细节，会更高效。\n#生成模型 #VAE #Diffusion #变分推断"
+    "text": "解释.\n在能量模型 (Energy-Based Model, EBM) 中，我们用能量函数 E_\\phi(x) 定义概率密度：\n\np_\\phi(x) = \\frac{e^{-E_\\phi(x)}}{Z_\\phi},\n\\qquad\nZ_\\phi = \\int e^{-E_\\phi(x)}\\,dx,\n\n其中 Z_\\phi 被称为 partition function，它保证 p_\\phi(x) 是概率密度函数。\n然而，在高维空间中计算 Z_\\phi 极其困难，因为积分范围通常是连续且维度极高。\n这使得直接基于最大似然估计的训练变得不可行。\n为解决这一问题，Score Matching 方法诞生了。\n\n\n\n\n\n定义（Score Function）.\n对于定义在 \\mathbb{R}^d 上的概率密度函数 p(\\mathbf{x})，其得分函数定义为：\n\ns(\\mathbf{x}) := \\nabla_\\mathbf{x} \\log p(\\mathbf{x}).\n\n\nScore Function 刻画了概率密度的局部增长方向。该向量场在每个点上指向概率质量更高的区域，反映出数据分布的局部“流向”。\n\n引入得分函数 (Score Function) 的好处有：\n\n避免计算高维积分：\n通过引入得分函数\n\ns_\\phi(x) := \\nabla_x \\log p_\\phi(x) = -\\nabla_x E_\\phi(x),\n\n训练目标仅依赖于能量函数的梯度，而不需要计算归一化常数 Z_\\phi。\n可由得分恢复密度：\n一旦学得得分函数 s_\\phi(x)，即可通过积分恢复对数密度：\n\n\\log p_\\phi(x) = \\log p_\\phi(x_0)\n+ \\int_{x_0}^{x} s_\\phi(u)^\\top du,\n\n其中 \\log p_\\phi(x_0) 可以由归一化条件求出。\n\n因此，Score Function 使得我们能在“梯度空间”中学习分布结构，也能实现对 p_\\phi(x) 的间接建模。\n\n\n\n\n在模型学习中，希望模型的得分函数 s_\\phi(\\mathbf{x}) 能逼近真实分布的得分 s(\\mathbf{x})。\nScore Matching 方法，其目标函数为：\n\n\\mathcal{L}_{\\mathrm{SM}}(\\phi)\n= \\frac{1}{2}\\, \\mathbb{E}_{x\\sim p_{\\mathrm{data}}}\n\\| \\nabla_x \\log p_\\phi(x) - \\nabla_x \\log p_{\\mathrm{data}}(x) \\|_2^2\n= \\frac{1}{2}\\, \\mathbb{E}_{x\\sim p_{\\mathrm{data}}}\n\\| s_\\phi(x) - s(x) \\|_2^2.\n\n最小化该损失能促使模型在高概率区域更好地拟合数据分布。\n然而，s(x)=\\nabla_x\\log p_{\\mathrm{data}}(x) 是未知的。\n为此，Hyvärinen 通过 分部积分（integration by parts） 提出了可计算的等价形式。\n\n引理（Hyvärinen’s Tractable Form of Score Matching）.\n\n\\mathcal L_{\\mathrm{SM}}(\\phi)\n= \\tilde{\\mathcal L}_{\\mathrm{SM}}(\\phi) + C,\n 其中 \n\\tilde{\\mathcal L}_{\\mathrm{SM}}(\\phi)\n:= \\mathbb{E}_{x\\sim p_{\\mathrm{data}}}\\!\\left[\n\\operatorname{Tr}\\!\\bigl(\\nabla_x s_\\phi(x)\\bigr)\n+ \\tfrac{1}{2}\\|s_\\phi(x)\\|_2^2\n\\right],\n C 为与 \\phi 无关的常数。其最小化解为：\n\ns^*(x) = \\nabla_x \\log p(x).\n\n\n证明.\n我们从 Score Matching 的定义式出发：\n\n\\mathcal{L}_{\\mathrm{SM}}(\\phi)\n= \\mathbb{E}_{x\\sim p_{\\mathrm{data}}(x)}\n\\!\\left[\n\\tfrac{1}{2}\\|s_\\phi(x)\\|_2^2 - s_\\phi(x)^\\top s(x)\n\\right] + C,\n\n其中 s(x)=\\nabla_x \\log p_{\\text{data}}(x) 为真实数据分布的得分函数。\n接下来展开第二项：\n\n\\mathbb{E}_{x\\sim p_{\\mathrm{data}}(x)}[s_\\phi(x)^\\top s(x)]\n= \\int s_\\phi(x)^\\top \\nabla_x p(x)\\,dx\n= \\sum_{i=1}^{d} \\int s_{\\phi,i}(x)\\, \\partial_{x_i} p(x)\\,dx.\n\n根据 高斯公式（Gauss formula），有：\n\n\\sum_{i=1}^{d}\\!\n\\int_{\\mathbb{B}(0,R)}\\!\ns_{\\phi,i}(x)\\,\\partial_{x_i}p(x)\\,dx\n= -\\sum_{i=1}^{d}\\!\n\\int_{\\mathbb{B}(0,R)}\\!\n(\\partial_{x_i}s_{\\phi,i}(x))\\,p(x)\\,dx\n+ \\sum_{i=1}^{d}\\!\n\\int_{\\partial\\mathbb{B}(0,R)}\\!\ns_{\\phi,i}(x)\\,s_i(x)\\,\\nu_i\\,dS.\n\n在假设边界项可忽略的条件下，\n\n|s_\\phi(x)\\,s(x)| \\to 0,\n\\qquad \\text{当 } \\|x\\|\\to\\infty,\n\n则最后一项消失，得到：\n\n\\mathbb{E}_{x\\sim p_{\\mathrm{data}}(x)}[s_\\phi(x)^\\top s(x)]\n= -\\,\\mathbb{E}_{x\\sim p_{\\mathrm{data}}(x)}[\n\\operatorname{Tr}(\\nabla_x s_\\phi(x)) ].\n\n代回原式并整理可得：\n\n\\tilde{\\mathcal{L}}_{\\mathrm{SM}}(\\phi)\n:= \\mathbb{E}_{x\\sim p_{\\mathrm{data}}(x)}\\!\\left[\n\\operatorname{Tr}(\\nabla_x s_\\phi(x))\n+ \\tfrac{1}{2}\\|s_\\phi(x)\\|_2^2\n\\right].\n\n因此，Score Matching 的目标可以改写为一个仅依赖模型输出 s_\\phi(x) 及其梯度的可计算形式。\n□\n\n解释. 原式中需显式计算 \\nabla_x \\log p_{\\mathrm{data}}(x) 的项被完全消去，新的目标函数仅依赖于模型自身可导的结构，因此在训练时无需对模型分布进行采样。\n\n\n\n\n\nScore Matching 为非归一化模型提供了可导、可计算的训练目标。\n相比极大似然法：\n\n避免了对归一化常数（partition function）的显式计算；因而无需从模型分布 p_\\phi 采样；\n优化仅依赖梯度信息。\n\n通过学习得分函数而非密度本身，Score Matching 为扩散模型的训练、采样与理论分析提供了统一的框架。\n但是，\\operatorname{Tr}(\\nabla_x s_\\phi(x)) 的计算仍是 O(d^2) 复杂度。\n\n\n\n\n\nHyvärinen, A. (2005).\nEstimation of Non-Normalized Statistical Models by Score Matching.\nJournal of Machine Learning Research, 6: 695–709.\nSong, Y., & Ermon, S. (2019).\nGenerative Modeling by Estimating Gradients of the Data Distribution.\nAdvances in Neural Information Processing Systems (NeurIPS).\nSong, Y., Sohl-Dickstein, J., Kingma, D. P., Kumar, A., Ermon, S., & Poole, B. (2021).\nScore-Based Generative Modeling through Stochastic Differential Equations.\nInternational Conference on Learning Representations (ICLR).\nYang, L., Zhang, Z., Song, Y., Hong, S., Xu, R., Zhao, P., & Ermon, S. (2023).\nThe Principle of Diffusion Models.\narXiv preprint arXiv:2305.08891."
   },
   {
-    "objectID": "guides/diffusion/notes/vae.html#从极大似然出发",
-    "href": "guides/diffusion/notes/vae.html#从极大似然出发",
-    "title": "VAE 基础推导",
+    "objectID": "guides/diffusion/notes/s-m.html#定义与基本形式",
+    "href": "guides/diffusion/notes/s-m.html#定义与基本形式",
+    "title": "Score Matching：从能量模型到可计算训练目标",
     "section": "",
-    "text": "我们希望估计某个分布 p(x)，用参数化模型 p_\\theta(x) 来近似，并通过极大似然估计优化参数：\n\n\\max_\\theta \\ \\mathbb{E}_{x\\sim p^*}[\\log p_\\theta(x)].\n\n但在高维空间上直接建模 p_\\theta(x) 通常非常困难，因此我们引入潜变量 z，将复杂分布分解为条件形式：\n\np_\\theta(x)=\\int p_\\theta(x|z)p(z)\\,dz,\n\n其中 p_\\theta(x|z) 称为 decoder（生成器），p(z) 是先验（通常取标准正态）。"
+    "text": "定义（Score Function）.\n对于定义在 \\mathbb{R}^d 上的概率密度函数 p(\\mathbf{x})，其得分函数定义为：\n\ns(\\mathbf{x}) := \\nabla_\\mathbf{x} \\log p(\\mathbf{x}).\n\n\nScore Function 刻画了概率密度的局部增长方向。该向量场在每个点上指向概率质量更高的区域，反映出数据分布的局部“流向”。\n\n引入得分函数 (Score Function) 的好处有：\n\n避免计算高维积分：\n通过引入得分函数\n\ns_\\phi(x) := \\nabla_x \\log p_\\phi(x) = -\\nabla_x E_\\phi(x),\n\n训练目标仅依赖于能量函数的梯度，而不需要计算归一化常数 Z_\\phi。\n可由得分恢复密度：\n一旦学得得分函数 s_\\phi(x)，即可通过积分恢复对数密度：\n\n\\log p_\\phi(x) = \\log p_\\phi(x_0)\n+ \\int_{x_0}^{x} s_\\phi(u)^\\top du,\n\n其中 \\log p_\\phi(x_0) 可以由归一化条件求出。\n\n因此，Score Function 使得我们能在“梯度空间”中学习分布结构，也能实现对 p_\\phi(x) 的间接建模。"
   },
   {
-    "objectID": "guides/diffusion/notes/vae.html#引入可计算的近似分布",
-    "href": "guides/diffusion/notes/vae.html#引入可计算的近似分布",
-    "title": "VAE 基础推导",
+    "objectID": "guides/diffusion/notes/s-m.html#score-matching-损失",
+    "href": "guides/diffusion/notes/s-m.html#score-matching-损失",
+    "title": "Score Matching：从能量模型到可计算训练目标",
     "section": "",
-    "text": "真实的后验 p_\\theta(z|x) 无法直接计算，于是定义可计算的近似分布：\n\nq_\\phi(z|x) \\approx p_\\theta(z|x),\n\n称为 encoder（编码器）。\n两者通常使用神经网络参数化：\n\nq_\\phi(z|x)=\\mathcal N(z|\\mu_\\phi(x),\\mathrm{diag}(\\sigma_\\phi^2(x))), \\quad\np_\\theta(x|z)=\\mathcal N(x|f_\\theta(z),\\sigma_{\\text{dec}}^2 I)."
+    "text": "在模型学习中，希望模型的得分函数 s_\\phi(\\mathbf{x}) 能逼近真实分布的得分 s(\\mathbf{x})。\nScore Matching 方法，其目标函数为：\n\n\\mathcal{L}_{\\mathrm{SM}}(\\phi)\n= \\frac{1}{2}\\, \\mathbb{E}_{x\\sim p_{\\mathrm{data}}}\n\\| \\nabla_x \\log p_\\phi(x) - \\nabla_x \\log p_{\\mathrm{data}}(x) \\|_2^2\n= \\frac{1}{2}\\, \\mathbb{E}_{x\\sim p_{\\mathrm{data}}}\n\\| s_\\phi(x) - s(x) \\|_2^2.\n\n最小化该损失能促使模型在高概率区域更好地拟合数据分布。\n然而，s(x)=\\nabla_x\\log p_{\\mathrm{data}}(x) 是未知的。\n为此，Hyvärinen 通过 分部积分（integration by parts） 提出了可计算的等价形式。\n\n引理（Hyvärinen’s Tractable Form of Score Matching）.\n\n\\mathcal L_{\\mathrm{SM}}(\\phi)\n= \\tilde{\\mathcal L}_{\\mathrm{SM}}(\\phi) + C,\n 其中 \n\\tilde{\\mathcal L}_{\\mathrm{SM}}(\\phi)\n:= \\mathbb{E}_{x\\sim p_{\\mathrm{data}}}\\!\\left[\n\\operatorname{Tr}\\!\\bigl(\\nabla_x s_\\phi(x)\\bigr)\n+ \\tfrac{1}{2}\\|s_\\phi(x)\\|_2^2\n\\right],\n C 为与 \\phi 无关的常数。其最小化解为：\n\ns^*(x) = \\nabla_x \\log p(x).\n\n\n证明.\n我们从 Score Matching 的定义式出发：\n\n\\mathcal{L}_{\\mathrm{SM}}(\\phi)\n= \\mathbb{E}_{x\\sim p_{\\mathrm{data}}(x)}\n\\!\\left[\n\\tfrac{1}{2}\\|s_\\phi(x)\\|_2^2 - s_\\phi(x)^\\top s(x)\n\\right] + C,\n\n其中 s(x)=\\nabla_x \\log p_{\\text{data}}(x) 为真实数据分布的得分函数。\n接下来展开第二项：\n\n\\mathbb{E}_{x\\sim p_{\\mathrm{data}}(x)}[s_\\phi(x)^\\top s(x)]\n= \\int s_\\phi(x)^\\top \\nabla_x p(x)\\,dx\n= \\sum_{i=1}^{d} \\int s_{\\phi,i}(x)\\, \\partial_{x_i} p(x)\\,dx.\n\n根据 高斯公式（Gauss formula），有：\n\n\\sum_{i=1}^{d}\\!\n\\int_{\\mathbb{B}(0,R)}\\!\ns_{\\phi,i}(x)\\,\\partial_{x_i}p(x)\\,dx\n= -\\sum_{i=1}^{d}\\!\n\\int_{\\mathbb{B}(0,R)}\\!\n(\\partial_{x_i}s_{\\phi,i}(x))\\,p(x)\\,dx\n+ \\sum_{i=1}^{d}\\!\n\\int_{\\partial\\mathbb{B}(0,R)}\\!\ns_{\\phi,i}(x)\\,s_i(x)\\,\\nu_i\\,dS.\n\n在假设边界项可忽略的条件下，\n\n|s_\\phi(x)\\,s(x)| \\to 0,\n\\qquad \\text{当 } \\|x\\|\\to\\infty,\n\n则最后一项消失，得到：\n\n\\mathbb{E}_{x\\sim p_{\\mathrm{data}}(x)}[s_\\phi(x)^\\top s(x)]\n= -\\,\\mathbb{E}_{x\\sim p_{\\mathrm{data}}(x)}[\n\\operatorname{Tr}(\\nabla_x s_\\phi(x)) ].\n\n代回原式并整理可得：\n\n\\tilde{\\mathcal{L}}_{\\mathrm{SM}}(\\phi)\n:= \\mathbb{E}_{x\\sim p_{\\mathrm{data}}(x)}\\!\\left[\n\\operatorname{Tr}(\\nabla_x s_\\phi(x))\n+ \\tfrac{1}{2}\\|s_\\phi(x)\\|_2^2\n\\right].\n\n因此，Score Matching 的目标可以改写为一个仅依赖模型输出 s_\\phi(x) 及其梯度的可计算形式。\n□\n\n解释. 原式中需显式计算 \\nabla_x \\log p_{\\mathrm{data}}(x) 的项被完全消去，新的目标函数仅依赖于模型自身可导的结构，因此在训练时无需对模型分布进行采样。"
   },
   {
-    "objectID": "guides/diffusion/notes/vae.html#从最大似然到-elbo",
-    "href": "guides/diffusion/notes/vae.html#从最大似然到-elbo",
-    "title": "VAE 基础推导",
+    "objectID": "guides/diffusion/notes/s-m.html#理论意义",
+    "href": "guides/diffusion/notes/s-m.html#理论意义",
+    "title": "Score Matching：从能量模型到可计算训练目标",
     "section": "",
-    "text": "直接优化 \\log p_\\theta(x) 不可行，因为积分项难计算：\n\np_\\theta(x)=\\int p_\\theta(x,z)\\,dz.\n\n于是我们引入 q_\\phi(z|x) 并重写：\n\n\\log p_\\theta(x)\n= \\log\\int q_\\phi(z|x)\\frac{p_\\theta(x,z)}{q_\\phi(z|x)}\\,dz\n= \\log \\mathbb{E}_{q_\\phi}\\!\\left[\\frac{p_\\theta(x,z)}{q_\\phi(z|x)}\\right].\n\n应用 Jensen 不等式（\\log \\mathbb{E}[\\cdot] \\ge \\mathbb{E}[\\log\\cdot]）得到：\n\n\\log p_\\theta(x)\n\\ge \\mathbb{E}_{q_\\phi}\\!\\left[\\log\\frac{p_\\theta(x,z)}{q_\\phi(z|x)}\\right]\n=: \\mathcal L(\\theta,\\phi;x),\n\n这就是著名的 Evidence Lower Bound (ELBO)。"
+    "text": "Score Matching 为非归一化模型提供了可导、可计算的训练目标。\n相比极大似然法：\n\n避免了对归一化常数（partition function）的显式计算；因而无需从模型分布 p_\\phi 采样；\n优化仅依赖梯度信息。\n\n通过学习得分函数而非密度本身，Score Matching 为扩散模型的训练、采样与理论分析提供了统一的框架。\n但是，\\operatorname{Tr}(\\nabla_x s_\\phi(x)) 的计算仍是 O(d^2) 复杂度。"
   },
   {
-    "objectID": "guides/diffusion/notes/vae.html#elbo-的结构与意义",
-    "href": "guides/diffusion/notes/vae.html#elbo-的结构与意义",
-    "title": "VAE 基础推导",
+    "objectID": "guides/diffusion/notes/s-m.html#参考文献",
+    "href": "guides/diffusion/notes/s-m.html#参考文献",
+    "title": "Score Matching：从能量模型到可计算训练目标",
     "section": "",
-    "text": "展开 p_\\theta(x,z)=p_\\theta(x|z)p(z)，有：\n\n\\mathcal L(\\theta,\\phi;x)\n= \\mathbb{E}_{q_\\phi(z|x)}[\\log p_\\theta(x|z)]\n- \\mathrm{KL}(q_\\phi(z|x)\\|p(z)).\n\n\n重建项：衡量生成器 p_\\theta(x|z) 对输入 x 的复现能力；\n正则项：约束编码器 q_\\phi(z|x) 贴近先验 p(z)，防止潜变量退化。\n\n等价关系：\n\n\\log p_\\theta(x)\n= \\mathcal L(\\theta,\\phi;x)\n+ \\mathrm{KL}(q_\\phi(z|x)\\|p_\\theta(z|x)),\n\n因此 ELBO 始终是 \\log p_\\theta(x) 的下界。\n\n推荐阅读：\n📖 arXiv:2406.08929 —— 一份以直觉为主的 Diffusion 入门材料。\n先建立整体框架，再看推导细节，会更高效。\n#生成模型 #VAE #Diffusion #变分推断"
+    "text": "Hyvärinen, A. (2005).\nEstimation of Non-Normalized Statistical Models by Score Matching.\nJournal of Machine Learning Research, 6: 695–709.\nSong, Y., & Ermon, S. (2019).\nGenerative Modeling by Estimating Gradients of the Data Distribution.\nAdvances in Neural Information Processing Systems (NeurIPS).\nSong, Y., Sohl-Dickstein, J., Kingma, D. P., Kumar, A., Ermon, S., & Poole, B. (2021).\nScore-Based Generative Modeling through Stochastic Differential Equations.\nInternational Conference on Learning Representations (ICLR).\nYang, L., Zhang, Z., Song, Y., Hong, S., Xu, R., Zhao, P., & Ermon, S. (2023).\nThe Principle of Diffusion Models.\narXiv preprint arXiv:2305.08891."
   },
   {
-    "objectID": "guides/index.html",
-    "href": "guides/index.html",
-    "title": "Guides Overview",
+    "objectID": "guides/diffusion/index.html",
+    "href": "guides/diffusion/index.html",
+    "title": "Diffusion Models",
     "section": "",
-    "text": "Guides Overview\nStart with Probability & Stats or Optimization.",
-    "crumbs": [
-      "Overview"
-    ]
+    "text": "学习目标\n从零到一理解扩散模型：动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。"
   },
   {
-    "objectID": "guides/book/index.html",
-    "href": "guides/book/index.html",
-    "title": "RL / Diffusion Notebook",
-    "section": "",
-    "text": "这本笔记旨在系统整理我在强化学习与扩散模型研究中的思考与推导。\n它并不是教程，而是一种 理解路径（path to clarity）——\n把复杂的理论、模糊的直觉、严谨的公式，用一种兼具推理与感性的方式串联起来。\n\n\n\n\nPart I. Reinforcement Learning\n从最简单的决策过程开始，构建期望回报、策略梯度与信用分配的统一理解。\nPart II. Diffusion Models\n从随机过程视角理解扩散模型，逐步推导得分匹配与反向 SDE。\n\n\n\n\n\n\n左侧为全书章节导航，可自由跳转。\n\n右侧为当前页小节目录，帮助快速定位。\n\n数学公式使用 KaTeX 渲染，可直接复制。\n\n代码片段可展开、复制。\n\n\n\n\n\n\n\n\n符号\n含义\n\n\n\n\n( s_t, a_t, r_t )\n状态、动作、奖励\n\n\n( _(a\ns) )\n\n\n( J() )\n策略目标函数\n\n\n( p_t(x) )\n扩散过程在时间 (t) 的分布\n\n\n\n\n\n\n\n\n“我希望这本书既是科研笔记，也是一种自我认知的延伸。”\n— MIStatlE"
+    "objectID": "guides/diffusion/index.html#扩散模型要解决的问题",
+    "href": "guides/diffusion/index.html#扩散模型要解决的问题",
+    "title": "Diffusion Models",
+    "section": "扩散模型要解决的问题",
+    "text": "扩散模型要解决的问题\n生成模型希望学习未知分布 p^*(x)，从而生成近似样本。\n直接从噪声“一步”生成复杂数据往往困难，而扩散模型的关键在于：\n\n前向扩散（Forward Diffusion）：逐步加噪，使数据分布趋近高斯；\n反向过程（Reverse Diffusion）：学习去噪映射，把噪声还原为数据；\n每一步都只需建模相邻分布 p(x_{t-\\Delta t}\\mid x_t)，学习更稳定。\n\n\n核心等价关系：\n\\text{Denoising} \\;\\Leftrightarrow\\; \\text{Learning } \\nabla_x \\log p_t(x)\n学习去噪即学习“得分函数”，方向即密度上升最快的方向。"
   },
   {
-    "objectID": "guides/book/index.html#结构概览",
-    "href": "guides/book/index.html#结构概览",
-    "title": "RL / Diffusion Notebook",
-    "section": "",
-    "text": "Part I. Reinforcement Learning\n从最简单的决策过程开始，构建期望回报、策略梯度与信用分配的统一理解。\nPart II. Diffusion Models\n从随机过程视角理解扩散模型，逐步推导得分匹配与反向 SDE。"
+    "objectID": "guides/diffusion/index.html#模型概览",
+    "href": "guides/diffusion/index.html#模型概览",
+    "title": "Diffusion Models",
+    "section": "模型概览",
+    "text": "模型概览\n\n\n\n\n\n\n\n\n模型\n核心特征\n适合理解的方向\n\n\n\n\nDDPM (Ho et al., 2020)\n随机反演，采样多样性强\n适合学习随机微分方程与噪声调度思想\n\n\nDDIM (Song et al., 2020)\n确定性采样，速度快\n适合工程与推理效率研究\n\n\nFlow Matching (Lipman et al., 2023)\n统一连续流框架\n适合理解 ODE/SDE 统一与几何流"
   },
   {
-    "objectID": "guides/book/index.html#阅读方式",
-    "href": "guides/book/index.html#阅读方式",
-    "title": "RL / Diffusion Notebook",
-    "section": "",
-    "text": "左侧为全书章节导航，可自由跳转。\n\n右侧为当前页小节目录，帮助快速定位。\n\n数学公式使用 KaTeX 渲染，可直接复制。\n\n代码片段可展开、复制。"
+    "objectID": "guides/diffusion/index.html#推荐网课与讲座",
+    "href": "guides/diffusion/index.html#推荐网课与讲座",
+    "title": "Diffusion Models",
+    "section": "🎓 推荐网课与讲座",
+    "text": "🎓 推荐网课与讲座\n\n\n\n课程\n来源\n定位与特点\n适合人群\n\n\n\n\nMIT 6.S980 — Diffusion Models\nMIT\n最系统的扩散入门课程；讲清从加噪→去噪→采样的完整流程，覆盖 DDPM、SDE、Flow Matching\n希望“系统掌握原理+数学背景”的研究生\n\n\nCS236 — Deep Generative Models\nStanford\n将扩散模型放在生成模型的整体框架中讲解（与VAE、GAN对比）\n想理解扩散在整个生成建模中的位置\n\n\nSTAT 157 — Deep Unsupervised Learning\nBerkeley\n从“概率建模 + 实验”的角度介绍 score-based 方法，重视动机和实践\n想边学边做、快速上手的同学\n\n\nDiffusion Seminar Series\nDeepMind × UCL\n汇集各大实验室研究者讲解前沿思想（Consistency、Flow Matching 等）\n已有基础，想了解学界前沿动向的人"
   },
   {
-    "objectID": "guides/book/index.html#符号约定",
-    "href": "guides/book/index.html#符号约定",
-    "title": "RL / Diffusion Notebook",
-    "section": "",
-    "text": "符号\n含义\n\n\n\n\n( s_t, a_t, r_t )\n状态、动作、奖励\n\n\n( _(a\ns) )\n\n\n( J() )\n策略目标函数\n\n\n( p_t(x) )\n扩散过程在时间 (t) 的分布"
+    "objectID": "guides/diffusion/index.html#推荐资料与书籍",
+    "href": "guides/diffusion/index.html#推荐资料与书籍",
+    "title": "Diffusion Models",
+    "section": "推荐资料与书籍",
+    "text": "推荐资料与书籍\n\n入门推荐：Step-by-Step Diffusion（arXiv:2406.08929）\n\n原文：https://arxiv.org/pdf/2406.08929\n\n这篇教程以最小数学依赖讲解扩散模型的核心直觉与采样流程，强调“加噪→去噪”的构造思路，帮助快速形成整体认知（DDPM、DDIM、Flow Matching 的联系与差异），在Appendix里整理了更深入的内容。\n谁适合读？ - 想先抓“为什么这样做”的直觉，而非从繁琐推导的数学理论开始；\n\n\n下方自动汇总所有 Diffusion 相关笔记（notes/*.qmd）\n在 guides/diffusion/notes/ 目录中添加新 .qmd 文件即可自动展示。"
   },
   {
-    "objectID": "guides/book/index.html#关于作者",
-    "href": "guides/book/index.html#关于作者",
-    "title": "RL / Diffusion Notebook",
+    "objectID": "guides/book/02-policy-gradient.html",
+    "href": "guides/book/02-policy-gradient.html",
+    "title": "Policy Gradient 其实没那么神秘",
     "section": "",
-    "text": "“我希望这本书既是科研笔记，也是一种自我认知的延伸。”\n— MIStatlE"
+    "text": "我们定义回报 \nJ(\\theta) = \\mathbb{E}_\\pi \\left[ \\sum_{t=0}^\\infty \\gamma^t r_t \\right].\n\n这不是玄学，这是优化目标。\n\n\n经典策略梯度定理给出： \n\\nabla_\\theta J(\\theta)\n= \\mathbb{E}_\\pi \\big[\n   \\nabla_\\theta \\log \\pi_\\theta(a|s) \\, R\n\\big].\n\n\n\n\n“谁带来高回报，就让它以后更容易再次发生。”"
   },
   {
-    "objectID": "guides/probability/index.html",
-    "href": "guides/probability/index.html",
-    "title": "Probability Theory",
+    "objectID": "guides/book/02-policy-gradient.html#梯度长什么样",
+    "href": "guides/book/02-policy-gradient.html#梯度长什么样",
+    "title": "Policy Gradient 其实没那么神秘",
     "section": "",
-    "text": "自动汇总笔记\n本页面将自动展示所有位于 notes/*.qmd 下的概率论笔记。\n在 guides/probability/notes/ 文件夹中新增 .qmd 文件即可自动更新列表。\n\n\n\n\n\n\n\n\n\n\n连续映射定理与 Slutsky 定理\n\n\n\nprobability\n\nProbability\n\nAsymptotic Theory\n\nStatistical Inference\n\n\n\n理解连续变换与不同收敛类型之间的关系，是概率极限定理体系的核心。\n\n\n\n\n\nOct 24, 2025\n\n\n\n\n\nNo matching items"
+    "text": "经典策略梯度定理给出： \n\\nabla_\\theta J(\\theta)\n= \\mathbb{E}_\\pi \\big[\n   \\nabla_\\theta \\log \\pi_\\theta(a|s) \\, R\n\\big]."
   },
   {
-    "objectID": "tools/index.html",
-    "href": "tools/index.html",
-    "title": "Tools & Workflows",
+    "objectID": "guides/book/02-policy-gradient.html#直觉",
+    "href": "guides/book/02-policy-gradient.html#直觉",
+    "title": "Policy Gradient 其实没那么神秘",
     "section": "",
-    "text": "可复用的研究/工程工具与工作流，强调 可操作 与 效率。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\n\n\n\n\nQuarto 最佳实践：从 0 到“高信息密度”站点\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "“谁带来高回报，就让它以后更容易再次发生。”"
   },
   {
-    "objectID": "posts/index.html",
-    "href": "posts/index.html",
-    "title": "Posts",
+    "objectID": "guides/Machine Learning Theory/notes /wd.html",
+    "href": "guides/Machine Learning Theory/notes /wd.html",
+    "title": "Wasserstein 距离与最优传输理论",
     "section": "",
-    "text": "Welcome to my posts.\n\n\n\n\n\n\n\n\n\nStarting Over: Building MIStatlE Lab\n\n\n\nmeta\n\nsetup\n\n\n\nA simple Quarto starter with math support, post listings, and GitHub Pages auto-deploy.\n\n\n\n\n\nOct 7, 2025\n\n\n\n\n\nNo matching items"
+    "text": "解释.\n支撑集 (support) 指的是分布取值概率非零的点集。形式上，对于分布 P，\n\n\\mathrm{supp}(P) = \\{x \\in \\mathcal X : P(x) &gt; 0\\}.\n\n支撑集反映了随机变量在空间中可能出现的位置范围。若两个分布的支撑集不重叠，即 \\mathrm{supp}(P) \\cap \\mathrm{supp}(Q) = \\varnothing，则许多常见散度无法有效比较它们之间的差异。\n\nKullback–Leibler 散度定义为\n\nD_{\\mathrm{KL}}(P\\Vert Q) = \\int p(x)\\log\\frac{p(x)}{q(x)}\\,dx.\n\n当存在某个区域上 p(x)&gt;0 而 q(x)=0 时，\\log \\frac{p(x)}{q(x)} 发散，从而 D_{\\mathrm{KL}}(P\\Vert Q) = +\\infty。 这意味着若两分布支撑集不重叠，KL 散度无法提供有限且有意义的度量。 全变差距离（total variation distance）虽可定义，但它仅反映概率质量差异，忽略几何信息。\n为解决这些问题，引入 Wasserstein 距离，其思想来源于 最优传输 (Optimal Transport)： 通过“最小搬运成本”定义分布间的距离。\n\n\n\n\n\n定义（Wasserstein Distance）.\n形式上，\n\nW_1(P,Q)\n= \\sup_{\\|f\\|_L \\le 1}\n\\bigl[\n\\mathbb E_{x\\sim P}[f(x)] - \\mathbb E_{x\\sim Q}[f(x)]\n\\bigr],\n\n其中上确界取遍所有 1-Lipschitz 函数 f，即\n\n|f(x)-f(y)| \\le d(x,y), \\quad \\forall x,y.\n\n此约束确保 f 的变化不超过度量空间的几何尺度 d(x,y)。\n\n\n\n定理（Kantorovich–Rubinstein Duality）.\n令 P, Q 为定义在度量空间 (\\mathcal X, d) 上、具有有界支撑的两个分布，则\n\nW_1(P, Q)\n= \\sup_{\\mathrm{Lip}(f)\\le1}\n\\bigl[\n\\mathbb E_{x\\sim P}[f(x)]\n- \\mathbb E_{x\\sim Q}[f(x)]\n\\bigr]\n= \\inf_{\\pi}\n\\mathbb E_{(x,y)\\sim\\pi}[d(x,y)],\n\n其中 \\pi 为 P,Q 的耦合（coupling），即定义在 \\mathcal X\\times\\mathcal X 上的联合分布，其边缘分别为 P,Q。\n\n\n\n\n\n证明.\n定义集合\n\n\\Pi(P,Q) = \\{\\pi \\in \\mathcal P(\\mathcal X\\times\\mathcal X) : \\pi_x=P, \\pi_y=Q\\},\n\n其中 \\pi_x, \\pi_y 分别为边缘分布。\n对任意 1-Lipschitz 函数 f，有\n\nf(x) - f(y) \\le d(x,y), \\quad \\forall (x,y)\\in\\mathcal X\\times\\mathcal X.\n\n因此，\n\n\\mathbb E_{x\\sim P}[f(x)] - \\mathbb E_{y\\sim Q}[f(y)]\n= \\int (f(x)-f(y))\\,d\\pi(x,y)\n\\le \\int d(x,y)\\,d\\pi(x,y),\n\n对任意耦合 \\pi 成立。取上确界得\n\n\\sup_{\\mathrm{Lip}(f)\\le1}\n\\bigl[\\mathbb E_{x\\sim P}[f(x)]-\\mathbb E_{x\\sim Q}[f(x)]\\bigr]\n\\le\n\\inf_{\\pi\\in\\Pi(P,Q)}\\int d(x,y)\\,d\\pi(x,y).\n\n考虑线性规划形式：\n\n\\min_{\\pi\\in\\Pi(P,Q)} \\int d(x,y)\\,d\\pi(x,y)\n\\quad\\text{s.t.}\\quad\n\\pi\\ge0,~ \\pi_x=P,~ \\pi_y=Q.\n\n其对偶问题为\n\n\\max_{f,g}\n\\Bigl\\{\n\\int f(x)\\,dP(x) + \\int g(y)\\,dQ(y)\n:\\,\nf(x)-g(y)\\le d(x,y)\n\\Bigr\\}.\n\n由于约束满足强对偶性，最优值相等。再取 g=-f，即得\n\nW_1(P,Q)\n= \\sup_{\\mathrm{Lip}(f)\\le1}\n\\bigl[\\mathbb E_{x\\sim P}[f(x)] - \\mathbb E_{x\\sim Q}[f(x)]\\bigr]\n= \\inf_{\\pi\\in\\Pi(P,Q)}\\mathbb E_{(x,y)\\sim\\pi}[d(x,y)].\n\n□\n\n\n解释.\n直观上，该定理表明比较两个分布的距离有两种等价形式：\n\n寻找一个 1-Lipschitz 函数，使两分布上期望差最大；\n寻找一种运输方案 \\pi，使从 P 到 Q 的平均运输代价最小。\n\n\n\n\n\n\n\n\\mathrm{TV}(P,Q)\n= \\sup_{A\\subseteq\\mathcal X}|P(A)-Q(A)|\n= \\sup_{\\|f\\|_\\infty\\le1}\n\\bigl|\n\\mathbb E_{x\\sim P}[f(x)]-\\mathbb E_{x\\sim Q}[f(x)]\n\\bigr|.\n\n若在 Wasserstein 定义中取度量 d(x,y)=\\mathbb I\\{x\\ne y\\}，则\n\n\\mathrm{TV}(P,Q) = W_1(P,Q).\n\n全变差距离忽略几何结构，仅关注概率质量差异；而 Wasserstein 距离能捕捉“空间位移”层面的差距。\n\n\n解释.\nWasserstein 距离的直觉是“搬运质量”。\n若将分布 P,Q 看作两堆沙子，W_1(P,Q) 表示将一堆沙搬运成另一堆所需的最小运输成本。\n与传统散度不同，即使两堆沙不重叠，它仍给出有限、平滑的几何度量。\n\n\n\n\n\nWasserstein 距离在机器学习中具有广泛应用。\n典型应用包括：\n\n生成模型（WGAN）；\n分布匹配与领域自适应；\n鲁棒学习与对抗训练。\n\n通过 Kantorovich–Rubinstein 对偶性，Wasserstein 距离在理论分析与优化计算之间建立了稳定可导的桥梁，使分布差异的估计兼具几何可解释性与连续性。\n\n\n\n\n\nKantorovich, L. V. (1942). On the translocation of masses. Doklady Akademii Nauk, 37, 199–201.\nVillani, C. (2008). Optimal Transport: Old and New. Springer-Verlag, Berlin Heidelberg."
   },
   {
-    "objectID": "community/index.html",
-    "href": "community/index.html",
-    "title": "Community",
+    "objectID": "guides/Machine Learning Theory/notes /wd.html#wasserstein-距离与最优传输理论",
+    "href": "guides/Machine Learning Theory/notes /wd.html#wasserstein-距离与最优传输理论",
+    "title": "Wasserstein 距离与最优传输理论",
     "section": "",
-    "text": "Community\nEvents, announcements, and resources."
-  },
-  {
-    "objectID": "reads/index.html",
-    "href": "reads/index.html",
-    "title": "Good Reads",
-    "section": "",
-    "text": "高信息密度外部资源：长文、书单、课程、视频与博客。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Welcome",
-    "section": "",
-    "text": "Hello, I’m MIStatlE 👋\nThis is my minimal Quarto website. Math works out of the box:\n\nInline math: \\int_0^1 x^2\\,dx = 1/3\nDisplay math:\n\n\n\\mathbb{P}(|S_n - n\\mu| \\ge t) \\le 2\\exp\\!\\left(-\\frac{t^2}{2\\sigma^2 n}\\right).\n\nUse the Posts section for articles and notes. Edit _quarto.yml to customize the navbar and theme."
-  },
-  {
-    "objectID": "search.html",
-    "href": "search.html",
-    "title": "FRAIMEL",
-    "section": "",
-    "text": "Tip\n\n\n\nUse the navbar search (browser) or your site search engine."
-  },
-  {
-    "objectID": "search.html#title-search",
-    "href": "search.html#title-search",
-    "title": "FRAIMEL",
-    "section": "",
-    "text": "Tip\n\n\n\nUse the navbar search (browser) or your site search engine."
-  },
-  {
-    "objectID": "posts/2025-10-07-welcome.html",
-    "href": "posts/2025-10-07-welcome.html",
-    "title": "Starting Over: Building MIStatlE Lab",
-    "section": "",
-    "text": "This is a starter post. You can write math like e^{i\\pi}+1=0 and code blocks:\ndef add(a, b): return a + b\nprint(add(2, 3))\nTo publish, just push to main — GitHub Actions will render and deploy to gh-pages."
-  },
-  {
-    "objectID": "tools/quarto-setup.html",
-    "href": "tools/quarto-setup.html",
-    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
-    "section": "",
-    "text": "Markdown+数学+列表页+RSS，一体化…\n适合“利他型”学习空间：低摩擦、高输出。"
-  },
-  {
-    "objectID": "tools/quarto-setup.html#why-quarto",
-    "href": "tools/quarto-setup.html#why-quarto",
-    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
-    "section": "",
-    "text": "Markdown+数学+列表页+RSS，一体化…\n适合“利他型”学习空间：低摩擦、高输出。"
-  },
-  {
-    "objectID": "tools/quarto-setup.html#setup",
-    "href": "tools/quarto-setup.html#setup",
-    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
-    "section": "Setup",
-    "text": "Setup\n```bash quarto create-project MIStatlE-Lab quarto add quarto-ext/fontawesome"
+    "text": "解释.\n支撑集 (support) 指的是分布取值概率非零的点集。形式上，对于分布 P，\n\n\\mathrm{supp}(P) = \\{x \\in \\mathcal X : P(x) &gt; 0\\}.\n\n支撑集反映了随机变量在空间中可能出现的位置范围。若两个分布的支撑集不重叠，即 \\mathrm{supp}(P) \\cap \\mathrm{supp}(Q) = \\varnothing，则许多常见散度无法有效比较它们之间的差异。\n\nKullback–Leibler 散度定义为\n\nD_{\\mathrm{KL}}(P\\Vert Q) = \\int p(x)\\log\\frac{p(x)}{q(x)}\\,dx.\n\n当存在某个区域上 p(x)&gt;0 而 q(x)=0 时，\\log \\frac{p(x)}{q(x)} 发散，从而 D_{\\mathrm{KL}}(P\\Vert Q) = +\\infty。 这意味着若两分布支撑集不重叠，KL 散度无法提供有限且有意义的度量。 全变差距离（total variation distance）虽可定义，但它仅反映概率质量差异，忽略几何信息。\n为解决这些问题，引入 Wasserstein 距离，其思想来源于 最优传输 (Optimal Transport)： 通过“最小搬运成本”定义分布间的距离。\n\n\n\n\n\n定义（Wasserstein Distance）.\n形式上，\n\nW_1(P,Q)\n= \\sup_{\\|f\\|_L \\le 1}\n\\bigl[\n\\mathbb E_{x\\sim P}[f(x)] - \\mathbb E_{x\\sim Q}[f(x)]\n\\bigr],\n\n其中上确界取遍所有 1-Lipschitz 函数 f，即\n\n|f(x)-f(y)| \\le d(x,y), \\quad \\forall x,y.\n\n此约束确保 f 的变化不超过度量空间的几何尺度 d(x,y)。\n\n\n\n定理（Kantorovich–Rubinstein Duality）.\n令 P, Q 为定义在度量空间 (\\mathcal X, d) 上、具有有界支撑的两个分布，则\n\nW_1(P, Q)\n= \\sup_{\\mathrm{Lip}(f)\\le1}\n\\bigl[\n\\mathbb E_{x\\sim P}[f(x)]\n- \\mathbb E_{x\\sim Q}[f(x)]\n\\bigr]\n= \\inf_{\\pi}\n\\mathbb E_{(x,y)\\sim\\pi}[d(x,y)],\n\n其中 \\pi 为 P,Q 的耦合（coupling），即定义在 \\mathcal X\\times\\mathcal X 上的联合分布，其边缘分别为 P,Q。\n\n\n\n\n\n证明.\n定义集合\n\n\\Pi(P,Q) = \\{\\pi \\in \\mathcal P(\\mathcal X\\times\\mathcal X) : \\pi_x=P, \\pi_y=Q\\},\n\n其中 \\pi_x, \\pi_y 分别为边缘分布。\n对任意 1-Lipschitz 函数 f，有\n\nf(x) - f(y) \\le d(x,y), \\quad \\forall (x,y)\\in\\mathcal X\\times\\mathcal X.\n\n因此，\n\n\\mathbb E_{x\\sim P}[f(x)] - \\mathbb E_{y\\sim Q}[f(y)]\n= \\int (f(x)-f(y))\\,d\\pi(x,y)\n\\le \\int d(x,y)\\,d\\pi(x,y),\n\n对任意耦合 \\pi 成立。取上确界得\n\n\\sup_{\\mathrm{Lip}(f)\\le1}\n\\bigl[\\mathbb E_{x\\sim P}[f(x)]-\\mathbb E_{x\\sim Q}[f(x)]\\bigr]\n\\le\n\\inf_{\\pi\\in\\Pi(P,Q)}\\int d(x,y)\\,d\\pi(x,y).\n\n考虑线性规划形式：\n\n\\min_{\\pi\\in\\Pi(P,Q)} \\int d(x,y)\\,d\\pi(x,y)\n\\quad\\text{s.t.}\\quad\n\\pi\\ge0,~ \\pi_x=P,~ \\pi_y=Q.\n\n其对偶问题为\n\n\\max_{f,g}\n\\Bigl\\{\n\\int f(x)\\,dP(x) + \\int g(y)\\,dQ(y)\n:\\,\nf(x)-g(y)\\le d(x,y)\n\\Bigr\\}.\n\n由于约束满足强对偶性，最优值相等。再取 g=-f，即得\n\nW_1(P,Q)\n= \\sup_{\\mathrm{Lip}(f)\\le1}\n\\bigl[\\mathbb E_{x\\sim P}[f(x)] - \\mathbb E_{x\\sim Q}[f(x)]\\bigr]\n= \\inf_{\\pi\\in\\Pi(P,Q)}\\mathbb E_{(x,y)\\sim\\pi}[d(x,y)].\n\n□\n\n\n解释.\n直观上，该定理表明比较两个分布的距离有两种等价形式：\n\n寻找一个 1-Lipschitz 函数，使两分布上期望差最大；\n寻找一种运输方案 \\pi，使从 P 到 Q 的平均运输代价最小。\n\n\n\n\n\n\n\n\\mathrm{TV}(P,Q)\n= \\sup_{A\\subseteq\\mathcal X}|P(A)-Q(A)|\n= \\sup_{\\|f\\|_\\infty\\le1}\n\\bigl|\n\\mathbb E_{x\\sim P}[f(x)]-\\mathbb E_{x\\sim Q}[f(x)]\n\\bigr|.\n\n若在 Wasserstein 定义中取度量 d(x,y)=\\mathbb I\\{x\\ne y\\}，则\n\n\\mathrm{TV}(P,Q) = W_1(P,Q).\n\n全变差距离忽略几何结构，仅关注概率质量差异；而 Wasserstein 距离能捕捉“空间位移”层面的差距。\n\n\n解释.\nWasserstein 距离的直觉是“搬运质量”。\n若将分布 P,Q 看作两堆沙子，W_1(P,Q) 表示将一堆沙搬运成另一堆所需的最小运输成本。\n与传统散度不同，即使两堆沙不重叠，它仍给出有限、平滑的几何度量。\n\n\n\n\n\nWasserstein 距离在机器学习中具有广泛应用。\n典型应用包括：\n\n生成模型（WGAN）；\n分布匹配与领域自适应；\n鲁棒学习与对抗训练。\n\n通过 Kantorovich–Rubinstein 对偶性，Wasserstein 距离在理论分析与优化计算之间建立了稳定可导的桥梁，使分布差异的估计兼具几何可解释性与连续性。\n\n\n\n\n\nKantorovich, L. V. (1942). On the translocation of masses. Doklady Akademii Nauk, 37, 199–201.\nVillani, C. (2008). Optimal Transport: Old and New. Springer-Verlag, Berlin Heidelberg."
   },
   {
     "objectID": "guides/probability/notes/slutsky.html",
@@ -255,74 +196,168 @@
     "text": "要点回顾：\n\n连续映射定理保证了“函数变换”下的收敛保持；\nSlutsky 定理则描述了“混合类型收敛”的稳定性；\n二者共同构成极限理论与渐近统计分析的技术基础。\n\n\n\n延伸阅读：\n📘 Probability and Measure — Billingsley, Ch. (Chapter 2–3)\n📗 Asymptotic Statistics — van der Vaart, A. W.\n📙 High-Dimensional Probability — Vershynin, R.\n推荐顺序：先掌握三类收敛，再阅读 Portmanteau 与 Slutsky 的证明。"
   },
   {
-    "objectID": "guides/Machine Learning Theory/notes /wd.html",
-    "href": "guides/Machine Learning Theory/notes /wd.html",
-    "title": "Wasserstein 距离与最优传输理论",
+    "objectID": "tools/quarto-setup.html",
+    "href": "tools/quarto-setup.html",
+    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
     "section": "",
-    "text": "解释.\n支撑集 (support) 指的是分布取值概率非零的点集。形式上，对于分布 P，\n\n\\mathrm{supp}(P) = \\{x \\in \\mathcal X : P(x) &gt; 0\\}.\n\n支撑集反映了随机变量在空间中可能出现的位置范围。若两个分布的支撑集不重叠，即 \\mathrm{supp}(P) \\cap \\mathrm{supp}(Q) = \\varnothing，则许多常见散度无法有效比较它们之间的差异。\n\nKullback–Leibler 散度定义为\n\nD_{\\mathrm{KL}}(P\\Vert Q) = \\int p(x)\\log\\frac{p(x)}{q(x)}\\,dx.\n\n当存在某个区域上 p(x)&gt;0 而 q(x)=0 时，\\log \\frac{p(x)}{q(x)} 发散，从而 D_{\\mathrm{KL}}(P\\Vert Q) = +\\infty。 这意味着若两分布支撑集不重叠，KL 散度无法提供有限且有意义的度量。 全变差距离（total variation distance）虽可定义，但它仅反映概率质量差异，忽略几何信息。\n为解决这些问题，引入 Wasserstein 距离，其思想来源于 最优传输 (Optimal Transport)： 通过“最小搬运成本”定义分布间的距离。\n\n\n\n\n\n定义（Wasserstein Distance）.\n形式上，\n\nW_1(P,Q)\n= \\sup_{\\|f\\|_L \\le 1}\n\\bigl[\n\\mathbb E_{x\\sim P}[f(x)] - \\mathbb E_{x\\sim Q}[f(x)]\n\\bigr],\n\n其中上确界取遍所有 1-Lipschitz 函数 f，即\n\n|f(x)-f(y)| \\le d(x,y), \\quad \\forall x,y.\n\n此约束确保 f 的变化不超过度量空间的几何尺度 d(x,y)。\n\n\n\n定理（Kantorovich–Rubinstein Duality）.\n令 P, Q 为定义在度量空间 (\\mathcal X, d) 上、具有有界支撑的两个分布，则\n\nW_1(P, Q)\n= \\sup_{\\mathrm{Lip}(f)\\le1}\n\\bigl[\n\\mathbb E_{x\\sim P}[f(x)]\n- \\mathbb E_{x\\sim Q}[f(x)]\n\\bigr]\n= \\inf_{\\pi}\n\\mathbb E_{(x,y)\\sim\\pi}[d(x,y)],\n\n其中 \\pi 为 P,Q 的耦合（coupling），即定义在 \\mathcal X\\times\\mathcal X 上的联合分布，其边缘分别为 P,Q。\n\n\n\n\n\n证明.\n定义集合\n\n\\Pi(P,Q) = \\{\\pi \\in \\mathcal P(\\mathcal X\\times\\mathcal X) : \\pi_x=P, \\pi_y=Q\\},\n\n其中 \\pi_x, \\pi_y 分别为边缘分布。\n对任意 1-Lipschitz 函数 f，有\n\nf(x) - f(y) \\le d(x,y), \\quad \\forall (x,y)\\in\\mathcal X\\times\\mathcal X.\n\n因此，\n\n\\mathbb E_{x\\sim P}[f(x)] - \\mathbb E_{y\\sim Q}[f(y)]\n= \\int (f(x)-f(y))\\,d\\pi(x,y)\n\\le \\int d(x,y)\\,d\\pi(x,y),\n\n对任意耦合 \\pi 成立。取上确界得\n\n\\sup_{\\mathrm{Lip}(f)\\le1}\n\\bigl[\\mathbb E_{x\\sim P}[f(x)]-\\mathbb E_{x\\sim Q}[f(x)]\\bigr]\n\\le\n\\inf_{\\pi\\in\\Pi(P,Q)}\\int d(x,y)\\,d\\pi(x,y).\n\n考虑线性规划形式：\n\n\\min_{\\pi\\in\\Pi(P,Q)} \\int d(x,y)\\,d\\pi(x,y)\n\\quad\\text{s.t.}\\quad\n\\pi\\ge0,~ \\pi_x=P,~ \\pi_y=Q.\n\n其对偶问题为\n\n\\max_{f,g}\n\\Bigl\\{\n\\int f(x)\\,dP(x) + \\int g(y)\\,dQ(y)\n:\\,\nf(x)-g(y)\\le d(x,y)\n\\Bigr\\}.\n\n由于约束满足强对偶性，最优值相等。再取 g=-f，即得\n\nW_1(P,Q)\n= \\sup_{\\mathrm{Lip}(f)\\le1}\n\\bigl[\\mathbb E_{x\\sim P}[f(x)] - \\mathbb E_{x\\sim Q}[f(x)]\\bigr]\n= \\inf_{\\pi\\in\\Pi(P,Q)}\\mathbb E_{(x,y)\\sim\\pi}[d(x,y)].\n\n□\n\n\n解释.\n直观上，该定理表明比较两个分布的距离有两种等价形式：\n\n寻找一个 1-Lipschitz 函数，使两分布上期望差最大；\n寻找一种运输方案 \\pi，使从 P 到 Q 的平均运输代价最小。\n\n\n\n\n\n\n\n\\mathrm{TV}(P,Q)\n= \\sup_{A\\subseteq\\mathcal X}|P(A)-Q(A)|\n= \\sup_{\\|f\\|_\\infty\\le1}\n\\bigl|\n\\mathbb E_{x\\sim P}[f(x)]-\\mathbb E_{x\\sim Q}[f(x)]\n\\bigr|.\n\n若在 Wasserstein 定义中取度量 d(x,y)=\\mathbb I\\{x\\ne y\\}，则\n\n\\mathrm{TV}(P,Q) = W_1(P,Q).\n\n全变差距离忽略几何结构，仅关注概率质量差异；而 Wasserstein 距离能捕捉“空间位移”层面的差距。\n\n\n解释.\nWasserstein 距离的直觉是“搬运质量”。\n若将分布 P,Q 看作两堆沙子，W_1(P,Q) 表示将一堆沙搬运成另一堆所需的最小运输成本。\n与传统散度不同，即使两堆沙不重叠，它仍给出有限、平滑的几何度量。\n\n\n\n\n\nWasserstein 距离在机器学习中具有广泛应用。\n典型应用包括：\n\n生成模型（WGAN）；\n分布匹配与领域自适应；\n鲁棒学习与对抗训练。\n\n通过 Kantorovich–Rubinstein 对偶性，Wasserstein 距离在理论分析与优化计算之间建立了稳定可导的桥梁，使分布差异的估计兼具几何可解释性与连续性。\n\n\n\n\n\nKantorovich, L. V. (1942). On the translocation of masses. Doklady Akademii Nauk, 37, 199–201.\nVillani, C. (2008). Optimal Transport: Old and New. Springer-Verlag, Berlin Heidelberg."
+    "text": "Markdown+数学+列表页+RSS，一体化…\n适合“利他型”学习空间：低摩擦、高输出。"
   },
   {
-    "objectID": "guides/Machine Learning Theory/notes /wd.html#wasserstein-距离与最优传输理论",
-    "href": "guides/Machine Learning Theory/notes /wd.html#wasserstein-距离与最优传输理论",
-    "title": "Wasserstein 距离与最优传输理论",
+    "objectID": "tools/quarto-setup.html#why-quarto",
+    "href": "tools/quarto-setup.html#why-quarto",
+    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
     "section": "",
-    "text": "解释.\n支撑集 (support) 指的是分布取值概率非零的点集。形式上，对于分布 P，\n\n\\mathrm{supp}(P) = \\{x \\in \\mathcal X : P(x) &gt; 0\\}.\n\n支撑集反映了随机变量在空间中可能出现的位置范围。若两个分布的支撑集不重叠，即 \\mathrm{supp}(P) \\cap \\mathrm{supp}(Q) = \\varnothing，则许多常见散度无法有效比较它们之间的差异。\n\nKullback–Leibler 散度定义为\n\nD_{\\mathrm{KL}}(P\\Vert Q) = \\int p(x)\\log\\frac{p(x)}{q(x)}\\,dx.\n\n当存在某个区域上 p(x)&gt;0 而 q(x)=0 时，\\log \\frac{p(x)}{q(x)} 发散，从而 D_{\\mathrm{KL}}(P\\Vert Q) = +\\infty。 这意味着若两分布支撑集不重叠，KL 散度无法提供有限且有意义的度量。 全变差距离（total variation distance）虽可定义，但它仅反映概率质量差异，忽略几何信息。\n为解决这些问题，引入 Wasserstein 距离，其思想来源于 最优传输 (Optimal Transport)： 通过“最小搬运成本”定义分布间的距离。\n\n\n\n\n\n定义（Wasserstein Distance）.\n形式上，\n\nW_1(P,Q)\n= \\sup_{\\|f\\|_L \\le 1}\n\\bigl[\n\\mathbb E_{x\\sim P}[f(x)] - \\mathbb E_{x\\sim Q}[f(x)]\n\\bigr],\n\n其中上确界取遍所有 1-Lipschitz 函数 f，即\n\n|f(x)-f(y)| \\le d(x,y), \\quad \\forall x,y.\n\n此约束确保 f 的变化不超过度量空间的几何尺度 d(x,y)。\n\n\n\n定理（Kantorovich–Rubinstein Duality）.\n令 P, Q 为定义在度量空间 (\\mathcal X, d) 上、具有有界支撑的两个分布，则\n\nW_1(P, Q)\n= \\sup_{\\mathrm{Lip}(f)\\le1}\n\\bigl[\n\\mathbb E_{x\\sim P}[f(x)]\n- \\mathbb E_{x\\sim Q}[f(x)]\n\\bigr]\n= \\inf_{\\pi}\n\\mathbb E_{(x,y)\\sim\\pi}[d(x,y)],\n\n其中 \\pi 为 P,Q 的耦合（coupling），即定义在 \\mathcal X\\times\\mathcal X 上的联合分布，其边缘分别为 P,Q。\n\n\n\n\n\n证明.\n定义集合\n\n\\Pi(P,Q) = \\{\\pi \\in \\mathcal P(\\mathcal X\\times\\mathcal X) : \\pi_x=P, \\pi_y=Q\\},\n\n其中 \\pi_x, \\pi_y 分别为边缘分布。\n对任意 1-Lipschitz 函数 f，有\n\nf(x) - f(y) \\le d(x,y), \\quad \\forall (x,y)\\in\\mathcal X\\times\\mathcal X.\n\n因此，\n\n\\mathbb E_{x\\sim P}[f(x)] - \\mathbb E_{y\\sim Q}[f(y)]\n= \\int (f(x)-f(y))\\,d\\pi(x,y)\n\\le \\int d(x,y)\\,d\\pi(x,y),\n\n对任意耦合 \\pi 成立。取上确界得\n\n\\sup_{\\mathrm{Lip}(f)\\le1}\n\\bigl[\\mathbb E_{x\\sim P}[f(x)]-\\mathbb E_{x\\sim Q}[f(x)]\\bigr]\n\\le\n\\inf_{\\pi\\in\\Pi(P,Q)}\\int d(x,y)\\,d\\pi(x,y).\n\n考虑线性规划形式：\n\n\\min_{\\pi\\in\\Pi(P,Q)} \\int d(x,y)\\,d\\pi(x,y)\n\\quad\\text{s.t.}\\quad\n\\pi\\ge0,~ \\pi_x=P,~ \\pi_y=Q.\n\n其对偶问题为\n\n\\max_{f,g}\n\\Bigl\\{\n\\int f(x)\\,dP(x) + \\int g(y)\\,dQ(y)\n:\\,\nf(x)-g(y)\\le d(x,y)\n\\Bigr\\}.\n\n由于约束满足强对偶性，最优值相等。再取 g=-f，即得\n\nW_1(P,Q)\n= \\sup_{\\mathrm{Lip}(f)\\le1}\n\\bigl[\\mathbb E_{x\\sim P}[f(x)] - \\mathbb E_{x\\sim Q}[f(x)]\\bigr]\n= \\inf_{\\pi\\in\\Pi(P,Q)}\\mathbb E_{(x,y)\\sim\\pi}[d(x,y)].\n\n□\n\n\n解释.\n直观上，该定理表明比较两个分布的距离有两种等价形式：\n\n寻找一个 1-Lipschitz 函数，使两分布上期望差最大；\n寻找一种运输方案 \\pi，使从 P 到 Q 的平均运输代价最小。\n\n\n\n\n\n\n\n\\mathrm{TV}(P,Q)\n= \\sup_{A\\subseteq\\mathcal X}|P(A)-Q(A)|\n= \\sup_{\\|f\\|_\\infty\\le1}\n\\bigl|\n\\mathbb E_{x\\sim P}[f(x)]-\\mathbb E_{x\\sim Q}[f(x)]\n\\bigr|.\n\n若在 Wasserstein 定义中取度量 d(x,y)=\\mathbb I\\{x\\ne y\\}，则\n\n\\mathrm{TV}(P,Q) = W_1(P,Q).\n\n全变差距离忽略几何结构，仅关注概率质量差异；而 Wasserstein 距离能捕捉“空间位移”层面的差距。\n\n\n解释.\nWasserstein 距离的直觉是“搬运质量”。\n若将分布 P,Q 看作两堆沙子，W_1(P,Q) 表示将一堆沙搬运成另一堆所需的最小运输成本。\n与传统散度不同，即使两堆沙不重叠，它仍给出有限、平滑的几何度量。\n\n\n\n\n\nWasserstein 距离在机器学习中具有广泛应用。\n典型应用包括：\n\n生成模型（WGAN）；\n分布匹配与领域自适应；\n鲁棒学习与对抗训练。\n\n通过 Kantorovich–Rubinstein 对偶性，Wasserstein 距离在理论分析与优化计算之间建立了稳定可导的桥梁，使分布差异的估计兼具几何可解释性与连续性。\n\n\n\n\n\nKantorovich, L. V. (1942). On the translocation of masses. Doklady Akademii Nauk, 37, 199–201.\nVillani, C. (2008). Optimal Transport: Old and New. Springer-Verlag, Berlin Heidelberg."
+    "text": "Markdown+数学+列表页+RSS，一体化…\n适合“利他型”学习空间：低摩擦、高输出。"
   },
   {
-    "objectID": "guides/book/02-policy-gradient.html",
-    "href": "guides/book/02-policy-gradient.html",
-    "title": "Policy Gradient 其实没那么神秘",
+    "objectID": "tools/quarto-setup.html#setup",
+    "href": "tools/quarto-setup.html#setup",
+    "title": "Quarto 最佳实践：从 0 到“高信息密度”站点",
+    "section": "Setup",
+    "text": "Setup\n```bash quarto create-project MIStatlE-Lab quarto add quarto-ext/fontawesome"
+  },
+  {
+    "objectID": "posts/2025-10-07-welcome.html",
+    "href": "posts/2025-10-07-welcome.html",
+    "title": "Starting Over: Building MIStatlE Lab",
     "section": "",
-    "text": "我们定义回报 \nJ(\\theta) = \\mathbb{E}_\\pi \\left[ \\sum_{t=0}^\\infty \\gamma^t r_t \\right].\n\n这不是玄学，这是优化目标。\n\n\n经典策略梯度定理给出： \n\\nabla_\\theta J(\\theta)\n= \\mathbb{E}_\\pi \\big[\n   \\nabla_\\theta \\log \\pi_\\theta(a|s) \\, R\n\\big].\n\n\n\n\n“谁带来高回报，就让它以后更容易再次发生。”"
+    "text": "This is a starter post. You can write math like e^{i\\pi}+1=0 and code blocks:\ndef add(a, b): return a + b\nprint(add(2, 3))\nTo publish, just push to main — GitHub Actions will render and deploy to gh-pages."
   },
   {
-    "objectID": "guides/book/02-policy-gradient.html#梯度长什么样",
-    "href": "guides/book/02-policy-gradient.html#梯度长什么样",
-    "title": "Policy Gradient 其实没那么神秘",
+    "objectID": "search.html",
+    "href": "search.html",
+    "title": "FRAIMEL",
     "section": "",
-    "text": "经典策略梯度定理给出： \n\\nabla_\\theta J(\\theta)\n= \\mathbb{E}_\\pi \\big[\n   \\nabla_\\theta \\log \\pi_\\theta(a|s) \\, R\n\\big]."
+    "text": "Tip\n\n\n\nUse the navbar search (browser) or your site search engine."
   },
   {
-    "objectID": "guides/book/02-policy-gradient.html#直觉",
-    "href": "guides/book/02-policy-gradient.html#直觉",
-    "title": "Policy Gradient 其实没那么神秘",
+    "objectID": "search.html#title-search",
+    "href": "search.html#title-search",
+    "title": "FRAIMEL",
     "section": "",
-    "text": "“谁带来高回报，就让它以后更容易再次发生。”"
+    "text": "Tip\n\n\n\nUse the navbar search (browser) or your site search engine."
   },
   {
-    "objectID": "guides/diffusion/index.html",
-    "href": "guides/diffusion/index.html",
-    "title": "Diffusion Models",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome",
     "section": "",
-    "text": "学习目标\n从零到一理解扩散模型：动机 → 高斯扩散 → 反向 SDE/ODE → DDPM/DDIM → Flow Matching → 理论与实践。"
+    "text": "Hello, I’m MIStatlE 👋\nThis is my minimal Quarto website. Math works out of the box:\n\nInline math: \\int_0^1 x^2\\,dx = 1/3\nDisplay math:\n\n\n\\mathbb{P}(|S_n - n\\mu| \\ge t) \\le 2\\exp\\!\\left(-\\frac{t^2}{2\\sigma^2 n}\\right).\n\nUse the Posts section for articles and notes. Edit _quarto.yml to customize the navbar and theme."
   },
   {
-    "objectID": "guides/diffusion/index.html#扩散模型要解决的问题",
-    "href": "guides/diffusion/index.html#扩散模型要解决的问题",
-    "title": "Diffusion Models",
-    "section": "扩散模型要解决的问题",
-    "text": "扩散模型要解决的问题\n生成模型希望学习未知分布 p^*(x)，从而生成近似样本。\n直接从噪声“一步”生成复杂数据往往困难，而扩散模型的关键在于：\n\n前向扩散（Forward Diffusion）：逐步加噪，使数据分布趋近高斯；\n反向过程（Reverse Diffusion）：学习去噪映射，把噪声还原为数据；\n每一步都只需建模相邻分布 p(x_{t-\\Delta t}\\mid x_t)，学习更稳定。\n\n\n核心等价关系：\n\\text{Denoising} \\;\\Leftrightarrow\\; \\text{Learning } \\nabla_x \\log p_t(x)\n学习去噪即学习“得分函数”，方向即密度上升最快的方向。"
+    "objectID": "reads/index.html",
+    "href": "reads/index.html",
+    "title": "Good Reads",
+    "section": "",
+    "text": "高信息密度外部资源：长文、书单、课程、视频与博客。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "guides/diffusion/index.html#模型概览",
-    "href": "guides/diffusion/index.html#模型概览",
-    "title": "Diffusion Models",
-    "section": "模型概览",
-    "text": "模型概览\n\n\n\n\n\n\n\n\n模型\n核心特征\n适合理解的方向\n\n\n\n\nDDPM (Ho et al., 2020)\n随机反演，采样多样性强\n适合学习随机微分方程与噪声调度思想\n\n\nDDIM (Song et al., 2020)\n确定性采样，速度快\n适合工程与推理效率研究\n\n\nFlow Matching (Lipman et al., 2023)\n统一连续流框架\n适合理解 ODE/SDE 统一与几何流"
+    "objectID": "community/index.html",
+    "href": "community/index.html",
+    "title": "Community",
+    "section": "",
+    "text": "Community\nEvents, announcements, and resources."
   },
   {
-    "objectID": "guides/diffusion/index.html#推荐网课与讲座",
-    "href": "guides/diffusion/index.html#推荐网课与讲座",
-    "title": "Diffusion Models",
-    "section": "🎓 推荐网课与讲座",
-    "text": "🎓 推荐网课与讲座\n\n\n\n课程\n来源\n定位与特点\n适合人群\n\n\n\n\nMIT 6.S980 — Diffusion Models\nMIT\n最系统的扩散入门课程；讲清从加噪→去噪→采样的完整流程，覆盖 DDPM、SDE、Flow Matching\n希望“系统掌握原理+数学背景”的研究生\n\n\nCS236 — Deep Generative Models\nStanford\n将扩散模型放在生成模型的整体框架中讲解（与VAE、GAN对比）\n想理解扩散在整个生成建模中的位置\n\n\nSTAT 157 — Deep Unsupervised Learning\nBerkeley\n从“概率建模 + 实验”的角度介绍 score-based 方法，重视动机和实践\n想边学边做、快速上手的同学\n\n\nDiffusion Seminar Series\nDeepMind × UCL\n汇集各大实验室研究者讲解前沿思想（Consistency、Flow Matching 等）\n已有基础，想了解学界前沿动向的人"
+    "objectID": "posts/index.html",
+    "href": "posts/index.html",
+    "title": "Posts",
+    "section": "",
+    "text": "Welcome to my posts.\n\n\n\n\n\n\n\n\n\nStarting Over: Building MIStatlE Lab\n\n\n\nmeta\n\nsetup\n\n\n\nA simple Quarto starter with math support, post listings, and GitHub Pages auto-deploy.\n\n\n\n\n\nOct 7, 2025\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "guides/diffusion/index.html#推荐资料与书籍",
-    "href": "guides/diffusion/index.html#推荐资料与书籍",
-    "title": "Diffusion Models",
-    "section": "推荐资料与书籍",
-    "text": "推荐资料与书籍\n\n入门推荐：Step-by-Step Diffusion（arXiv:2406.08929）\n\n原文：https://arxiv.org/pdf/2406.08929\n\n这篇教程以最小数学依赖讲解扩散模型的核心直觉与采样流程，强调“加噪→去噪”的构造思路，帮助快速形成整体认知（DDPM、DDIM、Flow Matching 的联系与差异），在Appendix里整理了更深入的内容。\n谁适合读？ - 想先抓“为什么这样做”的直觉，而非从繁琐推导的数学理论开始；\n\n\n下方自动汇总所有 Diffusion 相关笔记（notes/*.qmd）\n在 guides/diffusion/notes/ 目录中添加新 .qmd 文件即可自动展示。"
+    "objectID": "tools/index.html",
+    "href": "tools/index.html",
+    "title": "Tools & Workflows",
+    "section": "",
+    "text": "可复用的研究/工程工具与工作流，强调 可操作 与 效率。\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\n\n\n\n\nQuarto 最佳实践：从 0 到“高信息密度”站点\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "guides/probability/index.html",
+    "href": "guides/probability/index.html",
+    "title": "Probability Theory",
+    "section": "",
+    "text": "自动汇总笔记\n本页面将自动展示所有位于 notes/*.qmd 下的概率论笔记。\n在 guides/probability/notes/ 文件夹中新增 .qmd 文件即可自动更新列表。\n\n\n\n\n\n\n\n\n\n\n连续映射定理与 Slutsky 定理\n\n\n\nprobability\n\nProbability\n\nAsymptotic Theory\n\nStatistical Inference\n\n\n\n理解连续变换与不同收敛类型之间的关系，是概率极限定理体系的核心。\n\n\n\n\n\nOct 24, 2025\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "guides/book/index.html",
+    "href": "guides/book/index.html",
+    "title": "RL / Diffusion Notebook",
+    "section": "",
+    "text": "这本笔记旨在系统整理我在强化学习与扩散模型研究中的思考与推导。\n它并不是教程，而是一种 理解路径（path to clarity）——\n把复杂的理论、模糊的直觉、严谨的公式，用一种兼具推理与感性的方式串联起来。\n\n\n\n\nPart I. Reinforcement Learning\n从最简单的决策过程开始，构建期望回报、策略梯度与信用分配的统一理解。\nPart II. Diffusion Models\n从随机过程视角理解扩散模型，逐步推导得分匹配与反向 SDE。\n\n\n\n\n\n\n左侧为全书章节导航，可自由跳转。\n\n右侧为当前页小节目录，帮助快速定位。\n\n数学公式使用 KaTeX 渲染，可直接复制。\n\n代码片段可展开、复制。\n\n\n\n\n\n\n\n\n符号\n含义\n\n\n\n\n( s_t, a_t, r_t )\n状态、动作、奖励\n\n\n( _(a\ns) )\n\n\n( J() )\n策略目标函数\n\n\n( p_t(x) )\n扩散过程在时间 (t) 的分布\n\n\n\n\n\n\n\n\n“我希望这本书既是科研笔记，也是一种自我认知的延伸。”\n— MIStatlE"
+  },
+  {
+    "objectID": "guides/book/index.html#结构概览",
+    "href": "guides/book/index.html#结构概览",
+    "title": "RL / Diffusion Notebook",
+    "section": "",
+    "text": "Part I. Reinforcement Learning\n从最简单的决策过程开始，构建期望回报、策略梯度与信用分配的统一理解。\nPart II. Diffusion Models\n从随机过程视角理解扩散模型，逐步推导得分匹配与反向 SDE。"
+  },
+  {
+    "objectID": "guides/book/index.html#阅读方式",
+    "href": "guides/book/index.html#阅读方式",
+    "title": "RL / Diffusion Notebook",
+    "section": "",
+    "text": "左侧为全书章节导航，可自由跳转。\n\n右侧为当前页小节目录，帮助快速定位。\n\n数学公式使用 KaTeX 渲染，可直接复制。\n\n代码片段可展开、复制。"
+  },
+  {
+    "objectID": "guides/book/index.html#符号约定",
+    "href": "guides/book/index.html#符号约定",
+    "title": "RL / Diffusion Notebook",
+    "section": "",
+    "text": "符号\n含义\n\n\n\n\n( s_t, a_t, r_t )\n状态、动作、奖励\n\n\n( _(a\ns) )\n\n\n( J() )\n策略目标函数\n\n\n( p_t(x) )\n扩散过程在时间 (t) 的分布"
+  },
+  {
+    "objectID": "guides/book/index.html#关于作者",
+    "href": "guides/book/index.html#关于作者",
+    "title": "RL / Diffusion Notebook",
+    "section": "",
+    "text": "“我希望这本书既是科研笔记，也是一种自我认知的延伸。”\n— MIStatlE"
+  },
+  {
+    "objectID": "guides/index.html",
+    "href": "guides/index.html",
+    "title": "Guides Overview",
+    "section": "",
+    "text": "Guides Overview\nStart with Probability & Stats or Optimization.",
+    "crumbs": [
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "guides/diffusion/notes/vae.html",
+    "href": "guides/diffusion/notes/vae.html",
+    "title": "VAE 基础推导",
+    "section": "",
+    "text": "我们希望估计某个分布 p(x)，用参数化模型 p_\\theta(x) 来近似，并通过极大似然估计优化参数：\n\n\\max_\\theta \\ \\mathbb{E}_{x\\sim p^*}[\\log p_\\theta(x)].\n\n但在高维空间上直接建模 p_\\theta(x) 通常非常困难，因此我们引入潜变量 z，将复杂分布分解为条件形式：\n\np_\\theta(x)=\\int p_\\theta(x|z)p(z)\\,dz,\n\n其中 p_\\theta(x|z) 称为 decoder（生成器），p(z) 是先验（通常取标准正态）。\n\n\n\n\n真实的后验 p_\\theta(z|x) 无法直接计算，于是定义可计算的近似分布：\n\nq_\\phi(z|x) \\approx p_\\theta(z|x),\n\n称为 encoder（编码器）。\n两者通常使用神经网络参数化：\n\nq_\\phi(z|x)=\\mathcal N(z|\\mu_\\phi(x),\\mathrm{diag}(\\sigma_\\phi^2(x))), \\quad\np_\\theta(x|z)=\\mathcal N(x|f_\\theta(z),\\sigma_{\\text{dec}}^2 I).\n\n\n\n\n\n直接优化 \\log p_\\theta(x) 不可行，因为积分项难计算：\n\np_\\theta(x)=\\int p_\\theta(x,z)\\,dz.\n\n于是我们引入 q_\\phi(z|x) 并重写：\n\n\\log p_\\theta(x)\n= \\log\\int q_\\phi(z|x)\\frac{p_\\theta(x,z)}{q_\\phi(z|x)}\\,dz\n= \\log \\mathbb{E}_{q_\\phi}\\!\\left[\\frac{p_\\theta(x,z)}{q_\\phi(z|x)}\\right].\n\n应用 Jensen 不等式（\\log \\mathbb{E}[\\cdot] \\ge \\mathbb{E}[\\log\\cdot]）得到：\n\n\\log p_\\theta(x)\n\\ge \\mathbb{E}_{q_\\phi}\\!\\left[\\log\\frac{p_\\theta(x,z)}{q_\\phi(z|x)}\\right]\n=: \\mathcal L(\\theta,\\phi;x),\n\n这就是著名的 Evidence Lower Bound (ELBO)。\n\n\n\n\n展开 p_\\theta(x,z)=p_\\theta(x|z)p(z)，有：\n\n\\mathcal L(\\theta,\\phi;x)\n= \\mathbb{E}_{q_\\phi(z|x)}[\\log p_\\theta(x|z)]\n- \\mathrm{KL}(q_\\phi(z|x)\\|p(z)).\n\n\n重建项：衡量生成器 p_\\theta(x|z) 对输入 x 的复现能力；\n正则项：约束编码器 q_\\phi(z|x) 贴近先验 p(z)，防止潜变量退化。\n\n等价关系：\n\n\\log p_\\theta(x)\n= \\mathcal L(\\theta,\\phi;x)\n+ \\mathrm{KL}(q_\\phi(z|x)\\|p_\\theta(z|x)),\n\n因此 ELBO 始终是 \\log p_\\theta(x) 的下界。\n\n推荐阅读：\n📖 arXiv:2406.08929 —— 一份以直觉为主的 Diffusion 入门材料。\n先建立整体框架，再看推导细节，会更高效。\n#生成模型 #VAE #Diffusion #变分推断"
+  },
+  {
+    "objectID": "guides/diffusion/notes/vae.html#从极大似然出发",
+    "href": "guides/diffusion/notes/vae.html#从极大似然出发",
+    "title": "VAE 基础推导",
+    "section": "",
+    "text": "我们希望估计某个分布 p(x)，用参数化模型 p_\\theta(x) 来近似，并通过极大似然估计优化参数：\n\n\\max_\\theta \\ \\mathbb{E}_{x\\sim p^*}[\\log p_\\theta(x)].\n\n但在高维空间上直接建模 p_\\theta(x) 通常非常困难，因此我们引入潜变量 z，将复杂分布分解为条件形式：\n\np_\\theta(x)=\\int p_\\theta(x|z)p(z)\\,dz,\n\n其中 p_\\theta(x|z) 称为 decoder（生成器），p(z) 是先验（通常取标准正态）。"
+  },
+  {
+    "objectID": "guides/diffusion/notes/vae.html#引入可计算的近似分布",
+    "href": "guides/diffusion/notes/vae.html#引入可计算的近似分布",
+    "title": "VAE 基础推导",
+    "section": "",
+    "text": "真实的后验 p_\\theta(z|x) 无法直接计算，于是定义可计算的近似分布：\n\nq_\\phi(z|x) \\approx p_\\theta(z|x),\n\n称为 encoder（编码器）。\n两者通常使用神经网络参数化：\n\nq_\\phi(z|x)=\\mathcal N(z|\\mu_\\phi(x),\\mathrm{diag}(\\sigma_\\phi^2(x))), \\quad\np_\\theta(x|z)=\\mathcal N(x|f_\\theta(z),\\sigma_{\\text{dec}}^2 I)."
+  },
+  {
+    "objectID": "guides/diffusion/notes/vae.html#从最大似然到-elbo",
+    "href": "guides/diffusion/notes/vae.html#从最大似然到-elbo",
+    "title": "VAE 基础推导",
+    "section": "",
+    "text": "直接优化 \\log p_\\theta(x) 不可行，因为积分项难计算：\n\np_\\theta(x)=\\int p_\\theta(x,z)\\,dz.\n\n于是我们引入 q_\\phi(z|x) 并重写：\n\n\\log p_\\theta(x)\n= \\log\\int q_\\phi(z|x)\\frac{p_\\theta(x,z)}{q_\\phi(z|x)}\\,dz\n= \\log \\mathbb{E}_{q_\\phi}\\!\\left[\\frac{p_\\theta(x,z)}{q_\\phi(z|x)}\\right].\n\n应用 Jensen 不等式（\\log \\mathbb{E}[\\cdot] \\ge \\mathbb{E}[\\log\\cdot]）得到：\n\n\\log p_\\theta(x)\n\\ge \\mathbb{E}_{q_\\phi}\\!\\left[\\log\\frac{p_\\theta(x,z)}{q_\\phi(z|x)}\\right]\n=: \\mathcal L(\\theta,\\phi;x),\n\n这就是著名的 Evidence Lower Bound (ELBO)。"
+  },
+  {
+    "objectID": "guides/diffusion/notes/vae.html#elbo-的结构与意义",
+    "href": "guides/diffusion/notes/vae.html#elbo-的结构与意义",
+    "title": "VAE 基础推导",
+    "section": "",
+    "text": "展开 p_\\theta(x,z)=p_\\theta(x|z)p(z)，有：\n\n\\mathcal L(\\theta,\\phi;x)\n= \\mathbb{E}_{q_\\phi(z|x)}[\\log p_\\theta(x|z)]\n- \\mathrm{KL}(q_\\phi(z|x)\\|p(z)).\n\n\n重建项：衡量生成器 p_\\theta(x|z) 对输入 x 的复现能力；\n正则项：约束编码器 q_\\phi(z|x) 贴近先验 p(z)，防止潜变量退化。\n\n等价关系：\n\n\\log p_\\theta(x)\n= \\mathcal L(\\theta,\\phi;x)\n+ \\mathrm{KL}(q_\\phi(z|x)\\|p_\\theta(z|x)),\n\n因此 ELBO 始终是 \\log p_\\theta(x) 的下界。\n\n推荐阅读：\n📖 arXiv:2406.08929 —— 一份以直觉为主的 Diffusion 入门材料。\n先建立整体框架，再看推导细节，会更高效。\n#生成模型 #VAE #Diffusion #变分推断"
   },
   {
     "objectID": "guides/diffusion/notes/ddpm.html",

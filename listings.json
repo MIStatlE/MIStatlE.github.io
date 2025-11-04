@@ -1,8 +1,20 @@
 [
   {
-    "listing": "/guides/probability/index.html",
+    "listing": "/guides/diffusion/index.html",
     "items": [
-      "/guides/probability/notes/slutsky.html"
+      "/guides/diffusion/notes/s-m.html",
+      "/guides/diffusion/notes/vae.html",
+      "/guides/diffusion/notes/ddpm.html"
+    ]
+  },
+  {
+    "listing": "/reads/index.html",
+    "items": []
+  },
+  {
+    "listing": "/posts/index.html",
+    "items": [
+      "/posts/2025-10-07-welcome.html"
     ]
   },
   {
@@ -12,20 +24,9 @@
     ]
   },
   {
-    "listing": "/posts/index.html",
+    "listing": "/guides/probability/index.html",
     "items": [
-      "/posts/2025-10-07-welcome.html"
-    ]
-  },
-  {
-    "listing": "/reads/index.html",
-    "items": []
-  },
-  {
-    "listing": "/guides/diffusion/index.html",
-    "items": [
-      "/guides/diffusion/notes/vae.html",
-      "/guides/diffusion/notes/ddpm.html"
+      "/guides/probability/notes/slutsky.html"
     ]
   },
   {
