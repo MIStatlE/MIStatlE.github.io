@@ -1,0 +1,218 @@
+---
+title: "Score Matching：从能量模型到可计算训练目标"
+subtitle: "在无法计算归一化常数时如何学习数据分布的得分函数"
+description: "介绍 Score Function 的定义、Score Matching 的原始目标及 Hyvärinen 提出的可计算形式，说明其在非归一化模型与扩散模型中的意义。"
+date: 2025-11-04
+categories:
+  - Generative Modeling
+  - Energy-Based Models
+  - Diffusion Models
+tags:
+  - Score Matching
+  - Score Function
+  - Non-Normalized Models
+  - Hyvarinen
+image: "../../images/diffusion-cover.png"
+draft: false
+toc: true
+toc-depth: 3
+page-layout: article
+---
+
+# Score Matching
+
+> **解释.**  
+> 在能量模型 (*Energy-Based Model*, EBM) 中，我们用能量函数 $E_\phi(x)$ 定义概率密度：
+>
+> $$
+> p_\phi(x) = \frac{e^{-E_\phi(x)}}{Z_\phi}, 
+> \qquad 
+> Z_\phi = \int e^{-E_\phi(x)}\,dx,
+> $$
+>
+> 其中 $Z_\phi$ 被称为 *partition function*，它保证 $p_\phi(x)$ 是概率密度函数。  
+>
+> 然而，在高维空间中计算 $Z_\phi$ 极其困难，因为积分范围通常是连续且维度极高。  
+> 这使得直接基于**最大似然估计**的训练变得不可行。  
+> 为解决这一问题，*Score Matching* 方法诞生了。
+
+---
+
+## 定义与基本形式
+
+> **定义（Score Function）.**  
+> 对于定义在 $\mathbb{R}^d$ 上的概率密度函数 $p(\mathbf{x})$，其得分函数定义为：
+>
+> $$
+> s(\mathbf{x}) := \nabla_\mathbf{x} \log p(\mathbf{x}).
+> $$
+
+**Score Function** 刻画了概率密度的局部增长方向。该向量场在每个点上指向概率质量更高的区域，反映出数据分布的局部“流向”。
+
+![](截屏2025-11-04%2009.29.54.png)
+
+**引入得分函数 (Score Function) 的好处有：**
+
+1. **避免计算高维积分：**
+
+   通过引入得分函数
+
+   $$
+   s_\phi(x) := \nabla_x \log p_\phi(x) = -\nabla_x E_\phi(x),
+   $$
+
+   训练目标仅依赖于能量函数的梯度，而不需要计算归一化常数 $Z_\phi$。
+
+2. **可由得分恢复密度：**
+
+   一旦学得得分函数 $s_\phi(x)$，即可通过积分恢复对数密度：
+
+   $$
+   \log p_\phi(x) = \log p_\phi(x_0)
+   + \int_{x_0}^{x} s_\phi(u)^\top du,
+   $$
+
+   其中 $\log p_\phi(x_0)$ 可以由归一化条件求出。
+
+因此，Score Function 使得我们能在“梯度空间”中学习分布结构，也能实现对 $p_\phi(x)$ 的间接建模。
+
+---
+
+## Score Matching 损失
+
+在模型学习中，希望模型的得分函数 $s_\phi(\mathbf{x})$ 能逼近真实分布的得分 $s(\mathbf{x})$。  
+*Score Matching* 方法，其目标函数为：
+
+$$
+\mathcal{L}_{\mathrm{SM}}(\phi)
+= \frac{1}{2}\, \mathbb{E}_{x\sim p_{\mathrm{data}}}
+\| \nabla_x \log p_\phi(x) - \nabla_x \log p_{\mathrm{data}}(x) \|_2^2
+= \frac{1}{2}\, \mathbb{E}_{x\sim p_{\mathrm{data}}}
+\| s_\phi(x) - s(x) \|_2^2.
+$$
+
+最小化该损失能促使模型在高概率区域更好地拟合数据分布。  
+
+然而，$s(x)=\nabla_x\log p_{\mathrm{data}}(x)$ 是**未知**的。  
+为此，Hyvärinen 通过 *分部积分（integration by parts）* 提出了可计算的等价形式。
+
+> **引理（Hyvärinen’s Tractable Form of Score Matching）.**
+>
+> $$
+> \mathcal L_{\mathrm{SM}}(\phi)
+> = \tilde{\mathcal L}_{\mathrm{SM}}(\phi) + C,
+> $$
+> 其中
+> $$
+> \tilde{\mathcal L}_{\mathrm{SM}}(\phi)
+> := \mathbb{E}_{x\sim p_{\mathrm{data}}}\!\left[
+> \operatorname{Tr}\!\bigl(\nabla_x s_\phi(x)\bigr)
+> + \tfrac{1}{2}\|s_\phi(x)\|_2^2
+> \right],
+> $$
+> $C$ 为与 $\phi$ 无关的常数。其最小化解为：
+>
+> $$
+> s^*(x) = \nabla_x \log p(x).
+> $$
+
+**证明.**  
+我们从 Score Matching 的定义式出发：
+
+$$
+\mathcal{L}_{\mathrm{SM}}(\phi)
+= \mathbb{E}_{x\sim p_{\mathrm{data}}(x)}
+\!\left[
+\tfrac{1}{2}\|s_\phi(x)\|_2^2 - s_\phi(x)^\top s(x)
+\right] + C,
+$$
+
+其中 $s(x)=\nabla_x \log p_{\text{data}}(x)$ 为真实数据分布的得分函数。
+
+接下来展开第二项：
+
+$$
+\mathbb{E}_{x\sim p_{\mathrm{data}}(x)}[s_\phi(x)^\top s(x)]
+= \int s_\phi(x)^\top \nabla_x p(x)\,dx
+= \sum_{i=1}^{d} \int s_{\phi,i}(x)\, \partial_{x_i} p(x)\,dx.
+$$
+
+根据 *高斯公式（Gauss formula）*，有：
+
+$$
+\sum_{i=1}^{d}\!
+\int_{\mathbb{B}(0,R)}\!
+s_{\phi,i}(x)\,\partial_{x_i}p(x)\,dx
+= -\sum_{i=1}^{d}\!
+\int_{\mathbb{B}(0,R)}\!
+(\partial_{x_i}s_{\phi,i}(x))\,p(x)\,dx
++ \sum_{i=1}^{d}\!
+\int_{\partial\mathbb{B}(0,R)}\!
+s_{\phi,i}(x)\,s_i(x)\,\nu_i\,dS.
+$$
+
+在假设边界项可忽略的条件下，
+
+$$
+|s_\phi(x)\,s(x)| \to 0, 
+\qquad \text{当 } \|x\|\to\infty,
+$$
+
+则最后一项消失，得到：
+
+$$
+\mathbb{E}_{x\sim p_{\mathrm{data}}(x)}[s_\phi(x)^\top s(x)]
+= -\,\mathbb{E}_{x\sim p_{\mathrm{data}}(x)}[
+\operatorname{Tr}(\nabla_x s_\phi(x)) ].
+$$
+
+代回原式并整理可得：
+
+$$
+\tilde{\mathcal{L}}_{\mathrm{SM}}(\phi)
+:= \mathbb{E}_{x\sim p_{\mathrm{data}}(x)}\!\left[
+\operatorname{Tr}(\nabla_x s_\phi(x))
++ \tfrac{1}{2}\|s_\phi(x)\|_2^2
+\right].
+$$
+
+因此，Score Matching 的目标可以改写为一个仅依赖模型输出
+$s_\phi(x)$ 及其梯度的可计算形式。  
+□
+
+> **解释.**
+> 原式中需显式计算 $\nabla_x \log p_{\mathrm{data}}(x)$ 的项被完全消去，新的目标函数仅依赖于模型自身可导的结构，因此在训练时无需对模型分布进行采样。
+
+---
+
+## 理论意义
+
+**Score Matching 为非归一化模型提供了可导、可计算的训练目标。**
+
+相比极大似然法：
+
+- 避免了对归一化常数（partition function）的显式计算；因而无需从模型分布 $p_\phi$ 采样；
+- 优化仅依赖梯度信息。
+
+通过学习得分函数而非密度本身，Score Matching 为扩散模型的训练、采样与理论分析提供了统一的框架。  
+但是，$\operatorname{Tr}(\nabla_x s_\phi(x))$ 的计算仍是 $O(d^2)$ 复杂度。
+
+---
+
+## 参考文献
+
+- Hyvärinen, A. (2005).  
+  *Estimation of Non-Normalized Statistical Models by Score Matching*.  
+  *Journal of Machine Learning Research*, 6: 695–709.
+
+- Song, Y., & Ermon, S. (2019).  
+  *Generative Modeling by Estimating Gradients of the Data Distribution*.  
+  *Advances in Neural Information Processing Systems (NeurIPS)*.
+
+- Song, Y., Sohl-Dickstein, J., Kingma, D. P., Kumar, A., Ermon, S., & Poole, B. (2021).  
+  *Score-Based Generative Modeling through Stochastic Differential Equations*.  
+  *International Conference on Learning Representations (ICLR)*.
+
+- Yang, L., Zhang, Z., Song, Y., Hong, S., Xu, R., Zhao, P., & Ermon, S. (2023).  
+  *The Principle of Diffusion Models*.  
+  *arXiv preprint arXiv:2305.08891*.
