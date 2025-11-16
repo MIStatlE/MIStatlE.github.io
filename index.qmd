@@ -12,75 +12,75 @@ format:
 <section id="hero" class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
 
   <!-- 粒子背景 -->
-  <div id="particles-js"></div>
+<div id="particles-js"></div>
 
   <!-- 文本内容 -->
-  <div class="content-wrapper px-4">
+<div class="content-wrapper px-4">
 
-    <p class="text-sm uppercase tracking-[0.3em] text-slate-700 mb-4 animate-fade-in">
+<p class="text-sm uppercase tracking-[0.3em] text-slate-700 mb-4 animate-fade-in">
       FRAIMEL · A High-Signal Growth Space
-    </p>
+</p>
 
-    <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 leading-tight animate-fade-in">
+<h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 leading-tight animate-fade-in">
       数学 · 机器学习理论 ·
       <span class="text-cyan-700">可执行的成长路径</span>
-    </h1>
+</h1>
 
-    <p class="mt-6 text-base md:text-xl text-slate-700 max-w-2xl mx-auto animate-fade-in-delay-1">
+<p class="mt-6 text-base md:text-xl text-slate-700 max-w-2xl mx-auto animate-fade-in-delay-1">
       来自一位偏理论研究者的长期主义空间：梳理概率、优化、RL、Diffusion 等核心脉络，
       把「看得懂论文」和「写得出代码」变成一条可走的路。
-    </p>
+</p>
 
     <!-- CTA 区域 -->
-    <div class="mt-10 flex flex-wrap justify-center gap-4 animate-fade-in-delay-2">
+<div class="mt-10 flex flex-wrap justify-center gap-4 animate-fade-in-delay-2">
 
-      <a href="guides/index.html"
+<a href="guides/index.html"
          class="inline-flex items-center px-6 py-3 rounded-full bg-cyan-500 text-slate-950 font-semibold text-sm md:text-base shadow-lg shadow-cyan-500/40 hover:bg-cyan-400 transition transform hover:-translate-y-0.5">
         <i data-lucide="compass" class="w-5 h-5 mr-2"></i>
         浏览 Guides 知识地图
-      </a>
+</a>
 
-      <a href="posts/index.html"
+<a href="posts/index.html"
          class="inline-flex items-center px-6 py-3 rounded-full border border-slate-500/70 text-slate-800 font-medium text-sm md:text-base hover:border-cyan-400 hover:text-cyan-700 transition">
         <i data-lucide="pen-square" class="w-5 h-5 mr-2"></i>
         最近在思考什么
-      </a>
+</a>
 
-      <a href="papers/index.html"
+<a href="papers/index.html"
          class="inline-flex items-center px-6 py-3 rounded-full border border-slate-700 text-slate-800 font-medium text-sm md:text-base hover:border-indigo-400 hover:text-indigo-700 transition">
-        <i data-lucide="library" class="w-5 h-5 mr-2"></i>
+<i data-lucide="library" class="w-5 h-5 mr-2"></i>
         Paper Picks &amp; Notes
-      </a>
+</a>
 
-    </div>
+</div>
 
     <!-- 社交 / 外链 -->
-    <div class="mt-10 flex justify-center space-x-6 text-slate-600 text-sm animate-fade-in-delay-2">
+<div class="mt-10 flex justify-center space-x-6 text-slate-600 text-sm animate-fade-in-delay-2">
 
-      <a href="https://github.com/MIStatlE" class="hover:text-cyan-700 inline-flex items-center gap-1">
-        <i data-lucide="github" class="w-5 h-5"></i>
+<a href="https://github.com/MIStatlE" class="hover:text-cyan-700 inline-flex items-center gap-1">
+<i data-lucide="github" class="w-5 h-5"></i>
         GitHub
-      </a>
+</a>
 
-      <a href="posts/index.xml" class="hover:text-cyan-700 inline-flex items-center gap-1">
-        <i data-lucide="rss" class="w-5 h-5"></i>
+<a href="posts/index.xml" class="hover:text-cyan-700 inline-flex items-center gap-1">
+<i data-lucide="rss" class="w-5 h-5"></i>
         RSS
-      </a>
+</a>
 
-      <a href="about.html" class="hover:text-cyan-700 inline-flex items-center gap-1">
-        <i data-lucide="user-round" class="w-5 h-5"></i>
+<a href="about.html" class="hover:text-cyan-700 inline-flex items-center gap-1">
+<i data-lucide="user-round" class="w-5 h-5"></i>
         About
-      </a>
+</a>
 
-    </div>
+</div>
 
-  </div>
+</div>
 </section>
 
 <!-- ============== 快速概览：网站四个支柱 ============== -->
 <section class="content-wrapper max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 md:-mt-24">
 
-  <div class="grid md:grid-cols-4 gap-4 md:gap-6">
+<div class="grid md:grid-cols-4 gap-4 md:gap-6">
 
     <!-- Guides -->
 <a href="guides/index.html"
@@ -96,7 +96,7 @@ format:
 </a>
 
     <!-- Paper Picks -->
-    <a href="papers/index.html"
+<a href="papers/index.html"
        class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-indigo-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40">
 <div class="flex items-center justify-between mb-3">
 <h2 class="text-base font-semibold text-white">Paper Picks</h2>
