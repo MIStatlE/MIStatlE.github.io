@@ -196,12 +196,12 @@ format:
         给出公式，但同时配上直觉和代码侧的视角。
 </p>
 
-<div class="text-center overflow-x-auto my-4 px-2">
-        $$
-        \mathcal{L}(\theta, \phi; x)
-        = \mathbb{E}_{q_{\phi}(z\mid x)}[\log p_{\theta}(x\mid z)]
-        - D_{\mathrm{KL}}\bigl(q_{\phi}(z\mid x)\,\Vert\,p(z)\bigr).
-        $$
+<div class="text-center overflow-x-auto my-4 px-2" markdown="1">
+$$
+\mathcal{L}(\theta, \phi; x)
+= \mathbb{E}_{q_{\phi}(z\mid x)}[\log p_{\theta}(x\mid z)]
+- D_{\mathrm{KL}}\bigl(q_{\phi}(z\mid x)\,\Vert\,p(z)\bigr).
+$$
 </div>
 
 <p class="text-sm md:text-base text-gray-300 mb-2">
@@ -234,8 +234,8 @@ format:
 
 <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-indigo-400/80 hover:-translate-y-1 transition-all">
 <div class="flex space-x-2 mb-2">
-          <span class="px-2.5 py-1 rounded-full bg-emerald-900/60 text-emerald-200 text-xs font-semibold">RL / Online</span>
-          <span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-100 text-xs font-semibold">Bandits</span>
+<span class="px-2.5 py-1 rounded-full bg-emerald-900/60 text-emerald-200 text-xs font-semibold">RL / Online</span>
+<span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-100 text-xs font-semibold">Bandits</span>
 </div>
 <h3 class="text-lg font-bold text-white mb-2">
           从 UCB 到乐观原理：不确定性如何被「利用」？
