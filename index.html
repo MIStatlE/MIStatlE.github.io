@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>FRAIMEL · 前卫研究者 | 数学与代码 – FRAIMEL</title>
+<title>FRAIMEL · 前卫研究者 – FRAIMEL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -161,54 +161,11 @@ ul.task-list li input[type="checkbox"] {
   }
 </style>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="FRAIMEL · 前卫研究者 | 数学与代码 – FRAIMEL">
+<meta property="og:title" content="FRAIMEL · 前卫研究者 – FRAIMEL">
 <meta property="og:site_name" content="FRAIMEL">
-<meta name="twitter:title" content="FRAIMEL · 前卫研究者 | 数学与代码 – FRAIMEL">
+<meta name="twitter:title" content="FRAIMEL · 前卫研究者 – FRAIMEL">
 <meta name="twitter:creator" content="@MIStatlE">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -507,7 +464,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">FRAIMEL · 前卫研究者 | 数学与代码</h1>
+<h1 class="title">FRAIMEL · 前卫研究者</h1>
 </div>
 
 
@@ -524,162 +481,31 @@ window.Quarto = {
 </header>
 
 
+<!-- === HERO SECTION === -->
 <section id="hero" class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
-<!-- 粒子背景 -->
 <div id="particles-js">
 
 </div>
-<!-- 内容 -->
 <div class="content-wrapper p-4">
 <pre><code>  &lt;h1 class="text-5xl md:text-7xl font-extrabold text-white animate-fade-in"&gt;
       Liam Chen
   &lt;/h1&gt;
   &lt;p class="mt-4 text-xl md:text-3xl font-medium text-cyan-400 animate-fade-in-delay-1"&gt;
-      拓扑数据分析 &amp;amp; 神经形态计算
+      拓扑数据分析 &amp; 神经形态计算
   &lt;/p&gt;
   &lt;p class="mt-2 text-lg md:text-xl text-gray-400 animate-fade-in-delay-2"&gt;
       探索高维数据的隐藏结构与未来算法的形态
-  &lt;/p&gt;
-  &lt;div class="mt-8 flex justify-center space-x-6 animate-fade-in-delay-2"&gt;
-      &lt;a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors" aria-label="GitHub"&gt;
-          &lt;i data-lucide="github" class="w-8 h-8"&gt;&lt;/i&gt;
-      &lt;/a&gt;
-      &lt;a href="#" class="text-gray-400 hover:text-cyan-500 transition-colors" aria-label="Google Scholar"&gt;
-          &lt;i data-lucide="graduation-cap" class="w-8 h-8"&gt;&lt;/i&gt;
-      &lt;/a&gt;
-      &lt;a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors" aria-label="LinkedIn"&gt;
-          &lt;i data-lucide="linkedin" class="w-8 h-8"&gt;&lt;/i&gt;
-      &lt;/a&gt;
-      &lt;a href="#" class="text-gray-400 hover:text-cyan-500 transition-colors" aria-label="CV"&gt;
-          &lt;i data-lucide="file-text" class="w-8 h-8"&gt;&lt;/i&gt;
-      &lt;/a&gt;
-  &lt;/div&gt;</code></pre>
+  &lt;/p&gt;</code></pre>
 </div>
 </section>
+<!-- === 下面粘 ABOUT / RESEARCH / CONTACT 等 HTML 内容 === -->
 <div class="content-wrapper max-w-6xl mx-auto p-4 sm:px-6 lg:px-8 space-y-24 mb-24">
-<!-- 关于我 -->
-<section id="about" class="pt-16">
-<div class="md:flex items-center gap-12">
-<pre><code>      &lt;div class="md:w-1/3 flex-shrink-0"&gt;
-          &lt;img src="https://placehold.co/600x600/0a0e1a/6366f1?text=L.C" 
-              alt="研究者照片"
-              class="rounded-lg shadow-xl shadow-indigo-500/20 w-full object-cover aspect-square border-4 border-slate-800 transition-all duration-300 hover:border-indigo-500"&gt;
-      &lt;/div&gt;
-      &lt;div class="md:w-2/3 mt-8 md:mt-0"&gt;
-          &lt;h2 class="text-3xl font-bold text-white mb-6 flex items-center"&gt;
-              &lt;i data-lucide="user-round" class="w-8 h-8 mr-3 text-cyan-400"&gt;&lt;/i&gt;
-              关于我
-          &lt;/h2&gt;
-          &lt;p class="text-lg mb-4"&gt;
-              我是一名计算数学家和软件工程师，痴迷于寻找数据海洋中的隐藏模式。我的研究主要集中在应用代数拓扑（特别是持久同调）来理解复杂、高维数据集的结构。
-          &lt;/p&gt;
-          &lt;p class="mb-4"&gt;
-              我相信，最优雅的数学理论最终会转化为最高效的算法。我热衷于在 Python、C++ 和 CUDA 中实现这些理论，构建连接理论与实践的桥梁。
-          &lt;/p&gt;
-          &lt;p&gt;
-              目前，我正在探索如何将这些拓扑见解应用于神经形态计算，模拟大脑的高效学习机制。
-          &lt;/p&gt;
-      &lt;/div&gt;
-  &lt;/div&gt;</code></pre>
-</div></section>
-<!-- 前沿研究 -->
-<section id="research" class="pt-16">
-<h2 class="text-3xl font-bold text-white mb-10 flex items-center anchored">
-<i data-lucide="flask-conical" class="w-8 h-8 mr-3 text-cyan-400"></i> 前沿研究
-</h2>
-<div class="bg-slate-900 p-6 rounded-lg border border-slate-800 mb-10">
-<pre><code>      &lt;h3 class="text-2xl font-semibold text-white mb-4"&gt;理论核心：变分自动编码器（VAE）&lt;/h3&gt;
-      &lt;p class="mb-4"&gt;
-        我的工作经常涉及概率模型。例如，VAE 的核心是优化证据下界（ELBO）：
-      &lt;/p&gt;
-
-      &lt;div class="text-center overflow-x-auto p-2"&gt;</code></pre>
-<p><span class="math display">
-\mathcal{L}(\theta, \phi; x) = \mathbb{E}_{q_{\phi}(z|x)}[\log p_{\theta}(x|z)] - D_{KL}(q_{\phi}(z|x) || p(z))
-</span></p>
-<pre><code>      &lt;/div&gt;
-
-      &lt;p class="mt-4"&gt;
-          其中第一项是重构损失，第二项是 $q_{\phi}(z|x)$（编码器）与先验 $p(z)$ 之间的 KL 散度。我们使用“重参数化技巧” $\epsilon \sim \mathcal{N}(0, I)$ 来实现可微的随机采样。
-      &lt;/p&gt;
-  &lt;/div&gt;
-
-  &lt;div class="grid md:grid-cols-2 gap-8"&gt;
-      &lt;!-- Card 1 --&gt;
-      &lt;div class="bg-slate-900 rounded-lg shadow-xl overflow-hidden border border-slate-800 transition-all duration-300 hover:scale-[1.03] hover:shadow-cyan-500/20"&gt;
-          &lt;div class="p-6"&gt;
-              &lt;div class="flex space-x-2 mb-3"&gt;
-                  &lt;span class="text-xs font-semibold px-3 py-1 bg-cyan-900 text-cyan-300 rounded-full"&gt;拓扑学&lt;/span&gt;
-                  &lt;span class="text-xs font-semibold px-3 py-1 bg-indigo-900 text-indigo-300 rounded-full"&gt;深度学习&lt;/span&gt;
-              &lt;/div&gt;
-              &lt;h3 class="text-xl font-bold text-white mb-2"&gt;神经网络的深度同调分析&lt;/h3&gt;
-              &lt;p class="text-gray-400 mb-4 text-sm"&gt;
-                  利用持久同调揭示深度神经网络在训练过程中学到的流形结构的演变。
-              &lt;/p&gt;
-              &lt;div class="flex space-x-4"&gt;
-                  &lt;a href="#" class="inline-flex items-center text-cyan-400 hover:text-cyan-300 transition-colors"&gt;
-                      &lt;i data-lucide="file-text" class="w-4 h-4 mr-1.5"&gt;&lt;/i&gt; PDF
-                  &lt;/a&gt;
-                  &lt;a href="#" class="inline-flex items-center text-gray-400 hover:text-white transition-colors"&gt;
-                      &lt;i data-lucide="book" class="w-4 h-4 mr-1.5"&gt;&lt;/i&gt; arXiv
-                  &lt;/a&gt;
-              &lt;/div&gt;
-          &lt;/div&gt;
-      &lt;/div&gt;
-
-      &lt;!-- Card 2 - TopoSim --&gt;
-      &lt;div class="bg-slate-900 rounded-lg shadow-xl overflow-hidden border border-slate-800 transition-all duration-300 hover:scale-[1.03] hover:shadow-cyan-500/20"&gt;
-          &lt;div class="p-6"&gt;
-              &lt;div class="flex space-x-2 mb-3"&gt;
-                  &lt;span class="text-xs font-semibold px-3 py-1 bg-cyan-900 text-cyan-300 rounded-full"&gt;Python&lt;/span&gt;
-                  &lt;span class="text-xs font-semibold px-3 py-1 bg-indigo-900 text-indigo-300 rounded-full"&gt;C++&lt;/span&gt;
-                  &lt;span class="text-xs font-semibold px-3 py-1 bg-gray-700 text-gray-300 rounded-full"&gt;Pybind11&lt;/span&gt;
-              &lt;/div&gt;
-              &lt;h3 class="text-xl font-bold text-white mb-2"&gt;TopoSim: 拓扑模拟库&lt;/h3&gt;
-              &lt;p class="text-gray-400 mb-4 text-sm"&gt;
-                  用于快速计算持久同调的高性能库。支持 Rips 和 Alpha 复合体。
-              &lt;/p&gt;
-              &lt;a href="#" class="inline-flex items-center text-cyan-400 hover:text-cyan-300 transition-colors"&gt;
-                  &lt;i data-lucide="github" class="w-4 h-4 mr-1.5"&gt;&lt;/i&gt; 查看 GitHub
-              &lt;/a&gt;
-          &lt;/div&gt;
-      &lt;/div&gt;
-
-      &lt;!-- Card 3 - NeuralFlow --&gt;
-      &lt;div class="bg-slate-900 rounded-lg shadow-xl overflow-hidden border border-slate-800 transition-all duration-300 hover:scale-[1.03] hover:shadow-indigo-500/20 md:col-span-2"&gt;
-          &lt;div class="p-6"&gt;
-              &lt;div class="flex space-x-2 mb-3"&gt;
-                  &lt;span class="text-xs font-semibold px-3 py-1 bg-indigo-900 text-indigo-300 rounded-full"&gt;PyTorch&lt;/span&gt;
-                  &lt;span class="text-xs font-semibold px-3 py-1 bg-cyan-900 text-cyan-300 rounded-full"&gt;CUDA&lt;/span&gt;
-              &lt;/div&gt;
-              &lt;h3 class="text-xl font-bold text-white mb-2"&gt;NeuralFlow: 神经流形&lt;/h3&gt;
-              &lt;p class="text-gray-400 mb-4 text-sm"&gt;
-                  一个 PyTorch 扩展，用于在训练期间实时可视化高维损失景观的流形。
-              &lt;/p&gt;
-              &lt;a href="#" class="inline-flex items-center text-cyan-400 hover:text-cyan-300 transition-colors"&gt;
-                  &lt;i data-lucide="github" class="w-4 h-4 mr-1.5"&gt;&lt;/i&gt; 查看 GitHub
-              &lt;/a&gt;
-          &lt;/div&gt;
-      &lt;/div&gt;
-  &lt;/div&gt;</code></pre>
-</div></section>
-<!-- 联系方式 -->
-<section id="contact" class="pt-16 text-center">
-<h2 class="text-3xl font-bold text-white mb-6 anchored">
-建立连接
-</h2>
-<p class="text-lg max-w-2xl mx-auto mb-8">
-我一直在寻找有趣的合作机会和富有挑战性的问题。如果你对我的研究感兴趣，或者有想要讨论的想法，请随时与我联系。
-</p>
-<a href="mailto:liam.chen.research@example.com" class="inline-block bg-cyan-600 text-white font-bold text-lg px-8 py-4 rounded-lg shadow-lg shadow-cyan-500/30 transition-all duration-300 hover:bg-cyan-500 hover:shadow-cyan-500/50 transform hover:-translate-y-1"> 发送邮件 </a>
-</section>
+<p><!-- your HTML sections here --></p>
 </div>
 
 
-</main></div>
 
-
- <!-- /main -->
+</main> <!-- /main -->
 <script>
   // 初始化 Lucide Icons
   lucide.createIcons();
@@ -1192,7 +1018,7 @@ window.Quarto = {
     }
   });
   </script>
- <!-- /content -->
+</div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
