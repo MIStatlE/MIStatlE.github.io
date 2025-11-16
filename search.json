@@ -242,7 +242,7 @@
     "href": "index.html",
     "title": "FRAIMEL · 前卫研究者",
     "section": "",
-    "text": "&lt;p class=\"text-sm uppercase tracking-[0.3em] text-cyan-300/80 mb-4\"&gt;\n  FRAIMEL · A High-Signal Growth Space\n&lt;/p&gt;\n\n&lt;h1 class=\"text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight\"&gt;\n  数学 · 机器学习理论 ·  \n  &lt;span class=\"text-cyan-400\"&gt;可执行的成长路径&lt;/span&gt;\n&lt;/h1&gt;\n\n&lt;p class=\"mt-6 text-base md:text-xl text-gray-300 max-w-2xl mx-auto\"&gt;\n  来自一位偏理论研究者的长期主义空间：梳理概率、优化、RL、Diffusion 等核心脉络，\n  把「看得懂论文」和「写得出代码」变成一条可走的路。\n&lt;/p&gt;\n\n&lt;div class=\"mt-10 flex flex-wrap justify-center gap-4\"&gt;\n  &lt;a href=\"guides/index.qmd\"\n     class=\"inline-flex items-center px-6 py-3 rounded-full bg-cyan-500 text-slate-950 font-semibold text-sm md:text-base shadow-lg shadow-cyan-500/40 hover:bg-cyan-400 transition transform hover:-translate-y-0.5\"&gt;\n    浏览 Guides 知识地图\n  &lt;/a&gt;\n\n  &lt;a href=\"posts/index.qmd\"\n     class=\"inline-flex items-center px-6 py-3 rounded-full border border-slate-500/70 text-gray-100 font-medium text-sm md:text-base hover:border-cyan-400 hover:text-cyan-200 transition\"&gt;\n    最近在思考什么\n  &lt;/a&gt;\n\n  &lt;a href=\"papers/index.qmd\"\n     class=\"inline-flex items-center px-6 py-3 rounded-full border border-slate-700 text-gray-300 font-medium text-sm md:text-base hover:border-indigo-400 hover:text-indigo-200 transition\"&gt;\n    Paper Picks & Notes\n  &lt;/a&gt;\n&lt;/div&gt;"
+    "text": "FRAIMEL · A High-Signal Growth Space\n\n\n数学 · 机器学习理论 ·\n可执行的成长路径\n\n\n来自一位偏理论研究者的长期主义空间：梳理概率、优化、RL、Diffusion 等核心脉络， 把「看得懂论文」和「写得出代码」变成一条可走的路。\n\n\n 浏览 Guides 知识地图 \n 最近在思考什么 \n Paper Picks & Notes"
   },
   {
     "objectID": "reads/index.html",
