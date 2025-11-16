@@ -74,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
-<!-- Tailwind CSS CDN -->
+<!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
 
 <!-- Lucide Icons -->
@@ -85,16 +85,14 @@ ul.task-list li input[type="checkbox"] {
 
 <style>
   body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-      background-color: #0a0e1a; /* 更深的背景色 */
+      background-color: #0a0e1a;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
   }
 
   #particles-js {
       position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
+      width: 100%; height: 100%;
+      top: 0; left: 0;
       z-index: 0;
   }
 
@@ -103,62 +101,25 @@ ul.task-list li input[type="checkbox"] {
       z-index: 10;
   }
 
-  ::-webkit-scrollbar {
-      width: 8px;
-  }
-  ::-webkit-scrollbar-track {
-      background: #0a0e1a;
-  }
-  ::-webkit-scrollbar-thumb {
-      background: #0ea5e9;
-      border-radius: 4px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-      background: #06b6d4;
-  }
-
-  h2 {
-      position: relative;
-      display: inline-block;
-  }
+  h2 { position: relative; display: inline-block; }
   h2::after {
       content: '';
       position: absolute;
-      left: 0;
-      bottom: -8px;
-      height: 3px;
-      width: 50%;
+      left: 0; bottom: -8px;
+      height: 3px; width: 50%;
       background: linear-gradient(90deg, #0ea5e9, #6366f1);
-      transition: width 0.3s ease;
+      transition: width .3s;
   }
-  h2:hover::after {
-      width: 100%;
-  }
-
-  .katex {
-      font-size: 1.1em;
-  }
+  h2:hover::after { width: 100%; }
 
   @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
   }
 
-  .animate-fade-in {
-      animation: fadeIn 1s ease-out forwards;
-  }
-  .animate-fade-in-delay-1 {
-      animation: fadeIn 1s ease-out 0.3s forwards;
-      opacity: 0;
-  }
-  .animate-fade-in-delay-2 {
-      animation: fadeIn 1s ease-out 0.6s forwards;
-      opacity: 0;
-  }
-
-  pre code.hljs {
-      border-radius: 8px;
-  }
+  .animate-fade-in { animation: fadeIn 1s ease forwards; }
+  .animate-fade-in-delay-1 { animation: fadeIn 1s ease .3s forwards; opacity: 0; }
+  .animate-fade-in-delay-2 { animation: fadeIn 1s ease .6s forwards; opacity: 0; }
 </style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
