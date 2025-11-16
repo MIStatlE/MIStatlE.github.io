@@ -1,26 +1,18 @@
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
 <script>
   lucide.createIcons();
+  hljs.highlightAll();
 
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });
+
+  // particles 配置
   particlesJS("particles-js", {
-    "particles": {
-        "number": { "value": 80, "density": { "enable": true, "value_area": 800 }},
-        "color": { "value": ["#0ea5e9", "#6366f1", "#ffffff"] },
-        "shape": { "type": "circle" },
-        "opacity": { "value": 0.5 },
-        "size": { "value": 3, "random": true },
-        "line_linked": {
-            "enable": true, "distance": 150,
-            "color": "#475569", "opacity": 0.4, "width": 1
-        },
-        "move": { "enable": true, "speed": 2 }
-    },
-    "interactivity": {
-        "events": {
-            "onhover": { "enable": true, "mode": "grab" },
-            "onclick": { "enable": true, "mode": "push" }
-        },
-        "modes": { "grab": { "distance": 140, "line_opacity": 1 } }
-    },    
-    "retina_detect": true
+    "particles": { ... }
   });
 </script>
