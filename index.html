@@ -122,6 +122,49 @@ body {
   .animate-fade-in-delay-2 { animation: fadeIn 1s ease .6s forwards; opacity: 0; }
 </style>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="FRAIMEL · 前卫研究者 – FRAIMEL">
@@ -569,12 +612,12 @@ Tools
 <p class="text-sm md:text-base text-gray-200 mb-3">
 FRAIMEL 里的很多内容都会保持这种风格：从一个具体问题出发， 给出公式，但同时配上直觉和代码侧的视角。
 </p>
-<div class="text-center overflow-x-auto my-4 px-2">
-<pre><code>    $$
-    \mathcal{L}(\theta, \phi; x)
-    = \mathbb{E}_{q_{\phi}(z\mid x)}[\log p_{\theta}(x\mid z)]
-    - D_{\mathrm{KL}}\bigl(q_{\phi}(z\mid x)\,\Vert\,p(z)\bigr).
-    $$</code></pre>
+<div class="text-center overflow-x-auto my-4 px-2" data-markdown="1">
+<p><span class="math display">
+\mathcal{L}(\theta, \phi; x)
+= \mathbb{E}_{q_{\phi}(z\mid x)}[\log p_{\theta}(x\mid z)]
+- D_{\mathrm{KL}}\bigl(q_{\phi}(z\mid x)\,\Vert\,p(z)\bigr).
+</span></p>
 </div>
 <p class="text-sm md:text-base text-gray-300 mb-2">
 第一项是重构项：在潜变量 (z) 上积分，看生成模型 (p_{}(xz)) 能否重现数据。 第二项是 KL 项：让编码器 (q_{}(zx)) 不要偏离简单的先验 (p(z)) 太远。
@@ -597,8 +640,7 @@ FRAIMEL 里的很多内容都会保持这种风格：从一个具体问题出发
 </div>
 <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-indigo-400/80 hover:-translate-y-1 transition-all">
 <div class="flex space-x-2 mb-2">
-<pre><code>      &lt;span class="px-2.5 py-1 rounded-full bg-emerald-900/60 text-emerald-200 text-xs font-semibold"&gt;RL / Online&lt;/span&gt;
-      &lt;span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-100 text-xs font-semibold"&gt;Bandits&lt;/span&gt;</code></pre>
+<p><span class="px-2.5 py-1 rounded-full bg-emerald-900/60 text-emerald-200 text-xs font-semibold">RL / Online</span> <span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-100 text-xs font-semibold">Bandits</span></p>
 </div>
 <h3 class="text-lg font-bold text-white mb-2 anchored">
 从 UCB 到乐观原理：不确定性如何被「利用」？
