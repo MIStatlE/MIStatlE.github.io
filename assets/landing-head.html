@@ -1,19 +1,47 @@
-<!-- Tailwind CSS -->
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
 
 <!-- Lucide Icons -->
-<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://unpkg.com/lucide@latest/dist/lucide.min.js"></script>
 
-<!-- KaTeX -->
-<link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<!-- particles.js -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
-<!-- highlight.js -->
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<style>
+  body {
+      background-color: #0a0e1a;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  }
 
-<!-- 你的自定义 CSS -->
-<link rel="stylesheet" href="assets/landing.css">
+  #particles-js {
+      position: absolute;
+      width: 100%; height: 100%;
+      top: 0; left: 0;
+      z-index: 0;
+  }
+
+  .content-wrapper {
+      position: relative;
+      z-index: 10;
+  }
+
+  h2 { position: relative; display: inline-block; }
+  h2::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -8px;
+      height: 3px; width: 50%;
+      background: linear-gradient(90deg, #0ea5e9, #6366f1);
+      transition: width .3s;
+  }
+  h2:hover::after { width: 100%; }
+
+  @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fade-in { animation: fadeIn 1s ease forwards; }
+  .animate-fade-in-delay-1 { animation: fadeIn 1s ease .3s forwards; opacity: 0; }
+  .animate-fade-in-delay-2 { animation: fadeIn 1s ease .6s forwards; opacity: 0; }
+</style>
