@@ -86,7 +86,7 @@ format:
 <a href="papers/index.html"
    class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-indigo-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40">
   <div class="flex items-center justify-between mb-3">
-    <h2 class="text-base font-semibold text-white">Paper Picks</h2>
+<h2 class="text-base font-semibold text-white">Paper Picks</h2>
     <i data-lucide="book-open-check" class="w-5 h-5 text-indigo-300"></i>
   </div>
   <p class="text-xs md:text-sm text-gray-300">
@@ -98,7 +98,7 @@ format:
 <a href="posts/index.html"
    class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-emerald-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40">
   <div class="flex items-center justify-between mb-3">
-    <h2 class="text-base font-semibold text-white">Posts</h2>
+<h2 class="text-base font-semibold text-white">Posts</h2>
     <i data-lucide="sparkles" class="w-5 h-5 text-emerald-300"></i>
   </div>
   <p class="text-xs md:text-sm text-gray-300">
@@ -110,13 +110,13 @@ format:
 <a href="tools/index.html"
    class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-amber-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40">
   <div class="flex items-center justify-between mb-3">
-    <h2 class="text-base font-semibold text-white">Tools</h2>
+<h2 class="text-base font-semibold text-white">Tools</h2>
     <i data-lucide="wrench" class="w-5 h-5 text-amber-300"></i>
   </div>
-  <p class="text-xs md:text-sm text-gray-300">
+<p class="text-xs md:text-sm text-gray-300">
     写论文、做实验、记笔记、管理引用的那一整套工程与工作流，
     更偏「可复制的 setup」而不是炫技。
-  </p>
+</p>
 </a>
 
 </div>
@@ -162,9 +162,9 @@ format:
 </h2>
 
 <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 md:p-7 mb-10">
-  <h3 class="text-xl md:text-2xl font-semibold text-white mb-3">
+<h3 class="text-xl md:text-2xl font-semibold text-white mb-3">
     例：VAE 的 ELBO 与重参数化技巧
-  </h3>
+</h3>
   <p class="text-sm md:text-base text-gray-200 mb-3">
     FRAIMEL 里的很多内容都会保持这种风格：从一个具体问题出发，
     给出公式，但同时配上直觉和代码侧的视角。
@@ -195,9 +195,9 @@ $$
       <span class="px-2.5 py-1 rounded-full bg-cyan-900/60 text-cyan-200 text-xs font-semibold">ML Theory</span>
       <span class="px-2.5 py-1 rounded-full bg-indigo-900/60 text-indigo-200 text-xs font-semibold">Generalization</span>
     </div>
-    <h3 class="text-lg font-bold text-white mb-2">
+<h3 class="text-lg font-bold text-white mb-2">
       从 Hoeffding 到 PAC：如何真正理解「界」在说什么？
-    </h3>
+</h3>
     <p class="text-sm text-gray-300">
       不只是背大 O 和不等式，而是看这些界如何限制模型、如何在 proof 中被「巧妙地用掉」，以及它们和实际训练的关系。
     </p>
@@ -208,13 +208,13 @@ $$
       <span class="px-2.5 py-1 rounded-full bg-emerald-900/60 text-emerald-200 text-xs font-semibold">RL / Online</span>
       <span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-100 text-xs font-semibold">Bandits</span>
     </div>
-    <h3 class="text-lg font-bold text-white mb-2">
+ <h3 class="text-lg font-bold text-white mb-2">
       从 UCB 到乐观原理：不确定性如何被「利用」？
-    </h3>
-    <p class="text-sm text-gray-300">
+ </h3>
+ <p class="text-sm text-gray-300">
       把 regret bound 当成「叙事」来读：为什么是 $\sqrt{T}$，为什么依赖于 gap，
       以及它告诉我们怎样设计更合理的探索策略。
-    </p>
+ </p>
   </div>
 </div>
 </section>
