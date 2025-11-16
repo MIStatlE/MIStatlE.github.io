@@ -1,41 +1,105 @@
 ---
-title: "FRAIMEL · 前卫研究者"
+title: "FRAIMEL"
 format:
   html:
     toc: false
+    include-in-header: assets/landing-head.html
+    include-after-body: assets/landing-after-body.html
 ---
-
-<!-- 你的 HTML 从这里开始 -->
-
-<p class="text-sm uppercase tracking-[0.3em] text-cyan-300/80 mb-4">
+<p class="text-sm uppercase tracking-[0.3em] text-cyan-300/80 mb-4 animate-fade-in">
   FRAIMEL · A High-Signal Growth Space
 </p>
 
-<h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight">
+<h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight animate-fade-in">
   数学 · 机器学习理论 ·  
   <span class="text-cyan-400">可执行的成长路径</span>
 </h1>
 
-<p class="mt-6 text-base md:text-xl text-gray-300 max-w-2xl mx-auto">
+<p class="mt-6 text-base md:text-xl text-gray-300 max-w-2xl mx-auto animate-fade-in-delay-1">
   来自一位偏理论研究者的长期主义空间：梳理概率、优化、RL、Diffusion 等核心脉络，
   把「看得懂论文」和「写得出代码」变成一条可走的路。
 </p>
 
-<div class="mt-10 flex flex-wrap justify-center gap-4">
+<!-- CTA 区域 -->
+<div class="mt-10 flex flex-wrap justify-center gap-4 animate-fade-in-delay-2">
   <a href="guides/index.qmd"
      class="inline-flex items-center px-6 py-3 rounded-full bg-cyan-500 text-slate-950 font-semibold text-sm md:text-base shadow-lg shadow-cyan-500/40 hover:bg-cyan-400 transition transform hover:-translate-y-0.5">
+    <i data-lucide="compass" class="w-5 h-5 mr-2"></i>
     浏览 Guides 知识地图
   </a>
 
   <a href="posts/index.qmd"
      class="inline-flex items-center px-6 py-3 rounded-full border border-slate-500/70 text-gray-100 font-medium text-sm md:text-base hover:border-cyan-400 hover:text-cyan-200 transition">
+    <i data-lucide="pen-square" class="w-5 h-5 mr-2"></i>
     最近在思考什么
   </a>
 
   <a href="papers/index.qmd"
      class="inline-flex items-center px-6 py-3 rounded-full border border-slate-700 text-gray-300 font-medium text-sm md:text-base hover:border-indigo-400 hover:text-indigo-200 transition">
+    <i data-lucide="library" class="w-5 h-5 mr-2"></i>
     Paper Picks & Notes
   </a>
 </div>
 
-<!-- 你的 HTML 到这里结束 -->
+<!-- 社交 / 外链 -->
+<div class="mt-10 flex justify-center space-x-6 text-gray-400 text-sm animate-fade-in-delay-2">
+  <a href="https://github.com/MIStatlE" class="hover:text-cyan-400 inline-flex items-center gap-1">
+    <i data-lucide="github" class="w-5 h-5"></i> GitHub
+  </a>
+  <a href="posts/index.xml" class="hover:text-cyan-400 inline-flex items-center gap-1">
+    <i data-lucide="rss" class="w-5 h-5"></i> RSS
+  </a>
+  <a href="about.qmd" class="hover:text-cyan-400 inline-flex items-center gap-1">
+    <i data-lucide="user-round" class="w-5 h-5"></i> About
+  </a>
+</div>
+
+<!-- Guides -->
+<a href="guides/index.qmd"
+   class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-cyan-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40 block mt-16">
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-base font-semibold text-white">Guides</h2>
+    <i data-lucide="map" class="w-5 h-5 text-cyan-300"></i>
+  </div>
+  <p class="text-xs md:text-sm text-gray-300">
+    把概率、优化、ML Theory、RL / Diffusion 写成可循的路径，
+    像 syllabus 却比课本更贴近实战和直觉。
+  </p>
+</a>
+
+<!-- Paper Picks -->
+<a href="papers/index.qmd"
+   class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-indigo-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40 block mt-6">
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-base font-semibold text-white">Paper Picks</h2>
+    <i data-lucide="book-open-check" class="w-5 h-5 text-indigo-300"></i>
+  </div>
+  <p class="text-xs md:text-sm text-gray-300">
+    有选择地读论文：为什么值得读、核心贡献是什么、放在更大图景中的哪一块。
+  </p>
+</a>
+
+<!-- Posts -->
+<a href="posts/index.qmd"
+   class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-emerald-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40 block mt-6">
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-base font-semibold text-white">Posts</h2>
+    <i data-lucide="sparkles" class="w-5 h-5 text-emerald-300"></i>
+  </div>
+  <p class="text-xs md:text-sm text-gray-300">
+    一些阶段性的想法：科研路径、成长系统、工具使用、以及和 AI 共生的工作方式。
+  </p>
+</a>
+
+<!-- Tools / Workflows -->
+<a href="tools/index.qmd"
+   class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-amber-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40 block mt-6">
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-base font-semibold text-white">Tools</h2>
+    <i data-lucide="wrench" class="w-5 h-5 text-amber-300"></i>
+  </div>
+  <p class="text-xs md:text-sm text-gray-300">
+    写论文、做实验、记笔记、管理引用的那一整套工程与工作流，
+    更偏「可复制的 setup」而不是炫技。
+  </p>
+</a>
