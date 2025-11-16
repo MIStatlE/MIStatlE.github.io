@@ -593,9 +593,9 @@ Tools
 记录一个理想主义者如何在现实世界中持续地成长。
 </li>
 </ul>
-<pre><code>&lt;p class="text-sm md:text-base text-gray-400"&gt;
-  如果你在类似的路上，这里可以是一个「共鸣点」，也可以是一个「参考样本」。
-&lt;/p&gt;</code></pre>
+<p class="text-sm md:text-base text-gray-400">
+如果你在类似的路上，这里可以是一个「共鸣点」，也可以是一个「参考样本」。
+</p>
 </div>
 </div>
 </section>
@@ -612,11 +612,11 @@ Tools
 FRAIMEL 里的很多内容都会保持这种风格：从一个具体问题出发， 给出公式，但同时配上直觉和代码侧的视角。
 </p>
 <div class="text-center overflow-x-auto my-4 px-2">
-<span class="math display">
+<p><span class="math display">
 \mathcal{L}(\theta, \phi; x)
 = \mathbb{E}_{q_{\phi}(z\mid x)}[\log p_{\theta}(x\mid z)]
 - D_{\mathrm{KL}}\bigl(q_{\phi}(z\mid x)\,\Vert\,p(z)\bigr).
-</span>
+</span></p>
 </div>
 <p class="text-sm md:text-base text-gray-300 mb-2">
 第一项是重构项：在潜变量 <span class="math inline">z</span> 上积分，看生成模型 <span class="math inline">p_{\theta}(x\mid z)</span> 能否重现数据。 第二项是 KL 项：让编码器 <span class="math inline">q_{\phi}(z\mid x)</span> 不要偏离简单的先验 <span class="math inline">p(z)</span> 太远。
@@ -627,22 +627,22 @@ FRAIMEL 里的很多内容都会保持这种风格：从一个具体问题出发
 </div>
 <div class="grid md:grid-cols-2 gap-6">
 <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-cyan-400/80 hover:-translate-y-1 transition-all">
-<pre><code>&lt;div class="flex space-x-2 mb-2"&gt;
-  &lt;span class="px-2.5 py-1 rounded-full bg-cyan-900/60 text-cyan-200 text-xs font-semibold"&gt;ML Theory&lt;/span&gt;
-  &lt;span class="px-2.5 py-1 rounded-full bg-indigo-900/60 text-indigo-200 text-xs font-semibold"&gt;Generalization&lt;/span&gt;
-&lt;/div&gt;</code></pre>
+<div class="flex space-x-2 mb-2">
+<pre><code>  &lt;span class="px-2.5 py-1 rounded-full bg-cyan-900/60 text-cyan-200 text-xs font-semibold"&gt;ML Theory&lt;/span&gt;
+  &lt;span class="px-2.5 py-1 rounded-full bg-indigo-900/60 text-indigo-200 text-xs font-semibold"&gt;Generalization&lt;/span&gt;</code></pre>
+</div>
 <h3 class="text-lg font-bold text-white mb-2 anchored">
 从 Hoeffding 到 PAC：如何真正理解「界」在说什么？
 </h3>
-<pre><code>&lt;p class="text-sm text-gray-300"&gt;
-  不只是背大 O 和不等式，而是看这些界如何限制模型、如何在 proof 中被「巧妙地用掉」，以及它们和实际训练的关系。
-&lt;/p&gt;</code></pre>
+<p class="text-sm text-gray-300">
+不只是背大 O 和不等式，而是看这些界如何限制模型、如何在 proof 中被「巧妙地用掉」，以及它们和实际训练的关系。
+</p>
 </div>
 <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-indigo-400/80 hover:-translate-y-1 transition-all">
-<pre><code>&lt;div class="flex space-x-2 mb-2"&gt;
-  &lt;span class="px-2.5 py-1 rounded-full bg-emerald-900/60 text-emerald-200 text-xs font-semibold"&gt;RL / Online&lt;/span&gt;
-  &lt;span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-100 text-xs font-semibold"&gt;Bandits&lt;/span&gt;
-&lt;/div&gt;</code></pre>
+<div class="flex space-x-2 mb-2">
+<pre><code>  &lt;span class="px-2.5 py-1 rounded-full bg-emerald-900/60 text-emerald-200 text-xs font-semibold"&gt;RL / Online&lt;/span&gt;
+  &lt;span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-100 text-xs font-semibold"&gt;Bandits&lt;/span&gt;</code></pre>
+</div>
 <h3 class="text-lg font-bold text-white mb-2 anchored">
 从 UCB 到乐观原理：不确定性如何被「利用」？
 </h3>
