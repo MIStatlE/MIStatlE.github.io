@@ -240,9 +240,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "FRAIMEL · 前卫研究者",
+    "title": "FRAIMEL",
     "section": "",
-    "text": "FRAIMEL · A High-Signal Growth Space\n\n\n数学 · 机器学习理论 ·\n可执行的成长路径\n\n\n来自一位偏理论研究者的长期主义空间：梳理概率、优化、RL、Diffusion 等核心脉络， 把「看得懂论文」和「写得出代码」变成一条可走的路。\n\n\n 浏览 Guides 知识地图 \n 最近在思考什么 \n Paper Picks & Notes"
+    "text": "FRAIMEL · A High-Signal Growth Space\n\n\n数学 · 机器学习理论 ·\n可执行的成长路径\n\n\n来自一位偏理论研究者的长期主义空间：梳理概率、优化、RL、Diffusion 等核心脉络， 把「看得懂论文」和「写得出代码」变成一条可走的路。\n\n\n\n  浏览 Guides 知识地图 \n  最近在思考什么 \n  Paper Picks & Notes \n\n\n\n  GitHub    RSS    About \n\n\n\n\n&lt;h2 class=\"text-base font-semibold text-white\"&gt;Guides&lt;/h2&gt;\n&lt;i data-lucide=\"map\" class=\"w-5 h-5 text-cyan-300\"&gt;&lt;/i&gt;\n\n\n把概率、优化、ML Theory、RL / Diffusion 写成可循的路径， 像 syllabus 却比课本更贴近实战和直觉。\n\n\n\n\n\n&lt;h2 class=\"text-base font-semibold text-white\"&gt;Paper Picks&lt;/h2&gt;\n&lt;i data-lucide=\"book-open-check\" class=\"w-5 h-5 text-indigo-300\"&gt;&lt;/i&gt;\n\n\n有选择地读论文：为什么值得读、核心贡献是什么、放在更大图景中的哪一块。\n\n\n\n\n\n&lt;h2 class=\"text-base font-semibold text-white\"&gt;Posts&lt;/h2&gt;\n&lt;i data-lucide=\"sparkles\" class=\"w-5 h-5 text-emerald-300\"&gt;&lt;/i&gt;\n\n\n一些阶段性的想法：科研路径、成长系统、工具使用、以及和 AI 共生的工作方式。\n\n\n\n\n\n&lt;h2 class=\"text-base font-semibold text-white\"&gt;Tools&lt;/h2&gt;\n&lt;i data-lucide=\"wrench\" class=\"w-5 h-5 text-amber-300\"&gt;&lt;/i&gt;\n\n\n写论文、做实验、记笔记、管理引用的那一整套工程与工作流， 更偏「可复制的 setup」而不是炫技。"
   },
   {
     "objectID": "reads/index.html",

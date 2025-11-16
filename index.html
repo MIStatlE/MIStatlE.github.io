@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>FRAIMEL · 前卫研究者 – FRAIMEL</title>
+<title>FRAIMEL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,13 +74,59 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest/dist/lucide.min.js"></script>
+
+<!-- particles.js -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+<style>
+  body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  }
+
+  #particles-js {
+      position: absolute;
+      width: 100%; height: 100%;
+      top: 0; left: 0;
+      z-index: 0;
+  }
+
+  .content-wrapper {
+      position: relative;
+      z-index: 10;
+  }
+
+  h2 { position: relative; display: inline-block; }
+  h2::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -8px;
+      height: 3px; width: 50%;
+      background: linear-gradient(90deg, #0ea5e9, #6366f1);
+      transition: width .3s;
+  }
+  h2:hover::after { width: 100%; }
+
+  @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fade-in { animation: fadeIn 1s ease forwards; }
+  .animate-fade-in-delay-1 { animation: fadeIn 1s ease .3s forwards; opacity: 0; }
+  .animate-fade-in-delay-2 { animation: fadeIn 1s ease .6s forwards; opacity: 0; }
+</style>
 
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="FRAIMEL · 前卫研究者 – FRAIMEL">
+<meta property="og:title" content="FRAIMEL">
 <meta property="og:description" content="A high-signal growth space: math, ML theory, papers, tools, and community.">
 <meta property="og:site_name" content="FRAIMEL">
-<meta name="twitter:title" content="FRAIMEL · 前卫研究者 – FRAIMEL">
+<meta name="twitter:title" content="FRAIMEL">
 <meta name="twitter:description" content="A high-signal growth space: math, ML theory, papers, tools, and community.">
 <meta name="twitter:creator" content="@MIStatlE">
 <meta name="twitter:card" content="summary_large_image">
@@ -380,7 +426,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">FRAIMEL · 前卫研究者</h1>
+<h1 class="title">FRAIMEL</h1>
 </div>
 
 
@@ -397,27 +443,96 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<!-- 你的 HTML 从这里开始 -->
-<p class="text-sm uppercase tracking-[0.3em] text-cyan-300/80 mb-4">
+<p class="text-sm uppercase tracking-[0.3em] text-cyan-300/80 mb-4 animate-fade-in">
 FRAIMEL · A High-Signal Growth Space
 </p>
-<h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight">
+<h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight animate-fade-in">
 数学 · 机器学习理论 ·<br>
 <span class="text-cyan-400">可执行的成长路径</span>
 </h1>
-<p class="mt-6 text-base md:text-xl text-gray-300 max-w-2xl mx-auto">
+<p class="mt-6 text-base md:text-xl text-gray-300 max-w-2xl mx-auto animate-fade-in-delay-1">
 来自一位偏理论研究者的长期主义空间：梳理概率、优化、RL、Diffusion 等核心脉络， 把「看得懂论文」和「写得出代码」变成一条可走的路。
 </p>
-<div class="mt-10 flex flex-wrap justify-center gap-4">
-<p><a href="./guides/index.html" class="inline-flex items-center px-6 py-3 rounded-full bg-cyan-500 text-slate-950 font-semibold text-sm md:text-base shadow-lg shadow-cyan-500/40 hover:bg-cyan-400 transition transform hover:-translate-y-0.5"> 浏览 Guides 知识地图 </a></p>
-<p><a href="./posts/index.html" class="inline-flex items-center px-6 py-3 rounded-full border border-slate-500/70 text-gray-100 font-medium text-sm md:text-base hover:border-cyan-400 hover:text-cyan-200 transition"> 最近在思考什么 </a></p>
-<p><a href="./papers/index.html" class="inline-flex items-center px-6 py-3 rounded-full border border-slate-700 text-gray-300 font-medium text-sm md:text-base hover:border-indigo-400 hover:text-indigo-200 transition"> Paper Picks &amp; Notes </a></p>
+<!-- CTA 区域 -->
+<div class="mt-10 flex flex-wrap justify-center gap-4 animate-fade-in-delay-2">
+<p><a href="./guides/index.html" class="inline-flex items-center px-6 py-3 rounded-full bg-cyan-500 text-slate-950 font-semibold text-sm md:text-base shadow-lg shadow-cyan-500/40 hover:bg-cyan-400 transition transform hover:-translate-y-0.5"> <i data-lucide="compass" class="w-5 h-5 mr-2"></i> 浏览 Guides 知识地图 </a></p>
+<p><a href="./posts/index.html" class="inline-flex items-center px-6 py-3 rounded-full border border-slate-500/70 text-gray-100 font-medium text-sm md:text-base hover:border-cyan-400 hover:text-cyan-200 transition"> <i data-lucide="pen-square" class="w-5 h-5 mr-2"></i> 最近在思考什么 </a></p>
+<p><a href="./papers/index.html" class="inline-flex items-center px-6 py-3 rounded-full border border-slate-700 text-gray-300 font-medium text-sm md:text-base hover:border-indigo-400 hover:text-indigo-200 transition"> <i data-lucide="library" class="w-5 h-5 mr-2"></i> Paper Picks &amp; Notes </a></p>
 </div>
-<!-- 你的 HTML 到这里结束 -->
+<!-- 社交 / 外链 -->
+<div class="mt-10 flex justify-center space-x-6 text-gray-400 text-sm animate-fade-in-delay-2">
+<p><a href="https://github.com/MIStatlE" class="hover:text-cyan-400 inline-flex items-center gap-1"> <i data-lucide="github" class="w-5 h-5"></i> GitHub </a> <a href="posts/index.xml" class="hover:text-cyan-400 inline-flex items-center gap-1"> <i data-lucide="rss" class="w-5 h-5"></i> RSS </a> <a href="./about.html" class="hover:text-cyan-400 inline-flex items-center gap-1"> <i data-lucide="user-round" class="w-5 h-5"></i> About </a></p>
+</div>
+<!-- Guides -->
+<a href="./guides/index.html" class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-cyan-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40 block mt-16">
+<div class="flex items-center justify-between mb-3">
+<pre><code>&lt;h2 class="text-base font-semibold text-white"&gt;Guides&lt;/h2&gt;
+&lt;i data-lucide="map" class="w-5 h-5 text-cyan-300"&gt;&lt;/i&gt;</code></pre>
+</div>
+<p class="text-xs md:text-sm text-gray-300">
+把概率、优化、ML Theory、RL / Diffusion 写成可循的路径， 像 syllabus 却比课本更贴近实战和直觉。
+</p>
+</a><p><a href="./guides/index.html" class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-cyan-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40 block mt-16"></a></p>
+<!-- Paper Picks -->
+<a href="./papers/index.html" class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-indigo-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40 block mt-6">
+<div class="flex items-center justify-between mb-3">
+<pre><code>&lt;h2 class="text-base font-semibold text-white"&gt;Paper Picks&lt;/h2&gt;
+&lt;i data-lucide="book-open-check" class="w-5 h-5 text-indigo-300"&gt;&lt;/i&gt;</code></pre>
+</div>
+<p class="text-xs md:text-sm text-gray-300">
+有选择地读论文：为什么值得读、核心贡献是什么、放在更大图景中的哪一块。
+</p>
+</a><p><a href="./papers/index.html" class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-indigo-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40 block mt-6"></a></p>
+<!-- Posts -->
+<a href="./posts/index.html" class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-emerald-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40 block mt-6">
+<div class="flex items-center justify-between mb-3">
+<pre><code>&lt;h2 class="text-base font-semibold text-white"&gt;Posts&lt;/h2&gt;
+&lt;i data-lucide="sparkles" class="w-5 h-5 text-emerald-300"&gt;&lt;/i&gt;</code></pre>
+</div>
+<p class="text-xs md:text-sm text-gray-300">
+一些阶段性的想法：科研路径、成长系统、工具使用、以及和 AI 共生的工作方式。
+</p>
+</a><p><a href="./posts/index.html" class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-emerald-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40 block mt-6"></a></p>
+<!-- Tools / Workflows -->
+<a href="./tools/index.html" class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-amber-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40 block mt-6">
+<div class="flex items-center justify-between mb-3">
+<pre><code>&lt;h2 class="text-base font-semibold text-white"&gt;Tools&lt;/h2&gt;
+&lt;i data-lucide="wrench" class="w-5 h-5 text-amber-300"&gt;&lt;/i&gt;</code></pre>
+</div>
+<p class="text-xs md:text-sm text-gray-300">
+写论文、做实验、记笔记、管理引用的那一整套工程与工作流， 更偏「可复制的 setup」而不是炫技。
+</p>
+</a><p><a href="./tools/index.html" class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-amber-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40 block mt-6"></a></p>
 
 
 
 </main> <!-- /main -->
+<script>
+  lucide.createIcons();
+
+  particlesJS("particles-js", {
+    "particles": {
+        "number": { "value": 80, "density": { "enable": true, "value_area": 800 }},
+        "color": { "value": ["#0ea5e9", "#6366f1", "#ffffff"] },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.5 },
+        "size": { "value": 3, "random": true },
+        "line_linked": {
+            "enable": true, "distance": 150,
+            "color": "#475569", "opacity": 0.4, "width": 1
+        },
+        "move": { "enable": true, "speed": 2 }
+    },
+    "interactivity": {
+        "events": {
+            "onhover": { "enable": true, "mode": "grab" },
+            "onclick": { "enable": true, "mode": "push" }
+        },
+        "modes": { "grab": { "distance": 140, "line_opacity": 1 } }
+    },    
+    "retina_detect": true
+  });
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
