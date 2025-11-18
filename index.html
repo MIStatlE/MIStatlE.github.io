@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>FRAIMEL · Research &amp; Theory – FRAIMEL</title>
+<title>FRAIMEL · 前卫研究者 – FRAIMEL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -122,54 +122,11 @@ body {
   .animate-fade-in-delay-2 { animation: fadeIn 1s ease .6s forwards; opacity: 0; }
 </style>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="FRAIMEL · Research &amp; Theory – FRAIMEL">
+<meta property="og:title" content="FRAIMEL · 前卫研究者 – FRAIMEL">
 <meta property="og:site_name" content="FRAIMEL">
-<meta name="twitter:title" content="FRAIMEL · Research &amp; Theory – FRAIMEL">
+<meta name="twitter:title" content="FRAIMEL · 前卫研究者 – FRAIMEL">
 <meta name="twitter:creator" content="@MIStatlE">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -468,7 +425,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">FRAIMEL · Research &amp; Theory</h1>
+<h1 class="title">FRAIMEL · 前卫研究者</h1>
 </div>
 
 
@@ -485,256 +442,182 @@ window.Quarto = {
 </header>
 
 
-<style>
-:root {
-    --accent-primary: #4f46e5;
-    --accent-secondary: #0f172a;
-}
-
-.fraimel-wrapper,
-.fraimel-wrapper * {
-    writing-mode: horizontal-tb !important;
-    text-orientation: mixed !important;
-}
-
-.bg-grid-pattern {
-    background-size: 40px 40px;
-    background-image: linear-gradient(to right, rgba(15, 23, 42, 0.05) 1px, transparent 1px),
-                      linear-gradient(to bottom, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
-    mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-}
-
-.math-display-box {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    border-left: 4px solid var(--accent-primary);
-    font-family: "KaTeX_Main", "Times New Roman", serif;
-}
-
-.hover-underline-animation {
-    display: inline-block;
-    position: relative;
-}
-.hover-underline-animation::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 1px;
-    bottom: 0;
-    left: 0;
-    background-color: currentColor;
-    transform-origin: bottom right;
-    transition: transform 0.25s ease-out;
-}
-.hover-underline-animation:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-}
-</style>
-<div class="fraimel-wrapper font-sans text-slate-600 antialiased">
-<section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-slate-50">
-<div class="absolute inset-0 bg-grid-pattern z-0 pointer-events-none">
+<!-- ================= HERO ================= -->
+<section id="hero" class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
+<!-- 粒子背景 -->
+<div id="particles-js">
 
 </div>
-<div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-white/0 to-slate-50 z-0 pointer-events-none">
-
-</div>
-<div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
-<div class="inline-flex items-center px-3 py-1 rounded-full border border-slate-200 bg-white/50 backdrop-blur-sm text-xs font-medium text-slate-500 mb-8 shadow-sm">
-<p><span class="w-2 h-2 rounded-full bg-indigo-500 mr-2 animate-pulse"></span> FRAIMEL RESEARCH LOGS</p>
-</div>
-<h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 mb-6 font-serif">
-Math, ML Theory <br class="hidden md:block"> &amp; <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-teal-500">Executable Insights</span>
+<!-- 文本内容 -->
+<div class="content-wrapper px-4">
+<p class="text-sm uppercase tracking-[0.3em] text-slate-700 mb-4 animate-fade-in">
+FRAIMEL · A High-Signal Growth Space
+</p>
+<h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 leading-tight animate-fade-in">
+数学 · 机器学习理论 · <span class="text-cyan-700">可执行的成长路径</span>
 </h1>
-<p class="mt-6 text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-一位偏理论研究者的长期主义空间。<br> 梳理概率、优化、RL 与 Diffusion 的核心脉络，致力于将<strong class="text-slate-900 font-semibold">「抽象的数学直觉」</strong>转化为<strong class="text-slate-900 font-semibold">「可复现的代码路径」</strong>。
+<p class="mt-6 text-base md:text-xl text-slate-700 max-w-2xl mx-auto animate-fade-in-delay-1">
+来自一位偏理论研究者的长期主义空间：梳理概率、优化、RL、Diffusion 等核心脉络， 把「看得懂论文」和「写得出代码」变成一条可走的路。
 </p>
-<div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-<p><a href="guides/index.html" class="group inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-slate-900 rounded-lg hover:bg-slate-800 transition-all duration-200 shadow-lg shadow-slate-900/20 ring-1 ring-slate-900"> <i data-lucide="compass" class="w-5 h-5 mr-2 text-indigo-300 group-hover:text-white transition-colors"></i> Explore Guides </a> <a href="papers/index.html" class="group inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 hover:text-indigo-600 hover:border-indigo-200 transition-all duration-200 shadow-sm"> <i data-lucide="library" class="w-5 h-5 mr-2 text-slate-400 group-hover:text-indigo-500 transition-colors"></i> Paper Notes </a></p>
+<!-- CTA 区域 -->
+<div class="mt-10 flex flex-wrap justify-center gap-4 animate-fade-in-delay-2">
+<p><a href="guides/index.html" class="inline-flex items-center px-6 py-3 rounded-full bg-cyan-500 text-slate-950 font-semibold text-sm md:text-base shadow-lg shadow-cyan-500/40 hover:bg-cyan-400 transition transform hover:-translate-y-0.5"> <i data-lucide="compass" class="w-5 h-5 mr-2"></i> 浏览 Guides 知识地图 </a></p>
+<p><a href="posts/index.html" class="inline-flex items-center px-6 py-3 rounded-full border border-slate-500/70 text-slate-800 font-medium text-sm md:text-base hover:border-cyan-400 hover:text-cyan-700 transition"> <i data-lucide="pen-square" class="w-5 h-5 mr-2"></i> 最近在思考什么 </a></p>
+<p><a href="papers/index.html" class="inline-flex items-center px-6 py-3 rounded-full border border-slate-700 text-slate-800 font-medium text-sm md:text-base hover:border-indigo-400 hover:text-indigo-700 transition"> <i data-lucide="library" class="w-5 h-5 mr-2"></i> Paper Picks &amp; Notes </a></p>
 </div>
-<div class="mt-12 flex justify-center items-center space-x-8 text-slate-400">
-<p><a href="https://github.com/MIStatlE" class="hover:text-slate-900 transition-colors flex items-center gap-2 text-sm font-medium hover-underline-animation"> <i data-lucide="github" class="w-4 h-4"></i> GitHub </a> <a href="posts/index.xml" class="hover:text-slate-900 transition-colors flex items-center gap-2 text-sm font-medium hover-underline-animation"> <i data-lucide="rss" class="w-4 h-4"></i> RSS Feed </a> <a href="about.html" class="hover:text-slate-900 transition-colors flex items-center gap-2 text-sm font-medium hover-underline-animation"> <i data-lucide="user" class="w-4 h-4"></i> About </a></p>
+<!-- 社交 / 外链 -->
+<div class="mt-10 flex justify-center space-x-6 text-slate-600 text-sm animate-fade-in-delay-2">
+<p><a href="https://github.com/MIStatlE" class="hover:text-cyan-700 inline-flex items-center gap-1"> <i data-lucide="github" class="w-5 h-5"></i> GitHub </a></p>
+<p><a href="posts/index.xml" class="hover:text-cyan-700 inline-flex items-center gap-1"> <i data-lucide="rss" class="w-5 h-5"></i> RSS </a></p>
+<p><a href="about.html" class="hover:text-cyan-700 inline-flex items-center gap-1"> <i data-lucide="user-round" class="w-5 h-5"></i> About </a></p>
 </div>
 </div>
 </section>
-<section class="py-20 bg-white">
-<div class="max-w-7xl mx-auto px-6 sm:px-8">
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-<a href="guides/index.html" class="group block p-6 bg-white rounded-2xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300">
-<div class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-indigo-600 transition-colors duration-300">
-<p><i data-lucide="map" class="w-6 h-6 text-indigo-600 group-hover:text-white transition-colors"></i></p>
-</div>
-<h3 class="text-lg font-bold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors anchored">
+<!-- ============== 快速概览：网站四个支柱 ============== -->
+<section class="content-wrapper max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 md:-mt-24">
+<div class="grid md:grid-cols-4 gap-4 md:gap-6">
+<!-- Guides -->
+<a href="guides/index.html" class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-cyan-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40">
+<div class="flex items-center justify-between mb-3">
+<h2 class="text-base font-semibold text-white anchored">
 Guides
-</h3>
-<p class="text-sm text-slate-500 leading-relaxed">
-体系化的知识地图。将概率、优化与 ML Theory 编织成可循的路径，比课本更贴近实战直觉。
-</p>
-</a><p><a href="guides/index.html" class="group block p-6 bg-white rounded-2xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300"></a></p>
-<a href="papers/index.html" class="group block p-6 bg-white rounded-2xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300">
-<div class="w-12 h-12 bg-teal-50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-teal-600 transition-colors duration-300">
-<p><i data-lucide="book-open-check" class="w-6 h-6 text-teal-600 group-hover:text-white transition-colors"></i></p>
+</h2>
+<p><i data-lucide="map" class="w-5 h-5 text-cyan-300"></i></p>
 </div>
-<h3 class="text-lg font-bold text-slate-900 mb-2 group-hover:text-teal-600 transition-colors anchored">
+<p class="text-xs md:text-sm text-gray-300">
+把概率、优化、ML Theory、RL / Diffusion 写成可循的路径， 像 syllabus 却比课本更贴近实战和直觉。
+</p>
+</a><p><a href="guides/index.html" class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-cyan-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40"></a></p>
+<!-- Paper Picks -->
+<a href="papers/index.html" class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-indigo-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40">
+<div class="flex items-center justify-between mb-3">
+<h2 class="text-base font-semibold text-white anchored">
 Paper Picks
-</h3>
-<p class="text-sm text-slate-500 leading-relaxed">
-有选择地深度阅读。剖析核心贡献，厘清它在学术版图中的位置与价值。
-</p>
-</a><p><a href="papers/index.html" class="group block p-6 bg-white rounded-2xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300"></a></p>
-<a href="posts/index.html" class="group block p-6 bg-white rounded-2xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300">
-<div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-amber-500 transition-colors duration-300">
-<p><i data-lucide="sparkles" class="w-6 h-6 text-amber-600 group-hover:text-white transition-colors"></i></p>
+</h2>
+<p><i data-lucide="book-open-check" class="w-5 h-5 text-indigo-300"></i></p>
 </div>
-<h3 class="text-lg font-bold text-slate-900 mb-2 group-hover:text-amber-600 transition-colors anchored">
-Thoughts
-</h3>
-<p class="text-sm text-slate-500 leading-relaxed">
-阶段性的思考碎片。关于科研路径、成长系统、以及人与 AI 共生的工作流。
+<p class="text-xs md:text-sm text-gray-300">
+有选择地读论文：为什么值得读、核心贡献是什么、放在更大图景中的哪一块。
 </p>
-</a><p><a href="posts/index.html" class="group block p-6 bg-white rounded-2xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300"></a></p>
-<a href="tools/index.html" class="group block p-6 bg-white rounded-2xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300">
-<div class="w-12 h-12 bg-rose-50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-rose-500 transition-colors duration-300">
-<p><i data-lucide="wrench" class="w-6 h-6 text-rose-600 group-hover:text-white transition-colors"></i></p>
+</a><p><a href="papers/index.html" class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-indigo-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40"></a></p>
+<!-- Posts -->
+<a href="posts/index.html" class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-emerald-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40">
+<div class="flex items-center justify-between mb-3">
+<h2 class="text-base font-semibold text-white anchored">
+Posts
+</h2>
+<p><i data-lucide="sparkles" class="w-5 h-5 text-emerald-300"></i></p>
 </div>
-<h3 class="text-lg font-bold text-slate-900 mb-2 group-hover:text-rose-600 transition-colors anchored">
+<p class="text-xs md:text-sm text-gray-300">
+一些阶段性的想法：科研路径、成长系统、工具使用、以及和 AI 共生的工作方式。
+</p>
+</a><p><a href="posts/index.html" class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-emerald-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40"></a></p>
+<!-- Tools / Workflows -->
+<a href="tools/index.html" class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-amber-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40">
+<div class="flex items-center justify-between mb-3">
+<h2 class="text-base font-semibold text-white anchored">
 Tools
-</h3>
-<p class="text-sm text-slate-500 leading-relaxed">
-可复制的科研 Setup。涵盖写作、实验管理与笔记系统的工程化实践。
-</p>
-</a><p><a href="tools/index.html" class="group block p-6 bg-white rounded-2xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300"></a></p>
+</h2>
+<p><i data-lucide="wrench" class="w-5 h-5 text-amber-300"></i></p>
 </div>
+<p class="text-xs md:text-sm text-gray-300">
+写论文、做实验、记笔记、管理引用的那一整套工程与工作流， 更偏「可复制的 setup」而不是炫技。
+</p>
+</a><p><a href="tools/index.html" class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-amber-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40"></a></p>
 </div>
 </section>
-<section class="py-20 bg-slate-50 border-y border-slate-200">
-<div class="max-w-6xl mx-auto px-6">
-<div class="grid lg:grid-cols-2 gap-16 items-start">
-<div>
-<div class="flex items-center gap-3 mb-6">
-<div class="p-2 bg-indigo-100 rounded-lg">
-<p><i data-lucide="flask-conical" class="w-6 h-6 text-indigo-700"></i></p>
+<!-- ============== 关于我 / About ============== -->
+<div class="content-wrapper max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 my-24">
+<section id="about">
+<div class="md:flex items-center gap-10">
+<div class="md:w-1/3 flex-shrink-0">
+<p><img src="https://placehold.co/600x600/0a0e1a/6366f1?text=FRAIMEL" alt="Researcher avatar" class="rounded-2xl shadow-xl shadow-indigo-500/20 w-full object-cover aspect-square border border-slate-800/80 transition-all duration-300 hover:border-indigo-400"></p>
 </div>
-<h2 class="text-2xl md:text-3xl font-bold text-slate-900 font-serif anchored">
-理论与直觉的切面
+<div class="md:w-2/3 mt-8 md:mt-0">
+<h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-5 flex items-center anchored">
+<i data-lucide="user-round" class="w-7 h-7 mr-3 text-cyan-700"></i> 谁在维护 FRAIMEL？
 </h2>
-</div>
-<p class="text-slate-600 text-lg mb-6 leading-relaxed">
-FRAIMEL 的核心理念在于<strong>祛魅</strong>。我们从具体的数学定义出发，但不止步于公式。
+<p class="text-base md:text-lg text-slate-700 mb-4">
+一位偏理论路线的学生 / 研究者，对 <span class="text-cyan-700">概率、优化、RL、Diffusion、ML Theory</span> 有长期兴趣，也在补工程和系统这一侧的短板。
 </p>
-<p class="text-slate-600 mb-8">
-无论是 VAE 的 ELBO 推导，还是 PAC Learning 的泛化界，我们都尝试构建一座桥梁：一端是严谨的推导，另一端是 PyTorch 的几行核心代码。
-</p>
-<div class="space-y-4">
-<div class="p-4 bg白 rounded-xl border border-slate-200 shadow-sm hover:border-indigo-300 transition-colors cursor-default">
-<div class="flex items-center gap-2 mb-1">
-<p><span class="text-xs font-bold tracking-wide text-indigo-600 uppercase">Generalization</span></p>
-</div>
-<h4 class="font-bold text-slate-900 anchored">
-从 Hoeffding 到 PAC
-</h4>
-<p class="text-sm text-slate-500 mt-1">
-理解 Learning Bound 如何在证明中“限制”模型空间，而非仅仅记忆不等式。
-</p>
-</div>
-<div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm hover:border-teal-300 transition-colors cursor-default">
-<div class="flex items-center gap-2 mb-1">
-<p><span class="text-xs font-bold tracking-wide text-teal-600 uppercase">Reinforcement Learning</span></p>
-</div>
-<h4 class="font-bold text-slate-900 anchored">
-Bandits 与乐观原理
-</h4>
-<p class="text-sm text-slate-500 mt-1">
-把 Regret Bound 当作叙事来读：不确定性（Uncertainty）是如何被量化并利用的。
-</p>
-</div>
-</div>
-</div>
-<div class="relative mt-4 lg:mt-0">
-<div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-teal-400 rounded-2xl blur opacity-20">
-
-</div>
-<div class="relative bg-white rounded-xl shadow-2xl overflow-hidden border border-slate-200">
-<div class="bg-slate-50 border-b border-slate-200 px-4 py-3 flex items-center justify-between">
-<div class="flex gap-1.5">
-<div class="w-3 h-3 rounded-full bg-red-400">
-
-</div>
-<div class="w-3 h-3 rounded-full bg-amber-400">
-
-</div>
-<div class="w-3 h-3 rounded-full bg-green-400">
-
-</div>
-</div>
-<p><span class="text-xs text-slate-400 font-mono">theory_snippet.tex</span></p>
-</div>
-<div class="p-8">
-<h3 class="text-lg font-semibold text-slate-800 mb-4 flex items-center anchored">
-Example: VAE Evidence Lower Bound
-</h3>
-<div class="math-display-box p-6 rounded-lg bg-slate-50/50 mb-6 overflow-x-auto">
-<p><span class="math display">
-\mathcal{L}(\theta, \phi; x)
-= \mathbb{E}_{q_{\phi}(z|x)}[\log p_{\theta}(x|z)]
-- D_{\mathrm{KL}}\bigl(q_{\phi}(z|x)\parallel p(z)\bigr)
-</span></p>
-</div>
-<p class="text-sm text-slate-600 mb-2 font-medium">
-Intuition:
-</p>
-<ul class="text-sm text-slate-500 space-y-2 list-disc list-inside">
+<ul class="list-disc list-inside text-sm md:text-base text-slate-600 space-y-1 mb-4">
 <li>
-<span class="text-indigo-600 font-mono text-xs bg-indigo-50 px-1 py-0.5 rounded">Reconstruction</span>: 生成模型能否重现数据？
+对后来者更友好一点：少绕一些弯路，少一点信息噪音；
 </li>
 <li>
-<span class="text-rose-600 font-mono text-xs bg-rose-50 px-1 py-0.5 rounded">Regularization</span>: 编码分布是否偏离先验太远？
+把抽象数学和实际代码连接起来：从公式到实现再到实验；
+</li>
+<li>
+记录一个理想主义者如何在现实世界中持续地成长。
 </li>
 </ul>
-<div class="mt-6 pt-4 border-t border-slate-100 flex justify-between items-center">
-<p><span class="text-xs text-slate-400">Implementation: Reparameterization Trick</span> <i data-lucide="code-2" class="w-4 h-4 text-slate-300"></i></p>
-</div>
-</div>
-</div>
-</div>
+<p class="text-sm md:text-base text-slate-500">
+如果你在类似的路上，这里可以是一个「共鸣点」，也可以是一个「参考样本」。
+</p>
 </div>
 </div>
 </section>
-<section class="py-24 bg-white">
-<div class="max-w-4xl mx-auto px-6">
-<div class="flex flex-col md:flex-row items-center gap-12">
-<div class="w-48 h-48 shrink-0 relative group">
-<div class="absolute inset-0 bg-indigo-600 rounded-full blur opacity-20 group-hover:opacity-40 transition-opacity duration-500">
-
-</div>
-<p><img src="https://placehold.co/400x400/f1f5f9/475569?text=LIAM" alt="Researcher Portrait" class="relative w-full h-full object-cover rounded-full border-4 border-white shadow-xl grayscale hover:grayscale-0 transition-all duration-500"></p>
-</div>
-<div class="text-center md:text-left">
-<h2 class="text-3xl font-bold text-slate-900 mb-4 font-serif anchored">
-About FRAIMEL
+<!-- ============== 一个理论示例 / Math Flavor ============== -->
+<section id="research">
+<h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-6 flex items-center anchored">
+<i data-lucide="flask-conical" class="w-7 h-7 mr-3 text-cyan-700"></i> 理论与直觉的一小片切面
 </h2>
-<p class="text-slate-600 leading-relaxed mb-6">
-由 <span class="font-semibold text-slate-900">Liam Chen</span> 维护。 作为一名偏理论路线的研究者，我关注 <span class="text-indigo-600 font-medium">Probabilistic ML, Optimization, &amp; Diffusion Models</span>。
+<div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 md:p-7 mb-10">
+<h3 class="text-xl md:text-2xl font-semibold text-white mb-3 anchored">
+例：VAE 的 ELBO 与重参数化技巧
+</h3>
+<p class="text-sm md:text-base text-gray-200 mb-3">
+FRAIMEL 里的很多内容都会保持这种风格：从一个具体问题出发， 给出公式，但同时配上直觉和代码侧的视角。
 </p>
-<p class="text-slate-600 leading-relaxed mb-8">
-这里记录了一个理想主义者如何在现实世界中持续成长：减少信息噪音，打通数学与代码的壁垒，并为后来者提供一份可供参考的“样本”。
-</p>
-<p><a href="mailto:liam.chen.research@example.com" class="inline-flex items-center text-indigo-600 font-semibold hover:text-indigo-800 transition-colors group"> Get in touch via Email <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"></i> </a></p>
+<div class="text-center overflow-x-auto my-4 px-2">
+<pre><code>    $$
+    \mathcal{L}(\theta, \phi; x)
+    = \mathbb{E}_{q_{\phi}(z\mid x)}[\log p_{\theta}(x\mid z)]
+    - D_{\mathrm{KL}}\bigl(q_{\phi}(z\mid x)\,\Vert\,p(z)\bigr).
+    $$</code></pre>
 </div>
+<p class="text-sm md:text-base text-gray-300 mb-2">
+第一项是重构项：在潜变量 (z) 上积分，看生成模型 (p_{}(xz)) 能否重现数据。 第二项是 KL 项：让编码器 (q_{}(zx)) 不要偏离简单的先验 (p(z)) 太远。
+</p>
+<p class="text-sm md:text-base text-gray-300">
+实现上，我们使用重参数化技巧 (z = <em>{}(x) + </em>{}(x))， 其中 ((0,I))，从而可以对 () 求梯度。 在 Guides 里通常会配上完整的推导 + PyTorch 版本。
+</p>
+</div>
+<div class="grid md:grid-cols-2 gap-6">
+<div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-cyan-400/80 hover:-translate-y-1 transition-all">
+<div class="flex space-x-2 mb-2">
+<p><span class="px-2.5 py-1 rounded-full bg-cyan-900/60 text-cyan-200 text-xs font-semibold">ML Theory</span> <span class="px-2.5 py-1 rounded-full bg-indigo-900/60 text-indigo-200 text-xs font-semibold">Generalization</span></p>
+</div>
+<h3 class="text-lg font-bold text-white mb-2 anchored">
+从 Hoeffding 到 PAC：如何真正理解「界」在说什么？
+</h3>
+<p class="text-sm text-gray-300">
+不只是背大 O 和不等式，而是看这些界如何限制模型、如何在 proof 中被「巧妙地用掉」，以及它们和实际训练的关系。
+</p>
+</div>
+<div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-indigo-400/80 hover:-translate-y-1 transition-all">
+<div class="flex space-x-2 mb-2">
+<p><span class="px-2.5 py-1 rounded-full bg-emerald-900/60 text-emerald-200 text-xs font-semibold">RL / Online</span> <span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-100 text-xs font-semibold">Bandits</span></p>
+</div>
+<h3 class="text-lg font-bold text-white mb-2 anchored">
+从 UCB 到乐观原理：不确定性如何被「利用」？
+</h3>
+<p class="text-sm text-gray-300">
+把 regret bound 当成「叙事」来读：为什么是 ()，为什么依赖于 gap， 以及它告诉我们怎样设计更合理的探索策略。
+</p>
 </div>
 </div>
 </section>
-<footer class="py-12 bg-slate-50 border-t border-slate-200 text-center">
-<p class="text-slate-400 text-sm mb-2">
-© 2025 FRAIMEL Research. Built with Quarto &amp; Logic.
+<!-- ============== 联系方式 / Connect ============== -->
+<section id="contact" class="text-center">
+<h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-4 anchored">
+如果你也在长期主义的路上
+</h2>
+<p class="text-sm md:text-base text-slate-600 max-w-2xl mx-auto mb-8">
+欢迎把 FRAIMEL 当成一个路过的小站：可以只是拿走一些有用的结构， 也可以丢给我一些你在想的问题，或者你希望一起探讨的方向。
 </p>
-<p class="text-slate-300 text-xs uppercase tracking-wider">
-Long-termism in a Fast World
-</p>
-</footer>
+<p><a href="mailto:liam.chen.research@example.com" class="inline-flex items-center px-8 py-3 rounded-full bg-cyan-500 text-slate-950 font-semibold text-base shadow-lg shadow-cyan-500/40 hover:bg-cyan-400 hover:-translate-y-0.5 transition"> <i data-lucide="mail" class="w-5 h-5 mr-2"></i> 写封邮件 · Say hi </a></p>
+</section>
 </div>
 
 
