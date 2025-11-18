@@ -23,7 +23,7 @@ format:
 
 <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 leading-tight animate-fade-in">
       数学 · 机器学习理论 ·
-      <span class="text-cyan-700">可执行的成长路径</span>
+<span class="text-cyan-700">可执行的成长路径</span>
 </h1>
 
 <p class="mt-6 text-base md:text-xl text-slate-700 max-w-2xl mx-auto animate-fade-in-delay-1">
@@ -42,7 +42,7 @@ format:
 
 <a href="posts/index.html"
          class="inline-flex items-center px-6 py-3 rounded-full border border-slate-500/70 text-slate-800 font-medium text-sm md:text-base hover:border-cyan-400 hover:text-cyan-700 transition">
-        <i data-lucide="pen-square" class="w-5 h-5 mr-2"></i>
+<i data-lucide="pen-square" class="w-5 h-5 mr-2"></i>
         最近在思考什么
 </a>
 
@@ -82,7 +82,7 @@ format:
 
 <div class="grid md:grid-cols-4 gap-4 md:gap-6">
 
-    <!-- Guides -->
+<!-- Guides -->
 <a href="guides/index.html"
        class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-cyan-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40">
 <div class="flex items-center justify-between mb-3">
@@ -95,7 +95,7 @@ format:
 </p>
 </a>
 
-    <!-- Paper Picks -->
+<!-- Paper Picks -->
 <a href="papers/index.html"
        class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-indigo-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40">
 <div class="flex items-center justify-between mb-3">
