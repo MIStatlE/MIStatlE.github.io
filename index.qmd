@@ -82,7 +82,7 @@ format:
 
 <div class="grid md:grid-cols-4 gap-4 md:gap-6">
 
-<!-- Guides -->
+    <!-- Guides -->
 <a href="guides/index.html"
        class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-cyan-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40">
 <div class="flex items-center justify-between mb-3">
@@ -95,7 +95,7 @@ format:
 </p>
 </a>
 
-<!-- Paper Picks -->
+    <!-- Paper Picks -->
 <a href="papers/index.html"
        class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-indigo-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40">
 <div class="flex items-center justify-between mb-3">
