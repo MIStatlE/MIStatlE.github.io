@@ -73,13 +73,13 @@ About
 </div>
 </section>
 
-<!-- ============= 快速概览：四个支柱 ============= -->
+<!-- ============= 四个支柱卡片 ============= -->
 <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 md:mt-16">
 
-<div class="grid md:grid-cols-4 gap-4 md:gap-6">
+<div class="grid gap-4 md:gap-6 md:grid-cols-2 xl:grid-cols-4">
 
 <a href="guides/index.html"
-class="bg-white/60 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p-5 hover:border-cyan-500/60 hover:-translate-y-1 transition-all shadow-sm shadow-slate-300/30">
+class="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p-5 hover:border-cyan-500/70 hover:-translate-y-1 transition-all shadow-sm shadow-slate-300/40">
 <div class="flex items-center justify-between mb-3">
 <h2 class="text-base font-semibold text-slate-900">Guides</h2>
 <i data-lucide="map" class="w-5 h-5 text-cyan-500"></i>
@@ -91,7 +91,7 @@ class="bg-white/60 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p
 </a>
 
 <a href="papers/index.html"
-class="bg-white/60 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p-5 hover:border-indigo-500/60 hover:-translate-y-1 transition-all shadow-sm shadow-slate-300/30">
+class="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p-5 hover:border-indigo-500/70 hover:-translate-y-1 transition-all shadow-sm shadow-slate-300/40">
 <div class="flex items-center justify-between mb-3">
 <h2 class="text-base font-semibold text-slate-900">Paper Picks</h2>
 <i data-lucide="book-open-check" class="w-5 h-5 text-indigo-500"></i>
@@ -102,7 +102,7 @@ class="bg-white/60 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p
 </a>
 
 <a href="posts/index.html"
-class="bg-white/60 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p-5 hover:border-emerald-500/60 hover:-translate-y-1 transition-all shadow-sm shadow-slate-300/30">
+class="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p-5 hover:border-emerald-500/70 hover:-translate-y-1 transition-all shadow-sm shadow-slate-300/40">
 <div class="flex items-center justify-between mb-3">
 <h2 class="text-base font-semibold text-slate-900">Posts</h2>
 <i data-lucide="sparkles" class="w-5 h-5 text-emerald-500"></i>
@@ -113,7 +113,7 @@ class="bg-white/60 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p
 </a>
 
 <a href="tools/index.html"
-class="bg-white/60 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p-5 hover:border-amber-500/60 hover:-translate-y-1 transition-all shadow-sm shadow-slate-300/30">
+class="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p-5 hover:border-amber-500/70 hover:-translate-y-1 transition-all shadow-sm shadow-slate-300/40">
 <div class="flex items-center justify-between mb-3">
 <h2 class="text-base font-semibold text-slate-900">Tools</h2>
 <i data-lucide="wrench" class="w-5 h-5 text-amber-500"></i>
@@ -125,6 +125,7 @@ class="bg-white/60 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p
 </a>
 
 </div>
+
 
 </section>
 
