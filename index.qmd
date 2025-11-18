@@ -84,7 +84,7 @@ format:
 
 <!-- Guides -->
 <a href="guides/index.html"
-       class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-cyan-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40">
+       class="bg-white/60 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p-5 hover:border-cyan-500/60 hover:-translate-y-1 transition-all shadow-sm shadow-slate-300/30">
 <div class="flex items-center justify-between mb-3">
 <h2 class="text-base font-semibold text-white">Guides</h2>
 <i data-lucide="map" class="w-5 h-5 text-cyan-300"></i>
@@ -97,7 +97,7 @@ format:
 
 <!-- Paper Picks -->
 <a href="papers/index.html"
-       class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-indigo-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40">
+       class="bg-white/60 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p-5 hover:border-cyan-500/60 hover:-translate-y-1 transition-all shadow-sm shadow-slate-300/30">
 <div class="flex items-center justify-between mb-3">
 <h2 class="text-base font-semibold text-white">Paper Picks</h2>
 <i data-lucide="book-open-check" class="w-5 h-5 text-indigo-300"></i>
@@ -109,7 +109,7 @@ format:
 
 <!-- Posts -->
 <a href="posts/index.html"
-       class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-emerald-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40">
+       class="bg-white/60 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p-5 hover:border-cyan-500/60 hover:-translate-y-1 transition-all shadow-sm shadow-slate-300/30">
 <div class="flex items-center justify-between mb-3">
 <h2 class="text-base font-semibold text-white">Posts</h2>
 <i data-lucide="sparkles" class="w-5 h-5 text-emerald-300"></i>
@@ -121,7 +121,7 @@ format:
 
 <!-- Tools / Workflows -->
 <a href="tools/index.html"
-       class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 md:p-5 hover:border-amber-400/80 hover:-translate-y-1 transition-all shadow-lg shadow-slate-950/40">
+       class="bg-white/60 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p-5 hover:border-cyan-500/60 hover:-translate-y-1 transition-all shadow-sm shadow-slate-300/30">
 <div class="flex items-center justify-between mb-3">
 <h2 class="text-base font-semibold text-white">Tools</h2>
 <i data-lucide="wrench" class="w-5 h-5 text-amber-300"></i>
