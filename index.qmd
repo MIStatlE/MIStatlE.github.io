@@ -7,6 +7,47 @@ format:
     include-in-header: assets/landing-head.html
     include-after-body: assets/landing-after-body.html
 ---
+<style>
+/* 只管首页的卡片和“理论示例”区域，强制用正常横排 + 正常宽度 */
+.fraimel-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.5rem;
+}
+
+.fraimel-card,
+.fraimel-card * {
+  writing-mode: horizontal-tb;
+  text-orientation: mixed;
+}
+
+.fraimel-card {
+  background: rgba(255,255,255,0.8);
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb; /* slate-200 */
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 12px 32px rgba(15,23,42,0.08);
+}
+
+/* 深色区里的小卡片（理论示例下面那两个） */
+.fraimel-card-dark {
+  background: rgba(15,23,42,0.9);
+  border-radius: 1rem;
+  border: 1px solid #1f2937; /* slate-800 */
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 18px 40px rgba(15,23,42,0.5);
+}
+
+.fraimel-card-dark h3 {
+  margin-bottom: 0.5rem;
+}
+
+/* 避免被某些全局多栏/竖排设置影响 */
+.fraimel-card p,
+.fraimel-card-dark p {
+  column-count: 1;
+}
+</style>
 
 <!-- ============= HERO ============= -->
 <section id="hero" class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
@@ -76,10 +117,9 @@ About
 <!-- ============= 四个支柱卡片 ============= -->
 <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 md:mt-16">
 
-<div class="grid gap-4 md:gap-6 md:grid-cols-2 xl:grid-cols-4">
+<div class="fraimel-card-grid">
 
-<a href="guides/index.html"
-class="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p-5 hover:border-cyan-500/70 hover:-translate-y-1 transition-all shadow-sm shadow-slate-300/40">
+<a href="guides/index.html" class="fraimel-card">
 <div class="flex items-center justify-between mb-3">
 <h2 class="text-base font-semibold text-slate-900">Guides</h2>
 <i data-lucide="map" class="w-5 h-5 text-cyan-500"></i>
@@ -90,8 +130,7 @@ class="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p
 </p>
 </a>
 
-<a href="papers/index.html"
-class="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p-5 hover:border-indigo-500/70 hover:-translate-y-1 transition-all shadow-sm shadow-slate-300/40">
+<a href="papers/index.html" class="fraimel-card">
 <div class="flex items-center justify-between mb-3">
 <h2 class="text-base font-semibold text-slate-900">Paper Picks</h2>
 <i data-lucide="book-open-check" class="w-5 h-5 text-indigo-500"></i>
@@ -101,8 +140,7 @@ class="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p
 </p>
 </a>
 
-<a href="posts/index.html"
-class="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p-5 hover:border-emerald-500/70 hover:-translate-y-1 transition-all shadow-sm shadow-slate-300/40">
+<a href="posts/index.html" class="fraimel-card">
 <div class="flex items-center justify-between mb-3">
 <h2 class="text-base font-semibold text-slate-900">Posts</h2>
 <i data-lucide="sparkles" class="w-5 h-5 text-emerald-500"></i>
@@ -112,8 +150,7 @@ class="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p
 </p>
 </a>
 
-<a href="tools/index.html"
-class="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p-5 hover:border-amber-500/70 hover:-translate-y-1 transition-all shadow-sm shadow-slate-300/40">
+<a href="tools/index.html" class="fraimel-card">
 <div class="flex items-center justify-between mb-3">
 <h2 class="text-base font-semibold text-slate-900">Tools</h2>
 <i data-lucide="wrench" class="w-5 h-5 text-amber-500"></i>
@@ -125,7 +162,6 @@ class="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 md:p
 </a>
 
 </div>
-
 
 </section>
 
