@@ -317,9 +317,9 @@
   {
     "objectID": "guides/index.html",
     "href": "guides/index.html",
-    "title": "Guides Overview",
+    "title": "\n Guides Overview · 从哪里开始？\n",
     "section": "",
-    "text": "Guides Overview\nStart with Probability & Stats or Optimization.",
+    "text": "Guides Overview · 从哪里开始？\n\n\n如果你是第一次来到 Guides，通常可以从两条主线之一开始：概率与统计（处理不确定性），或者优化（理解训练过程）。\n\n\n\n\n\nProbability & Statistics\n\n\n\n\n集中不等式、极限定理、偏差–方差、风险最小化、泛化界。理解理论论文和 ML 思想的底层「不确定性语言」。\n\n\n更适合作为「ML 理论的入门口」。\n\n\n\n\n\nOptimization\n\n\n\n\n凸优化、一阶方法、二阶方法、光滑性、强凸性、鞍点、稳定性，到深度学习优化直觉。\n\n\n更适合作为「训练动力学的起点」。",
     "crumbs": [
       "Overview"
     ]
