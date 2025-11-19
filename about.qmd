@@ -1,14 +1,23 @@
----
-title: "About"
-page-layout: article
----
+title: "Alex" about: template: trestles # 这是一个非常经典的侧边栏布局模板 image: https://www.google.com/search?q=https://placehold.co/400x400/png # 替换为你的头像照片 links: - icon: github text: Github href: https://github.com - icon: envelope text: Email href: mailto:alex@example.com - icon: twitter text: Twitter href: https://twitter.com
 
-## About Me
+简介
 
-- PhD student / Researcher in Shanghai
-- Interests: Probability, Machine Learning, Diffusion Models
-- I write about ideas-in-progress — learning in public.
+我对数学和计算机科学的交叉领域充满热情。目前主要研究方向包括生成模型（Generative Models）和几何深度学习。
 
-## Contact
+我相信最好的理论往往具有最简洁的形式，而最优秀的代码应该像数学公式一样优雅。
 
-- GitHub: <https://github.com/MIStatlE>
+技术栈
+
+Languages: Python, C++, TypeScript, MATLAB
+
+AI Frameworks: PyTorch, TensorFlow, JAX
+
+Math: Linear Algebra, Probability, Optimization
+
+教育经历
+
+University of Science | City, Country
+PhD in Computer Science | Sept 2022 - Present
+
+University of Tech | City, Country
+B.S. in Mathematics | Sept 2018 - June 2022
