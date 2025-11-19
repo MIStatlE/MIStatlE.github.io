@@ -37,23 +37,9 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "FRAIMEL",
     "section": "",
-    "text": "PhD student / Researcher in Shanghai\nInterests: Probability, Machine Learning, Diffusion Models\nI write about ideas-in-progress — learning in public."
-  },
-  {
-    "objectID": "about.html#about-me",
-    "href": "about.html#about-me",
-    "title": "About",
-    "section": "",
-    "text": "PhD student / Researcher in Shanghai\nInterests: Probability, Machine Learning, Diffusion Models\nI write about ideas-in-progress — learning in public."
-  },
-  {
-    "objectID": "about.html#contact",
-    "href": "about.html#contact",
-    "title": "About",
-    "section": "Contact",
-    "text": "Contact\n\nGitHub: https://github.com/MIStatlE"
+    "text": "title: “Alex” about: template: trestles # 这是一个非常经典的侧边栏布局模板 image: https://www.google.com/search?q=https://placehold.co/400x400/png # 替换为你的头像照片 links: - icon: github text: Github href: https://github.com - icon: envelope text: Email href: mailto:alex@example.com - icon: twitter text: Twitter href: https://twitter.com\n简介\n我对数学和计算机科学的交叉领域充满热情。目前主要研究方向包括生成模型（Generative Models）和几何深度学习。\n我相信最好的理论往往具有最简洁的形式，而最优秀的代码应该像数学公式一样优雅。\n技术栈\nLanguages: Python, C++, TypeScript, MATLAB\nAI Frameworks: PyTorch, TensorFlow, JAX\nMath: Linear Algebra, Probability, Optimization\n教育经历\nUniversity of Science | City, Country PhD in Computer Science | Sept 2022 - Present\nUniversity of Tech | City, Country B.S. in Mathematics | Sept 2018 - June 2022"
   },
   {
     "objectID": "guides/diffusion/notes/s-m.html",
