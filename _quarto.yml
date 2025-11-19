@@ -3,30 +3,154 @@ project:
   output-dir: _site
 
 website:
-  title: "Alex.AI"
-  description: "AI Researcher & Algorithm Engineer"
+  title: "FRAIMEL"
+  description: "A high-signal growth space: math, ML theory, papers, tools, and community."
+  site-url: "https://mistatle.github.io"
+  favicon: images/image1.png
+
   navbar:
-    background: primary # 使用这一行会自动应用下面 theme 中定义的颜色
+    logo: images/image1.png
     left:
-      - text: "主页"
+      - text: Home
         href: index.qmd
-      - text: "数学笔记"
-        href: notes.qmd
-      - text: "代码项目"
-        href: projects.qmd
-      - text: "关于我"
+      - text: Guides
+        menu:
+          - text: Probability
+            href: guides/probability/index.qmd
+          - text: Optimization
+            href: guides/opt/index.qmd
+          - text: ML Theory
+            href: guides/mlt/index.qmd
+          - text: Diffusion
+            href: guides/diffusion/index.qmd
+          - text: RL / Online Learning
+            href: guides/rl/index.qmd
+          - text: book
+            href: guides/book/index.html  
+      - text: Paper Picks
+        href: papers/index.qmd
+      - text: Posts
+        href: posts/index.qmd
+      - text: Tools
+        href: tools/index.qmd
+      - text: Good Reads
+        href: reads/index.qmd
+      - text: Community
+        href: community/index.qmd
+      - text: About
         href: about.qmd
     right:
+      - text: "<img src='images/icons/bilibili.svg' alt='Bilibili' class='nav-icon'/>"
+        href: https://space.bilibili.com/你的UID
+      - text: "<img src='images/icons/xiaohongshu.svg' alt='Xiaohongshu' class='nav-icon'/>"
+        href: https://www.xiaohongshu.com/user/profile/你的ID
+      - text: "<img src='images/icons/zhihu.svg' alt='Zhihu' class='nav-icon'/>"
+        href: https://www.zhihu.com/people/你的ID
+      - icon: youtube
+        href: https://www.youtube.com/@你的频道
       - icon: github
-        href: https://github.com/alex-ai
-      - icon: envelope
-        href: mailto:alex.research@example.com
+        href: https://github.com/MIStatlE
+      - icon: rss
+        href: posts/index.xml
+      - text: Search
+        href: search.qmd
+
+  page-footer:
+    left: "© FRAIMEL · Built for learners"
+    right: |
+      Built with [Quarto](https://quarto.org) · Content CC BY 4.0
+
+  open-graph: true
+  twitter-card:
+    creator: "@MIStatlE"
+    card-style: summary_large_image
+
+  sidebar:
+    - id: guides
+      style: "floating"
+      title: "Guides"
+      collapse-level: 2
+      search: true
+      contents:
+        - text: "Overview"
+          href: guides/index.qmd
+        - section: "Probability & Stats"
+          contents:
+            - guides/prob/index.qmd
+            - guides/prob/clt.qmd
+            - guides/prob/concentration.qmd
+        - section: "Optimization"
+          contents:
+            - guides/opt/index.qmd
+            - guides/opt/mirror-descent.qmd
+            - guides/opt/self-concordant.qmd
+        - section: "ML Theory"
+          contents:
+            - guides/mlt/index.qmd
+            - guides/mlt/generalization.qmd
+        - section: "RL / Online"
+          contents:
+            - guides/rl/index.qmd
+            - guides/rl/bandits.qmd
 
 format:
   html:
-    theme: 
-      - cosmo
-      - styles.css # 引用自定义 CSS 来微调颜色
+    theme:
+      light: cosmo
+      dark: slate
+    css: styles.css
     toc: true
+    toc-depth: 3
+    number-sections: false
+    anchor-sections: true
     smooth-scroll: true
-    highlight-style: github
+    code-copy: true
+    code-overflow: wrap
+    link-external-newwindow: true
+    citations-hover: true
+    html-math-method: katex
+    footnotes-hover: true
+
+collections:
+  posts:
+    categories: true
+    feed: true
+    listing:
+      sort: "date desc"
+      type: default
+  papers:
+    feed: true
+    categories: true
+    listing:
+      type: table
+      sort: "date desc"
+      filter-ui: true
+      fields: [title, authors, venue, year, tags]
+  tools:
+    feed: true
+    categories: true
+    listing:
+      type: grid
+      sort: "title"
+      filter-ui: true
+      image-placeholder: images/tool-card.png
+  reads:
+    feed: true
+    listing:
+      type: default
+      sort: "date desc"
+      filter-ui: true
+  community:
+    listing:
+      type: default
+      sort: "title"
+
+execute:
+  freeze: auto
+
+resources:
+  - images/
+  - assets/
+
+serve:
+  browser: true
