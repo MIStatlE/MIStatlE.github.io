@@ -1,17 +1,51 @@
-:root{
-  --brand:#1A9D8F;
-  --ink:#0f172a;
+/* 将默认的主色调修改为 Indigo 风格 */
+:root {
+  --bs-primary: #4f46e5; /* Indigo-600 */
+  --bs-primary-rgb: 79, 70, 229;
 }
-.navbar-brand img { height: 28px; }
-.quarto-title-banner { background: linear-gradient(90deg,#0f172a,#334155); color:#fff; }
-.callout-tip { border-left-color: var(--brand); }
-a { text-decoration: none; }
-.navbar .nav-link img.nav-icon {
-  width: 20px;
-  height: 20px;
-  vertical-align: middle;
-  opacity: .9;
+
+.navbar {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e2e8f0;
 }
-.navbar .nav-link img.nav-icon:hover {
-  opacity: 1;
+
+.navbar-brand {
+  font-weight: 700;
+  color: #1e293b !important; /* Slate-800 */
+}
+
+.nav-link {
+  color: #64748b !important; /* Slate-500 */
+  font-weight: 500;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: #4f46e5 !important; /* Indigo-600 */
+}
+
+/* Hero Section 样式微调 */
+.hero-title {
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #0f172a;
+}
+
+.hero-subtitle {
+  background: linear-gradient(to right, #4f46e5, #9333ea);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 卡片悬停效果 */
+.quarto-grid-item {
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+}
+
+.quarto-grid-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-color: #c7d2fe;
 }
