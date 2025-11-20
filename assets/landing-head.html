@@ -1,71 +1,47 @@
-> 注意：这里完全不出现 `<html>、<head>、<body>、<script>` 标签。
-
----
-
-## 第 2 步：新建 `assets/landing-head.html`
-
-在 `assets/` 目录里新建：`landing-head.html`，内容：
-
-```html
-<!-- assets/landing-head.html -->
-
-<!-- Tailwind CSS CDN -->
+<!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- 使用 Inter 字体 -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest/dist/lucide.min.js"></script>
+
+<!-- particles.js -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
 <style>
-    :root {
-        --primary-blue: #00e0ff; /* Electric Cyan */
-        --dark-bg: #0A0A1F; /* Very Dark Navy */
-    }
-    body {
-        font-family: 'Inter', sans-serif;
-        background-color: var(--dark-bg);
-        color: #E0E7FF; /* Light Lavender Text */
-        scroll-behavior: smooth;
-        min-height: 100vh;
-        position: relative; /* Context for canvas */
-    }
+body {
+    background: linear-gradient(180deg, #e0f2ff, #c3e3ff, #e6f5ff);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
 
-    /* 动态背景 Canvas 样式 */
-    #bg-canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: -1; /* Send it behind all content */
-        pointer-events: none; /* Make it unclickable */
-        opacity: 0.5; /* Subtle effect */
-    }
+  #particles-js {
+      position: absolute;
+      width: 100%; height: 100%;
+      top: 0; left: 0;
+      z-index: 0;
+  }
 
-    /* 霓虹按钮效果 */
-    .neon-button {
-        transition: all 0.3s ease;
-        box-shadow: 0 0 5px var(--primary-blue), 0 0 10px var(--primary-blue);
-    }
-    .neon-button:hover {
-        box-shadow: 0 0 15px var(--primary-blue), 0 0 30px var(--primary-blue);
-        background-color: rgba(0, 224, 255, 0.1);
-    }
+  .content-wrapper {
+      position: relative;
+      z-index: 10;
+  }
 
-    /* 核心区划线效果：模拟数据流光 */
-    .section-divider {
-        height: 2px;
-        width: 50%;
-        background: linear-gradient(90deg, transparent, var(--primary-blue), transparent);
-        margin: 4rem auto 4rem auto;
-        opacity: 0.3;
-    }
+  h2 { position: relative; display: inline-block; }
+  h2::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -8px;
+      height: 3px; width: 50%;
+      background: linear-gradient(90deg, #0ea5e9, #6366f1);
+      transition: width .3s;
+  }
+  h2:hover::after { width: 100%; }
 
-    /* 卡片悬停效果 */
-    .card-hover {
-        transition: all 0.3s ease;
-        transform: translateY(0);
-    }
-    .card-hover:hover {
-        background-color: #1a1a3a;
-        transform: translateY(-4px);
-        border-color: #00e0ff;
-    }
+  @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fade-in { animation: fadeIn 1s ease forwards; }
+  .animate-fade-in-delay-1 { animation: fadeIn 1s ease .3s forwards; opacity: 0; }
+  .animate-fade-in-delay-2 { animation: fadeIn 1s ease .6s forwards; opacity: 0; }
 </style>
