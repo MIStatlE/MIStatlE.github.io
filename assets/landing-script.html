@@ -1,0 +1,115 @@
+<!-- assets/landing-scripts.html -->
+
+<script>
+    // --- 动态背景 Canvas Logic ---
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    const particleCount = 50;
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        // Set canvas height to cover the entire scrollable area of the body
+        canvas.height = document.body.scrollHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    // Call once to initialize size after content load
+    setTimeout(resizeCanvas, 300);
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 0.5;
+            // Slower speeds for a subtle, floating effect
+            this.speedX = Math.random() * 0.3 - 0.15;
+            this.speedY = Math.random() * 0.3 - 0.15;
+            // Use the primary blue color with varying opacity
+            this.color = 'rgba(0, 224, 255, ' + (Math.random() * 0.4 + 0.1) + ')';
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+
+            // Reset particles if they go off screen (re-inject them randomly)
+            if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+            }
+        }
+        draw() {
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    function connectParticles() {
+        const connectionDistanceSq = 100 * 100; // 100px range squared
+        for (let a = 0; a < particles.length; a++) {
+            for (let b = a; b < particles.length; b++) {
+                let distanceSq = Math.pow(particles[a].x - particles[b].x, 2) + Math.pow(particles[a].y - particles[b].y, 2);
+                
+                if (distanceSq < connectionDistanceSq) {
+                    // Calculate opacity based on proximity
+                    let opacityValue = 1 - (distanceSq / connectionDistanceSq);
+                    ctx.strokeStyle = `rgba(0, 224, 255, ${opacityValue * 0.15})`; // Subtle blue connection
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[a].x, particles[a].y);
+                    ctx.lineTo(particles[b].x, particles[b].y);
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+
+    function animate() {
+        // Clear canvas with a very subtle alpha to create fading trails
+        ctx.fillStyle = 'rgba(10, 10, 31, 0.1)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Check if body height has changed and resize if needed
+        if (canvas.height !== document.body.scrollHeight) {
+            canvas.height = document.body.scrollHeight;
+        }
+        
+        connectParticles();
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+        }
+        requestAnimationFrame(animate);
+    }
+
+    initParticles();
+    animate();
+
+    // --- Simple Smooth Scroll ---
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            // Find the target element and scroll to it
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                // Offset by the height of the sticky header if possible
+                const headerHeight = document.querySelector('header').offsetHeight;
+                const elementPosition = targetElement.offsetTop - headerHeight;
+
+                window.scrollTo({
+                    top: elementPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+</script>
