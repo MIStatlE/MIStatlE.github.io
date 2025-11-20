@@ -81,6 +81,19 @@ body {
   .animate-fade-in-delay-1 { animation: fadeIn 1s ease .3s forwards; opacity: 0; }
   .animate-fade-in-delay-2 { animation: fadeIn 1s ease .6s forwards; opacity: 0; }
 </style>
+<style>
+#quarto-header {
+  position: relative;
+  z-index: 1000; /* 保证在你的粒子背景和 section 上方 */
+}
+
+#particles-js {
+  position: fixed;
+  inset: 0;
+  z-index: -1;  /* 背景永远在最下面 */
+  pointer-events: none;
+}
+</style>
 
 
 <link rel="stylesheet" href="styles.css">
