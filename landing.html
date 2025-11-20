@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>MIStatlE | AI Architect - 人工智能理论与代码 – FRAIMEL</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<link href="./images/image1.png" rel="icon" type="image/png">
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/tabby.min.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-html-abba60c7b863426f1dd778d2b3fd6e6d.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<meta property="og:title" content="MIStatlE | AI Architect - 人工智能理论与代码 – FRAIMEL">
+<meta property="og:site_name" content="FRAIMEL">
+<meta name="twitter:title" content="MIStatlE | AI Architect - 人工智能理论与代码 – FRAIMEL">
+<meta name="twitter:creator" content="@MIStatlE">
+<meta name="twitter:card" content="summary_large_image">
+</head><body>&gt; 注意：这里完全不出现 `、、、<script>` 标签。
+
+---
+
+## 第 2 步：新建 `assets/landing-head.html`
+
+在 `assets/` 目录里新建：`landing-head.html`，内容：
+
+```html
+<!-- assets/landing-head.html -->
+
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- 使用 Inter 字体 -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --primary-blue: #00e0ff; /* Electric Cyan */
+        --dark-bg: #0A0A1F; /* Very Dark Navy */
+    }
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--dark-bg);
+        color: #E0E7FF; /* Light Lavender Text */
+        scroll-behavior: smooth;
+        min-height: 100vh;
+        position: relative; /* Context for canvas */
+    }
+
+    /* 动态背景 Canvas 样式 */
+    #bg-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1; /* Send it behind all content */
+        pointer-events: none; /* Make it unclickable */
+        opacity: 0.5; /* Subtle effect */
+    }
+
+    /* 霓虹按钮效果 */
+    .neon-button {
+        transition: all 0.3s ease;
+        box-shadow: 0 0 5px var(--primary-blue), 0 0 10px var(--primary-blue);
+    }
+    .neon-button:hover {
+        box-shadow: 0 0 15px var(--primary-blue), 0 0 30px var(--primary-blue);
+        background-color: rgba(0, 224, 255, 0.1);
+    }
+
+    /* 核心区划线效果：模拟数据流光 */
+    .section-divider {
+        height: 2px;
+        width: 50%;
+        background: linear-gradient(90deg, transparent, var(--primary-blue), transparent);
+        margin: 4rem auto 4rem auto;
+        opacity: 0.3;
+    }
+
+    /* 卡片悬停效果 */
+    .card-hover {
+        transition: all 0.3s ease;
+        transform: translateY(0);
+    }
+    .card-hover:hover {
+        background-color: #1a1a3a;
+        transform: translateY(-4px);
+        border-color: #00e0ff;
+    }
+</style>
+
+
+<link rel="stylesheet" href="styles.css">
+
+
+
+
+
+<header id="title-block-header">
+
+
+</header>
+
+
+<!-- 动态背景 Canvas -->
+<canvas id="bg-canvas">
+</canvas>
+<!-- 导航栏 - 纯粹的顶部栏 -->
+<header class="sticky top-0 z-50 bg-black/70 backdrop-blur-md p-4 border-b border-white/10">
+<div class="max-w-7xl mx-auto flex justify-between items-center">
+<pre><code>&lt;a href="#hero" class="text-3xl font-extrabold tracking-wider" style="color: var(--primary-blue);"&gt;
+  MIStatlE
+&lt;/a&gt;
+&lt;nav class="space-x-4 md:space-x-8 text-sm font-medium hidden sm:flex"&gt;
+  &lt;a href="#learning" class="hover:text-cyan-400 transition"&gt;学习中心&lt;/a&gt;
+  &lt;a href="#research" class="hover:text-cyan-400 transition"&gt;理论研究&lt;/a&gt;
+  &lt;a href="#code" class="hover:text-cyan-400 transition"&gt;代码项目&lt;/a&gt;
+  &lt;a href="#reflections" class="hover:text-cyan-400 transition"&gt;个人思考&lt;/a&gt;
+  &lt;a href="#community" class="hover:text-cyan-400 transition"&gt;社群建立&lt;/a&gt;
+  &lt;a href="#contact" class="hover:text-cyan-400 transition"&gt;联系我&lt;/a&gt;
+&lt;/nav&gt;
+&lt;a href="#contact" class="sm:hidden text-cyan-400"&gt;Menu&lt;/a&gt;</code></pre>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10"><header id="title-block-header" class="quarto-title-block"><h1 class="title">MIStatlE | AI Architect - 人工智能理论与代码</h1></header>
+<!-- 0. 英雄区 (Hero Section) -->
+<section id="hero" class="text-center py-20 md:py-32">
+<p class="text-xl uppercase tracking-widest mb-4 font-light text-cyan-400">
+MIStatlE’s Lab | 未来算法家
+</p>
+<h1 class="text-5xl sm:text-7xl lg:text-8xl font-black mb-8 leading-tight">
+<span class="text-white">代码</span> 炼就 <br class="sm:hidden"> <span class="bg-clip-text text-transparent" style="background-image: linear-gradient(45deg, var(--primary-blue), #9F7AEA);"> 纯粹智能 </span>
+</h1>
+<p class="text-xl max-w-3xl mx-auto mb-10 text-gray-400">
+AI 理论博士生 &amp; 自媒体博主。探索智能的基石，编码未来的轮廓。
+</p>
+<a href="#learning" class="neon-button inline-block bg-cyan-600/50 text-white font-bold py-3 px-8 rounded-full border border-cyan-400 hover:bg-cyan-500/50"> 开启深度学习之旅 → </a>
+</section>
+<div class="section-divider">
+
+</div>
+<!-- 1. 学习中心 (Learning Hub) -->
+<section id="learning" class="py-16">
+<h2 class="text-4xl font-extrabold mb-12 text-center anchored" style="color: var(--primary-blue);">
+学习中心：知识的提炼与重构
+</h2>
+<div class="grid md:grid-cols-2 gap-8">
+<pre><code>  &lt;!-- 模块 1 --&gt;
+  &lt;div class="card-hover p-6 rounded-xl border border-white/10 bg-white/5 space-y-4"&gt;
+    &lt;h3 class="text-2xl font-bold mb-3 text-cyan-300"&gt;
+      【课程笔记】深度学习数学基础
+    &lt;/h3&gt;
+    &lt;p class="text-gray-400"&gt;
+      整理并提炼博士课程中的核心概念：张量代数、变分法、矩阵微积分等。提供清爽的 Markdown 笔记和 Jupyter Notebooks。
+    &lt;/p&gt;
+    &lt;a href="#" class="text-sm text-purple-400 hover:text-purple-300"&gt;进入课程资料库 →&lt;/a&gt;
+  &lt;/div&gt;
+
+  &lt;!-- 模块 2 --&gt;
+  &lt;div class="card-hover p-6 rounded-xl border border-white/10 bg-white/5 space-y-4"&gt;
+    &lt;h3 class="text-2xl font-bold mb-3 text-cyan-300"&gt;
+      【论文精选】经典与前沿解读
+    &lt;/h3&gt;
+    &lt;p class="text-gray-400"&gt;
+      每周一篇 A 级会议论文（ICLR/NeurIPS/ICML）深度解析。重点关注 Information Theory, Causal Inference 等领域。
+    &lt;/p&gt;
+    &lt;a href="#" class="text-sm text-purple-400 hover:text-purple-300"&gt;查看论文精选集 →&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div></section>
+<div class="section-divider">
+
+</div>
+<!-- 2. 理论研究 (Research) -->
+<section id="research" class="py-16">
+<h2 class="text-4xl font-extrabold mb-12 text-center anchored" style="color: var(--primary-blue);">
+理论研究：探索智能的基石
+</h2>
+<div class="space-y-12">
+<pre><code>  &lt;!-- 领域 1 --&gt;
+  &lt;div class="bg-white/5 p-6 md:p-10 rounded-xl border border-white/10 card-hover"&gt;
+    &lt;h3 class="text-3xl font-bold mb-3 text-cyan-300"&gt;
+      拓扑数据分析与神经网络几何 (TDA &amp;amp; NN Geometry)
+    &lt;/h3&gt;
+    &lt;p class="text-lg mb-4 text-gray-300"&gt;
+      利用代数拓扑工具（如持久同调）来理解神经网络内部的高维结构和决策边界。
+    &lt;/p&gt;
+    &lt;div class="flex flex-wrap gap-2 text-sm"&gt;
+      &lt;span class="px-3 py-1 bg-cyan-600/30 text-cyan-200 rounded-full"&gt;博士课题核心&lt;/span&gt;
+      &lt;span class="px-3 py-1 bg-white/10 text-gray-300 rounded-full"&gt;Persistence Homology&lt;/span&gt;
+      &lt;span class="px-3 py-1 bg-white/10 text-gray-300 rounded-full"&gt;高维流形&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- 领域 2 --&gt;
+  &lt;div class="bg-white/5 p-6 md:p-10 rounded-xl border border-white/10 card-hover"&gt;
+    &lt;h3 class="text-3xl font-bold mb-3 text-cyan-300"&gt;
+      因果推断与结构学习 (Causal Inference &amp;amp; Structure Learning)
+    &lt;/h3&gt;
+    &lt;p class="text-lg mb-4 text-gray-300"&gt;
+      超越相关性，构建能够进行反事实推理的 AI 系统。研究图神经网络中的因果结构发现。
+    &lt;/p&gt;
+    &lt;div class="flex flex-wrap gap-2 text-sm"&gt;
+      &lt;span class="px-3 py-1 bg-cyan-600/30 text-cyan-200 rounded-full"&gt;前沿研究&lt;/span&gt;
+      &lt;span class="px-3 py-1 bg-white/10 text-gray-300 rounded-full"&gt;Do-calculus&lt;/span&gt;
+      &lt;span class="px-3 py-1 bg-white/10 text-gray-300 rounded-full"&gt;反事实推理&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div></section>
+<div class="section-divider">
+
+</div>
+<!-- 3. 代码项目 (Code) -->
+<section id="code" class="py-16">
+<h2 class="text-4xl font-extrabold mb-12 text-center anchored" style="color: var(--primary-blue);">
+代码项目：理论的优雅实现
+</h2>
+<div class="grid md:grid-cols-2 gap-8">
+<pre><code>  &lt;!-- 项目 1 --&gt;
+  &lt;div class="rounded-xl p-6 bg-white/5 border border-white/10 space-y-4 card-hover"&gt;
+    &lt;div class="text-2xl font-semibold flex items-center"&gt;
+      &lt;span class="text-purple-400 mr-3"&gt;
+        &lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code-2"&gt;&lt;path d="m18 16 4-4-4-4"/&gt;&lt;path d="m6 8-4 4 4 4"/&gt;&lt;path d="m14.5 4-5 16"/&gt;&lt;/svg&gt;
+      &lt;/span&gt;
+      Python TDA Library
+    &lt;/div&gt;
+    &lt;p class="text-gray-400"&gt;
+      一个用于拓扑数据分析的轻量级 Python 库，专注于提高计算效率和可视化能力。
+    &lt;/p&gt;
+    &lt;div class="flex justify-between items-center"&gt;
+      &lt;span class="text-sm text-yellow-400"&gt;Python / TDA / Vis&lt;/span&gt;
+      &lt;a href="#" class="text-sm text-cyan-400 hover:text-cyan-300 transition flex items-center"&gt;
+        查看 GitHub
+        &lt;svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"&gt;&lt;/path&gt;&lt;/svg&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- 项目 2 --&gt;
+  &lt;div class="rounded-xl p-6 bg-white/5 border border-white/10 space-y-4 card-hover"&gt;
+    &lt;div class="text-2xl font-semibold flex items-center"&gt;
+      &lt;span class="text-purple-400 mr-3"&gt;
+        &lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bot"&gt;&lt;path d="M12 8V4H8"/&gt;&lt;path d="M2 14c2.2 0 4-1.8 4-4V5c0-1.7 1.3-3 3-3h6c1.7 0 3 1.3 3 3v5c0 2.2 1.8 4 4 4"/&gt;&lt;path d="M12 14v8"/&gt;&lt;path d="M10 20h4"/&gt;&lt;/svg&gt;
+      &lt;/span&gt;
+      AIGC Content Engine (MIStatlE Custom)
+    &lt;/div&gt;
+    &lt;p class="text-gray-400"&gt;
+      驱动自媒体内容的生成式模型工具包，实现快速创意迭代和多平台内容适配。
+    &lt;/p&gt;
+    &lt;div class="flex justify-between items-center"&gt;
+      &lt;span class="text-sm text-yellow-400"&gt;AIGC / Blog / JS&lt;/span&gt;
+      &lt;a href="#" class="text-sm text-cyan-400 hover:text-cyan-300 transition flex items-center"&gt;
+        查看项目
+        &lt;svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"&gt;&lt;/path&gt;&lt;/svg&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div></section>
+<div class="section-divider">
+
+</div>
+<!-- 4. 个人思考 (Reflections) -->
+<section id="reflections" class="py-16">
+<h2 class="text-4xl font-extrabold mb-12 text-center anchored" style="color: var(--primary-blue);">
+个人思考：理想主义与探索的边界
+</h2>
+<div class="grid md:grid-cols-2 gap-8">
+<pre><code>  &lt;!-- 随笔 1 --&gt;
+  &lt;article class="p-6 rounded-xl border border-white/10 bg-white/5 card-hover"&gt;
+    &lt;p class="text-xs text-cyan-400 uppercase tracking-widest mb-2"&gt;生活哲学&lt;/p&gt;
+    &lt;h3 class="text-xl font-bold mb-3 text-white"&gt;
+      在博士的理想主义与现实压力之间
+    &lt;/h3&gt;
+    &lt;p class="text-gray-400 text-sm mb-4"&gt;
+      一篇关于学术生涯、自我成长与保持初心的随笔。给所有年轻探索者的信。
+    &lt;/p&gt;
+    &lt;a href="#" class="text-sm text-purple-400 hover:text-purple-300"&gt;阅读全文 →&lt;/a&gt;
+  &lt;/article&gt;
+
+  &lt;!-- 随笔 2 --&gt;
+  &lt;article class="p-6 rounded-xl border border-white/10 bg-white/5 card-hover"&gt;
+    &lt;p class="text-xs text-cyan-400 uppercase tracking-widest mb-2"&gt;思维漫谈&lt;/p&gt;
+    &lt;h3 class="text-xl font-bold mb-3 text-white"&gt;
+      如果 AI 拥有意识，我们将如何定义“纯粹”？
+    &lt;/h3&gt;
+    &lt;p class="text-gray-400 text-sm mb-4"&gt;
+      一次关于人工智能哲学边界和伦理责任的开放式讨论。
+    &lt;/p&gt;
+    &lt;a href="#" class="text-sm text-purple-400 hover:text-purple-300"&gt;加入讨论 →&lt;/a&gt;
+  &lt;/article&gt;
+&lt;/div&gt;</code></pre>
+</div></section>
+<div class="section-divider">
+
+</div>
+<!-- 5. 社群建立 (Community) -->
+<section id="community" class="py-16 text-center">
+<h2 class="text-4xl font-extrabold mb-8 anchored" style="color: var(--primary-blue);">
+社群建立：聚集 MIStatlE 的同路人
+</h2>
+<p class="text-xl max-w-3xl mx-auto mb-10 text-gray-400">
+我们相信开放、纯粹的知识交流才能推动真正的进步。加入我们的讨论组，共同探索 AI 的未来。
+</p>
+<div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+<pre><code>  &lt;a href="#" class="neon-button inline-block bg-cyan-600/50 text-white font-bold py-3 px-8 rounded-full border border-cyan-400 hover:bg-cyan-500/50"&gt;
+    加入 MIStatlE 的技术交流群 (WeChat/Discord)
+  &lt;/a&gt;
+  &lt;a href="#" class="neon-button inline-block bg-purple-600/50 text-white font-bold py-3 px-8 rounded-full border border-purple-400 hover:bg-purple-500/50"&gt;
+    订阅我的自媒体频道
+  &lt;/a&gt;
+&lt;/div&gt;</code></pre>
+</div></section>
+<div class="section-divider">
+
+</div>
+<!-- 6. 联系我 (Contact) -->
+<section id="contact" class="py-16 text-center">
+<h2 class="text-4xl font-extrabold mb-6 anchored" style="color: var(--primary-blue);">
+连接 MIStatlE
+</h2>
+<p class="text-xl max-w-2xl mx-auto mb-10 text-gray-400">
+无论是学术合作、技术交流，还是内容创作邀请，我都期待与志同道合的你建立联系。
+</p>
+<div class="flex justify-center space-x-6 text-2xl">
+<pre><code>  &lt;a href="#" class="text-white hover:text-cyan-400 transition" title="GitHub"&gt;
+    &lt;svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"&gt;&lt;path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.44-.78-3.5l-.23-1c.26-.47.28-.96.02-1.42A7.32 7.32 0 0 0 20 6.68a1.27 1.27 0 0 0-.01-.71 5 5 0 0 0-4.6-3.78 5.75 5.75 0 0 0-2.8 1.45L12 4.14 10.4 2.64A5.75 5.75 0 0 0 7.6 1.9a5 5 0 0 0-4.6 3.78 1.27 1.27 0 0 0-.01.71c-.34 1-.22 2.05.02 3.02l.23 1c-.5.44-1.2.78-1.57 1.35-.4.57-.48 1.23-.38 1.83.1 1.77 1.48 3.22 3.8 3.6a4.8 4.8 0 0 0-1 3.5v4"/&gt;&lt;path d="M9 18a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2"/&gt;&lt;/svg&gt;
+  &lt;/a&gt;
+  &lt;a href="mailto:your.email@example.com" class="text-white hover:text-cyan-400 transition" title="Email"&gt;
+    &lt;svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"&gt;&lt;rect width="20" height="16" x="2" y="4" rx="2"/&gt;&lt;path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/&gt;&lt;/svg&gt;
+  &lt;/a&gt;
+  &lt;a href="#" class="text-white hover:text-cyan-400 transition" title="自媒体平台"&gt;
+    &lt;svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-megaphone"&gt;&lt;path d="m14 11 3.33-3c.8-.8 1.2-1.8 1.2-2.9 0-2.8-2.2-5-5-5-1.1 0-2.1.4-2.9 1.2L5 8.33V20H2v-2c0-1.1.9-2 2-2h1c1.1 0 2-.9 2-2V8.33l1.83-1.83a3.53 3.53 0 0 1 4.95-.12l4.95-4.95"/&gt;&lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/div&gt;</code></pre>
+</div></section>
+</main>
+<footer class="text-center py-8 border-t border-white/10 mt-16 text-gray-500 text-sm relative z-10">
+<p class="mb-2">
+“理论是纯粹的理想，代码是实现的诗篇。”
+</p>
+<p>
+© 2024 MIStatlE AI Architect. All Rights Reserved. | Designed with <span style="color: var(--primary-blue);">Vision</span>.
+</p>
+</footer>
+
+
+
+
+
+
+
+
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mistatle\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
