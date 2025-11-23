@@ -37,15 +37,34 @@
           {
             "title": "Foundations of Generative Models",
             "lessons": [
-              { "id": "diff_01", "title": "VAE & ELBO", "type": "note" },
-              { "id": "diff_02", "title": "Score Matching", "type": "note" }
+              { 
+                "id": "diff_01", 
+                "title": "VAE & ELBO", 
+                "type": "note",
+                "filePath": "data/posts/vae_elbo.md"
+              },
+              { 
+                "id": "diff_02", 
+                "title": "Score Matching", 
+                "type": "note" 
+              }
             ]
           },
           {
             "title": "SDE Perspectives",
             "lessons": [
-              { "id": "diff_03", "title": "Conditional Technique", "type": "note", "highlight": true },
-              { "id": "diff_04", "title": "Probability Flow ODE", "type": "note" }
+              { 
+                "id": "diff_03", 
+                "title": "Conditional Technique", 
+                "type": "note", 
+                "highlight": true,
+                "filePath": "data/posts/conditional.md"
+              },
+              { 
+                "id": "diff_04", 
+                "title": "Probability Flow ODE", 
+                "type": "note" 
+              }
             ]
           }
         ]
