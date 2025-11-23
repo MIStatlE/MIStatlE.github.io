@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
     
     <!-- 代码高亮 (PrismJS) -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
@@ -217,70 +220,185 @@
         );
 
         // --- 核心阅读器组件 ---
-        const ArticleReader = ({ item, onBack }) => {
-            const [content, setContent] = useState('');
-            const [loading, setLoading] = useState(true);
+// --- 全新加强版 ArticleReader 组件 ---
+const ArticleReader = ({ item, onBack }) => {
+    const [content, setContent] = useState('');
+    const [frontmatter, setFrontmatter] = useState(null); // 新增：存储元数据
+    const [loading, setLoading] = useState(true);
+    const contentRef = useRef(null);
 
-            useEffect(() => {
-                setLoading(true);
-                
-                if (!item.filePath) {
-                    const mockContent = `
-# ${item.title}
-> **Note:** Failed to load external file. 
+    // --- 新增：代码复制功能 ---
+    const copyToClipboard = (text, button) => {
+        navigator.clipboard.writeText(text).then(() => {
+            const originalText = button.innerText;
+            button.innerText = 'Copied!';
+            button.classList.add('text-emerald-600');
+            setTimeout(() => {
+                button.innerText = originalText;
+                button.classList.remove('text-emerald-600');
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy:', err);
+            button.innerText = 'Error';
+        });
+    };
 
-Check your JSON data to ensure \`filePath\` is set correctly (e.g., "data/posts/paper_xxx.md").
-                    `;
-                    setContent(marked.parse(mockContent));
-                    setLoading(false);
-                    return;
+    useEffect(() => {
+        setLoading(true);
+        
+        // 1. 定义一个解析 Frontmatter 的函数
+        const parseFrontmatter = (markdown) => {
+            // 匹配文章开头的 --- ... --- 区域
+            const match = markdown.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+            if (match) {
+                try {
+                    // 使用 jsyaml 解析元数据
+                    const fm = jsyaml.load(match[1]);
+                    return { frontmatter: fm, body: match[2] };
+                } catch (e) {
+                    console.error("Frontmatter parsing error:", e);
                 }
-
-                fetch(item.filePath)
-                    .then(res => {
-                        if (!res.ok) throw new Error("Failed to load");
-                        return res.text();
-                    })
-                    .then(text => {
-                        setContent(marked.parse(text));
-                        setLoading(false);
-                    })
-                    .catch(err => {
-                        const fallback = `
-# ${item.title}
-> **System Notice:** Could not load \`${item.filePath}\`. 
-
-Please ensure you are running a local server to load external Markdown files.
-                        `;
-                        setContent(marked.parse(fallback));
-                        setLoading(false);
-                    });
-            }, [item]);
-
-            useEffect(() => {
-                if (!loading && content) {
-                    setTimeout(() => {
-                        if (window.renderMathInElement) window.renderMathInElement(document.querySelector('.prose'), {
-                            delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}],
-                            throwOnError: false
-                        });
-                        if (window.Prism) window.Prism.highlightAll();
-                    }, 100);
-                }
-            }, [content, loading]);
-
-            return (
-                <div className="max-w-3xl mx-auto px-6 py-12 fade-in min-h-screen">
-                    <button onClick={onBack} className="group flex items-center text-sm text-stone-400 hover:text-blue-900 mb-12 font-mono uppercase tracking-wider transition-colors">
-                        <span className="mr-2 inline-block rotate-180 group-hover:-translate-x-1 transition-transform">→</span> Back to List
-                    </button>
-                    {loading && <div className="flex justify-center p-12"><div className="w-8 h-8 border-2 border-blue-900 border-t-transparent rounded-full animate-spin"></div></div>}
-                    {!loading && (
-                        <div className="fade-in prose prose-stone prose-lg prose-headings:font-serif text-stone-600" dangerouslySetInnerHTML={{ __html: content }}></div>
-                    )}
-                </div>
-            )
+            }
+            // 如果没有 Frontmatter，就返回原始内容
+            return { frontmatter: null, body: markdown };
         };
+
+        // 2. 自定义 Marked 渲染器以添加复制按钮
+        const renderer = new marked.Renderer();
+        renderer.code = function(code, language) {
+            // 对代码内容进行转义，防止 XSS
+            const encodedCode = code.replace(/&/g, '&amp;')
+                                    .replace(/</g, '&lt;')
+                                    .replace(/>/g, '&gt;')
+                                    .replace(/"/g, '&quot;')
+                                    .replace(/'/g, '&#039;');
+            
+            // 生成带有 Copy 按钮的 HTML 结构
+            return `
+                <div class="relative group my-6 rounded-lg overflow-hidden shadow-md bg-[#2d2d2d]">
+                    <div class="flex items-center justify-between px-4 py-2 bg-[#3d3d3d] border-b border-stone-700/50">
+                        <span class="text-xs font-mono text-stone-400 lowercase">${language || 'text'}</span>
+                        <button class="copy-btn text-xs font-mono text-stone-400 hover:text-white transition-colors focus:outline-none" data-code="${encodedCode}">
+                            Copy
+                        </button>
+                    </div>
+                    <pre class="!my-0 !rounded-t-none language-${language || 'none'}" style="margin: 0 !important;"><code class="language-${language || 'none'}">${encodedCode}</code></pre>
+                </div>
+            `;
+        };
+
+        if (!item.filePath) {
+            // ... (原有错误处理逻辑，略)
+            setLoading(false);
+            return;
+        }
+
+        fetch(item.filePath)
+            .then(res => {
+                if (!res.ok) throw new Error("Failed to load");
+                return res.text();
+            })
+            .then(text => {
+                // 3. 解析 Frontmatter 和正文
+                const { frontmatter: fm, body } = parseFrontmatter(text);
+                setFrontmatter(fm); // 保存元数据
+                // 4. 使用自定义渲染器解析正文
+                setContent(marked.parse(body, { renderer }));
+                setLoading(false);
+            })
+            .catch(err => {
+                // ... (原有错误处理逻辑，略)
+                setLoading(false);
+            });
+    }, [item]);
+
+    // --- 副作用处理：数学公式、代码高亮和绑定复制事件 ---
+    useEffect(() => {
+        if (!loading && content && contentRef.current) {
+            // A. 渲染数学公式
+            if (window.renderMathInElement) {
+                // 先把块级公式单独处理（可选，解决一些换行问题）
+                contentRef.current.querySelectorAll('p').forEach(p => {
+                    if (p.innerText.startsWith('$$') && p.innerText.endsWith('$$')) {
+                         p.outerHTML = '<div class="katex-display">' + p.innerHTML + '</div>';
+                    }
+                });
+                window.renderMathInElement(contentRef.current, {
+                    delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}],
+                    throwOnError: false
+                });
+            }
+            // B. 代码高亮
+            if (window.Prism) window.Prism.highlightAll();
+
+            // C. 绑定复制按钮点击事件 (关键步骤)
+            const copyButtons = contentRef.current.querySelectorAll('.copy-btn');
+            copyButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // 解码之前转义的代码内容
+                    const codeToCopy = btn.getAttribute('data-code')
+                        .replace(/&amp;/g, '&')
+                        .replace(/&lt;/g, '<')
+                        .replace(/&gt;/g, '>')
+                        .replace(/&quot;/g, '"')
+                        .replace(/&#039;/g, "'");
+                    copyToClipboard(codeToCopy, btn);
+                });
+            });
+        }
+    }, [content, loading]);
+
+    return (
+        <div className="max-w-3xl mx-auto px-6 py-12 fade-in min-h-screen">
+            <button onClick={onBack} className="group flex items-center text-sm text-stone-400 hover:text-blue-900 mb-12 font-mono uppercase tracking-wider transition-colors">
+                <span className="mr-2 inline-block rotate-180 group-hover:-translate-x-1 transition-transform">→</span> Back to List
+            </button>
+            
+            {loading && <div className="flex justify-center p-12"><div className="w-8 h-8 border-2 border-blue-900 border-t-transparent rounded-full animate-spin"></div></div>}
+            
+            {!loading && (
+                <>
+                    {/* --- 全新设计的文章头部 (基于 Frontmatter) --- */}
+                    {frontmatter && (
+                        <header className="mb-12 pb-8 border-b border-stone-200">
+                            {/* 分类和日期 */}
+                            <div className="flex flex-wrap items-center gap-4 mb-4 text-xs font-mono uppercase tracking-widest text-stone-500">
+                                {frontmatter.categories && frontmatter.categories.map(cat => (
+                                    <span key={cat} className="text-blue-900 font-bold">{cat}</span>
+                                ))}
+                                {frontmatter.date && <span>• {frontmatter.date}</span>}
+                            </div>
+                            {/* 标题 */}
+                            <h1 className="text-4xl md:text-5xl font-serif font-bold text-stone-900 mb-6 leading-tight">
+                                {frontmatter.title || item.title}
+                            </h1>
+                            {/* 描述 (摘要) */}
+                            {frontmatter.description && (
+                                <p className="text-xl text-stone-600 font-light leading-relaxed font-serif italic mb-6">
+                                    {frontmatter.description}
+                                </p>
+                            )}
+                            {/* 标签 */}
+                            {frontmatter.tags && (
+                                <div className="flex flex-wrap gap-2">
+                                    {frontmatter.tags.map(tag => (
+                                        <span key={tag} className="px-2.5 py-1 bg-stone-100 text-stone-500 text-xs font-mono rounded-full border border-stone-200">
+                                            #{tag}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+                        </header>
+                    )}
+
+                    {/* --- 文章正文区域 --- */}
+                    {/* 注意：这里去掉了 prose 的 h1 样式，因为我们已经有了专门的头部 */}
+                    <div ref={contentRef} className="fade-in prose prose-stone prose-lg prose-headings:font-serif prose-h1:hidden text-stone-600 max-w-none" dangerouslySetInnerHTML={{ __html: content }}></div>
+                </>
+            )}
+        </div>
+    );
+};
 
         // --- Hero (无变动) ---
         const Hero = ({ setActiveTab }) => (
