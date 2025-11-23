@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人主页 - My Portfolio</title>
+    <style>
+        /* 全局样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        /* 导航栏 */
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        nav h1 {
+            font-size: 1.5rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #3498db;
+        }
+
+        /* 首页 Hero 区域 */
+        #home {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 0 20px;
+        }
+
+        #home h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+
+        #home p {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: #fff;
+            padding: 10px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        /* 通用板块样式 */
+        section {
+            padding: 80px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        /* 关于我 */
+        #about p {
+            font-size: 1.1rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 项目展示 (Grid布局) */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .project-info h3 {
+            margin-bottom: 10px;
+        }
+
+        /* 联系方式 */
+        #contact {
+            text-align: center;
+            background-color: #f4f4f4;
+            width: 100%;
+            max-width: 100%; /* 全宽背景 */
+        }
+        
+        #contact .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .contact-links a {
+            display: inline-block;
+            margin: 0 15px;
+            font-size: 1.2rem;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+        }
+
+        .contact-links a:hover {
+            border-bottom: 2px solid #3498db;
+            color: #3498db;
+        }
+
+        /* 页脚 */
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 0;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            #home h1 { font-size: 2.5rem; }
+            nav ul { display: none; } /* 简单隐藏菜单，实际项目可加汉堡菜单 */
+            nav h1 { margin: 0 auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <h1>我的主页</h1>
+            <ul>
+                <li><a href="#home">首页</a></li>
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#projects">项目经历</a></li>
+                <li><a href="#contact">联系方式</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home">
+        <h1>你好，我是 [你的名字]</h1>
+        <p>一名热爱创造的开发者 / 设计师 / 创作者</p>
+        <a href="#projects" class="btn">查看我的作品</a>
+    </section>
+
+    <section id="about">
+        <h2>关于我</h2>
+        <p>
+            这里是自我介绍区域。我热衷于通过技术解决问题，拥有丰富的Web开发经验。
+            我喜欢探索新技术，并致力于构建用户体验优秀的产品。
+            （请在代码中修改这段文字为您的真实介绍）
+        </p>
+    </section>
+
+    <section id="projects">
+        <h2>项目展示</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1352&q=80" alt="Project 1">
+                <div class="project-info">
+                    <h3>个人博客系统</h3>
+                    <p>使用 HTML, CSS 和 JavaScript 构建的响应式博客模板。</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Project 2">
+                <div class="project-info">
+                    <h3>电商数据看板</h3>
+                    <p>基于 React 和 D3.js 的数据可视化分析平台。</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Project 3">
+                <div class="project-info">
+                    <h3>AI 聊天机器人</h3>
+                    <p>调用 OpenAI API 实现的智能对话助手。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>联系我</h2>
+            <p style="margin-bottom: 20px;">有合作意向？欢迎通过以下方式联系我。</p>
+            <div class="contact-links">
+                <a href="mailto:your-email@example.com">📧 发送邮件</a>
+                <a href="https://github.com/yourusername" target="_blank">🐙 GitHub</a>
+                <a href="https://linkedin.com/in/yourusername" target="_blank">💼 LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 我的个人主页. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // 简单的平滑滚动效果（兼容旧浏览器）
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
