@@ -82,7 +82,8 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
-        // --- 默认回退数据 ---
+        // --- 默认回退数据 (Backup Data) ---
+        // 确保当无法读取外部 JSON 时，页面仍能显示内容
         const DEFAULT_DB = {
             library: {
                 disciplines: [
@@ -95,9 +96,30 @@
                     "dl": [{ title: "Diffusion Models: Theory to Practice", chapters: [{ title: "Foundations", lessons: [{ id: "diff_01", title: "VAE & ELBO", type: "note", filePath: "" }] }] }]
                 }
             },
-            papers: { themes: [], lists: {} },
-            lab: [],
-            posts: [],
+            // ⭐ 修复：填充 Papers 数据，确保分类显示
+            papers: {
+                themes: [
+                    { id: "gen-ai", title: "Generative AI", count: 12, desc: "Diffusion, GANs, VAEs." },
+                    { id: "opt", title: "Optimization", count: 8, desc: "Gradient Descent variants." }
+                ],
+                lists: {
+                    "gen-ai": [
+                        { title: "Denoising Diffusion Probabilistic Models", authors: "Ho et al., 2020", tags: ["Foundation"], read: true },
+                        { title: "Score-Based Generative Modeling through SDEs", authors: "Song et al., 2021", tags: ["SDE", "Theory"] }
+                    ],
+                    "opt": []
+                }
+            },
+            // ⭐ 修复：填充 Lab 数据
+            lab: [
+                { id: "micro-diff", language: "PYTHON", title: "micro-diffusion", desc: "200行代码实现的极简 Diffusion Model。", link: "#", featured: true },
+                { id: "bayes-opt", language: "MATLAB", title: "Bayesian Optimization Viz", desc: "高斯过程可视化交互演示。", link: "#", featured: false }
+            ],
+            // ⭐ 修复：填充 Posts 数据，确保分类显示
+            posts: [
+                { id: "math-intuition", date: "Nov 10", category: "PHILOSOPHY", title: "在数学的严谨与直觉之间", filePath: "data/posts/math_intuition.md" },
+                { id: "why-entropy", date: "Oct 24", category: "INFORMATION THEORY", title: "熵：不仅仅是混乱度", filePath: "data/posts/entropy.md" }
+            ],
             tools: [
                 { id: "zotero", icon: "book-marked", title: "Zotero Guide", desc: "Default guide content.", link: "https://www.zotero.org/", filePath: "" }
             ]
@@ -334,6 +356,7 @@ Please ensure you are running a local server to load external Markdown files.
         const Papers = ({ data }) => {
             const [selectedTheme, setSelectedTheme] = useState(null);
             
+            // 确保 data 存在
             if (!data || !data.themes) return <div className="p-12 text-center text-stone-400">No papers data loaded.</div>;
 
             if(!selectedTheme) return (
