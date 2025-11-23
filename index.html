@@ -31,11 +31,10 @@
             --font-serif: 'Cinzel', serif;
             --font-sans: 'Inter', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
-            --color-accent: #0f172a; /* Deep Navy */
         }
         body {
             font-family: var(--font-sans);
-            background-color: #fdfcfc;
+            background-color: #fdfcfc; /* 更纯净的白 */
             color: #1c1917;
             /* 更加细腻的数学网格背景 */
             background-image: 
@@ -50,24 +49,31 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         
         .glass-nav {
-            background: rgba(253, 252, 252, 0.85);
+            background: rgba(253, 252, 252, 0.9);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(0,0,0,0.04);
         }
         
-        /* 抽象数学背景样式 */
-        .abstract-bg-1 { background: radial-gradient(circle at 10% 20%, rgb(239, 246, 255) 0%, rgb(255, 255, 255) 90%); }
-        .abstract-bg-2 { background: linear-gradient(135deg, #fdfbf7 0%, #eef2ff 100%); }
+        /* 抽象背景样式 (用于文章卡片) */
+        .abstract-bg-1 { background: radial-gradient(circle at 10% 20%, rgb(240, 245, 255) 0%, rgb(255, 255, 255) 90%); }
         .abstract-line { background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 10px); }
 
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 3px; }
         
-        /* Markdown 优化 */
-        .prose h1 { font-family: var(--font-serif); font-size: 2.25rem; margin-top: 2rem; color: #0f172a; }
-        .prose blockquote { border-left-color: #0f172a; background: #f8fafc; font-style: italic; color: #475569; }
+        /* Markdown 样式 */
+        .prose h1 { font-family: var(--font-serif); font-size: 2.5rem; margin-top: 2rem; margin-bottom: 1.5rem; color: #1c1917; font-weight: 700; }
+        .prose h2 { font-family: var(--font-serif); font-size: 1.8rem; margin-top: 2.5rem; margin-bottom: 1rem; color: #1c1917; font-weight: 600; border-bottom: 1px solid #e7e5e4; padding-bottom: 0.5rem; }
+        .prose h3 { font-family: var(--font-serif); font-size: 1.4rem; margin-top: 2rem; margin-bottom: 0.8rem; color: #1c1917; font-weight: 600; }
+        .prose p { margin-bottom: 1.25rem; line-height: 1.75; color: #44403c; }
+        .prose blockquote { border-left: 3px solid #0f172a; padding-left: 1rem; font-style: italic; background: #f8fafc; padding: 1rem; border-radius: 2px; margin: 1.5rem 0; color: #475569; }
+        .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; }
+        .prose li { margin-bottom: 0.5rem; }
+        
+        /* 代码块与公式样式修正 */
         .katex-display { overflow-x: auto; overflow-y: hidden; padding: 10px 0; }
+        pre[class*="language-"] { border-radius: 4px; margin: 1.5em 0; font-size: 0.85em; padding: 1.5em !important; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e5e7eb; }
     </style>
 </head>
 <body>
@@ -76,44 +82,56 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
-        // --- 模拟更新后的数据 (包含更多文章细节) ---
+        // --- 默认回退数据 (Updated with new styling fields) ---
         const DEFAULT_DB = {
             library: {
                 disciplines: [
                     { id: "dl", title: "Deep Learning", icon: "network", desc: "从反向传播到大模型的数学原理。", count: "2 Courses" },
-                    { id: "prob", title: "Probability", icon: "sigma", desc: "随机过程、贝叶斯推断与信息论。", count: "3 Courses" },
+                    { id: "prob", title: "Probability & Stats", icon: "sigma", desc: "随机过程、贝叶斯推断与信息论。", count: "3 Courses" },
                     { id: "opt", title: "Optimization", icon: "layers", desc: "凸优化、KKT条件与数值计算方法。", count: "1 Course" },
-                    { id: "math", title: "Pure Math", icon: "infinity", desc: "线性代数、微积分与泛函分析基础。", count: "4 Courses" }
+                    { id: "math-base", title: "Math Foundation", icon: "infinity", desc: "线性代数、微积分与泛函分析基础。", count: "4 Courses" }
                 ],
                 courses: {
                     "dl": [{ title: "Diffusion Models: Theory to Practice", chapters: [{ title: "Foundations", lessons: [{ id: "diff_01", title: "VAE & ELBO", type: "note", filePath: "" }] }] }]
                 }
             },
-            papers: { themes: [], lists: {} }, // 省略以保持代码简洁，逻辑通用
+            papers: {
+                themes: [
+                    { id: "gen-ai", title: "Generative AI", count: 12, desc: "Diffusion, GANs, VAEs." },
+                    { id: "opt", title: "Optimization", count: 8, desc: "Gradient Descent variants." }
+                ],
+                lists: {
+                    "gen-ai": [
+                        { title: "Denoising Diffusion Probabilistic Models", authors: "Ho et al., 2020", tags: ["Foundation"], read: true, filePath: "" },
+                        { title: "Score-Based Generative Modeling through SDEs", authors: "Song et al., 2021", tags: ["SDE", "Theory"], filePath: "" }
+                    ],
+                    "opt": []
+                }
+            },
             lab: [
-                { id: "micro-diff", language: "PYTHON", title: "micro-diffusion", desc: "200行代码实现的极简 Diffusion Model。", link: "#" },
-                { id: "bayes-opt", language: "MATLAB", title: "Bayesian Viz", desc: "高斯过程可视化交互演示。", link: "#" }
+                { id: "micro-diff", language: "PYTHON", title: "micro-diffusion", desc: "200行代码实现的极简 Diffusion Model。", link: "#", featured: true },
+                { id: "bayes-opt", language: "MATLAB", title: "Bayesian Optimization Viz", desc: "高斯过程可视化交互演示。", link: "#", featured: false }
             ],
-            // ⭐ 重点更新：Posts 数据结构增强
+            // ⭐ 更新后的 Posts 数据示例
             posts: [
                 { 
                     id: "math-intuition", 
                     date: "Nov 10, 2025", 
                     category: "Philosophy", 
                     title: "在数学的严谨与直觉之间", 
-                    desc: "为什么伟大的数学发现往往源于直觉，而非逻辑推导？探讨 Poincaré 与 Riemann 的思维模式。",
+                    desc: "为什么伟大的数学发现往往源于直觉，而非逻辑推导？探讨 Poincaré 与 Riemann 的思维模式。", 
                     readTime: "8 min read",
                     featured: true,
                     filePath: "data/posts/math_intuition.md",
-                    tags: ["Epistemology", "Math History"]
+                    tags: ["Epistemology", "History"]
                 },
                 { 
-                    id: "entropy", 
+                    id: "why-entropy", 
                     date: "Oct 24, 2025", 
                     category: "Info Theory", 
                     title: "熵：不仅仅是混乱度", 
                     desc: "重新审视香农熵与热力学熵的本质联系，以及它们在现代大模型中的映射。",
-                    readTime: "12 min read",
+                    readTime: "12 min read", 
                     featured: false,
                     filePath: "data/posts/entropy.md",
                     tags: ["Physics", "AI"]
@@ -130,7 +148,9 @@
                     tags: ["Topology", "Deep Learning"]
                 }
             ],
-            tools: []
+            tools: [
+                { id: "zotero", icon: "book-marked", title: "Zotero Guide", desc: "Default guide content.", link: "https://www.zotero.org/", filePath: "" }
+            ]
         };
 
         // --- 工具组件 ---
@@ -148,10 +168,9 @@
             return <i ref={iconRef} data-lucide={name} className={className} {...props}></i>;
         };
 
-        // ⭐ 全新 Logo 组件：纯粹、几何、硬核
+        // ⭐ 新版 SVG Logo 组件
         const Logo = () => (
           <div className="flex items-center gap-3 select-none group cursor-pointer">
-            {/* SVG Logo: 结合了 M, 神经网络节点, 和无限符号的抽象几何体 */}
             <div className="w-10 h-10 relative">
                 <svg viewBox="0 0 100 100" className="w-full h-full text-stone-900 group-hover:text-blue-900 transition-colors duration-500">
                     <defs>
@@ -162,13 +181,13 @@
                     </defs>
                     {/* 外框：象征理性的边界 */}
                     <rect x="10" y="10" width="80" height="80" fill="none" stroke="currentColor" strokeWidth="4" className="opacity-20" />
-                    {/* 核心图形：M的变体，类似张量网络 */}
+                    {/* 核心图形：M的变体 */}
                     <path d="M 30 70 L 30 30 L 50 50 L 70 30 L 70 70" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="square" strokeLinejoin="miter" />
-                    {/* 连接点：象征神经元/数据点 */}
+                    {/* 连接点 */}
                     <circle cx="30" cy="30" r="4" fill="currentColor" />
                     <circle cx="70" cy="30" r="4" fill="currentColor" />
                     <circle cx="50" cy="50" r="4" fill="currentColor" />
-                    {/* 游离点：象征探索 */}
+                    {/* 游离点：象征探索/灵感 */}
                     <circle cx="85" cy="15" r="2" fill="currentColor" className="animate-pulse" />
                 </svg>
             </div>
@@ -180,7 +199,17 @@
           </div>
         );
 
-        // --- 导航栏 ---
+        // --- 社交链接组件 ---
+        const SocialLink = ({ icon, label, href, colorClass }) => (
+            <a href={href} target="_blank" className={`group flex flex-col items-center gap-2 transition-transform hover:-translate-y-1`}>
+                <div className={`w-10 h-10 rounded-full bg-white border border-stone-200 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all ${colorClass}`}>
+                    <Icon name={icon} size={18} />
+                </div>
+                <span className="text-[10px] font-mono text-stone-400 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity absolute -bottom-6 whitespace-nowrap">{label}</span>
+            </a>
+        );
+
+        // --- 导航栏 (更新版) ---
         const Navbar = ({ activeTab, setActiveTab }) => (
           <nav className="sticky top-0 z-50 glass-nav transition-all duration-300">
             <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -194,7 +223,8 @@
                   </button>
                 ))}
               </div>
-              <div className="hidden lg:flex items-center gap-4">
+              <div className="hidden lg:flex items-center gap-6">
+                 <button onClick={() => setActiveTab('tools')} className="text-stone-400 hover:text-blue-900 transition-colors"><Icon name="wrench" size={18}/></button>
                  <button onClick={() => setActiveTab('community')} className="px-5 py-2 border border-stone-200 text-stone-900 text-xs font-bold tracking-widest hover:bg-stone-900 hover:text-white transition-all rounded-sm font-serif">
                     JOIN
                  </button>
@@ -204,12 +234,87 @@
           </nav>
         );
 
-        // --- Hero / 首页 ---
+        // --- 文章阅读器 (功能完整版) ---
+        const ArticleReader = ({ item, onBack }) => {
+            const [content, setContent] = useState('');
+            const [loading, setLoading] = useState(true);
+
+            useEffect(() => {
+                setLoading(true);
+                
+                if (!item.filePath) {
+                    const mockContent = `
+# ${item.title}
+> **Note:** Failed to load external file. 
+
+Check your JSON data to ensure \`filePath\` is set correctly (e.g., "data/posts/paper_xxx.md").
+                    `;
+                    setContent(marked.parse(mockContent));
+                    setLoading(false);
+                    return;
+                }
+
+                fetch(item.filePath)
+                    .then(res => {
+                        if (!res.ok) throw new Error("Failed to load");
+                        return res.text();
+                    })
+                    .then(text => {
+                        setContent(marked.parse(text));
+                        setLoading(false);
+                    })
+                    .catch(err => {
+                        const fallback = `
+# ${item.title}
+> **System Notice:** Could not load \`${item.filePath}\`. 
+
+Please ensure you are running a local server (e.g., Python SimpleHTTPServer) to load external Markdown files.
+                        `;
+                        setContent(marked.parse(fallback));
+                        setLoading(false);
+                    });
+            }, [item]);
+
+            useEffect(() => {
+                if (!loading && content) {
+                    setTimeout(() => {
+                        if (window.renderMathInElement) window.renderMathInElement(document.querySelector('.prose'), {
+                            delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}],
+                            throwOnError: false
+                        });
+                        if (window.Prism) window.Prism.highlightAll();
+                    }, 100);
+                }
+            }, [content, loading]);
+
+            return (
+                <div className="max-w-3xl mx-auto px-6 py-12 fade-in min-h-screen">
+                    <button onClick={onBack} className="text-xs font-mono text-stone-400 hover:text-stone-900 uppercase tracking-widest mb-12 flex items-center group">
+                        <span className="mr-2 inline-block transition-transform group-hover:-translate-x-1">←</span> Back
+                    </button>
+                    {loading && <div className="flex justify-center p-12"><div className="w-8 h-8 border-2 border-stone-900 border-t-transparent rounded-full animate-spin"></div></div>}
+                    {!loading && (
+                        <div className="fade-in">
+                             <h1 className="text-4xl md:text-5xl font-serif font-bold text-stone-900 mb-6 leading-tight">{item.title}</h1>
+                             <div className="flex flex-wrap gap-4 text-xs font-mono text-stone-400 mb-12 border-b border-stone-200 pb-8 items-center">
+                                <span>{item.date || "Unknown Date"}</span>
+                                <span className="w-1 h-1 bg-stone-300 rounded-full"></span>
+                                <span>{item.readTime || "Read"}</span>
+                                <span className="ml-auto text-blue-900 bg-blue-50 px-2 py-1 rounded uppercase">{item.category}</span>
+                            </div>
+                            <div className="prose prose-stone prose-lg prose-headings:font-serif text-stone-600" dangerouslySetInnerHTML={{ __html: content }}></div>
+                        </div>
+                    )}
+                </div>
+            )
+        };
+
+        // --- Hero / 首页 (新版) ---
         const Hero = ({ setActiveTab }) => (
           <div className="max-w-6xl mx-auto px-6 py-24 md:py-32 fade-in min-h-[80vh] flex flex-col justify-center relative">
             {/* 背景装饰：数学符号 */}
-            <div className="absolute top-10 right-10 md:right-32 text-[12rem] font-serif text-stone-50 select-none -z-10 leading-none">∫</div>
-            <div className="absolute bottom-10 left-10 text-[10rem] font-serif text-stone-50 select-none -z-10 leading-none">∑</div>
+            <div className="absolute top-10 right-10 md:right-32 text-[12rem] font-serif text-stone-100 select-none -z-10 leading-none">∫</div>
+            <div className="absolute bottom-10 left-10 text-[10rem] font-serif text-stone-100 select-none -z-10 leading-none">∑</div>
 
             <div className="space-y-8 max-w-4xl">
                 <div className="inline-flex items-center gap-3 text-xs font-mono text-stone-400 uppercase tracking-[0.2em]">
@@ -219,7 +324,7 @@
                 
                 <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-stone-900 font-serif leading-[1.05] tracking-tight">
                     Pure Logic,<br/>
-                    <span className="text-stone-400 font-light italic">Infinite</span> Minds.
+                    <span className="text-stone-300 font-light italic">Infinite</span> Minds.
                 </h1>
                 
                 <p className="text-lg md:text-xl text-stone-600 font-light max-w-2xl leading-relaxed border-l-2 border-stone-200 pl-6 my-8">
@@ -229,10 +334,10 @@
                 </p>
 
                 <div className="flex flex-wrap gap-6 pt-4">
-                    <button onClick={() => setActiveTab('library')} className="px-8 py-4 bg-stone-900 text-white text-xs font-mono uppercase tracking-widest hover:bg-blue-900 transition-colors shadow-xl shadow-stone-200">
+                    <button onClick={() => setActiveTab('library')} className="px-8 py-4 bg-stone-900 text-white text-xs font-mono uppercase tracking-widest hover:bg-blue-900 transition-colors shadow-xl shadow-stone-200 rounded-sm">
                         Start Learning
                     </button>
-                    <button onClick={() => setActiveTab('posts')} className="px-8 py-4 border border-stone-300 text-stone-600 text-xs font-mono uppercase tracking-widest hover:border-stone-900 hover:text-stone-900 transition-colors bg-white">
+                    <button onClick={() => setActiveTab('posts')} className="px-8 py-4 border border-stone-300 text-stone-600 text-xs font-mono uppercase tracking-widest hover:border-stone-900 hover:text-stone-900 transition-colors bg-white rounded-sm">
                         Read Essays
                     </button>
                 </div>
@@ -245,7 +350,149 @@
           </div>
         );
 
-        // ⭐ 重构后的 Posts (Essays) 组件 - 更加精致、杂志感
+        // --- Library (功能完整 + 样式微调) ---
+        const Library = ({ onRead, data }) => {
+          const [selectedDiscipline, setSelectedDiscipline] = useState(null);
+          
+          if (!data || !data.disciplines || data.disciplines.length === 0) {
+            return <div className="p-12 text-center text-stone-400">Library data is empty.</div>;
+          }
+
+          if (!selectedDiscipline) {
+            return (
+                <div className="max-w-6xl mx-auto px-6 py-16 fade-in min-h-screen">
+                    <h2 className="text-4xl font-serif font-bold mb-12 text-stone-900">Library</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {data.disciplines.map(d => (
+                            <div key={d.id} onClick={() => setSelectedDiscipline(d.id)} className="group p-8 bg-white border border-stone-200 hover:border-stone-900 transition-all cursor-pointer rounded-sm relative overflow-hidden shadow-sm hover:shadow-xl">
+                                <div className="absolute top-0 right-0 w-40 h-40 bg-stone-50 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-700 ease-in-out"></div>
+                                <div className="relative z-10">
+                                    <div className="w-12 h-12 flex items-center justify-center mb-6 text-stone-400 group-hover:text-blue-900 transition-colors">
+                                        <Icon name={d.icon} size={32} strokeWidth={1.5} />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-stone-900 mb-2 font-serif">{d.title}</h3>
+                                    <p className="text-stone-500 mb-6 font-light">{d.desc}</p>
+                                    <div className="flex items-center text-xs font-mono text-stone-400 uppercase tracking-wider">
+                                        <span>{d.count}</span> 
+                                        <span className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">Explore →</span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+          }
+
+          const courses = data.courses[selectedDiscipline] || []; 
+          const currentInfo = data.disciplines.find(d => d.id === selectedDiscipline);
+
+          return (
+              <div className="max-w-5xl mx-auto px-6 py-16 fade-in min-h-screen">
+                  <button onClick={() => setSelectedDiscipline(null)} className="flex items-center text-stone-400 hover:text-stone-900 mb-8 font-mono text-xs uppercase tracking-widest transition-colors group">
+                    <span className="mr-2 group-hover:-translate-x-1 transition-transform">←</span> Back to Disciplines
+                  </button>
+                  <div className="flex items-center gap-6 mb-12 border-b border-stone-200 pb-8">
+                    <div className="w-16 h-16 bg-stone-900 text-white rounded-sm flex items-center justify-center shadow-lg"><Icon name={currentInfo.icon} size={32} strokeWidth={1.5} /></div>
+                    <div><h2 className="text-4xl font-serif font-bold text-stone-900">{currentInfo.title}</h2><p className="text-stone-500 mt-1 font-light">{currentInfo.desc}</p></div>
+                  </div>
+                  <div className="space-y-12">
+                      {courses.length > 0 ? courses.map((course, idx) => (
+                          <div key={idx} className="bg-white border border-stone-200 rounded-sm overflow-hidden shadow-sm">
+                              <div className="bg-stone-50 px-8 py-6 border-b border-stone-100 flex justify-between items-center">
+                                <h3 className="font-bold text-xl text-stone-800 font-serif">{course.title}</h3>
+                                <span className="text-xs font-mono bg-white border border-stone-200 px-2 py-1 rounded text-stone-500">COURSE {idx + 1}</span>
+                              </div>
+                              <div className="p-8">
+                                  {course.chapters.map((chapter, cIdx) => (
+                                      <div key={cIdx} className="mb-8 last:mb-0">
+                                          <h4 className="text-xs font-bold text-stone-900 uppercase tracking-widest mb-4 pl-2 border-l-2 border-stone-900">{chapter.title}</h4>
+                                          <div className="grid gap-2">
+                                              {chapter.lessons.map(lesson => (
+                                                  <div key={lesson.id} onClick={() => onRead(lesson)} className="flex items-center justify-between p-3 hover:bg-stone-50 rounded-sm cursor-pointer group transition-colors border border-transparent hover:border-stone-200">
+                                                      <div className="flex items-center gap-3">
+                                                        <Icon name="file-text" size={16} className={lesson.highlight ? "text-blue-900" : "text-stone-300"}/>
+                                                        <span className={`text-sm ${lesson.highlight ? "font-bold text-stone-900" : "text-stone-600"}`}>{lesson.title}</span>
+                                                      </div>
+                                                      {lesson.highlight && <span className="text-[10px] font-bold text-white bg-blue-900 px-2 py-0.5 rounded-full">CORE</span>}
+                                                  </div>
+                                              ))}
+                                          </div>
+                                      </div>
+                                  ))}
+                              </div>
+                          </div>
+                      )) : <div className="p-12 text-center border border-dashed border-stone-300 text-stone-400">Construction in progress...</div>}
+                  </div>
+              </div>
+          );
+        };
+
+        // --- Papers (功能完整) ---
+        const Papers = ({ data, onRead }) => {
+            const [selectedTheme, setSelectedTheme] = useState(null);
+            
+            if (!data || !data.themes) return <div className="p-12 text-center text-stone-400">No papers data loaded.</div>;
+
+            if(!selectedTheme) return (
+                <div className="max-w-5xl mx-auto px-6 py-16 fade-in min-h-screen">
+                    <h2 className="text-4xl font-serif font-bold mb-6 text-stone-900">Reading List</h2>
+                    <div className="grid gap-6">
+                        {data.themes.map(t => (
+                            <div key={t.id} onClick={() => setSelectedTheme(t.id)} className="group bg-white p-6 border border-stone-200 hover:border-stone-900 cursor-pointer rounded-sm flex justify-between items-center transition-all">
+                                <div><h3 className="text-xl font-bold group-hover:text-blue-900 font-serif">{t.title}</h3><p className="text-sm text-stone-500 font-light">{t.desc}</p></div>
+                                <Icon name="arrow-right" className="text-stone-300 group-hover:text-stone-900 transition-colors"/>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+            
+            const list = data.lists[selectedTheme] || [];
+            return (
+                <div className="max-w-4xl mx-auto px-6 py-16 fade-in min-h-screen">
+                    <button onClick={() => setSelectedTheme(null)} className="flex items-center text-stone-400 hover:text-stone-900 mb-8 font-mono text-xs uppercase tracking-widest group"><span className="mr-2 group-hover:-translate-x-1 transition-transform">←</span> All Themes</button>
+                    <h2 className="text-3xl font-serif font-bold mb-8">{data.themes.find(t=>t.id===selectedTheme)?.title}</h2>
+                    <div className="space-y-4">
+                        {list.length > 0 ? list.map((p, i) => (
+                            <div key={i} onClick={() => onRead(p)} className="bg-white p-6 border border-stone-200 hover:border-blue-900 rounded-sm group relative cursor-pointer hover:shadow-md transition-all">
+                                <h3 className="font-bold text-lg group-hover:text-blue-900 pr-8 font-serif">{p.title}</h3>
+                                <p className="text-sm font-mono text-stone-500 mb-3 mt-1">{p.authors}</p>
+                                <div className="flex gap-2">
+                                    {p.tags && p.tags.map(tag => <span key={tag} className="text-[10px] bg-stone-100 text-stone-500 px-2 py-1 rounded-sm">{tag}</span>)}
+                                </div>
+                            </div>
+                        )) : <div className="text-stone-400 italic">No papers in this category yet.</div>}
+                    </div>
+                </div>
+            );
+        };
+
+        // --- Lab (功能完整) ---
+        const Lab = ({ data }) => (
+            <div className="max-w-6xl mx-auto px-6 py-16 fade-in min-h-screen">
+                <h2 className="text-4xl font-serif font-bold mb-12 text-stone-900">The Lab</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {data && data.length > 0 ? data.map(item => (
+                        <div key={item.id} className="bg-stone-900 p-8 rounded-sm text-stone-300 relative overflow-hidden hover:scale-[1.01] transition-transform shadow-2xl">
+                            <div className="relative z-10">
+                                <div className="font-mono text-xs text-blue-400 mb-2 tracking-widest">{item.language}</div>
+                                <h3 className="text-2xl font-bold text-white mb-4 font-serif">{item.title}</h3>
+                                <p className="text-sm mb-8 text-stone-400 leading-relaxed">{item.desc}</p>
+                                <a href={item.link} className="flex items-center gap-2 text-xs font-mono border border-stone-700 w-fit px-4 py-2 rounded-sm hover:bg-white hover:text-stone-900 transition-colors text-white no-underline uppercase tracking-wider">
+                                    <Icon name="github" size={14}/> View Code
+                                </a>
+                            </div>
+                            <div className="absolute -bottom-10 -right-10 opacity-10 text-9xl font-mono pointer-events-none">
+                                {item.language === "PYTHON" ? "Py" : "{}"}
+                            </div>
+                        </div>
+                    )) : <div className="text-stone-400">No lab projects loaded.</div>}
+                </div>
+            </div>
+        );
+
+        // ⭐ Posts (新版 - 杂志风格)
         const Posts = ({ data, onRead }) => {
             if (!data) return null;
             const featuredPost = data.find(p => p.featured) || data[0];
@@ -253,7 +500,6 @@
 
             return (
                 <div className="max-w-6xl mx-auto px-6 py-16 fade-in min-h-screen">
-                     {/* 头部 Slogan */}
                      <div className="mb-16 border-b border-stone-200 pb-8 flex flex-col md:flex-row justify-between items-end gap-6">
                         <div>
                             <h2 className="text-5xl font-serif font-bold text-stone-900 mb-2">Essays</h2>
@@ -264,16 +510,14 @@
                         </div>
                      </div>
 
-                    {/* Featured Post (置顶文章) - 大卡片设计 */}
+                    {/* Featured Post */}
                     {featuredPost && (
                         <div onClick={() => onRead(featuredPost)} className="group relative w-full bg-white border border-stone-200 rounded-sm shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer overflow-hidden mb-16">
                             <div className="grid grid-cols-1 md:grid-cols-2">
-                                {/* 左侧：抽象视觉图 */}
                                 <div className="h-64 md:h-auto abstract-bg-1 abstract-line relative overflow-hidden p-12 flex items-center justify-center">
                                     <div className="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/5 transition-colors duration-500"></div>
                                     <Icon name="infinity" size={64} className="text-stone-200 group-hover:scale-110 transition-transform duration-700" strokeWidth={1} />
                                 </div>
-                                {/* 右侧：内容 */}
                                 <div className="p-8 md:p-12 flex flex-col justify-center">
                                     <div className="flex items-center gap-3 text-xs font-mono text-blue-900 uppercase tracking-widest mb-4">
                                         <span className="w-2 h-2 bg-blue-900 rounded-full animate-pulse"></span>
@@ -297,32 +541,26 @@
                         </div>
                     )}
 
-                    {/* Recent Posts Grid - 网格布局 */}
+                    {/* Recent Posts Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {otherPosts.map(post => (
                             <div key={post.id} onClick={() => onRead(post)} className="group flex flex-col bg-white border border-stone-200 rounded-sm p-8 hover:border-stone-900 hover:-translate-y-1 transition-all duration-300 cursor-pointer shadow-sm hover:shadow-lg relative overflow-hidden">
-                                {/* 顶部装饰线 */}
                                 <div className="absolute top-0 left-0 w-full h-1 bg-stone-100 group-hover:bg-stone-900 transition-colors duration-300"></div>
-                                
                                 <div className="flex justify-between items-start mb-6">
-                                    <span className="text-[10px] font-mono text-stone-400 border border-stone-200 px-2 py-1 rounded uppercase tracking-wider">{post.category}</span>
+                                    <span className="text-[10px] font-mono text-stone-400 border border-stone-200 px-2 py-1 rounded-sm uppercase tracking-wider">{post.category}</span>
                                     <Icon name="arrow-up-right" size={18} className="text-stone-300 group-hover:text-stone-900 transition-colors" />
                                 </div>
-                                
                                 <h3 className="text-xl font-serif font-bold text-stone-800 mb-3 group-hover:text-blue-900 transition-colors leading-snug min-h-[3.5rem]">
                                     {post.title}
                                 </h3>
-                                
                                 <p className="text-sm text-stone-500 font-light leading-relaxed mb-6 line-clamp-3">
                                     {post.desc}
                                 </p>
-                                
                                 <div className="mt-auto flex flex-wrap gap-2 mb-4">
                                     {post.tags && post.tags.map(tag => (
                                         <span key={tag} className="text-[10px] text-stone-400 italic">#{tag}</span>
                                     ))}
                                 </div>
-
                                 <div className="text-[10px] font-mono text-stone-300 uppercase tracking-widest pt-4 border-t border-stone-50 group-hover:text-stone-500 transition-colors flex justify-between">
                                     <span>{post.date}</span>
                                     <span>{post.readTime}</span>
@@ -334,84 +572,133 @@
             );
         };
 
-        // --- 其他组件保持简约风格 (Library, Lab, etc.) ---
-        // 为了篇幅，这里复用你之前的逻辑，但在视觉上做一点微调
-        
-        const Library = ({ onRead, data }) => {
-            const [selectedDiscipline, setSelectedDiscipline] = useState(null);
-            if (!data) return null;
-            
-            if (!selectedDiscipline) return (
-                <div className="max-w-6xl mx-auto px-6 py-16 fade-in">
-                    <h2 className="text-4xl font-serif font-bold mb-12 text-stone-900">Library</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {data.disciplines.map(d => (
-                             <div key={d.id} onClick={() => setSelectedDiscipline(d.id)} className="group p-8 bg-white border border-stone-200 hover:border-stone-900 transition-all cursor-pointer relative overflow-hidden">
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-stone-50 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700 ease-in-out"></div>
-                                <div className="relative z-10">
-                                    <Icon name={d.icon} className="text-stone-400 group-hover:text-blue-900 mb-6 transition-colors" size={32} strokeWidth={1.5} />
-                                    <h3 className="text-2xl font-serif font-bold text-stone-900 mb-2">{d.title}</h3>
-                                    <p className="text-sm text-stone-500 mb-6 font-light">{d.desc}</p>
-                                    <span className="text-xs font-mono text-stone-400 uppercase tracking-widest group-hover:text-stone-900 transition-colors">Explore {d.count} →</span>
-                                </div>
-                             </div>
-                        ))}
+        // --- Tools (功能完整) ---
+        const Tools = ({ data, onRead }) => (
+            <div className="max-w-6xl mx-auto px-6 py-16 fade-in min-h-screen">
+                <h2 className="text-4xl font-serif font-bold mb-12 text-stone-900">Toolbox</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {data && data.length > 0 ? data.map(tool => (
+                        <div key={tool.id} onClick={() => onRead(tool)} className="p-6 bg-white border border-stone-200 rounded-sm hover:shadow-lg transition-all group cursor-pointer relative hover:border-stone-400">
+                            {tool.link && (
+                                <a href={tool.link} target="_blank" onClick={(e) => e.stopPropagation()} className="absolute top-4 right-4 text-stone-300 hover:text-blue-900 transition-colors" title="Visit Official Site">
+                                    <Icon name="external-link" size={16} />
+                                </a>
+                            )}
+                            <Icon name={tool.icon || "box"} className="text-stone-400 group-hover:text-blue-900 transition-colors mb-4" size={28}/>
+                            <h3 className="font-bold text-lg mb-2 text-stone-800 group-hover:text-blue-900 font-serif">{tool.title}</h3>
+                            <p className="text-sm text-stone-500 mb-4">{tool.desc}</p>
+                            <div className="flex items-center text-xs font-mono text-stone-400 uppercase tracking-wider">
+                                <span>Guide</span> 
+                                <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                            </div>
+                        </div>
+                    )) : <div className="text-stone-400">No tools loaded.</div>}
+                </div>
+            </div>
+        );
+
+        // --- Community (功能完整) ---
+        const Community = () => (
+            <div className="max-w-4xl mx-auto px-6 py-24 fade-in min-h-screen flex flex-col items-center text-center">
+                <div className="mb-8 text-blue-900"><Icon name="users" size={64} strokeWidth={1} /></div>
+                <h2 className="text-5xl font-serif font-bold mb-8 text-stone-900">The Community</h2>
+                
+                <div className="max-w-2xl text-lg text-stone-600 mb-12 font-light leading-relaxed">
+                    <p className="mb-6">
+                        我想建立一个会在 <strong className="text-stone-900">AI 领域深度研究</strong> 的社群。
+                    </p>
+                    <p className="mb-6">
+                        希望大家是 <span className="italic text-blue-900 font-serif">理想主义者</span> 与 <span className="italic text-blue-900 font-serif">长期主义者</span>。
+                    </p>
+                    <p>
+                        无论是在 AI 的技术、法律、人文还是数学领域，我们期待那些有独立想法的灵魂，在这里思想碰撞，<strong className="text-stone-900">共同成长</strong>。
+                    </p>
+                </div>
+                
+                <div className="w-full max-w-lg bg-white p-12 border border-stone-200 shadow-xl rounded-sm text-center transform hover:-translate-y-1 transition-transform duration-500">
+                    <h3 className="text-xs font-mono font-bold text-stone-400 mb-4 uppercase tracking-widest">Connect via Email</h3>
+                    <a href="mailto:mistatle@163.com" className="text-2xl md:text-3xl font-serif font-bold text-stone-900 hover:text-blue-900 transition-colors border-b-2 border-transparent hover:border-blue-900 pb-1">
+                        mistatle@163.com
+                    </a>
+                </div>
+
+                {/* Social Links Bar */}
+                 <div className="flex items-center gap-4 pt-16">
+                    <span className="text-xs font-mono text-stone-400 mr-4 hidden md:block uppercase tracking-widest">Follow:</span>
+                    <div className="flex gap-4">
+                        <SocialLink icon="tv-2" label="Bilibili" href="#" colorClass="group-hover:text-[#00AEEC] group-hover:border-[#00AEEC]" />
+                        <SocialLink icon="youtube" label="YouTube" href="#" colorClass="group-hover:text-[#FF0000] group-hover:border-[#FF0000]" />
+                        <SocialLink icon="github" label="GitHub" href="#" colorClass="group-hover:text-[#333] group-hover:border-[#333]" />
+                        <SocialLink icon="heart" label="小红书" href="#" colorClass="group-hover:text-[#FF2442] group-hover:border-[#FF2442]" />
+                        <SocialLink icon="compass" label="知乎" href="#" colorClass="group-hover:text-[#0084FF] group-hover:border-[#0084FF]" />
                     </div>
                 </div>
-            );
-            // 课程详情页逻辑复用之前的，但样式上建议去掉圆角，更锐利一点
-            return <div className="p-12 text-center" onClick={()=>setSelectedDiscipline(null)}>Placeholder for Course List (Click to back)</div>;
-        };
+            </div>
+        );
 
-        const ArticleReader = ({ item, onBack }) => {
-            // 这里仅仅是模拟，实际应该包含完整的 Markdown 渲染逻辑
-            return (
-                <div className="max-w-3xl mx-auto px-6 py-12 fade-in">
-                    <button onClick={onBack} className="text-xs font-mono text-stone-400 hover:text-stone-900 uppercase tracking-widest mb-12">← Back to List</button>
-                    <h1 className="text-4xl font-serif font-bold text-stone-900 mb-4">{item.title}</h1>
-                    <div className="flex gap-4 text-xs font-mono text-stone-400 mb-12 border-b border-stone-100 pb-8">
-                        <span>{item.date}</span>
-                        <span>{item.readTime || "5 min read"}</span>
-                        <span className="text-blue-900">{item.category}</span>
-                    </div>
-                    <div className="prose prose-stone prose-lg">
-                        <p className="font-serif text-xl text-stone-600 italic leading-relaxed">
-                            {item.desc}
-                        </p>
-                        <hr className="my-8 border-stone-200"/>
-                        <p>（此处应通过 fetch 加载 filePath: {item.filePath} 的内容...）</p>
-                        <p>Mathematics is the art of giving the same name to different things. —— Henri Poincaré</p>
-                    </div>
-                </div>
-            )
-        };
-
-        // --- 主程序 ---
+        // --- 主程序逻辑 (App) - 数据抓取逻辑完全恢复 ---
         const App = () => {
-            const [activeTab, setActiveTab] = useState('home');
-            const [readingItem, setReadingItem] = useState(null);
-            const [db, setDb] = useState(DEFAULT_DB);
-
-            const renderContent = () => {
-                if (readingItem) return <ArticleReader item={readingItem} onBack={() => setReadingItem(null)} />;
-                switch(activeTab) {
-                    case 'home': return <Hero setActiveTab={setActiveTab} />;
-                    case 'posts': return <Posts data={db.posts} onRead={setReadingItem} />;
-                    case 'library': return <Library data={db.library} onRead={() => {}} />; // 简化演示
-                    default: return <div className="p-24 text-center text-stone-400 font-mono">Construction in progress...</div>;
+          const [activeTab, setActiveTab] = useState('home');
+          const [readingItem, setReadingItem] = useState(null); 
+          const [db, setDb] = useState(DEFAULT_DB);
+          const [loading, setLoading] = useState(true);
+          
+          useEffect(() => {
+            const safeFetch = async (url) => {
+                try {
+                    const res = await fetch(url);
+                    if (!res.ok) throw new Error(res.statusText);
+                    return await res.json();
+                } catch (e) {
+                    // console.log(`Failed to fetch ${url}, using default.`);
+                    return null;
                 }
             };
 
-            return (
-                <div className="min-h-screen flex flex-col">
-                    <Navbar activeTab={activeTab} setActiveTab={(tab) => { setActiveTab(tab); setReadingItem(null); }} />
-                    <main className="flex-grow">{renderContent()}</main>
-                    <footer className="py-12 text-center">
-                        <div className="w-8 h-px bg-stone-300 mx-auto mb-6"></div>
-                        <p className="text-[10px] font-mono text-stone-400 uppercase tracking-[0.3em]">MIStatlE © 2025</p>
-                    </footer>
-                </div>
-            );
+            Promise.all([
+                safeFetch('data/library.json'),
+                safeFetch('data/papers.json'),
+                safeFetch('data/lab.json'),
+                safeFetch('data/posts.json'),
+                safeFetch('data/tools.json')
+            ]).then(([library, papers, lab, posts, tools]) => {
+                setDb(prev => ({
+                    library: library || prev.library,
+                    papers: papers || prev.papers,
+                    lab: lab || prev.lab,
+                    posts: posts || prev.posts,
+                    tools: tools || prev.tools
+                }));
+                setLoading(false);
+            });
+          }, []);
+
+          const renderContent = () => {
+            if (readingItem) return <ArticleReader item={readingItem} onBack={() => setReadingItem(null)} />;
+            
+            if (loading) return <div className="min-h-screen flex items-center justify-center text-stone-400 font-mono animate-pulse tracking-widest">INITIALIZING SYSTEM...</div>;
+
+            switch(activeTab) {
+              case 'home': return <Hero setActiveTab={setActiveTab} />;
+              case 'library': return <Library data={db.library} onRead={setReadingItem} />;
+              case 'papers': return <Papers data={db.papers} onRead={setReadingItem} />; 
+              case 'lab': return <Lab data={db.lab} />;
+              case 'posts': return <Posts data={db.posts} onRead={setReadingItem} />;
+              case 'tools': return <Tools data={db.tools} onRead={setReadingItem} />;
+              case 'community': return <Community />;
+              default: return <Hero setActiveTab={setActiveTab} />;
+            }
+          };
+
+          return (
+            <div className="min-h-screen flex flex-col selection:bg-stone-900 selection:text-white">
+              <Navbar activeTab={activeTab} setActiveTab={(tab) => { setActiveTab(tab); setReadingItem(null); }} />
+              <main className="flex-grow">{renderContent()}</main>
+              <footer className="bg-stone-50 border-t border-stone-200 py-12 mt-0 text-center text-stone-400 text-xs font-mono uppercase tracking-[0.2em]">
+                © 2025 MIStatlE. Built for the long term.
+              </footer>
+            </div>
+          );
         };
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
