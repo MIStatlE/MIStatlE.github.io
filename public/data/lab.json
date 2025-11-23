@@ -1,0 +1,18 @@
+[
+  {
+    "id": "micro-diff",
+    "language": "PYTHON",
+    "title": "micro-diffusion",
+    "desc": "200行代码实现的极简 Diffusion Model，包含训练与采样脚本。",
+    "link": "https://github.com/yourusername/micro-diffusion",
+    "featured": true
+  },
+  {
+    "id": "bayes-opt",
+    "language": "MATLAB",
+    "title": "Bayesian Optimization Viz",
+    "desc": "高斯过程可视化交互演示。",
+    "link": "#",
+    "featured": false
+  }
+]
