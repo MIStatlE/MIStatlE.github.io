@@ -1,0 +1,32 @@
+{
+  "themes": [
+    { 
+      "id": "gen-ai", 
+      "title": "Generative AI", 
+      "count": 12, 
+      "desc": "Diffusion, GANs, VAEs." 
+    },
+    { 
+      "id": "opt", 
+      "title": "Optimization", 
+      "count": 8, 
+      "desc": "Gradient Descent variants." 
+    }
+  ],
+  "lists": {
+    "gen-ai": [
+      { 
+        "title": "Denoising Diffusion Probabilistic Models", 
+        "authors": "Ho et al., 2020", 
+        "tags": ["Foundation"], 
+        "read": true 
+      },
+      {
+        "title": "Score-Based Generative Modeling through Stochastic Differential Equations",
+        "authors": "Song et al., 2021",
+        "tags": ["SDE", "Theory"]
+      }
+    ],
+    "opt": []
+  }
+}
