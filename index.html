@@ -553,29 +553,38 @@ Please ensure you are running a local server to load external Markdown files.
 
         // --- Tools (Refined Version 3) ---
         // 优化点：更加硬朗、专业的工具箱风格，强化 hover 状态的反馈，确保按钮风格统一。
-        // 修改点：移除右侧单独的 Tools 图标，将 Tools 加入中间的胶囊式导航
-        const Navbar = ({ activeTab, setActiveTab }) => (
-          <nav className="sticky top-0 z-50 glass-nav transition-all duration-300">
-            <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-              <div onClick={() => setActiveTab('home')}><Logo /></div>
-              
-              {/* 胶囊式导航菜单 */}
-              <div className="hidden lg:flex items-center gap-1 bg-stone-100/50 p-1 rounded-full border border-stone-200/50">
-                {['library', 'papers', 'lab', 'posts', 'tools', 'community'].map((item) => (
-                  <button key={item} onClick={() => setActiveTab(item)} 
-                    className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${activeTab === item ? 'bg-stone-900 text-white shadow-md' : 'text-stone-500 hover:text-stone-900 hover:bg-stone-200/50'}`}>
-                    {item.charAt(0).toUpperCase() + item.slice(1)}
-                  </button>
-                ))}
-              </div>
-              
-              <div className="hidden lg:flex items-center gap-4">
-                  {/* Tools 图标已移除，移入上方列表 */}
-                  <button onClick={() => setActiveTab('community')} className="font-serif text-sm font-bold text-stone-900 hover:text-blue-900 transition-colors">ABOUT</button>
-              </div>
-              <div className="lg:hidden"><Icon name="menu" className="text-stone-800" /></div>
+        const Tools = ({ data, onRead }) => (
+            <div className="max-w-6xl mx-auto px-6 py-16 fade-in min-h-screen">
+                <div className="flex items-center gap-4 mb-12">
+                    <h2 className="text-4xl font-serif font-bold text-stone-900">Toolbox</h2>
+                    <div className="h-px bg-stone-200 flex-grow"></div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {data && data.length > 0 ? data.map(tool => (
+                        <div key={tool.id} onClick={() => onRead(tool)} className="group bg-white border border-stone-200 p-8 cursor-pointer relative hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col h-full border-t-4 border-t-transparent hover:border-t-blue-900">
+                            
+                            {tool.link && (
+                                <a href={tool.link} target="_blank" onClick={(e) => e.stopPropagation()} className="absolute top-4 right-4 text-stone-300 hover:text-blue-900 transition-colors p-2" title="Visit Official Site">
+                                    <Icon name="external-link" size={16} />
+                                </a>
+                            )}
+                            
+                            <div className="mb-6 flex items-center justify-between">
+                                <div className="w-12 h-12 bg-stone-50 rounded-lg flex items-center justify-center text-stone-400 group-hover:text-blue-900 group-hover:bg-blue-50 transition-colors">
+                                    <Icon name={tool.icon || "box"} size={24}/>
+                                </div>
+                            </div>
+                            
+                            <h3 className="font-bold text-lg mb-2 text-stone-800 group-hover:text-blue-900 font-sans tracking-tight">{tool.title}</h3>
+                            <p className="text-sm text-stone-500 mb-8 flex-grow leading-relaxed font-light">{tool.desc}</p>
+                            
+                            {/* 使用统一的 ActionButton */}
+                            <ActionButton text="View Guide" />
+                        </div>
+                    )) : <div className="text-stone-400">No tools loaded.</div>}
+                </div>
             </div>
-          </nav>
         );
 
         // --- Community (无变动) ---
