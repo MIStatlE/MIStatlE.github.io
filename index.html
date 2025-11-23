@@ -82,9 +82,19 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
-        // --- 模拟的默认数据 ---
+        // --- 默认回退数据 ---
         const DEFAULT_DB = {
-            library: { disciplines: [], courses: {} },
+            library: {
+                disciplines: [
+                    { id: "dl", title: "Deep Learning", icon: "network", desc: "从反向传播到大模型的数学原理。", count: "2 Courses" },
+                    { id: "prob", title: "Probability & Stats", icon: "sigma", desc: "随机过程、贝叶斯推断与信息论。", count: "3 Courses" },
+                    { id: "opt", title: "Optimization", icon: "layers", desc: "凸优化、KKT条件与数值计算方法。", count: "1 Course" },
+                    { id: "math-base", title: "Math Foundation", icon: "infinity", desc: "线性代数、微积分与泛函分析基础。", count: "4 Courses" }
+                ],
+                courses: {
+                    "dl": [{ title: "Diffusion Models: Theory to Practice", chapters: [{ title: "Foundations", lessons: [{ id: "diff_01", title: "VAE & ELBO", type: "note", filePath: "" }] }] }]
+                }
+            },
             papers: { themes: [], lists: {} },
             lab: [],
             posts: [],
@@ -121,7 +131,7 @@
           </div>
         );
 
-        // --- 新增：社交链接组件 ---
+        // --- 社交链接组件 ---
         const SocialLink = ({ icon, label, href, colorClass }) => (
             <a href={href} target="_blank" className={`group flex flex-col items-center gap-2 transition-transform hover:-translate-y-1`}>
                 <div className={`w-10 h-10 rounded-full bg-white border border-stone-200 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all ${colorClass}`}>
@@ -153,48 +163,43 @@
           </nav>
         );
 
-        // --- 页面组件 ---
-        const Hero = ({ setActiveTab }) => (
-          <div className="max-w-6xl mx-auto px-6 py-24 md:py-32 fade-in flex flex-col justify-center min-h-[75vh] relative">
-            <div className="absolute right-0 top-20 opacity-5 pointer-events-none select-none font-serif text-9xl text-blue-900 hidden md:block">∫</div>
-            <div className="absolute left-10 bottom-20 opacity-5 pointer-events-none select-none font-serif text-9xl text-stone-900 hidden md:block">∑</div>
-            
-            {/* Tag */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-stone-200 shadow-sm text-stone-500 text-xs font-mono mb-8 w-fit self-start">
-              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-              <span className="tracking-wider">LONG-TERM RESEARCH</span>
-            </div>
-            
-            {/* Title & Desc */}
-            <h1 className="text-5xl md:text-8xl font-bold text-stone-900 leading-[1.1] mb-8 font-serif tracking-tight">Bridging <br/><span className="text-stone-300">Abstract</span> & <span className="italic text-blue-900">Reality</span>.</h1>
-            <p className="text-xl md:text-2xl text-stone-600 leading-relaxed max-w-3xl mb-12 font-light font-sans">在<span className="font-bold text-stone-800">数学</span>的严谨与<span className="font-bold text-stone-800">AI</span>的涌现之间寻找秩序。<br/>拒绝碎片化，致力于构建体系化的知识大厦。</p>
-            
-            {/* Main Actions */}
-            <div className="flex flex-wrap gap-6 mb-16">
-              <button onClick={() => setActiveTab('library')} className="group px-8 py-4 bg-stone-900 text-white text-sm font-bold tracking-widest hover:bg-blue-900 transition-all flex items-center gap-3 rounded-sm">EXPLORE LIBRARY <span className="group-hover:translate-x-1 transition-transform inline-block">→</span></button>
-              <button onClick={() => setActiveTab('community')} className="px-8 py-4 border border-stone-300 text-stone-600 text-sm font-bold tracking-widest hover:border-stone-900 hover:text-stone-900 transition-all bg-white/50 backdrop-blur-sm rounded-sm">JOIN COMMUNITY</button>
-            </div>
+        // --- 核心阅读器组件 (Article Reader) ---
+        const ArticleReader = ({ item, onBack }) => {
+            const [content, setContent] = useState('');
+            const [loading, setLoading] = useState(true);
+            const [error, setError] = useState(null);
 
-            {/* Social Links Bar */}
-            <div className="flex items-center gap-4 border-t border-stone-200 pt-8">
-                <span className="text-xs font-mono text-stone-400 mr-4 hidden md:block">FOLLOW US:</span>
-                <div className="flex gap-4">
-                    <SocialLink icon="tv-2" label="Bilibili" href="#" colorClass="group-hover:text-[#00AEEC] group-hover:border-[#00AEEC]" />
-                    <SocialLink icon="youtube" label="YouTube" href="#" colorClass="group-hover:text-[#FF0000] group-hover:border-[#FF0000]" />
-                    <SocialLink icon="github" label="GitHub" href="#" colorClass="group-hover:text-[#333] group-hover:border-[#333]" />
-                    <SocialLink icon="heart" label="小红书" href="#" colorClass="group-hover:text-[#FF2442] group-hover:border-[#FF2442]" />
-                    <SocialLink icon="compass" label="知乎" href="#" colorClass="group-hover:text-[#0084FF] group-hover:border-[#0084FF]" />
-                    <SocialLink icon="message-circle" label="公众号" href="#" colorClass="group-hover:text-[#07C160] group-hover:border-[#07C160]" />
-                </div>
-            </div>
-            
-            <div className="mt-8 flex justify-between text-xs font-mono text-stone-400 uppercase tracking-widest"><span>Est. 2025</span><span>Probability · Optimization · Intelligence</span><span>Singapore</span></div>
-          </div>
-        );
+            useEffect(() => {
+                setLoading(true);
+                setError(null);
+                
+                if (!item.filePath) {
+                    const mockContent = `
+# ${item.title}
+> **Note:** Failed to load external file. 
 
-        // --- Library 组件 ---
+Check \`data/tools.json\` to ensure \`filePath\` is set correctly.
+                    `;
+                    setContent(marked.parse(mockContent));
+                    setLoading(false);
+                    return;
+                }
 
-Please ensure you are running a local server (e.g., Python \`http.server\` or VS Code Live Server) to load external Markdown files.
+                fetch(item.filePath)
+                    .then(res => {
+                        if (!res.ok) throw new Error("Failed to load");
+                        return res.text();
+                    })
+                    .then(text => {
+                        setContent(marked.parse(text));
+                        setLoading(false);
+                    })
+                    .catch(err => {
+                        const fallback = `
+# ${item.title}
+> **System Notice:** Could not load \`${item.filePath}\`. 
+
+Please ensure you are running a local server to load external Markdown files.
                         `;
                         setContent(marked.parse(fallback));
                         setLoading(false);
@@ -219,7 +224,6 @@ Please ensure you are running a local server (e.g., Python \`http.server\` or VS
                         <span className="mr-2 inline-block rotate-180 group-hover:-translate-x-1 transition-transform">→</span> Back to List
                     </button>
                     {loading && <div className="flex justify-center p-12"><div className="w-8 h-8 border-2 border-blue-900 border-t-transparent rounded-full animate-spin"></div></div>}
-                    
                     {!loading && (
                         <div className="fade-in prose prose-stone prose-lg prose-headings:font-serif text-stone-600" dangerouslySetInnerHTML={{ __html: content }}></div>
                     )}
@@ -232,16 +236,34 @@ Please ensure you are running a local server (e.g., Python \`http.server\` or VS
           <div className="max-w-6xl mx-auto px-6 py-24 md:py-32 fade-in flex flex-col justify-center min-h-[75vh] relative">
             <div className="absolute right-0 top-20 opacity-5 pointer-events-none select-none font-serif text-9xl text-blue-900 hidden md:block">∫</div>
             <div className="absolute left-10 bottom-20 opacity-5 pointer-events-none select-none font-serif text-9xl text-stone-900 hidden md:block">∑</div>
+            
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-stone-200 shadow-sm text-stone-500 text-xs font-mono mb-8 w-fit self-start">
               <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
               <span className="tracking-wider">LONG-TERM RESEARCH</span>
             </div>
+            
             <h1 className="text-5xl md:text-8xl font-bold text-stone-900 leading-[1.1] mb-8 font-serif tracking-tight">Bridging <br/><span className="text-stone-300">Abstract</span> & <span className="italic text-blue-900">Reality</span>.</h1>
             <p className="text-xl md:text-2xl text-stone-600 leading-relaxed max-w-3xl mb-12 font-light font-sans">在<span className="font-bold text-stone-800">数学</span>的严谨与<span className="font-bold text-stone-800">AI</span>的涌现之间寻找秩序。<br/>拒绝碎片化，致力于构建体系化的知识大厦。</p>
-            <div className="flex flex-wrap gap-6">
+            
+            <div className="flex flex-wrap gap-6 mb-16">
               <button onClick={() => setActiveTab('library')} className="group px-8 py-4 bg-stone-900 text-white text-sm font-bold tracking-widest hover:bg-blue-900 transition-all flex items-center gap-3 rounded-sm">EXPLORE LIBRARY <span className="group-hover:translate-x-1 transition-transform inline-block">→</span></button>
               <button onClick={() => setActiveTab('community')} className="px-8 py-4 border border-stone-300 text-stone-600 text-sm font-bold tracking-widest hover:border-stone-900 hover:text-stone-900 transition-all bg-white/50 backdrop-blur-sm rounded-sm">JOIN COMMUNITY</button>
             </div>
+
+            {/* Social Links Bar */}
+            <div className="flex items-center gap-4 border-t border-stone-200 pt-8">
+                <span className="text-xs font-mono text-stone-400 mr-4 hidden md:block">FOLLOW US:</span>
+                <div className="flex gap-4">
+                    <SocialLink icon="tv-2" label="Bilibili" href="#" colorClass="group-hover:text-[#00AEEC] group-hover:border-[#00AEEC]" />
+                    <SocialLink icon="youtube" label="YouTube" href="#" colorClass="group-hover:text-[#FF0000] group-hover:border-[#FF0000]" />
+                    <SocialLink icon="github" label="GitHub" href="#" colorClass="group-hover:text-[#333] group-hover:border-[#333]" />
+                    <SocialLink icon="heart" label="小红书" href="#" colorClass="group-hover:text-[#FF2442] group-hover:border-[#FF2442]" />
+                    <SocialLink icon="compass" label="知乎" href="#" colorClass="group-hover:text-[#0084FF] group-hover:border-[#0084FF]" />
+                    <SocialLink icon="message-circle" label="公众号" href="#" colorClass="group-hover:text-[#07C160] group-hover:border-[#07C160]" />
+                </div>
+            </div>
+            
+            <div className="mt-8 flex justify-between text-xs font-mono text-stone-400 uppercase tracking-widest"><span>Est. 2025</span><span>Probability · Optimization · Intelligence</span><span>Singapore</span></div>
           </div>
         );
 
@@ -382,24 +404,21 @@ Please ensure you are running a local server (e.g., Python \`http.server\` or VS
             </div>
         );
 
-        // --- ⭐ Updated Tools Component ---
+        // --- Tools 组件 (重点：确保存在) ---
         const Tools = ({ data, onRead }) => (
             <div className="max-w-6xl mx-auto px-6 py-16 fade-in min-h-screen">
                 <h2 className="text-4xl font-serif font-bold mb-12 text-stone-900">Toolbox</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {data && data.length > 0 ? data.map(tool => (
                         <div key={tool.id} onClick={() => onRead(tool)} className="p-6 bg-white border border-stone-200 rounded-lg hover:shadow-lg transition-all group cursor-pointer relative">
-                            {/* External Link Icon (Top Right) */}
                             {tool.link && (
                                 <a href={tool.link} target="_blank" onClick={(e) => e.stopPropagation()} className="absolute top-4 right-4 text-stone-300 hover:text-blue-900 transition-colors" title="Visit Official Site">
                                     <Icon name="external-link" size={16} />
                                 </a>
                             )}
-                            
                             <Icon name={tool.icon || "box"} className="text-stone-400 group-hover:text-blue-900 transition-colors mb-4" size={28}/>
                             <h3 className="font-bold text-lg mb-2 text-stone-800 group-hover:text-blue-900">{tool.title}</h3>
                             <p className="text-sm text-stone-500 mb-4">{tool.desc}</p>
-                            
                             <div className="flex items-center text-xs font-mono text-stone-400 uppercase tracking-wider">
                                 <span>Read Guide</span> 
                                 <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
@@ -483,7 +502,7 @@ Please ensure you are running a local server (e.g., Python \`http.server\` or VS
               case 'papers': return <Papers data={db.papers} />;
               case 'lab': return <Lab data={db.lab} />;
               case 'posts': return <Posts data={db.posts} onRead={setReadingItem} />;
-              case 'tools': return <Tools data={db.tools} onRead={setReadingItem} />; // ⭐ Passed setReadingItem here
+              case 'tools': return <Tools data={db.tools} onRead={setReadingItem} />;
               case 'community': return <Community />;
               default: return <Hero setActiveTab={setActiveTab} />;
             }
