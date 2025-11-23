@@ -216,70 +216,210 @@
           </nav>
         );
 
-        // --- 核心阅读器组件 ---
+// --- 稳健功能版 ArticleReader (支持 Frontmatter + 复制代码) ---
         const ArticleReader = ({ item, onBack }) => {
-            const [content, setContent] = useState('');
-            const [loading, setLoading] = useState(true);
+            const [state, setState] = useState({ 
+                content: '', 
+                frontmatter: null, 
+                loading: true, 
+                error: null 
+            });
+            const contentRef = useRef(null);
+
+            // 1. 解析 Frontmatter 的稳健函数 (纯正则，不依赖外部库)
+            const parseMetadata = (text) => {
+                const pattern = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
+                const match = text.match(pattern);
+                
+                if (!match) return { meta: null, body: text };
+
+                const yamlBlock = match[1];
+                const body = match[2];
+                const meta = {};
+
+                // 简单的按行解析 "key: value"
+                yamlBlock.split('\n').forEach(line => {
+                    const parts = line.split(':');
+                    if (parts.length >= 2) {
+                        const key = parts[0].trim();
+                        // 去除引号和多余空格
+                        let value = parts.slice(1).join(':').trim().replace(/^['"](.*)['"]$/, '$1');
+                        
+                        // 处理简单的数组格式 [a, b]
+                        if (value.startsWith('[') && value.endsWith(']')) {
+                            value = value.slice(1, -1).split(',').map(v => v.trim().replace(/^['"](.*)['"]$/, '$1'));
+                        }
+                        meta[key] = value;
+                    }
+                });
+
+                return { meta, body };
+            };
 
             useEffect(() => {
-                setLoading(true);
-                
-                if (!item.filePath) {
-                    const mockContent = `
-# ${item.title}
-> **Note:** Failed to load external file. 
+                let ignore = false; // 防止竞态条件
+                setState(s => ({ ...s, loading: true, error: null }));
 
-Check your JSON data to ensure \`filePath\` is set correctly (e.g., "data/posts/paper_xxx.md").
-                    `;
-                    setContent(marked.parse(mockContent));
-                    setLoading(false);
+                if (!item.filePath) {
+                    setState({ content: '', frontmatter: null, loading: false, error: 'No file path specified.' });
                     return;
                 }
 
                 fetch(item.filePath)
                     .then(res => {
-                        if (!res.ok) throw new Error("Failed to load");
+                        if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
                         return res.text();
                     })
                     .then(text => {
-                        setContent(marked.parse(text));
-                        setLoading(false);
+                        if (ignore) return;
+
+                        // A. 解析头部信息
+                        const { meta, body } = parseMetadata(text);
+
+                        // B. 配置 Markdown 渲染器以支持代码复制
+                        const renderer = new marked.Renderer();
+                        
+                        // 重写代码块渲染逻辑
+                        renderer.code = function(code, language) {
+                            // 对代码进行 HTML 转义，防止破坏页面结构
+                            const validLang = language || 'text';
+                            // 将代码编码存入 data 属性，方便 JS 读取
+                            const encodedCode = encodeURIComponent(code);
+                            
+                            return `
+                                <div class="relative group my-6 rounded-lg bg-[#2d2d2d] overflow-hidden shadow-lg border border-stone-700">
+                                    <div class="flex justify-between items-center px-4 py-2 bg-[#383838] border-b border-stone-600">
+                                        <span class="text-xs font-mono text-stone-400 lowercase">${validLang}</span>
+                                        <button class="copy-btn text-xs font-mono text-stone-400 hover:text-white transition-colors" data-code="${encodedCode}">
+                                            Copy
+                                        </button>
+                                    </div>
+                                    <pre class="!m-0 !p-4 overflow-x-auto"><code class="language-${validLang}">${code}</code></pre>
+                                </div>
+                            `;
+                        };
+
+                        const html = marked.parse(body, { renderer });
+                        setState({ content: html, frontmatter: meta, loading: false, error: null });
                     })
                     .catch(err => {
-                        const fallback = `
-# ${item.title}
-> **System Notice:** Could not load \`${item.filePath}\`. 
-
-Please ensure you are running a local server to load external Markdown files.
-                        `;
-                        setContent(marked.parse(fallback));
-                        setLoading(false);
+                        if (!ignore) setState({ content: '', frontmatter: null, loading: false, error: err.message });
                     });
+
+                return () => { ignore = true; };
             }, [item]);
 
+            // --- 副作用：处理 DOM (高亮、公式、绑定复制事件) ---
             useEffect(() => {
-                if (!loading && content) {
-                    setTimeout(() => {
-                        if (window.renderMathInElement) window.renderMathInElement(document.querySelector('.prose'), {
-                            delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}],
+                if (!state.loading && state.content && contentRef.current) {
+                    
+                    // 1. 渲染数学公式 (KaTeX)
+                    if (window.renderMathInElement) {
+                        window.renderMathInElement(contentRef.current, {
+                            delimiters: [
+                                {left: '$$', right: '$$', display: true},
+                                {left: '$', right: '$', display: false}
+                            ],
                             throwOnError: false
                         });
-                        if (window.Prism) window.Prism.highlightAll();
-                    }, 100);
-                }
-            }, [content, loading]);
+                    }
 
+                    // 2. 代码高亮 (Prism)
+                    if (window.Prism) {
+                        window.Prism.highlightAllUnder(contentRef.current);
+                    }
+
+                    // 3. 绑定复制按钮事件 (原生 JS 绑定)
+                    const buttons = contentRef.current.querySelectorAll('.copy-btn');
+                    buttons.forEach(btn => {
+                        btn.onclick = () => {
+                            try {
+                                const code = decodeURIComponent(btn.getAttribute('data-code'));
+                                navigator.clipboard.writeText(code).then(() => {
+                                    const originalText = btn.innerText;
+                                    btn.innerText = 'Copied!';
+                                    btn.classList.add('text-emerald-400'); // 绿色反馈
+                                    setTimeout(() => {
+                                        btn.innerText = originalText;
+                                        btn.classList.remove('text-emerald-400');
+                                    }, 2000);
+                                });
+                            } catch (e) {
+                                console.error('Copy failed', e);
+                            }
+                        };
+                    });
+                }
+            }, [state.content, state.loading]);
+
+            // --- 渲染 UI ---
             return (
-                <div className="max-w-3xl mx-auto px-6 py-12 fade-in min-h-screen">
-                    <button onClick={onBack} className="group flex items-center text-sm text-stone-400 hover:text-blue-900 mb-12 font-mono uppercase tracking-wider transition-colors">
-                        <span className="mr-2 inline-block rotate-180 group-hover:-translate-x-1 transition-transform">→</span> Back to List
+                <div className="max-w-3xl mx-auto px-6 py-12 min-h-screen">
+                    {/* 返回导航 */}
+                    <button onClick={onBack} className="group flex items-center text-sm text-stone-400 hover:text-blue-900 mb-10 font-mono uppercase tracking-wider transition-colors">
+                        <span className="mr-2 inline-block transition-transform group-hover:-translate-x-1">←</span> Back to List
                     </button>
-                    {loading && <div className="flex justify-center p-12"><div className="w-8 h-8 border-2 border-blue-900 border-t-transparent rounded-full animate-spin"></div></div>}
-                    {!loading && (
-                        <div className="fade-in prose prose-stone prose-lg prose-headings:font-serif text-stone-600" dangerouslySetInnerHTML={{ __html: content }}></div>
+                    
+                    {/* 加载中 */}
+                    {state.loading && (
+                        <div className="flex flex-col items-center py-20 space-y-4">
+                            <div className="w-8 h-8 border-2 border-blue-900 border-t-transparent rounded-full animate-spin"></div>
+                            <p className="text-stone-400 font-mono text-xs animate-pulse">Retrieving content...</p>
+                        </div>
+                    )}
+
+                    {/* 错误提示 */}
+                    {state.error && (
+                        <div className="p-6 border border-red-200 bg-red-50 rounded-lg text-red-800">
+                            <h3 className="font-bold mb-2">Error Loading Post</h3>
+                            <p className="font-mono text-sm">{state.error}</p>
+                        </div>
+                    )}
+                    
+                    {/* 文章主体 */}
+                    {!state.loading && !state.error && (
+                        <article className="fade-in">
+                            {/* 头部信息区 (由 Frontmatter 生成) */}
+                            <header className="mb-12 pb-8 border-b border-stone-200">
+                                <div className="flex flex-wrap gap-3 mb-4 text-xs font-mono uppercase tracking-widest text-stone-500">
+                                    {/* 优先显示 Frontmatter 里的分类，没有则不显示 */}
+                                    {state.frontmatter?.categories && (
+                                        <span className="text-blue-900 font-bold">{Array.isArray(state.frontmatter.categories) ? state.frontmatter.categories[0] : state.frontmatter.categories}</span>
+                                    )}
+                                    {state.frontmatter?.date && <span>• {state.frontmatter.date}</span>}
+                                </div>
+                                
+                                <h1 className="text-4xl md:text-5xl font-serif font-bold text-stone-900 mb-6 leading-tight">
+                                    {state.frontmatter?.title || item.title}
+                                </h1>
+                                
+                                {state.frontmatter?.description && (
+                                    <p className="text-xl text-stone-600 font-serif italic font-light leading-relaxed">
+                                        {state.frontmatter.description}
+                                    </p>
+                                )}
+
+                                {state.frontmatter?.tags && (
+                                    <div className="flex flex-wrap gap-2 mt-6">
+                                        {(Array.isArray(state.frontmatter.tags) ? state.frontmatter.tags : [state.frontmatter.tags]).map((tag, i) => (
+                                            <span key={i} className="px-2 py-1 bg-stone-100 text-stone-500 text-[10px] font-mono uppercase rounded border border-stone-200">
+                                                #{tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                )}
+                            </header>
+
+                            {/* Markdown 正文 */}
+                            <div 
+                                ref={contentRef}
+                                className="prose prose-stone prose-lg prose-headings:font-serif max-w-none prose-img:rounded-lg prose-a:text-blue-900" 
+                                dangerouslySetInnerHTML={{ __html: state.content }}
+                            ></div>
+                        </article>
                     )}
                 </div>
-            )
+            );
         };
 
         // --- Hero (无变动) ---
