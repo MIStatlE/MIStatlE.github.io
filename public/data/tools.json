@@ -1,0 +1,23 @@
+[
+  {
+    "id": "zotero",
+    "icon": "book-marked",
+    "title": "Zotero",
+    "desc": "开源文献管理工具，学术研究必备。",
+    "link": "https://www.zotero.org/"
+  },
+  {
+    "id": "arxiv",
+    "icon": "file-text",
+    "title": "arXiv Sanity",
+    "desc": "AI 论文筛选与推荐，快速跟进前沿。",
+    "link": "http://www.arxiv-sanity.com/"
+  },
+  {
+    "id": "overleaf",
+    "icon": "edit-3",
+    "title": "Overleaf",
+    "desc": "云端 LaTeX 编辑器，协作撰写论文。",
+    "link": "https://www.overleaf.com/"
+  }
+]
