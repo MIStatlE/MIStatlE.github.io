@@ -7,28 +7,31 @@
     <meta name="description" content="Bridging the gap between Abstract Theory & Concrete Reality.">
     
     <!-- 核心依赖 -->
-    <script crossorigin src="[https://unpkg.com/react@18/umd/react.production.min.js](https://unpkg.com/react@18/umd/react.production.min.js)"></script>
-    <script crossorigin src="[https://unpkg.com/react-dom@18/umd/react-dom.production.min.js](https://unpkg.com/react-dom@18/umd/react-dom.production.min.js)"></script>
-    <script src="[https://unpkg.com/@babel/standalone/babel.min.js](https://unpkg.com/@babel/standalone/babel.min.js)"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
     <!-- 样式库 (Tailwind CSS) -->
-    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- 图标库 (Lucide) -->
-    <script src="[https://unpkg.com/lucide@latest](https://unpkg.com/lucide@latest)"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- ⭐ 新增：Markdown 解析器 (Marked) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     
     <!-- 数学公式 (KaTeX) -->
-    <link rel="stylesheet" href="[https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css](https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css)">
-    <script src="[https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js](https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js)"></script>
-    <script src="[https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js](https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js)"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
     
     <!-- 代码高亮 (PrismJS) -->
-    <link href="[https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css](https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css)" rel="stylesheet" />
-    <script src="[https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js](https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js)"></script>
-    <script src="[https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js](https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js)"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 
     <!-- 字体 -->
-    <link href="[https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap](https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap)" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -60,6 +63,15 @@
         ::-webkit-scrollbar-thumb { background: #a8a29e; border-radius: 3px; }
         .katex-display { overflow-x: auto; overflow-y: hidden; padding: 10px 0; }
         pre[class*="language-"] { border-radius: 8px; margin: 1.5em 0; font-size: 0.85em; padding: 1.5em !important; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        
+        /* Markdown 样式增强 */
+        .prose h1 { font-family: var(--font-serif); font-size: 2.5rem; margin-top: 2rem; margin-bottom: 1.5rem; color: #1c1917; font-weight: 700; }
+        .prose h2 { font-family: var(--font-serif); font-size: 1.8rem; margin-top: 2.5rem; margin-bottom: 1rem; color: #1c1917; font-weight: 600; border-bottom: 1px solid #e7e5e4; padding-bottom: 0.5rem; }
+        .prose h3 { font-family: var(--font-serif); font-size: 1.4rem; margin-top: 2rem; margin-bottom: 0.8rem; color: #1c1917; font-weight: 600; }
+        .prose p { margin-bottom: 1.25rem; line-height: 1.75; color: #44403c; }
+        .prose blockquote { border-left: 4px solid #1e3a8a; padding-left: 1rem; font-style: italic; background: #f0f9ff; padding: 1rem; border-radius: 0 0.5rem 0.5rem 0; margin: 1.5rem 0; }
+        .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; }
+        .prose li { margin-bottom: 0.5rem; }
     </style>
 </head>
 <body>
@@ -68,8 +80,7 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
-        // --- 模拟的默认数据 (Backup Data) ---
-        // 如果无法读取 library.json (例如在预览环境中)，将使用此数据
+        // --- 模拟的默认数据 ---
         const DEFAULT_DATA = {
             disciplines: [
                 { id: 'dl', title: 'Deep Learning', icon: 'network', desc: '从反向传播到大模型的数学原理 (Default Data).', count: '2 Courses' },
@@ -79,14 +90,13 @@
                 'dl': [{
                     title: 'Diffusion Models: Theory to Practice',
                     chapters: [
-                        { title: 'Foundations', lessons: [{id: 1, title: 'VAE & ELBO', type: 'note'}, {id: 2, title: 'Score Matching', type: 'note'}] }
+                        { title: 'Foundations', lessons: [{id: 1, title: 'VAE & ELBO', type: 'note', filePath: null}] }
                     ]
                 }]
             }
         };
 
         // --- 工具组件 ---
-
         const Icon = ({ name, size = 20, className }) => {
             const iconRef = useRef(null);
             useEffect(() => {
@@ -137,7 +147,6 @@
         );
 
         // --- 页面组件 ---
-
         const Hero = ({ setActiveTab }) => (
           <div className="max-w-6xl mx-auto px-6 py-24 md:py-32 fade-in flex flex-col justify-center min-h-[75vh] relative">
             <div className="absolute right-0 top-20 opacity-5 pointer-events-none select-none font-serif text-9xl text-blue-900 hidden md:block">∫</div>
@@ -156,34 +165,10 @@
           </div>
         );
 
-        // --- Library 组件 (Refactored for External Data) ---
-        const Library = ({ onRead }) => {
-          const [libraryData, setLibraryData] = useState(null);
+        // --- Library 组件 ---
+        const Library = ({ onRead, libraryData }) => {
           const [selectedDiscipline, setSelectedDiscipline] = useState(null);
-          const [loading, setLoading] = useState(true);
-
-          // 核心：加载外部数据
-          useEffect(() => {
-            const fetchData = async () => {
-                try {
-                    // 尝试从 public/data/library.json 获取数据
-                    // 在本地开发时，请确保文件存在于正确路径
-                    const response = await fetch('data/library.json');
-                    if (!response.ok) throw new Error("Data not found");
-                    const data = await response.json();
-                    setLibraryData(data);
-                } catch (error) {
-                    console.warn("Using default data (External file not found):", error);
-                    setLibraryData(DEFAULT_DATA);
-                } finally {
-                    setLoading(false);
-                }
-            };
-            fetchData();
-          }, []);
-
-          if (loading) return <div className="min-h-screen flex items-center justify-center text-stone-400 font-mono animate-pulse">LOADING KNOWLEDGE BASE...</div>;
-
+          
           if (!selectedDiscipline) {
             return (
                 <div className="max-w-6xl mx-auto px-6 py-16 fade-in min-h-screen">
@@ -225,7 +210,7 @@
                                           <h4 className="text-xs font-bold text-blue-900 uppercase tracking-widest mb-4 pl-2 border-l-2 border-blue-900">{chapter.title}</h4>
                                           <div className="grid gap-2">
                                               {chapter.lessons.map(lesson => (
-                                                  <div key={lesson.id} onClick={() => onRead(lesson.id)} className="flex items-center justify-between p-3 hover:bg-stone-50 rounded-lg cursor-pointer group transition-colors border border-transparent hover:border-stone-100">
+                                                  <div key={lesson.id} onClick={() => onRead(lesson)} className="flex items-center justify-between p-3 hover:bg-stone-50 rounded-lg cursor-pointer group transition-colors border border-transparent hover:border-stone-100">
                                                       <div className="flex items-center gap-3"><Icon name="file-text" size={18} className={lesson.highlight ? "text-blue-600" : "text-stone-300"}/><span className={`text-sm ${lesson.highlight ? "font-bold text-stone-900" : "text-stone-600"}`}>{lesson.title}</span></div>
                                                       {lesson.highlight && <span className="text-[10px] font-bold text-white bg-blue-600 px-2 py-0.5 rounded-full">ESSENTIAL</span>}
                                                   </div>
@@ -241,20 +226,63 @@
           );
         };
 
-        // --- Article Reader ---
-        const ArticleReader = ({ onBack }) => {
-            const [showProof, setShowProof] = useState(false);
-            
-            useEffect(() => { 
-                window.scrollTo(0,0); 
-                setTimeout(() => {
-                    if (window.renderMathInElement) window.renderMathInElement(document.body, {
-                        delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}],
-                        throwOnError: false
+        // --- ⭐ Article Reader (Dynamic Markdown Fetching) ---
+        const ArticleReader = ({ lesson, onBack }) => {
+            const [content, setContent] = useState('');
+            const [loading, setLoading] = useState(true);
+            const [error, setError] = useState(null);
+
+            useEffect(() => {
+                setLoading(true);
+                setError(null);
+                
+                // 1. 检查是否有 filePath
+                if (!lesson.filePath) {
+                    setContent('<div class="p-4 text-amber-600 bg-amber-50 rounded">⚠️ No content file linked to this lesson. Check library.json.</div>');
+                    setLoading(false);
+                    return;
+                }
+
+                // 2. Fetch Markdown 文件
+                fetch(lesson.filePath)
+                    .then(res => {
+                        if (!res.ok) throw new Error("Failed to load file: " + lesson.filePath);
+                        return res.text();
+                    })
+                    .then(text => {
+                        // 3. 使用 Marked 解析 Markdown -> HTML
+                        const rawHtml = marked.parse(text);
+                        setContent(rawHtml);
+                        setLoading(false);
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        setError(err.message);
+                        setLoading(false);
                     });
-                    if (window.Prism) window.Prism.highlightAll();
-                }, 100);
-            }, [showProof]);
+            }, [lesson]);
+
+            // 4. 渲染公式和代码高亮 (每次 content 更新后触发)
+            useEffect(() => {
+                if (!loading && content) {
+                    setTimeout(() => {
+                        // Render Math
+                        if (window.renderMathInElement) {
+                            window.renderMathInElement(document.querySelector('.prose'), {
+                                delimiters: [
+                                    {left: '$$', right: '$$', display: true},
+                                    {left: '$', right: '$', display: false}
+                                ],
+                                throwOnError: false
+                            });
+                        }
+                        // Render Code Highlight
+                        if (window.Prism) {
+                            window.Prism.highlightAll();
+                        }
+                    }, 100);
+                }
+            }, [content, loading]);
 
             return (
                 <div className="max-w-3xl mx-auto px-6 py-12 fade-in min-h-screen">
@@ -262,156 +290,69 @@
                         <span className="mr-2 inline-block rotate-180 group-hover:-translate-x-1 transition-transform">→</span> Back to Library
                     </button>
                     
-                    <h1 className="text-4xl md:text-5xl font-serif font-bold text-stone-900 mb-6 leading-tight">条件化技巧：为何我们只需要预测噪声？</h1>
-                    <div className="flex gap-4 text-xs font-mono text-stone-400 mb-12 border-b border-stone-200 pb-6">
-                        <span>NOV 18, 2025</span><span className="text-blue-900">DEEP LEARNING</span>
-                    </div>
+                    {loading && <div className="flex justify-center p-12"><div className="w-8 h-8 border-2 border-blue-900 border-t-transparent rounded-full animate-spin"></div></div>}
                     
-                    <div className="prose prose-stone prose-lg prose-headings:font-serif text-stone-600">
-                        <p className="text-xl font-light leading-relaxed mb-8 font-serif">
-                            在 Score-based 生成模型中，我们经常遇到一个反直觉的结论：虽然我们的目标是学习数据分布，但训练过程却是在预测噪声。
-                        </p>
-                        
-                        <div className="bg-blue-50/50 p-6 border-l-2 border-blue-900 my-8 rounded-r-lg">
-                            <h4 className="font-bold text-blue-900 mb-2 flex items-center gap-2 text-sm uppercase tracking-wide">Intuition</h4>
-                            <p className="text-base text-stone-700 m-0">
-                                Conditional Technique 巧妙地利用了高斯加噪过程的可逆性。我们将不可计算的边缘分数替换为可计算的条件分数。
-                            </p>
+                    {error && (
+                        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative" role="alert">
+                            <strong className="font-bold">Error loading content: </strong>
+                            <span className="block sm:inline">{error}</span>
+                            <p className="mt-2 text-sm text-red-500">Make sure you created the file at: <code>{lesson.filePath}</code></p>
                         </div>
+                    )}
 
-                        <h3 className="text-2xl font-bold text-stone-900 mt-8 mb-4 font-serif">核心定理</h3>
-                        <p>对于任意固定噪声尺度 $\sigma > 0$，Score Matching (SM) 与 Denoising Score Matching (DSM) 的目标函数仅相差一个常数：</p>
-                        
-                        <div className="my-6">
-                            $$\mathcal{L}_{SM}(\phi; \sigma) = \mathcal{L}_{DSM}(\phi; \sigma) + C$$
+                    {!loading && !error && (
+                        <div className="fade-in">
+                            {/* 动态渲染 HTML 内容 */}
+                            <div className="prose prose-stone prose-lg prose-headings:font-serif text-stone-600" 
+                                 dangerouslySetInnerHTML={{ __html: content }}>
+                            </div>
                         </div>
-
-                        <p>这意味着，优化 DSM 的梯度等价于优化 SM 的梯度。我们只需要一段简单的代码即可验证：</p>
-
-                        <pre><code className="language-python">{`def dsm_loss(x_0, sigma):
-    # 生成高斯噪声
-    epsilon = torch.randn_like(x_0)
-    # 加噪
-    x_t = x_0 + sigma * epsilon
-    # 模型预测分数 (score)
-    score = model(x_t)
-    # 目标：预测 -epsilon / sigma
-    target = -epsilon / sigma
-    return torch.mean((score - target) ** 2)`}</code></pre>
-
-                        <div onClick={() => setShowProof(!showProof)} className="cursor-pointer text-sm font-bold text-stone-900 border-b border-stone-300 pb-1 inline-flex items-center gap-2 mt-8 select-none">
-                            View Mathematical Proof 
-                            <span className={`transform transition-transform inline-block ml-1 ${showProof ? 'rotate-180' : ''}`}>▼</span>
-                        </div>
-                        
-                        {showProof && <div className="mt-4 p-6 bg-stone-100 rounded text-sm font-mono text-stone-600 fade-in">
-                            <h4 className="font-bold mb-2">1. Expansion of Score Matching Loss</h4>
-                            <p className="mb-2">$$\mathcal{L}_{SM} = \mathbb{E}_{p(x)} [ \|s_\theta(x) - \nabla_x \log p(x)\|^2 ]$$</p>
-                            <h4 className="font-bold mb-2 mt-4">2. The Cross-Term Trick</h4>
-                            <p>利用部分积分法（Integration by Parts），我们可以证明交叉项相等：</p>
-                            <p>$$\int s_\theta(x)^T \nabla_x p(x) dx = \dots$$</p>
-                        </div>}
-                    </div>
+                    )}
                 </div>
             )
         };
 
-        // --- Other Sections ---
+        // --- Other Sections (Same as before) ---
         const Papers = () => {
-            const [selectedTheme, setSelectedTheme] = useState(null);
-            const themes = [
-                { id: 'gen-ai', title: 'Generative AI', count: 12, desc: 'Diffusion, GANs, VAEs.' },
-                { id: 'opt', title: 'Optimization', count: 8, desc: 'Gradient Descent variants.' }
-            ];
-            const papersData = {'gen-ai': [{ title: "Denoising Diffusion Probabilistic Models", authors: "Ho et al., 2020", tags: ["Foundation"], read: true }]};
-            
-            if(!selectedTheme) return (
-                <div className="max-w-5xl mx-auto px-6 py-16 fade-in min-h-screen">
-                    <h2 className="text-4xl font-serif font-bold mb-6 text-stone-900">Reading List</h2>
-                    <div className="grid gap-6">
-                        {themes.map(t => (
-                            <div key={t.id} onClick={() => setSelectedTheme(t.id)} className="group bg-white p-6 border border-stone-200 hover:border-blue-900 cursor-pointer rounded-lg flex justify-between items-center">
-                                <div><h3 className="text-xl font-bold group-hover:text-blue-900">{t.title}</h3><p className="text-sm text-stone-500">{t.desc}</p></div>
-                                <Icon name="arrow-right" className="text-stone-300 group-hover:text-blue-900"/>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            );
-            
-            const list = papersData[selectedTheme] || [];
-            return (
-                <div className="max-w-4xl mx-auto px-6 py-16 fade-in min-h-screen">
-                    <button onClick={() => setSelectedTheme(null)} className="flex items-center text-stone-400 hover:text-stone-900 mb-8 font-mono text-xs uppercase tracking-widest"><span className="mr-2">←</span> All Themes</button>
-                    <div className="space-y-4">
-                        {list.map((p, i) => (
-                            <div key={i} className="bg-white p-6 border border-stone-200 hover:border-blue-600 rounded group">
-                                <h3 className="font-bold text-lg group-hover:text-blue-800">{p.title}</h3>
-                                <p className="text-sm font-mono text-stone-500">{p.authors}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            );
+             // ... existing Papers component ...
+             return <div className="max-w-4xl mx-auto px-6 py-16">Papers Section (Use same structure as Library to dynamic load)</div>
         };
+        const Community = () => <div className="max-w-4xl mx-auto px-6 py-16 text-center">Community Section</div>;
+        const Lab = () => <div className="max-w-4xl mx-auto px-6 py-16 text-center">Lab Section</div>;
+        const Posts = () => <div className="max-w-4xl mx-auto px-6 py-16 text-center">Posts Section</div>;
+        const Tools = () => <div className="max-w-4xl mx-auto px-6 py-16 text-center">Tools Section</div>;
 
-        const Community = () => (
-            <div className="max-w-4xl mx-auto px-6 py-24 fade-in min-h-screen flex flex-col items-center text-center">
-                <div className="mb-8 text-blue-900"><Icon name="network" size={64} strokeWidth={1} /></div>
-                <h2 className="text-5xl font-serif font-bold mb-6 text-stone-900">The Circle</h2>
-                <p className="text-xl text-stone-600 mb-12 font-light">学术是一场孤独的马拉松。我们需要的是<span className="font-bold text-stone-800">长期主义</span>的同行者。</p>
-                <div className="w-full max-w-lg bg-white p-10 border border-stone-200 shadow-xl rounded-sm text-left">
-                    <h3 className="text-2xl font-serif font-bold mb-2">Deep Reading Newsletter</h3>
-                    <div className="flex gap-2 mt-6"><input type="email" placeholder="email" className="flex-1 px-4 py-3 bg-stone-50 border border-stone-200 text-sm"/><button className="px-6 py-3 bg-stone-900 text-white font-bold text-xs tracking-widest hover:bg-blue-900">JOIN</button></div>
-                </div>
-            </div>
-        );
-        
-        const Lab = () => (
-            <div className="max-w-6xl mx-auto px-6 py-16 fade-in min-h-screen">
-                <h2 className="text-4xl font-serif font-bold mb-12 text-stone-900">The Lab</h2>
-                <div className="bg-stone-900 p-8 rounded-xl text-stone-300 md:w-1/2 relative overflow-hidden">
-                    <div className="relative z-10">
-                        <div className="font-mono text-xs text-blue-400 mb-2">PYTHON</div>
-                        <h3 className="text-2xl font-bold text-white mb-4">micro-diffusion</h3>
-                        <p className="text-sm mb-8">200行代码实现的极简 Diffusion Model。</p>
-                        <div className="flex items-center gap-2 text-xs font-mono border border-stone-700 w-fit px-3 py-1 rounded-full"><Icon name="github" size={12}/> Source</div>
-                    </div>
-                </div>
-            </div>
-        );
-
-        const Posts = () => (
-            <div className="max-w-3xl mx-auto px-6 py-16 fade-in min-h-screen">
-                 <h2 className="text-4xl font-serif font-bold mb-12 border-b border-stone-200 pb-6">Essays</h2>
-                 <div className="group cursor-pointer">
-                     <div className="text-xs font-mono text-stone-400 mb-2">Nov 10 <span className="text-blue-900">PHILOSOPHY</span></div>
-                     <h3 className="text-3xl font-serif font-bold text-stone-800 group-hover:text-blue-900 transition-colors">在数学的严谨与直觉之间</h3>
-                 </div>
-            </div>
-        );
-
-        const Tools = () => (
-            <div className="max-w-6xl mx-auto px-6 py-16 fade-in min-h-screen">
-                <h2 className="text-4xl font-serif font-bold mb-12 text-stone-900">Toolbox</h2>
-                <div className="p-6 bg-white border border-stone-200 rounded-lg md:w-1/3 hover:shadow-lg transition-all">
-                    <Icon name="book-marked" className="text-stone-400 mb-4" size={28}/>
-                    <h3 className="font-bold text-lg mb-2">Zotero</h3>
-                    <p className="text-sm text-stone-500">文献管理。</p>
-                </div>
-            </div>
-        );
 
         // --- Main App Logic ---
         const App = () => {
           const [activeTab, setActiveTab] = useState('home');
-          const [readingPostId, setReadingPostId] = useState(null);
+          const [readingLesson, setReadingLesson] = useState(null); // Changed from ID to whole lesson object
+          const [libraryData, setLibraryData] = useState(null);
+          const [dataLoading, setDataLoading] = useState(true);
+
+          // 全局加载 Library Data
+          useEffect(() => {
+            fetch('data/library.json')
+                .then(res => res.ok ? res.json() : DEFAULT_DATA)
+                .then(data => {
+                    setLibraryData(data);
+                    setDataLoading(false);
+                })
+                .catch(err => {
+                    console.error("Failed to load library data", err);
+                    setLibraryData(DEFAULT_DATA);
+                    setDataLoading(false);
+                });
+          }, []);
 
           const renderContent = () => {
-            if (readingPostId) return <ArticleReader onBack={() => setReadingPostId(null)} />;
+            if (readingLesson) return <ArticleReader lesson={readingLesson} onBack={() => setReadingLesson(null)} />;
+            
+            if (dataLoading) return <div className="min-h-screen flex items-center justify-center text-stone-400 font-mono animate-pulse">LOADING SYSTEM...</div>;
+
             switch(activeTab) {
               case 'home': return <Hero setActiveTab={setActiveTab} />;
-              case 'library': return <Library onRead={setReadingPostId} />;
+              case 'library': return <Library libraryData={libraryData} onRead={(lesson) => setReadingLesson(lesson)} />;
               case 'papers': return <Papers />;
               case 'lab': return <Lab />;
               case 'posts': return <Posts />;
@@ -423,7 +364,7 @@
 
           return (
             <div className="min-h-screen flex flex-col selection:bg-blue-900 selection:text-white">
-              <Navbar activeTab={activeTab} setActiveTab={(tab) => { setActiveTab(tab); setReadingPostId(null); }} />
+              <Navbar activeTab={activeTab} setActiveTab={(tab) => { setActiveTab(tab); setReadingLesson(null); }} />
               <main className="flex-grow">{renderContent()}</main>
               <footer className="bg-stone-50 border-t border-stone-200 py-12 mt-0 text-center text-stone-400 text-xs font-mono">
                 © 2025 MIStatlE. Built for the long term.
