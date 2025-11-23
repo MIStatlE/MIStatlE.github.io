@@ -17,7 +17,7 @@
     <!-- 图标库 (Lucide) -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
-    <!-- ⭐ 新增：Markdown 解析器 (Marked) -->
+    <!-- Markdown 解析器 (Marked) -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     
     <!-- 数学公式 (KaTeX) -->
@@ -61,10 +61,8 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #a8a29e; border-radius: 3px; }
-        .katex-display { overflow-x: auto; overflow-y: hidden; padding: 10px 0; }
-        pre[class*="language-"] { border-radius: 8px; margin: 1.5em 0; font-size: 0.85em; padding: 1.5em !important; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
         
-        /* Markdown 样式增强 */
+        /* Markdown 样式 */
         .prose h1 { font-family: var(--font-serif); font-size: 2.5rem; margin-top: 2rem; margin-bottom: 1.5rem; color: #1c1917; font-weight: 700; }
         .prose h2 { font-family: var(--font-serif); font-size: 1.8rem; margin-top: 2.5rem; margin-bottom: 1rem; color: #1c1917; font-weight: 600; border-bottom: 1px solid #e7e5e4; padding-bottom: 0.5rem; }
         .prose h3 { font-family: var(--font-serif); font-size: 1.4rem; margin-top: 2rem; margin-bottom: 0.8rem; color: #1c1917; font-weight: 600; }
@@ -72,6 +70,10 @@
         .prose blockquote { border-left: 4px solid #1e3a8a; padding-left: 1rem; font-style: italic; background: #f0f9ff; padding: 1rem; border-radius: 0 0.5rem 0.5rem 0; margin: 1.5rem 0; }
         .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; }
         .prose li { margin-bottom: 0.5rem; }
+        
+        /* 代码块与公式样式修正 */
+        .katex-display { overflow-x: auto; overflow-y: hidden; padding: 10px 0; }
+        pre[class*="language-"] { border-radius: 8px; margin: 1.5em 0; font-size: 0.85em; padding: 1.5em !important; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
     </style>
 </head>
 <body>
@@ -80,20 +82,12 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
-        // --- 模拟的默认数据 ---
-        const DEFAULT_DATA = {
-            disciplines: [
-                { id: 'dl', title: 'Deep Learning', icon: 'network', desc: '从反向传播到大模型的数学原理 (Default Data).', count: '2 Courses' },
-                { id: 'prob', title: 'Probability', icon: 'sigma', desc: '随机过程与贝叶斯推断。', count: '3 Courses' }
-            ],
-            courses: {
-                'dl': [{
-                    title: 'Diffusion Models: Theory to Practice',
-                    chapters: [
-                        { title: 'Foundations', lessons: [{id: 1, title: 'VAE & ELBO', type: 'note', filePath: null}] }
-                    ]
-                }]
-            }
+        // --- 默认回退数据 (以防 fetch 失败) ---
+        const DEFAULT_DB = {
+            library: { disciplines: [], courses: {} },
+            papers: { themes: [], lists: {} },
+            lab: [],
+            posts: []
         };
 
         // --- 工具组件 ---
@@ -146,7 +140,67 @@
           </nav>
         );
 
-        // --- 页面组件 ---
+        // --- 核心阅读器组件 (Article Reader) ---
+        const ArticleReader = ({ item, onBack }) => {
+            const [content, setContent] = useState('');
+            const [loading, setLoading] = useState(true);
+            const [error, setError] = useState(null);
+
+            useEffect(() => {
+                setLoading(true);
+                setError(null);
+                
+                if (!item.filePath) {
+                    setContent('<div class="p-4 text-amber-600 bg-amber-50 rounded">⚠️ No content file linked. Check your JSON data.</div>');
+                    setLoading(false);
+                    return;
+                }
+
+                fetch(item.filePath)
+                    .then(res => {
+                        if (!res.ok) throw new Error("Failed to load file: " + item.filePath);
+                        return res.text();
+                    })
+                    .then(text => {
+                        const rawHtml = marked.parse(text);
+                        setContent(rawHtml);
+                        setLoading(false);
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        setError(err.message);
+                        setLoading(false);
+                    });
+            }, [item]);
+
+            useEffect(() => {
+                if (!loading && content) {
+                    setTimeout(() => {
+                        if (window.renderMathInElement) window.renderMathInElement(document.querySelector('.prose'), {
+                            delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}],
+                            throwOnError: false
+                        });
+                        if (window.Prism) window.Prism.highlightAll();
+                    }, 100);
+                }
+            }, [content, loading]);
+
+            return (
+                <div className="max-w-3xl mx-auto px-6 py-12 fade-in min-h-screen">
+                    <button onClick={onBack} className="group flex items-center text-sm text-stone-400 hover:text-blue-900 mb-12 font-mono uppercase tracking-wider transition-colors">
+                        <span className="mr-2 inline-block rotate-180 group-hover:-translate-x-1 transition-transform">→</span> Back to List
+                    </button>
+                    {loading && <div className="flex justify-center p-12"><div className="w-8 h-8 border-2 border-blue-900 border-t-transparent rounded-full animate-spin"></div></div>}
+                    {error && <div className="bg-red-50 text-red-700 px-4 py-3 rounded">Error: {error}</div>}
+                    {!loading && !error && (
+                        <div className="fade-in prose prose-stone prose-lg prose-headings:font-serif text-stone-600" dangerouslySetInnerHTML={{ __html: content }}></div>
+                    )}
+                </div>
+            )
+        };
+
+        // --- 各大板块组件 (现在全部支持数据驱动) ---
+        
         const Hero = ({ setActiveTab }) => (
           <div className="max-w-6xl mx-auto px-6 py-24 md:py-32 fade-in flex flex-col justify-center min-h-[75vh] relative">
             <div className="absolute right-0 top-20 opacity-5 pointer-events-none select-none font-serif text-9xl text-blue-900 hidden md:block">∫</div>
@@ -161,12 +215,10 @@
               <button onClick={() => setActiveTab('library')} className="group px-8 py-4 bg-stone-900 text-white text-sm font-bold tracking-widest hover:bg-blue-900 transition-all flex items-center gap-3 rounded-sm">EXPLORE LIBRARY <span className="group-hover:translate-x-1 transition-transform inline-block">→</span></button>
               <button onClick={() => setActiveTab('community')} className="px-8 py-4 border border-stone-300 text-stone-600 text-sm font-bold tracking-widest hover:border-stone-900 hover:text-stone-900 transition-all bg-white/50 backdrop-blur-sm rounded-sm">JOIN COMMUNITY</button>
             </div>
-            <div className="mt-24 pt-8 border-t border-stone-200 flex justify-between text-xs font-mono text-stone-400 uppercase tracking-widest"><span>Est. 2025</span><span>Probability · Optimization · Intelligence</span><span>Singapore</span></div>
           </div>
         );
 
-        // --- Library 组件 ---
-        const Library = ({ onRead, libraryData }) => {
+        const Library = ({ onRead, data }) => {
           const [selectedDiscipline, setSelectedDiscipline] = useState(null);
           
           if (!selectedDiscipline) {
@@ -174,7 +226,7 @@
                 <div className="max-w-6xl mx-auto px-6 py-16 fade-in min-h-screen">
                     <h2 className="text-4xl font-serif font-bold mb-6 text-stone-900">Library</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-                        {libraryData.disciplines.map(d => (
+                        {data.disciplines.map(d => (
                             <div key={d.id} onClick={() => setSelectedDiscipline(d.id)} className="group p-8 bg-white border border-stone-200 hover:border-blue-900/50 hover:shadow-xl transition-all cursor-pointer rounded-xl relative overflow-hidden">
                                 <div className="absolute top-0 right-0 p-24 bg-stone-50 rounded-full -mr-10 -mt-10 transition-transform group-hover:scale-150 duration-700"></div>
                                 <div className="relative z-10">
@@ -190,8 +242,8 @@
             );
           }
 
-          const courses = libraryData.courses[selectedDiscipline] || []; 
-          const currentInfo = libraryData.disciplines.find(d => d.id === selectedDiscipline);
+          const courses = data.courses[selectedDiscipline] || []; 
+          const currentInfo = data.disciplines.find(d => d.id === selectedDiscipline);
 
           return (
               <div className="max-w-5xl mx-auto px-6 py-16 fade-in min-h-screen">
@@ -226,136 +278,138 @@
           );
         };
 
-        // --- ⭐ Article Reader (Dynamic Markdown Fetching) ---
-        const ArticleReader = ({ lesson, onBack }) => {
-            const [content, setContent] = useState('');
-            const [loading, setLoading] = useState(true);
-            const [error, setError] = useState(null);
-
-            useEffect(() => {
-                setLoading(true);
-                setError(null);
-                
-                // 1. 检查是否有 filePath
-                if (!lesson.filePath) {
-                    setContent('<div class="p-4 text-amber-600 bg-amber-50 rounded">⚠️ No content file linked to this lesson. Check library.json.</div>');
-                    setLoading(false);
-                    return;
-                }
-
-                // 2. Fetch Markdown 文件
-                fetch(lesson.filePath)
-                    .then(res => {
-                        if (!res.ok) throw new Error("Failed to load file: " + lesson.filePath);
-                        return res.text();
-                    })
-                    .then(text => {
-                        // 3. 使用 Marked 解析 Markdown -> HTML
-                        const rawHtml = marked.parse(text);
-                        setContent(rawHtml);
-                        setLoading(false);
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        setError(err.message);
-                        setLoading(false);
-                    });
-            }, [lesson]);
-
-            // 4. 渲染公式和代码高亮 (每次 content 更新后触发)
-            useEffect(() => {
-                if (!loading && content) {
-                    setTimeout(() => {
-                        // Render Math
-                        if (window.renderMathInElement) {
-                            window.renderMathInElement(document.querySelector('.prose'), {
-                                delimiters: [
-                                    {left: '$$', right: '$$', display: true},
-                                    {left: '$', right: '$', display: false}
-                                ],
-                                throwOnError: false
-                            });
-                        }
-                        // Render Code Highlight
-                        if (window.Prism) {
-                            window.Prism.highlightAll();
-                        }
-                    }, 100);
-                }
-            }, [content, loading]);
-
+        const Papers = ({ data }) => {
+            const [selectedTheme, setSelectedTheme] = useState(null);
+            
+            if(!selectedTheme) return (
+                <div className="max-w-5xl mx-auto px-6 py-16 fade-in min-h-screen">
+                    <h2 className="text-4xl font-serif font-bold mb-6 text-stone-900">Reading List</h2>
+                    <div className="grid gap-6">
+                        {data.themes.map(t => (
+                            <div key={t.id} onClick={() => setSelectedTheme(t.id)} className="group bg-white p-6 border border-stone-200 hover:border-blue-900 cursor-pointer rounded-lg flex justify-between items-center">
+                                <div><h3 className="text-xl font-bold group-hover:text-blue-900">{t.title}</h3><p className="text-sm text-stone-500">{t.desc}</p></div>
+                                <Icon name="arrow-right" className="text-stone-300 group-hover:text-blue-900"/>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+            
+            const list = data.lists[selectedTheme] || [];
             return (
-                <div className="max-w-3xl mx-auto px-6 py-12 fade-in min-h-screen">
-                    <button onClick={onBack} className="group flex items-center text-sm text-stone-400 hover:text-blue-900 mb-12 font-mono uppercase tracking-wider transition-colors">
-                        <span className="mr-2 inline-block rotate-180 group-hover:-translate-x-1 transition-transform">→</span> Back to Library
-                    </button>
-                    
-                    {loading && <div className="flex justify-center p-12"><div className="w-8 h-8 border-2 border-blue-900 border-t-transparent rounded-full animate-spin"></div></div>}
-                    
-                    {error && (
-                        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative" role="alert">
-                            <strong className="font-bold">Error loading content: </strong>
-                            <span className="block sm:inline">{error}</span>
-                            <p className="mt-2 text-sm text-red-500">Make sure you created the file at: <code>{lesson.filePath}</code></p>
-                        </div>
-                    )}
+                <div className="max-w-4xl mx-auto px-6 py-16 fade-in min-h-screen">
+                    <button onClick={() => setSelectedTheme(null)} className="flex items-center text-stone-400 hover:text-stone-900 mb-8 font-mono text-xs uppercase tracking-widest"><span className="mr-2">←</span> All Themes</button>
+                    <h2 className="text-3xl font-serif font-bold mb-8">{data.themes.find(t=>t.id===selectedTheme)?.title}</h2>
+                    <div className="space-y-4">
+                        {list.length > 0 ? list.map((p, i) => (
+                            <div key={i} className="bg-white p-6 border border-stone-200 hover:border-blue-600 rounded group">
+                                <h3 className="font-bold text-lg group-hover:text-blue-800">{p.title}</h3>
+                                <p className="text-sm font-mono text-stone-500 mb-2">{p.authors}</p>
+                                <div className="flex gap-2">
+                                    {p.tags && p.tags.map(tag => <span key={tag} className="text-[10px] bg-stone-100 text-stone-500 px-2 py-1 rounded">{tag}</span>)}
+                                </div>
+                            </div>
+                        )) : <div className="text-stone-400 italic">No papers in this category yet.</div>}
+                    </div>
+                </div>
+            );
+        };
 
-                    {!loading && !error && (
-                        <div className="fade-in">
-                            {/* 动态渲染 HTML 内容 */}
-                            <div className="prose prose-stone prose-lg prose-headings:font-serif text-stone-600" 
-                                 dangerouslySetInnerHTML={{ __html: content }}>
+        const Lab = ({ data }) => (
+            <div className="max-w-6xl mx-auto px-6 py-16 fade-in min-h-screen">
+                <h2 className="text-4xl font-serif font-bold mb-12 text-stone-900">The Lab</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {data.map(item => (
+                        <div key={item.id} className="bg-stone-900 p-8 rounded-xl text-stone-300 relative overflow-hidden hover:scale-[1.01] transition-transform">
+                            <div className="relative z-10">
+                                <div className="font-mono text-xs text-blue-400 mb-2">{item.language}</div>
+                                <h3 className="text-2xl font-bold text-white mb-4">{item.title}</h3>
+                                <p className="text-sm mb-8 text-stone-400">{item.desc}</p>
+                                <a href={item.link} className="flex items-center gap-2 text-xs font-mono border border-stone-700 w-fit px-3 py-1 rounded-full hover:bg-stone-800 transition-colors text-white no-underline">
+                                    <Icon name="github" size={12}/> View Project
+                                </a>
                             </div>
                         </div>
-                    )}
+                    ))}
                 </div>
-            )
-        };
+            </div>
+        );
 
-        // --- Other Sections (Same as before) ---
-        const Papers = () => {
-             // ... existing Papers component ...
-             return <div className="max-w-4xl mx-auto px-6 py-16">Papers Section (Use same structure as Library to dynamic load)</div>
-        };
-        const Community = () => <div className="max-w-4xl mx-auto px-6 py-16 text-center">Community Section</div>;
-        const Lab = () => <div className="max-w-4xl mx-auto px-6 py-16 text-center">Lab Section</div>;
-        const Posts = () => <div className="max-w-4xl mx-auto px-6 py-16 text-center">Posts Section</div>;
-        const Tools = () => <div className="max-w-4xl mx-auto px-6 py-16 text-center">Tools Section</div>;
+        const Posts = ({ data, onRead }) => (
+            <div className="max-w-3xl mx-auto px-6 py-16 fade-in min-h-screen">
+                 <h2 className="text-4xl font-serif font-bold mb-12 border-b border-stone-200 pb-6">Essays</h2>
+                 <div className="space-y-12">
+                     {data.map(post => (
+                         <div key={post.id} onClick={() => onRead(post)} className="group cursor-pointer">
+                             <div className="text-xs font-mono text-stone-400 mb-2">{post.date} <span className="text-blue-900 uppercase ml-2">{post.category}</span></div>
+                             <h3 className="text-3xl font-serif font-bold text-stone-800 group-hover:text-blue-900 transition-colors">{post.title}</h3>
+                         </div>
+                     ))}
+                 </div>
+            </div>
+        );
 
+        const Tools = () => (
+            <div className="max-w-6xl mx-auto px-6 py-16 fade-in min-h-screen">
+                <h2 className="text-4xl font-serif font-bold mb-12 text-stone-900">Toolbox</h2>
+                <div className="p-6 bg-white border border-stone-200 rounded-lg md:w-1/3 hover:shadow-lg transition-all">
+                    <Icon name="book-marked" className="text-stone-400 mb-4" size={28}/>
+                    <h3 className="font-bold text-lg mb-2">Zotero</h3>
+                    <p className="text-sm text-stone-500">文献管理。</p>
+                </div>
+            </div>
+        );
 
-        // --- Main App Logic ---
+        const Community = () => (
+            <div className="max-w-4xl mx-auto px-6 py-24 fade-in min-h-screen flex flex-col items-center text-center">
+                <div className="mb-8 text-blue-900"><Icon name="mail" size={64} strokeWidth={1} /></div>
+                <h2 className="text-5xl font-serif font-bold mb-6 text-stone-900">Keep in Touch</h2>
+                <p className="text-xl text-stone-600 mb-12 font-light">学术是一场孤独的马拉松。<br/>欢迎来信交流想法、探讨问题。</p>
+                
+                <div className="w-full max-w-lg bg-white p-12 border border-stone-200 shadow-xl rounded-sm text-center">
+                    <h3 className="text-sm font-mono font-bold text-stone-400 mb-4 uppercase tracking-widest">Email</h3>
+                    <a href="mailto:mistatle@163.com" className="text-3xl font-serif font-bold text-stone-900 hover:text-blue-900 transition-colors border-b-2 border-transparent hover:border-blue-900 pb-1">
+                        mistatle@163.com
+                    </a>
+                </div>
+            </div>
+        );
+
+        // --- 主程序逻辑 (App) ---
         const App = () => {
           const [activeTab, setActiveTab] = useState('home');
-          const [readingLesson, setReadingLesson] = useState(null); // Changed from ID to whole lesson object
-          const [libraryData, setLibraryData] = useState(null);
-          const [dataLoading, setDataLoading] = useState(true);
+          const [readingItem, setReadingItem] = useState(null); // 通用阅读状态 (可以是 Lesson 或 Post)
+          const [db, setDb] = useState(DEFAULT_DB);
+          const [loading, setLoading] = useState(true);
 
-          // 全局加载 Library Data
+          // 全局数据加载：一次性并行获取所有 JSON
           useEffect(() => {
-            fetch('data/library.json')
-                .then(res => res.ok ? res.json() : DEFAULT_DATA)
-                .then(data => {
-                    setLibraryData(data);
-                    setDataLoading(false);
-                })
-                .catch(err => {
-                    console.error("Failed to load library data", err);
-                    setLibraryData(DEFAULT_DATA);
-                    setDataLoading(false);
-                });
+            Promise.all([
+                fetch('data/library.json').then(r => r.ok ? r.json() : DEFAULT_DB.library),
+                fetch('data/papers.json').then(r => r.ok ? r.json() : DEFAULT_DB.papers),
+                fetch('data/lab.json').then(r => r.ok ? r.json() : DEFAULT_DB.lab),
+                fetch('data/posts.json').then(r => r.ok ? r.json() : DEFAULT_DB.posts)
+            ]).then(([library, papers, lab, posts]) => {
+                setDb({ library, papers, lab, posts });
+                setLoading(false);
+            }).catch(err => {
+                console.error("Failed to load data bases:", err);
+                setLoading(false);
+            });
           }, []);
 
           const renderContent = () => {
-            if (readingLesson) return <ArticleReader lesson={readingLesson} onBack={() => setReadingLesson(null)} />;
+            // 如果处于阅读模式，优先渲染阅读器
+            if (readingItem) return <ArticleReader item={readingItem} onBack={() => setReadingItem(null)} />;
             
-            if (dataLoading) return <div className="min-h-screen flex items-center justify-center text-stone-400 font-mono animate-pulse">LOADING SYSTEM...</div>;
+            if (loading) return <div className="min-h-screen flex items-center justify-center text-stone-400 font-mono animate-pulse">INITIALIZING SYSTEM...</div>;
 
             switch(activeTab) {
               case 'home': return <Hero setActiveTab={setActiveTab} />;
-              case 'library': return <Library libraryData={libraryData} onRead={(lesson) => setReadingLesson(lesson)} />;
-              case 'papers': return <Papers />;
-              case 'lab': return <Lab />;
-              case 'posts': return <Posts />;
+              case 'library': return <Library data={db.library} onRead={setReadingItem} />;
+              case 'papers': return <Papers data={db.papers} />;
+              case 'lab': return <Lab data={db.lab} />;
+              case 'posts': return <Posts data={db.posts} onRead={setReadingItem} />;
               case 'tools': return <Tools />;
               case 'community': return <Community />;
               default: return <Hero setActiveTab={setActiveTab} />;
@@ -364,7 +418,7 @@
 
           return (
             <div className="min-h-screen flex flex-col selection:bg-blue-900 selection:text-white">
-              <Navbar activeTab={activeTab} setActiveTab={(tab) => { setActiveTab(tab); setReadingLesson(null); }} />
+              <Navbar activeTab={activeTab} setActiveTab={(tab) => { setActiveTab(tab); setReadingItem(null); }} />
               <main className="flex-grow">{renderContent()}</main>
               <footer className="bg-stone-50 border-t border-stone-200 py-12 mt-0 text-center text-stone-400 text-xs font-mono">
                 © 2025 MIStatlE. Built for the long term.
