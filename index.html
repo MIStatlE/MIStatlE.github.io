@@ -83,7 +83,6 @@
         const { useState, useEffect, useRef } = React;
 
         // --- 默认回退数据 (Backup Data) ---
-        // 确保当无法读取外部 JSON 时，页面仍能显示内容
         const DEFAULT_DB = {
             library: {
                 disciplines: [
@@ -96,7 +95,7 @@
                     "dl": [{ title: "Diffusion Models: Theory to Practice", chapters: [{ title: "Foundations", lessons: [{ id: "diff_01", title: "VAE & ELBO", type: "note", filePath: "" }] }] }]
                 }
             },
-            // ⭐ 修复：填充 Papers 数据，确保分类显示
+            // ⭐ 修复：Papers 数据添加 filePath 示例
             papers: {
                 themes: [
                     { id: "gen-ai", title: "Generative AI", count: 12, desc: "Diffusion, GANs, VAEs." },
@@ -104,18 +103,16 @@
                 ],
                 lists: {
                     "gen-ai": [
-                        { title: "Denoising Diffusion Probabilistic Models", authors: "Ho et al., 2020", tags: ["Foundation"], read: true },
-                        { title: "Score-Based Generative Modeling through SDEs", authors: "Song et al., 2021", tags: ["SDE", "Theory"] }
+                        { title: "Denoising Diffusion Probabilistic Models", authors: "Ho et al., 2020", tags: ["Foundation"], read: true, filePath: "" },
+                        { title: "Score-Based Generative Modeling through SDEs", authors: "Song et al., 2021", tags: ["SDE", "Theory"], filePath: "" }
                     ],
                     "opt": []
                 }
             },
-            // ⭐ 修复：填充 Lab 数据
             lab: [
                 { id: "micro-diff", language: "PYTHON", title: "micro-diffusion", desc: "200行代码实现的极简 Diffusion Model。", link: "#", featured: true },
                 { id: "bayes-opt", language: "MATLAB", title: "Bayesian Optimization Viz", desc: "高斯过程可视化交互演示。", link: "#", featured: false }
             ],
-            // ⭐ 修复：填充 Posts 数据，确保分类显示
             posts: [
                 { id: "math-intuition", date: "Nov 10", category: "PHILOSOPHY", title: "在数学的严谨与直觉之间", filePath: "data/posts/math_intuition.md" },
                 { id: "why-entropy", date: "Oct 24", category: "INFORMATION THEORY", title: "熵：不仅仅是混乱度", filePath: "data/posts/entropy.md" }
@@ -200,7 +197,7 @@
 # ${item.title}
 > **Note:** Failed to load external file. 
 
-Check \`data/tools.json\` to ensure \`filePath\` is set correctly.
+Check your JSON data to ensure \`filePath\` is set correctly (e.g., "data/posts/paper_xxx.md").
                     `;
                     setContent(marked.parse(mockContent));
                     setLoading(false);
@@ -353,10 +350,9 @@ Please ensure you are running a local server to load external Markdown files.
           );
         };
 
-        const Papers = ({ data }) => {
+        const Papers = ({ data, onRead }) => {
             const [selectedTheme, setSelectedTheme] = useState(null);
             
-            // 确保 data 存在
             if (!data || !data.themes) return <div className="p-12 text-center text-stone-400">No papers data loaded.</div>;
 
             if(!selectedTheme) return (
@@ -380,11 +376,15 @@ Please ensure you are running a local server to load external Markdown files.
                     <h2 className="text-3xl font-serif font-bold mb-8">{data.themes.find(t=>t.id===selectedTheme)?.title}</h2>
                     <div className="space-y-4">
                         {list.length > 0 ? list.map((p, i) => (
-                            <div key={i} className="bg-white p-6 border border-stone-200 hover:border-blue-600 rounded group">
-                                <h3 className="font-bold text-lg group-hover:text-blue-800">{p.title}</h3>
+                            <div key={i} onClick={() => onRead(p)} className="bg-white p-6 border border-stone-200 hover:border-blue-600 rounded group relative cursor-pointer">
+                                <h3 className="font-bold text-lg group-hover:text-blue-800 pr-8">{p.title}</h3>
                                 <p className="text-sm font-mono text-stone-500 mb-2">{p.authors}</p>
                                 <div className="flex gap-2">
                                     {p.tags && p.tags.map(tag => <span key={tag} className="text-[10px] bg-stone-100 text-stone-500 px-2 py-1 rounded">{tag}</span>)}
+                                </div>
+                                {/* Click Indicator */}
+                                <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <Icon name="file-text" size={20} className="text-blue-600"/>
                                 </div>
                             </div>
                         )) : <div className="text-stone-400 italic">No papers in this category yet.</div>}
@@ -427,7 +427,7 @@ Please ensure you are running a local server to load external Markdown files.
             </div>
         );
 
-        // --- Tools 组件 (重点：确保存在) ---
+        // --- Tools 组件 ---
         const Tools = ({ data, onRead }) => (
             <div className="max-w-6xl mx-auto px-6 py-16 fade-in min-h-screen">
                 <h2 className="text-4xl font-serif font-bold mb-12 text-stone-900">Toolbox</h2>
@@ -522,7 +522,7 @@ Please ensure you are running a local server to load external Markdown files.
             switch(activeTab) {
               case 'home': return <Hero setActiveTab={setActiveTab} />;
               case 'library': return <Library data={db.library} onRead={setReadingItem} />;
-              case 'papers': return <Papers data={db.papers} />;
+              case 'papers': return <Papers data={db.papers} onRead={setReadingItem} />; // Updated to pass setReadingItem
               case 'lab': return <Lab data={db.lab} />;
               case 'posts': return <Posts data={db.posts} onRead={setReadingItem} />;
               case 'tools': return <Tools data={db.tools} onRead={setReadingItem} />;
