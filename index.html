@@ -155,26 +155,19 @@
             return <div onClick={onClick}><Content /></div>;
         };
 
-        // --- 全新 Logo 组件 (v2: 抽象几何) ---
+        // --- Logo 组件 ---
         const Logo = () => (
           <div className="flex items-center gap-3 select-none group cursor-pointer">
-            {/* 图标部分：极简几何，象征数学结构与连接 */}
             <div className="relative w-10 h-10 flex items-center justify-center bg-white border border-stone-200 shadow-sm rounded-sm group-hover:shadow-md transition-all duration-300 overflow-hidden">
                 <svg width="40" height="40" viewBox="0 0 40 40" className="opacity-90">
-                    {/* 背景网格线，代表坐标系/空间 */}
                     <line x1="10" y1="0" x2="10" y2="40" stroke="#f5f5f4" strokeWidth="1" />
                     <line x1="30" y1="0" x2="30" y2="40" stroke="#f5f5f4" strokeWidth="1" />
                     <line x1="0" y1="20" x2="40" y2="20" stroke="#f5f5f4" strokeWidth="1" />
-                    
-                    {/* 主图形：函数曲线穿过节点 (Sigmoid / 积分路径) */}
                     <path d="M8 32 C 15 32, 15 8, 32 8" stroke="#1e3a8a" strokeWidth="2" fill="none" strokeLinecap="round" className="group-hover:stroke-blue-600 transition-colors duration-500" />
-                    
-                    {/* 节点 */}
                     <circle cx="8" cy="32" r="2.5" fill="#1c1917" className="group-hover:fill-blue-900 transition-colors" />
                     <circle cx="32" cy="8" r="2.5" fill="#1c1917" className="group-hover:fill-blue-900 transition-colors" />
                 </svg>
             </div>
-            {/* 文字部分：保持不变 */}
             <div className="flex flex-col justify-center">
                 <div className="font-serif text-lg font-bold tracking-tight leading-none" style={{
                     background: 'linear-gradient(to right, #1e3a8a, #2563eb)',
@@ -219,7 +212,7 @@
           </nav>
         );
 
-        // --- 核心阅读器组件 (Article Reader) ---
+        // --- 核心阅读器组件 ---
         const ArticleReader = ({ item, onBack }) => {
             const [content, setContent] = useState('');
             const [loading, setLoading] = useState(true);
@@ -285,7 +278,7 @@ Please ensure you are running a local server to load external Markdown files.
             )
         };
 
-        // --- 各大板块组件 ---
+        // --- Hero (无变动) ---
         const Hero = ({ setActiveTab }) => (
           <div className="max-w-6xl mx-auto px-6 py-24 md:py-32 fade-in flex flex-col justify-center min-h-[75vh] relative">
             <div className="absolute right-0 top-20 opacity-5 pointer-events-none select-none font-serif text-9xl text-blue-900 hidden md:block">∫</div>
@@ -324,6 +317,7 @@ Please ensure you are running a local server to load external Markdown files.
           </div>
         );
 
+        // --- Library (无变动) ---
         const Library = ({ onRead, data }) => {
           const [selectedDiscipline, setSelectedDiscipline] = useState(null);
           
@@ -388,6 +382,8 @@ Please ensure you are running a local server to load external Markdown files.
           );
         };
 
+        // --- Papers (Refined Version 3) ---
+        // 优化点：更加精致的“期刊档案”风格，移除粗糙的卡片感，使用更细腻的边框和字体层级。
         const Papers = ({ data, onRead }) => {
             const [selectedTheme, setSelectedTheme] = useState(null);
             
@@ -395,16 +391,26 @@ Please ensure you are running a local server to load external Markdown files.
 
             if(!selectedTheme) return (
                 <div className="max-w-5xl mx-auto px-6 py-16 fade-in min-h-screen">
-                    <h2 className="text-4xl font-serif font-bold mb-8 text-stone-900">Reading List</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <h2 className="text-4xl font-serif font-bold mb-10 text-stone-900 border-l-4 border-stone-900 pl-6">Reading Collections</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {data.themes.map(t => (
-                            <div key={t.id} onClick={() => setSelectedTheme(t.id)} className="group bg-white p-8 border border-stone-200 hover:border-blue-900/40 cursor-pointer rounded-sm hover:shadow-lg transition-all flex flex-col h-full relative overflow-hidden">
-                                <div className="absolute top-0 right-0 w-20 h-20 bg-stone-50 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110"></div>
-                                <h3 className="text-2xl font-serif font-bold text-stone-900 group-hover:text-blue-900 mb-2 relative z-10">{t.title}</h3>
-                                <p className="text-sm text-stone-500 mb-6 flex-grow relative z-10">{t.desc}</p>
-                                <div className="flex justify-between items-center border-t border-stone-100 pt-4 relative z-10">
-                                    <span className="text-xs font-mono text-stone-400 uppercase">{t.count} Papers</span>
-                                    <span className="w-8 h-8 rounded-full bg-stone-50 flex items-center justify-center text-stone-400 group-hover:bg-blue-900 group-hover:text-white transition-colors">→</span>
+                            <div key={t.id} onClick={() => setSelectedTheme(t.id)} className="group bg-stone-50 p-8 border border-stone-200 hover:border-stone-400 cursor-pointer transition-all relative overflow-hidden">
+                                {/* Decorative "Book Spine" accent */}
+                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-stone-300 group-hover:bg-blue-900 transition-colors"></div>
+                                
+                                <div className="flex justify-between items-start mb-4">
+                                    <h3 className="text-2xl font-serif font-bold text-stone-900 group-hover:text-blue-900 transition-colors z-10">{t.title}</h3>
+                                    <span className="font-mono text-xs text-stone-400 bg-white px-2 py-1 border border-stone-200 rounded">{t.count}</span>
+                                </div>
+                                <p className="text-sm text-stone-500 font-serif italic mb-8 z-10 relative">{t.desc}</p>
+                                
+                                <div className="flex items-center text-xs font-mono text-stone-400 uppercase tracking-widest group-hover:text-stone-900 transition-colors">
+                                    View Collection <span className="ml-2">→</span>
+                                </div>
+                                
+                                {/* Subtle background letter */}
+                                <div className="absolute -bottom-4 -right-4 text-9xl font-serif text-stone-200 opacity-20 pointer-events-none select-none group-hover:opacity-30 transition-opacity">
+                                    {t.title.charAt(0)}
                                 </div>
                             </div>
                         ))}
@@ -415,30 +421,49 @@ Please ensure you are running a local server to load external Markdown files.
             const list = data.lists[selectedTheme] || [];
             return (
                 <div className="max-w-4xl mx-auto px-6 py-16 fade-in min-h-screen">
-                    <button onClick={() => setSelectedTheme(null)} className="flex items-center text-stone-400 hover:text-stone-900 mb-8 font-mono text-xs uppercase tracking-widest"><span className="mr-2">←</span> All Themes</button>
-                    <h2 className="text-3xl font-serif font-bold mb-10 text-stone-900 border-b border-stone-200 pb-4">{data.themes.find(t=>t.id===selectedTheme)?.title}</h2>
-                    <div className="space-y-6">
+                    <button onClick={() => setSelectedTheme(null)} className="flex items-center text-stone-400 hover:text-stone-900 mb-12 font-mono text-xs uppercase tracking-widest"><span className="mr-2">←</span> Return to Collections</button>
+                    
+                    <div className="mb-12 pb-6 border-b border-stone-200 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                        <div>
+                            <span className="font-mono text-xs text-blue-900 uppercase tracking-widest mb-2 block">Selected Papers</span>
+                            <h2 className="text-4xl font-serif font-bold text-stone-900">{data.themes.find(t=>t.id===selectedTheme)?.title}</h2>
+                        </div>
+                        <div className="text-right hidden md:block">
+                            <span className="text-4xl font-serif text-stone-200 italic">&</span>
+                        </div>
+                    </div>
+
+                    <div className="space-y-4">
                         {list.length > 0 ? list.map((p, i) => (
-                            <div key={i} onClick={() => onRead(p)} className="bg-white p-8 border border-stone-200 rounded-lg group relative cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                                <div className="flex flex-col md:flex-row md:items-start gap-4 mb-4">
-                                    <div className="flex-grow">
-                                        <h3 className="font-serif font-bold text-xl text-stone-900 group-hover:text-blue-900 transition-colors leading-tight mb-2">{p.title}</h3>
-                                        <p className="text-sm font-mono text-stone-500">{p.authors}</p>
+                            <div key={i} onClick={() => onRead(p)} className="group relative bg-white border border-transparent border-b-stone-100 hover:border-stone-200 hover:bg-stone-50/50 p-6 transition-all cursor-pointer">
+                                <div className="flex flex-col md:flex-row gap-4 justify-between">
+                                    <div className="flex-grow pr-8">
+                                        <h3 className="font-serif text-lg font-bold text-stone-800 group-hover:text-blue-900 transition-colors leading-snug mb-2">
+                                            {p.title}
+                                        </h3>
+                                        <p className="text-xs font-mono text-stone-500 mb-3">{p.authors}</p>
+                                        <div className="flex gap-2">
+                                             {p.tags && p.tags.map(tag => <span key={tag} className="text-[10px] text-stone-400 uppercase tracking-wider border border-stone-100 px-1.5 py-0.5">{tag}</span>)}
+                                        </div>
                                     </div>
-                                    <div className="flex flex-wrap gap-2 mt-2 md:mt-0">
-                                        {p.tags && p.tags.map(tag => <span key={tag} className="text-[10px] bg-stone-100 text-stone-500 px-2 py-1 rounded border border-stone-200 uppercase tracking-wider">{tag}</span>)}
+                                    <div className="flex flex-col items-end justify-between min-w-[100px]">
+                                        {p.read ? (
+                                            <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full uppercase tracking-wider mb-2">Read</span>
+                                        ) : <span className="h-6 block"></span>}
+                                        
+                                        <div className="opacity-0 group-hover:opacity-100 transition-opacity text-stone-400 hover:text-blue-900">
+                                            <Icon name="arrow-right" size={16} />
+                                        </div>
                                     </div>
                                 </div>
-                                <ActionButton text="Read Paper" />
                             </div>
-                        )) : <div className="text-stone-400 italic">No papers in this category yet.</div>}
+                        )) : <div className="text-stone-400 italic py-12 text-center">No papers in this category yet.</div>}
                     </div>
                 </div>
             );
         };
 
-        // --- 重新设计后的 Lab 组件 (技术蓝图/档案风格) ---
-        // 舍弃了暗黑模式，采用更符合整体风格的“工程文档”风格
+        // --- Lab (无变动) ---
         const Lab = ({ data }) => (
             <div className="max-w-6xl mx-auto px-6 py-16 fade-in min-h-screen">
                 <div className="flex items-end justify-between mb-12 border-b border-stone-200 pb-4">
@@ -487,8 +512,7 @@ Please ensure you are running a local server to load external Markdown files.
             </div>
         );
 
-        // --- 重新设计后的 Posts 组件 (杂志目录风) ---
-        // 更加优雅的衬线字体排版，类似《纽约客》或学术期刊目录
+        // --- Posts (无变动) ---
         const Posts = ({ data, onRead }) => (
             <div className="max-w-4xl mx-auto px-6 py-20 fade-in min-h-screen">
                  <div className="text-center mb-20">
@@ -527,30 +551,43 @@ Please ensure you are running a local server to load external Markdown files.
             </div>
         );
 
-        // --- Tools 组件 (统一按钮风格) ---
+        // --- Tools (Refined Version 3) ---
+        // 优化点：更加硬朗、专业的工具箱风格，强化 hover 状态的反馈，确保按钮风格统一。
         const Tools = ({ data, onRead }) => (
             <div className="max-w-6xl mx-auto px-6 py-16 fade-in min-h-screen">
-                <h2 className="text-4xl font-serif font-bold mb-12 text-stone-900">Toolbox</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="flex items-center gap-4 mb-12">
+                    <h2 className="text-4xl font-serif font-bold text-stone-900">Toolbox</h2>
+                    <div className="h-px bg-stone-200 flex-grow"></div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {data && data.length > 0 ? data.map(tool => (
-                        <div key={tool.id} onClick={() => onRead(tool)} className="p-8 bg-white border border-stone-200 rounded-lg hover:shadow-xl hover:shadow-stone-200/50 hover:border-blue-900/30 transition-all group cursor-pointer relative flex flex-col h-full">
+                        <div key={tool.id} onClick={() => onRead(tool)} className="group bg-white border border-stone-200 p-8 cursor-pointer relative hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col h-full border-t-4 border-t-transparent hover:border-t-blue-900">
+                            
                             {tool.link && (
-                                <a href={tool.link} target="_blank" onClick={(e) => e.stopPropagation()} className="absolute top-6 right-6 text-stone-300 hover:text-blue-900 transition-colors" title="Visit Official Site">
+                                <a href={tool.link} target="_blank" onClick={(e) => e.stopPropagation()} className="absolute top-4 right-4 text-stone-300 hover:text-blue-900 transition-colors p-2" title="Visit Official Site">
                                     <Icon name="external-link" size={16} />
                                 </a>
                             )}
-                            <div className="mb-6"><Icon name={tool.icon || "box"} className="text-stone-400 group-hover:text-blue-900 transition-colors" size={32}/></div>
-                            <h3 className="font-bold text-xl mb-3 text-stone-800 group-hover:text-blue-900 font-serif">{tool.title}</h3>
-                            <p className="text-sm text-stone-500 mb-8 flex-grow leading-relaxed">{tool.desc}</p>
+                            
+                            <div className="mb-6 flex items-center justify-between">
+                                <div className="w-12 h-12 bg-stone-50 rounded-lg flex items-center justify-center text-stone-400 group-hover:text-blue-900 group-hover:bg-blue-50 transition-colors">
+                                    <Icon name={tool.icon || "box"} size={24}/>
+                                </div>
+                            </div>
+                            
+                            <h3 className="font-bold text-lg mb-2 text-stone-800 group-hover:text-blue-900 font-sans tracking-tight">{tool.title}</h3>
+                            <p className="text-sm text-stone-500 mb-8 flex-grow leading-relaxed font-light">{tool.desc}</p>
                             
                             {/* 使用统一的 ActionButton */}
-                            <ActionButton text="Read Guide" />
+                            <ActionButton text="View Guide" />
                         </div>
                     )) : <div className="text-stone-400">No tools loaded.</div>}
                 </div>
             </div>
         );
 
+        // --- Community (无变动) ---
         const Community = () => (
             <div className="max-w-4xl mx-auto px-6 py-24 fade-in min-h-screen flex flex-col items-center text-center">
                 <div className="mb-8 text-blue-900"><Icon name="users" size={64} strokeWidth={1} /></div>
