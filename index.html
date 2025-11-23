@@ -635,11 +635,11 @@ Please ensure you are running a local server to load external Markdown files.
             };
 
             Promise.all([
-                safeFetch('data/library.json'),
-                safeFetch('data/papers.json'),
-                safeFetch('data/lab.json'),
-                safeFetch('data/posts.json'),
-                safeFetch('data/tools.json')
+                safeFetch('public/data/library.json'),
+                safeFetch('public/data/papers.json'),
+                safeFetch('public/data/lab.json'),
+                safeFetch('public/data/posts.json'),
+                safeFetch('public/data/tools.json')
             ]).then(([library, papers, lab, posts, tools]) => {
                 setDb(prev => ({
                     library: library || prev.library,
