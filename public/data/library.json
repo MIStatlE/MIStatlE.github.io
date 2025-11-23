@@ -1,0 +1,58 @@
+{
+  "disciplines": [
+    {
+      "id": "dl",
+      "title": "Deep Learning",
+      "icon": "network",
+      "desc": "从反向传播到大模型的数学原理。",
+      "count": "2 Courses"
+    },
+    {
+      "id": "prob",
+      "title": "Probability & Stats",
+      "icon": "sigma",
+      "desc": "随机过程、贝叶斯推断与信息论。",
+      "count": "3 Courses"
+    },
+    {
+      "id": "opt",
+      "title": "Optimization",
+      "icon": "layers",
+      "desc": "凸优化、KKT条件与数值计算方法。",
+      "count": "1 Course"
+    },
+    {
+      "id": "math-base",
+      "title": "Math Foundation",
+      "icon": "infinity",
+      "desc": "线性代数、微积分与泛函分析基础。",
+      "count": "4 Courses"
+    }
+  ],
+  "courses": {
+    "dl": [
+      {
+        "title": "Diffusion Models: Theory to Practice",
+        "chapters": [
+          {
+            "title": "Foundations of Generative Models",
+            "lessons": [
+              { "id": "diff_01", "title": "VAE & ELBO", "type": "note" },
+              { "id": "diff_02", "title": "Score Matching", "type": "note" }
+            ]
+          },
+          {
+            "title": "SDE Perspectives",
+            "lessons": [
+              { "id": "diff_03", "title": "Conditional Technique", "type": "note", "highlight": true },
+              { "id": "diff_04", "title": "Probability Flow ODE", "type": "note" }
+            ]
+          }
+        ]
+      }
+    ],
+    "prob": [],
+    "opt": [],
+    "math-base": []
+  }
+}
