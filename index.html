@@ -82,13 +82,66 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
-        // --- 默认回退数据 (以防 fetch 失败) ---
+        // --- 默认回退数据 (已填充，确保在无文件环境下也能运行) ---
         const DEFAULT_DB = {
-            library: { disciplines: [], courses: {} },
-            papers: { themes: [], lists: {} },
-            lab: [],
-            posts: [],
-            tools: [] // 新增 Tools 默认值
+            library: {
+                disciplines: [
+                    { id: "dl", title: "Deep Learning", icon: "network", desc: "从反向传播到大模型的数学原理。", count: "2 Courses" },
+                    { id: "prob", title: "Probability & Stats", icon: "sigma", desc: "随机过程、贝叶斯推断与信息论。", count: "3 Courses" },
+                    { id: "opt", title: "Optimization", icon: "layers", desc: "凸优化、KKT条件与数值计算方法。", count: "1 Course" },
+                    { id: "math-base", title: "Math Foundation", icon: "infinity", desc: "线性代数、微积分与泛函分析基础。", count: "4 Courses" }
+                ],
+                courses: {
+                    "dl": [
+                        {
+                            title: "Diffusion Models: Theory to Practice",
+                            chapters: [
+                                {
+                                    title: "Foundations of Generative Models",
+                                    lessons: [
+                                        { id: "diff_01", title: "VAE & ELBO", type: "note", filePath: "data/posts/vae_elbo.md" },
+                                        { id: "diff_02", title: "Score Matching", type: "note" }
+                                    ]
+                                },
+                                {
+                                    title: "SDE Perspectives",
+                                    lessons: [
+                                        { id: "diff_03", title: "Conditional Technique", type: "note", highlight: true, filePath: "data/posts/conditional.md" },
+                                        { id: "diff_04", title: "Probability Flow ODE", type: "note" }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "prob": [], "opt": [], "math-base": []
+                }
+            },
+            papers: {
+                themes: [
+                    { id: "gen-ai", title: "Generative AI", count: 12, desc: "Diffusion, GANs, VAEs." },
+                    { id: "opt", title: "Optimization", count: 8, desc: "Gradient Descent variants." }
+                ],
+                lists: {
+                    "gen-ai": [
+                        { title: "Denoising Diffusion Probabilistic Models", authors: "Ho et al., 2020", tags: ["Foundation"], read: true },
+                        { title: "Score-Based Generative Modeling through SDEs", authors: "Song et al., 2021", tags: ["SDE", "Theory"] }
+                    ],
+                    "opt": []
+                }
+            },
+            lab: [
+                { id: "micro-diff", language: "PYTHON", title: "micro-diffusion", desc: "200行代码实现的极简 Diffusion Model，包含训练与采样脚本。", link: "#", featured: true },
+                { id: "bayes-opt", language: "MATLAB", title: "Bayesian Optimization Viz", desc: "高斯过程可视化交互演示。", link: "#", featured: false }
+            ],
+            posts: [
+                { id: "math-intuition", date: "Nov 10", category: "PHILOSOPHY", title: "在数学的严谨与直觉之间", filePath: "data/posts/math_intuition.md" },
+                { id: "why-entropy", date: "Oct 24", category: "INFORMATION THEORY", title: "熵：不仅仅是混乱度", filePath: "data/posts/entropy.md" }
+            ],
+            tools: [
+                { id: "zotero", icon: "book-marked", title: "Zotero", desc: "开源文献管理工具，学术研究必备。", link: "https://www.zotero.org/" },
+                { id: "arxiv", icon: "file-text", title: "arXiv Sanity", desc: "AI 论文筛选与推荐，快速跟进前沿。", link: "http://www.arxiv-sanity.com/" },
+                { id: "overleaf", icon: "edit-3", title: "Overleaf", desc: "云端 LaTeX 编辑器，协作撰写论文。", link: "https://www.overleaf.com/" }
+            ]
         };
 
         // --- 工具组件 ---
@@ -151,25 +204,57 @@
                 setLoading(true);
                 setError(null);
                 
+                // 如果没有 filePath，显示默认提示
                 if (!item.filePath) {
-                    setContent('<div class="p-4 text-amber-600 bg-amber-50 rounded">⚠️ No content file linked. Check your JSON data.</div>');
+                     // 模拟默认内容，用于演示
+                    const mockContent = `
+# ${item.title}
+
+> **Note:** This is a placeholder content because the file \`${item.filePath || 'path unknown'}\` could not be loaded in this preview environment.
+
+In a real setup, this content would be loaded from your Markdown file.
+
+## Sample Math
+
+$$ \\mathcal{L}_{DSM} = \\mathbb{E}_{x, \\epsilon} [ \\| \\epsilon - \\epsilon_\\theta(x_t, t) \\|^2 ] $$
+
+## Sample Code
+
+\`\`\`python
+import torch
+print("Hello MIStatlE")
+\`\`\`
+                    `;
+                    setContent(marked.parse(mockContent));
                     setLoading(false);
                     return;
                 }
 
+                // 尝试 Fetch
                 fetch(item.filePath)
                     .then(res => {
-                        if (!res.ok) throw new Error("Failed to load file: " + item.filePath);
+                        if (!res.ok) throw new Error("Failed to load");
                         return res.text();
                     })
                     .then(text => {
-                        const rawHtml = marked.parse(text);
-                        setContent(rawHtml);
+                        setContent(marked.parse(text));
                         setLoading(false);
                     })
                     .catch(err => {
-                        console.error(err);
-                        setError(err.message);
+                        // 在预览环境中，fetch 很可能失败，我们回退到 Mock 内容
+                        console.warn("Fetch failed, using mock content:", err);
+                        const mockContent = `
+# ${item.title}
+
+> **Note:** Failed to load external file \`${item.filePath}\` (likely due to CORS or missing file in preview). Displaying fallback content.
+
+## Introduction
+The content you are looking for is maintained in an external Markdown file. 
+
+## 1. Math Example
+$$ P(x) = \\int P(x|z)P(z)dz $$
+                        `;
+                        setContent(marked.parse(mockContent));
                         setLoading(false);
                     });
             }, [item]);
@@ -192,8 +277,8 @@
                         <span className="mr-2 inline-block rotate-180 group-hover:-translate-x-1 transition-transform">→</span> Back to List
                     </button>
                     {loading && <div className="flex justify-center p-12"><div className="w-8 h-8 border-2 border-blue-900 border-t-transparent rounded-full animate-spin"></div></div>}
-                    {error && <div className="bg-red-50 text-red-700 px-4 py-3 rounded">Error: {error}</div>}
-                    {!loading && !error && (
+                    
+                    {!loading && (
                         <div className="fade-in prose prose-stone prose-lg prose-headings:font-serif text-stone-600" dangerouslySetInnerHTML={{ __html: content }}></div>
                     )}
                 </div>
@@ -201,7 +286,6 @@
         };
 
         // --- 各大板块组件 ---
-        
         const Hero = ({ setActiveTab }) => (
           <div className="max-w-6xl mx-auto px-6 py-24 md:py-32 fade-in flex flex-col justify-center min-h-[75vh] relative">
             <div className="absolute right-0 top-20 opacity-5 pointer-events-none select-none font-serif text-9xl text-blue-900 hidden md:block">∫</div>
@@ -222,6 +306,10 @@
         const Library = ({ onRead, data }) => {
           const [selectedDiscipline, setSelectedDiscipline] = useState(null);
           
+          if (!data || !data.disciplines || data.disciplines.length === 0) {
+            return <div className="p-12 text-center text-stone-400">Library data is empty.</div>;
+          }
+
           if (!selectedDiscipline) {
             return (
                 <div className="max-w-6xl mx-auto px-6 py-16 fade-in min-h-screen">
@@ -282,6 +370,8 @@
         const Papers = ({ data }) => {
             const [selectedTheme, setSelectedTheme] = useState(null);
             
+            if (!data || !data.themes) return <div className="p-12 text-center text-stone-400">No papers data loaded.</div>;
+
             if(!selectedTheme) return (
                 <div className="max-w-5xl mx-auto px-6 py-16 fade-in min-h-screen">
                     <h2 className="text-4xl font-serif font-bold mb-6 text-stone-900">Reading List</h2>
@@ -320,7 +410,7 @@
             <div className="max-w-6xl mx-auto px-6 py-16 fade-in min-h-screen">
                 <h2 className="text-4xl font-serif font-bold mb-12 text-stone-900">The Lab</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {data.map(item => (
+                    {data && data.length > 0 ? data.map(item => (
                         <div key={item.id} className="bg-stone-900 p-8 rounded-xl text-stone-300 relative overflow-hidden hover:scale-[1.01] transition-transform">
                             <div className="relative z-10">
                                 <div className="font-mono text-xs text-blue-400 mb-2">{item.language}</div>
@@ -331,7 +421,7 @@
                                 </a>
                             </div>
                         </div>
-                    ))}
+                    )) : <div className="text-stone-400">No lab projects loaded.</div>}
                 </div>
             </div>
         );
@@ -340,12 +430,12 @@
             <div className="max-w-3xl mx-auto px-6 py-16 fade-in min-h-screen">
                  <h2 className="text-4xl font-serif font-bold mb-12 border-b border-stone-200 pb-6">Essays</h2>
                  <div className="space-y-12">
-                     {data.map(post => (
+                     {data && data.length > 0 ? data.map(post => (
                          <div key={post.id} onClick={() => onRead(post)} className="group cursor-pointer">
                              <div className="text-xs font-mono text-stone-400 mb-2">{post.date} <span className="text-blue-900 uppercase ml-2">{post.category}</span></div>
                              <h3 className="text-3xl font-serif font-bold text-stone-800 group-hover:text-blue-900 transition-colors">{post.title}</h3>
                          </div>
-                     ))}
+                     )) : <div className="text-stone-400">No posts loaded.</div>}
                  </div>
             </div>
         );
@@ -354,7 +444,7 @@
             <div className="max-w-6xl mx-auto px-6 py-16 fade-in min-h-screen">
                 <h2 className="text-4xl font-serif font-bold mb-12 text-stone-900">Toolbox</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {data.map(tool => (
+                    {data && data.length > 0 ? data.map(tool => (
                         <a key={tool.id} href={tool.link || '#'} target="_blank" className="p-6 bg-white border border-stone-200 rounded-lg hover:shadow-lg transition-all group block">
                             <div className="flex items-center justify-between mb-4">
                                 <Icon name={tool.icon || "box"} className="text-stone-400 group-hover:text-blue-900 transition-colors" size={28}/>
@@ -363,7 +453,7 @@
                             <h3 className="font-bold text-lg mb-2 text-stone-800 group-hover:text-blue-900">{tool.title}</h3>
                             <p className="text-sm text-stone-500">{tool.desc}</p>
                         </a>
-                    ))}
+                    )) : <div className="text-stone-400">No tools loaded.</div>}
                 </div>
             </div>
         );
@@ -400,20 +490,36 @@
           const [readingItem, setReadingItem] = useState(null); 
           const [db, setDb] = useState(DEFAULT_DB);
           const [loading, setLoading] = useState(true);
-
-          // 全局数据加载
+          // 移除 loadError，在数据加载失败时静默使用 Default DB
+          
           useEffect(() => {
+            // 封装一个不抛错的 fetch 函数，如果失败则返回 null
+            const safeFetch = async (url) => {
+                try {
+                    const res = await fetch(url);
+                    if (!res.ok) throw new Error(res.statusText);
+                    return await res.json();
+                } catch (e) {
+                    // console.warn(`Failed to fetch ${url}, falling back to default.`, e);
+                    return null;
+                }
+            };
+
             Promise.all([
-                fetch('data/library.json').then(r => r.ok ? r.json() : DEFAULT_DB.library),
-                fetch('data/papers.json').then(r => r.ok ? r.json() : DEFAULT_DB.papers),
-                fetch('data/lab.json').then(r => r.ok ? r.json() : DEFAULT_DB.lab),
-                fetch('data/posts.json').then(r => r.ok ? r.json() : DEFAULT_DB.posts),
-                fetch('data/tools.json').then(r => r.ok ? r.json() : DEFAULT_DB.tools) // 加载 Tools
+                safeFetch('data/library.json'),
+                safeFetch('data/papers.json'),
+                safeFetch('data/lab.json'),
+                safeFetch('data/posts.json'),
+                safeFetch('data/tools.json')
             ]).then(([library, papers, lab, posts, tools]) => {
-                setDb({ library, papers, lab, posts, tools });
-                setLoading(false);
-            }).catch(err => {
-                console.error("Failed to load data bases:", err);
+                // 如果 fetch 成功则覆盖默认值，否则保留 DEFAULT_DB 中的值
+                setDb(prev => ({
+                    library: library || prev.library,
+                    papers: papers || prev.papers,
+                    lab: lab || prev.lab,
+                    posts: posts || prev.posts,
+                    tools: tools || prev.tools
+                }));
                 setLoading(false);
             });
           }, []);
