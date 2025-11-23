@@ -216,7 +216,7 @@
           </nav>
         );
 
-// --- 稳健功能版 ArticleReader (支持 Frontmatter + 复制代码) ---
+// --- 最终修复版 ArticleReader (兼容新版 Marked) ---
         const ArticleReader = ({ item, onBack }) => {
             const [state, setState] = useState({ 
                 content: '', 
@@ -226,38 +226,32 @@
             });
             const contentRef = useRef(null);
 
-            // 1. 解析 Frontmatter 的稳健函数 (纯正则，不依赖外部库)
+            // 1. 解析 Frontmatter
             const parseMetadata = (text) => {
                 const pattern = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
                 const match = text.match(pattern);
-                
                 if (!match) return { meta: null, body: text };
 
                 const yamlBlock = match[1];
                 const body = match[2];
                 const meta = {};
 
-                // 简单的按行解析 "key: value"
                 yamlBlock.split('\n').forEach(line => {
                     const parts = line.split(':');
                     if (parts.length >= 2) {
                         const key = parts[0].trim();
-                        // 去除引号和多余空格
                         let value = parts.slice(1).join(':').trim().replace(/^['"](.*)['"]$/, '$1');
-                        
-                        // 处理简单的数组格式 [a, b]
                         if (value.startsWith('[') && value.endsWith(']')) {
                             value = value.slice(1, -1).split(',').map(v => v.trim().replace(/^['"](.*)['"]$/, '$1'));
                         }
                         meta[key] = value;
                     }
                 });
-
                 return { meta, body };
             };
 
             useEffect(() => {
-                let ignore = false; // 防止竞态条件
+                let ignore = false;
                 setState(s => ({ ...s, loading: true, error: null }));
 
                 if (!item.filePath) {
@@ -273,28 +267,45 @@
                     .then(text => {
                         if (ignore) return;
 
-                        // A. 解析头部信息
                         const { meta, body } = parseMetadata(text);
-
-                        // B. 配置 Markdown 渲染器以支持代码复制
                         const renderer = new marked.Renderer();
                         
-                        // 重写代码块渲染逻辑
-                        renderer.code = function(code, language) {
-                            // 对代码进行 HTML 转义，防止破坏页面结构
-                            const validLang = language || 'text';
-                            // 将代码编码存入 data 属性，方便 JS 读取
-                            const encodedCode = encodeURIComponent(code);
+                        // ⭐️ 核心修复：兼容新旧版本的参数传递
+                        renderer.code = function(entry, langStr) {
+                            // 判断 entry 是字符串还是对象
+                            let codeContent = '';
+                            let codeLang = '';
+
+                            if (typeof entry === 'object') {
+                                // 新版 marked 传入的是对象 { text: "...", lang: "..." }
+                                codeContent = entry.text || '';
+                                codeLang = entry.lang || 'text';
+                            } else {
+                                // 旧版 marked 传入的是字符串
+                                codeContent = entry || '';
+                                codeLang = langStr || 'text';
+                            }
+
+                            const validLang = (codeLang || 'text').toLowerCase();
+                            
+                            // 数据处理
+                            const buttonData = encodeURIComponent(codeContent);
+                            const displayCode = codeContent
+                                .replace(/&/g, '&amp;')
+                                .replace(/</g, '&lt;')
+                                .replace(/>/g, '&gt;')
+                                .replace(/"/g, '&quot;')
+                                .replace(/'/g, '&#039;');
                             
                             return `
-                                <div class="relative group my-6 rounded-lg bg-[#2d2d2d] overflow-hidden shadow-lg border border-stone-700">
-                                    <div class="flex justify-between items-center px-4 py-2 bg-[#383838] border-b border-stone-600">
-                                        <span class="text-xs font-mono text-stone-400 lowercase">${validLang}</span>
-                                        <button class="copy-btn text-xs font-mono text-stone-400 hover:text-white transition-colors" data-code="${encodedCode}">
+                                <div class="relative group my-8 rounded-lg bg-[#2d2d2d] overflow-hidden shadow-xl border border-stone-700">
+                                    <div class="flex justify-between items-center px-4 py-2 bg-[#383838] border-b border-stone-600 select-none">
+                                        <span class="text-xs font-mono text-stone-400 uppercase">${validLang}</span>
+                                        <button class="copy-btn text-xs font-mono text-stone-400 hover:text-white transition-colors cursor-pointer" data-code="${buttonData}">
                                             Copy
                                         </button>
                                     </div>
-                                    <pre class="!m-0 !p-4 overflow-x-auto"><code class="language-${validLang}">${code}</code></pre>
+                                    <pre class="!m-0 !p-4 overflow-x-auto !bg-[#2d2d2d]"><code class="language-${validLang} !text-gray-200 !font-mono !text-sm">${displayCode}</code></pre>
                                 </div>
                             `;
                         };
@@ -309,27 +320,22 @@
                 return () => { ignore = true; };
             }, [item]);
 
-            // --- 副作用：处理 DOM (高亮、公式、绑定复制事件) ---
+            // --- 副作用处理 ---
             useEffect(() => {
                 if (!state.loading && state.content && contentRef.current) {
-                    
-                    // 1. 渲染数学公式 (KaTeX)
+                    // 1. 渲染公式
                     if (window.renderMathInElement) {
                         window.renderMathInElement(contentRef.current, {
-                            delimiters: [
-                                {left: '$$', right: '$$', display: true},
-                                {left: '$', right: '$', display: false}
-                            ],
+                            delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}],
                             throwOnError: false
                         });
                     }
-
-                    // 2. 代码高亮 (Prism)
+                    // 2. 高亮代码
                     if (window.Prism) {
                         window.Prism.highlightAllUnder(contentRef.current);
                     }
 
-                    // 3. 绑定复制按钮事件 (原生 JS 绑定)
+                    // 3. 绑定复制按钮
                     const buttons = contentRef.current.querySelectorAll('.copy-btn');
                     buttons.forEach(btn => {
                         btn.onclick = () => {
@@ -338,51 +344,43 @@
                                 navigator.clipboard.writeText(code).then(() => {
                                     const originalText = btn.innerText;
                                     btn.innerText = 'Copied!';
-                                    btn.classList.add('text-emerald-400'); // 绿色反馈
+                                    btn.classList.add('text-emerald-400');
                                     setTimeout(() => {
                                         btn.innerText = originalText;
                                         btn.classList.remove('text-emerald-400');
                                     }, 2000);
                                 });
-                            } catch (e) {
-                                console.error('Copy failed', e);
-                            }
+                            } catch (e) { console.error('Copy failed', e); }
                         };
                     });
                 }
             }, [state.content, state.loading]);
 
-            // --- 渲染 UI ---
             return (
                 <div className="max-w-3xl mx-auto px-6 py-12 min-h-screen">
-                    {/* 返回导航 */}
                     <button onClick={onBack} className="group flex items-center text-sm text-stone-400 hover:text-blue-900 mb-10 font-mono uppercase tracking-wider transition-colors">
                         <span className="mr-2 inline-block transition-transform group-hover:-translate-x-1">←</span> Back to List
                     </button>
                     
-                    {/* 加载中 */}
                     {state.loading && (
                         <div className="flex flex-col items-center py-20 space-y-4">
                             <div className="w-8 h-8 border-2 border-blue-900 border-t-transparent rounded-full animate-spin"></div>
-                            <p className="text-stone-400 font-mono text-xs animate-pulse">Retrieving content...</p>
+                            <p className="text-stone-400 font-mono text-xs animate-pulse">Loading...</p>
                         </div>
                     )}
 
-                    {/* 错误提示 */}
                     {state.error && (
                         <div className="p-6 border border-red-200 bg-red-50 rounded-lg text-red-800">
-                            <h3 className="font-bold mb-2">Error Loading Post</h3>
+                            <h3 className="font-bold mb-2">Error</h3>
                             <p className="font-mono text-sm">{state.error}</p>
                         </div>
                     )}
                     
-                    {/* 文章主体 */}
                     {!state.loading && !state.error && (
                         <article className="fade-in">
-                            {/* 头部信息区 (由 Frontmatter 生成) */}
+                            {/* Header */}
                             <header className="mb-12 pb-8 border-b border-stone-200">
                                 <div className="flex flex-wrap gap-3 mb-4 text-xs font-mono uppercase tracking-widest text-stone-500">
-                                    {/* 优先显示 Frontmatter 里的分类，没有则不显示 */}
                                     {state.frontmatter?.categories && (
                                         <span className="text-blue-900 font-bold">{Array.isArray(state.frontmatter.categories) ? state.frontmatter.categories[0] : state.frontmatter.categories}</span>
                                     )}
@@ -410,7 +408,7 @@
                                 )}
                             </header>
 
-                            {/* Markdown 正文 */}
+                            {/* Body */}
                             <div 
                                 ref={contentRef}
                                 className="prose prose-stone prose-lg prose-headings:font-serif max-w-none prose-img:rounded-lg prose-a:text-blue-900" 
