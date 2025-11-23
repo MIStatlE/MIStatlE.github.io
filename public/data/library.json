@@ -41,7 +41,7 @@
                 "id": "diff_01", 
                 "title": "VAE & ELBO", 
                 "type": "note",
-                "filePath": "data/posts/vae_elbo.md"
+                "filePath": "public/data/posts/vae_elbo.md"
               },
               { 
                 "id": "diff_02", 
