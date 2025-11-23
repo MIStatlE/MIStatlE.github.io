@@ -87,7 +87,8 @@
             library: { disciplines: [], courses: {} },
             papers: { themes: [], lists: {} },
             lab: [],
-            posts: []
+            posts: [],
+            tools: [] // 新增 Tools 默认值
         };
 
         // --- 工具组件 ---
@@ -199,7 +200,7 @@
             )
         };
 
-        // --- 各大板块组件 (现在全部支持数据驱动) ---
+        // --- 各大板块组件 ---
         
         const Hero = ({ setActiveTab }) => (
           <div className="max-w-6xl mx-auto px-6 py-24 md:py-32 fade-in flex flex-col justify-center min-h-[75vh] relative">
@@ -349,26 +350,44 @@
             </div>
         );
 
-        const Tools = () => (
+        const Tools = ({ data }) => (
             <div className="max-w-6xl mx-auto px-6 py-16 fade-in min-h-screen">
                 <h2 className="text-4xl font-serif font-bold mb-12 text-stone-900">Toolbox</h2>
-                <div className="p-6 bg-white border border-stone-200 rounded-lg md:w-1/3 hover:shadow-lg transition-all">
-                    <Icon name="book-marked" className="text-stone-400 mb-4" size={28}/>
-                    <h3 className="font-bold text-lg mb-2">Zotero</h3>
-                    <p className="text-sm text-stone-500">文献管理。</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {data.map(tool => (
+                        <a key={tool.id} href={tool.link || '#'} target="_blank" className="p-6 bg-white border border-stone-200 rounded-lg hover:shadow-lg transition-all group block">
+                            <div className="flex items-center justify-between mb-4">
+                                <Icon name={tool.icon || "box"} className="text-stone-400 group-hover:text-blue-900 transition-colors" size={28}/>
+                                <Icon name="external-link" size={14} className="text-stone-300 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </div>
+                            <h3 className="font-bold text-lg mb-2 text-stone-800 group-hover:text-blue-900">{tool.title}</h3>
+                            <p className="text-sm text-stone-500">{tool.desc}</p>
+                        </a>
+                    ))}
                 </div>
             </div>
         );
 
         const Community = () => (
             <div className="max-w-4xl mx-auto px-6 py-24 fade-in min-h-screen flex flex-col items-center text-center">
-                <div className="mb-8 text-blue-900"><Icon name="mail" size={64} strokeWidth={1} /></div>
-                <h2 className="text-5xl font-serif font-bold mb-6 text-stone-900">Keep in Touch</h2>
-                <p className="text-xl text-stone-600 mb-12 font-light">学术是一场孤独的马拉松。<br/>欢迎来信交流想法、探讨问题。</p>
+                <div className="mb-8 text-blue-900"><Icon name="users" size={64} strokeWidth={1} /></div>
+                <h2 className="text-5xl font-serif font-bold mb-8 text-stone-900">The Community</h2>
                 
-                <div className="w-full max-w-lg bg-white p-12 border border-stone-200 shadow-xl rounded-sm text-center">
-                    <h3 className="text-sm font-mono font-bold text-stone-400 mb-4 uppercase tracking-widest">Email</h3>
-                    <a href="mailto:mistatle@163.com" className="text-3xl font-serif font-bold text-stone-900 hover:text-blue-900 transition-colors border-b-2 border-transparent hover:border-blue-900 pb-1">
+                <div className="max-w-2xl text-lg text-stone-600 mb-12 font-light leading-relaxed">
+                    <p className="mb-6">
+                        我想建立一个会在 <strong className="text-stone-900">AI 领域深度研究</strong> 的社群。
+                    </p>
+                    <p className="mb-6">
+                        希望大家是 <span className="italic text-blue-900 font-serif">理想主义者</span> 与 <span className="italic text-blue-900 font-serif">长期主义者</span>。
+                    </p>
+                    <p>
+                        无论是在 AI 的技术、法律、人文还是数学领域，我们期待那些有独立想法的灵魂，在这里思想碰撞，<strong className="text-stone-900">共同成长</strong>。
+                    </p>
+                </div>
+                
+                <div className="w-full max-w-lg bg-white p-12 border border-stone-200 shadow-xl rounded-sm text-center transform hover:-translate-y-1 transition-transform duration-500">
+                    <h3 className="text-xs font-mono font-bold text-stone-400 mb-4 uppercase tracking-widest">Connect via Email</h3>
+                    <a href="mailto:mistatle@163.com" className="text-2xl md:text-3xl font-serif font-bold text-stone-900 hover:text-blue-900 transition-colors border-b-2 border-transparent hover:border-blue-900 pb-1">
                         mistatle@163.com
                     </a>
                 </div>
@@ -378,19 +397,20 @@
         // --- 主程序逻辑 (App) ---
         const App = () => {
           const [activeTab, setActiveTab] = useState('home');
-          const [readingItem, setReadingItem] = useState(null); // 通用阅读状态 (可以是 Lesson 或 Post)
+          const [readingItem, setReadingItem] = useState(null); 
           const [db, setDb] = useState(DEFAULT_DB);
           const [loading, setLoading] = useState(true);
 
-          // 全局数据加载：一次性并行获取所有 JSON
+          // 全局数据加载
           useEffect(() => {
             Promise.all([
                 fetch('data/library.json').then(r => r.ok ? r.json() : DEFAULT_DB.library),
                 fetch('data/papers.json').then(r => r.ok ? r.json() : DEFAULT_DB.papers),
                 fetch('data/lab.json').then(r => r.ok ? r.json() : DEFAULT_DB.lab),
-                fetch('data/posts.json').then(r => r.ok ? r.json() : DEFAULT_DB.posts)
-            ]).then(([library, papers, lab, posts]) => {
-                setDb({ library, papers, lab, posts });
+                fetch('data/posts.json').then(r => r.ok ? r.json() : DEFAULT_DB.posts),
+                fetch('data/tools.json').then(r => r.ok ? r.json() : DEFAULT_DB.tools) // 加载 Tools
+            ]).then(([library, papers, lab, posts, tools]) => {
+                setDb({ library, papers, lab, posts, tools });
                 setLoading(false);
             }).catch(err => {
                 console.error("Failed to load data bases:", err);
@@ -399,7 +419,6 @@
           }, []);
 
           const renderContent = () => {
-            // 如果处于阅读模式，优先渲染阅读器
             if (readingItem) return <ArticleReader item={readingItem} onBack={() => setReadingItem(null)} />;
             
             if (loading) return <div className="min-h-screen flex items-center justify-center text-stone-400 font-mono animate-pulse">INITIALIZING SYSTEM...</div>;
@@ -410,7 +429,7 @@
               case 'papers': return <Papers data={db.papers} />;
               case 'lab': return <Lab data={db.lab} />;
               case 'posts': return <Posts data={db.posts} onRead={setReadingItem} />;
-              case 'tools': return <Tools />;
+              case 'tools': return <Tools data={db.tools} />;
               case 'community': return <Community />;
               default: return <Hero setActiveTab={setActiveTab} />;
             }
